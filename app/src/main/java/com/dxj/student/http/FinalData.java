@@ -7,8 +7,8 @@ public class FinalData {
     public final static int OFFLINE_VALUE = 2; // 离线
     // 向后台请求的url
     public final static String IMAGE_URL_UPLOAD = "http://upload.miuhouse.com/app/";// 上传
-    // public final static String IMAGE_URL_UPLOAD = "http://192.168.1.235:8080/app/";// 上传
-    // public final static String IMAGE_URL_UPLOAD = "http://192.168.1.235:8080/app/";// 上传
+    // public final static String IMAGE_URL_UPLOAD = "http://192.168.1.124:8080/app/";// 上传
+    // public final static String IMAGE_URL_UPLOAD = "http://192.168.1.124:8080/app/";// 上传
     /**
      * 向服务器请求图片的url头
      */
@@ -16,12 +16,8 @@ public class FinalData {
 
     public final static String URL_YUNDUO = "http://yunduo.miuhouse.com/app/";
 
-    // public final static String URL_VALUE = "http://192.168.1.111:8080/app/";
-    // public final static String URL_VALUE = "http://192.168.1.118:8080/app/";
-     public final static String URL_VALUE = "http://cloud.miuhouse.com/app/";
-//    public final static String URL_VALUE = "http://cloud.miuhouse.com/app/";
-    // public final static String URL_VALUE = "http://192.168.1.111:8080/app/";
-//     public final static String URL_VALUE = "http://192.168.1.123:8080/app/";
+     public final static String URL_VALUE = "http://192.168.1.124:8080/appstudent/";
+//     public final static String URL_VALUE = "http://cloud.miuhouse.com/app/";
     // 分享链接
     public final static String URL_SHARE = "http://cloud.miuhouse.com/down";
     public final static String URL_INDEX = "http://cloud.miuhouse.com/index";

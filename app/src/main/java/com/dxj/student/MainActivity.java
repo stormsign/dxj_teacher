@@ -9,14 +9,23 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.dxj.student.activity.CoursesActivity;
 import com.dxj.student.base.BaseActivity;
 import com.dxj.student.factory.FragmentFactory;
+import com.dxj.student.http.CustomStringRequest;
+import com.dxj.student.http.FinalData;
+import com.dxj.student.http.VolleySingleton;
 import com.umeng.common.message.UmengMessageDeviceConfig;
 import com.umeng.message.IUmengRegisterCallback;
 import com.umeng.message.MsgConstant;
 import com.umeng.message.PushAgent;
 import com.umeng.message.UmengRegistrar;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class MainActivity extends BaseActivity {
 
@@ -53,8 +62,41 @@ public class MainActivity extends BaseActivity {
         }
 
         String device_token = UmengRegistrar.getRegistrationId(context);
-        showLogD("device_token "+device_token);
+        showLogD("device_token " + device_token);
+
+        register(device_token);
+
     }
+
+    private void register(String token) {
+        String url = FinalData.URL_VALUE+"login";
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("mobile", "13588889999");
+        map.put("plainPassword", "123456");
+        map.put("deviceTokens", token);
+        CustomStringRequest cRequest = new CustomStringRequest(Request.Method.POST, url, map, getListener(), getErrorListener());
+        VolleySingleton.getInstance(this).addToRequestQueue(cRequest);
+
+    }
+
+    private Response.Listener<String> getListener() {
+        return new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                showLogI("response "+response);
+            }
+        };
+    }
+
+    private Response.ErrorListener getErrorListener(){
+        return new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError volleyError) {
+                showLogI("response error ");
+            }
+        };
+    }
+
 
     public IUmengRegisterCallback mRegisterCallback = new IUmengRegisterCallback() {
 
