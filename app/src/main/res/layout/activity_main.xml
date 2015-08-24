@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+     >
+
+    <!--     <FrameLayout -->
+    <!--     android:id="@+id/layout_content" -->
+    <!--     android:layout_width="match_parent" -->
+    <!--     android:layout_height="0dip" -->
+    <!--     android:layout_weight="1.0" -->
+    <!--     /> -->
+
+    <!--<view-->
+        <!--android:id="@+id/layout_content"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="0dip"-->
+        <!--android:layout_weight="1.0"-->
+        <!--class="com.example.zhbj_heima47.view.MyViewPager"/>-->
+
+    <!-- <android.support.v4.view.ViewPager
+        android:id="@+id/layout_content"
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="1.0" /> -->
+
+
+    <RelativeLayout
+        android:id="@+id/rl_fragment_contanier"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/ll_bottom_bt"></RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
+        android:id="@+id/ll_bottom_bt">
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            >
+            <Button
+                android:id="@+id/bt_home"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:drawableTop="@drawable/abc_btn_radio_material"
+                android:text="@string/bt_home"
+                android:background="@null"
+                android:onClick="showFragment"
+                />
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+            <Button
+                android:id="@+id/bt_search"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:drawableTop="@drawable/abc_btn_radio_material"
+                android:text="@string/bt_search"
+                android:background="@null"
+                android:onClick="showFragment"
+                />
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            >
+            <Button
+                android:id="@+id/bt_message"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:drawableTop="@drawable/abc_btn_radio_material"
+                android:text="@string/bt_message"
+                android:background="@null"
+                android:onClick="showFragment"
+                />
+            <TextView
+                android:id="@+id/unread_msg_number"
+                android:layout_width="10dp"
+                android:layout_height="10dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="30dp"
+                android:layout_marginTop="2dp"
+                android:background="@drawable/abc_btn_radio_to_on_mtrl_015"
+                android:gravity="center"
+                android:textColor="@android:color/white"
+                android:textSize="12sp"
+                android:visibility="visible" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            >
+            <Button
+                android:id="@+id/bt_user"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:drawableTop="@drawable/abc_btn_radio_material"
+                android:text="@string/bt_user"
+                android:background="@null"
+                android:onClick="showFragment"
+                />
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+
+</RelativeLayout>
