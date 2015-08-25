@@ -170,6 +170,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.CoursesActivity"/>
+        <activity android:name=".activity.MultiImageSelectorActivity"/>
+        <activity android:name=".activity.NiftyActivity"/>
+        <activity android:name=".activity.UpdateImageActivity"/>
     </application>
 
 </manifest>

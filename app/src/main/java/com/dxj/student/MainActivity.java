@@ -13,6 +13,9 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.dxj.student.activity.CoursesActivity;
+import com.dxj.student.activity.MultiImageSelectorActivity;
+import com.dxj.student.activity.NiftyActivity;
+import com.dxj.student.activity.UpdateImageActivity;
 import com.dxj.student.base.BaseActivity;
 import com.dxj.student.factory.FragmentFactory;
 import com.dxj.student.http.CustomStringRequest;
@@ -69,7 +72,7 @@ public class MainActivity extends BaseActivity {
     }
 
     private void register(String token) {
-        String url = FinalData.URL_VALUE+"login";
+        String url = FinalData.URL_VALUE + "login";
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("mobile", "13588889999");
         map.put("plainPassword", "123456");
@@ -83,12 +86,12 @@ public class MainActivity extends BaseActivity {
         return new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                showLogI("response "+response);
+                showLogI("response " + response);
             }
         };
     }
 
-    private Response.ErrorListener getErrorListener(){
+    private Response.ErrorListener getErrorListener() {
         return new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
@@ -115,8 +118,8 @@ public class MainActivity extends BaseActivity {
     };
 
 
-    public void showFragment(View v){
-        switch (v.getId()){
+    public void showFragment(View v) {
+        switch (v.getId()) {
             case R.id.bt_home:
                 Toast.makeText(context, "HOME", Toast.LENGTH_LONG).show();
                 fm.beginTransaction()
@@ -126,10 +129,18 @@ public class MainActivity extends BaseActivity {
             case R.id.bt_search:
                 Toast.makeText(context, "SEARCH", Toast.LENGTH_LONG).show();
                 break;
+            case R.id.bt_user:
+                Intent intent = new Intent(this, NiftyActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.bt_message:
+                Intent intentMulti = new Intent(this, UpdateImageActivity.class);
+                startActivity(intentMulti);
+                break;
         }
     }
 
-    public void show(View v){
+    public void show(View v) {
         startActivity(new Intent(context, CoursesActivity.class));
     }
 

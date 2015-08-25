@@ -12,10 +12,11 @@ import com.dxj.student.base.BaseApplication;
 public class AppUtils {
     /**
      * 获取应用程序的版本名称
+     *
      * @param context 上下文
      * @return 版本名称
      */
-    public static String getAppVersionName(Context context){
+    public static String getAppVersionName(Context context) {
         try {
             PackageManager pm = context.getPackageManager();
             PackageInfo packinfo = pm.getPackageInfo(context.getPackageName(), 0);
@@ -28,15 +29,17 @@ public class AppUtils {
             return "";
         }
     }
+
     /**
      * 获取应用程序的版本名称
+     *
      * @param context 上下文
      * @return 版本号
      */
-    public static int getAppVersionCode(Context context){
+    public static int getAppVersionCode(Context context) {
         try {
             PackageManager pm = context.getPackageManager();
-            PackageInfo  packinfo = pm.getPackageInfo(context.getPackageName(), 0);
+            PackageInfo packinfo = pm.getPackageInfo(context.getPackageName(), 0);
             int versionCode = packinfo.versionCode;
             return versionCode;
         } catch (PackageManager.NameNotFoundException e) {
