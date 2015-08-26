@@ -13,6 +13,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.dxj.student.activity.CoursesActivity;
+import com.dxj.student.activity.LoginAndRightActivity;
 import com.dxj.student.activity.MultiImageSelectorActivity;
 import com.dxj.student.activity.NiftyActivity;
 import com.dxj.student.activity.UpdateImageActivity;
@@ -21,6 +22,7 @@ import com.dxj.student.factory.FragmentFactory;
 import com.dxj.student.http.CustomStringRequest;
 import com.dxj.student.http.FinalData;
 import com.dxj.student.http.VolleySingleton;
+import com.dxj.student.utils.SPUtils;
 import com.umeng.common.message.UmengMessageDeviceConfig;
 import com.umeng.message.IUmengRegisterCallback;
 import com.umeng.message.MsgConstant;
@@ -66,7 +68,8 @@ public class MainActivity extends BaseActivity {
 
         String device_token = UmengRegistrar.getRegistrationId(context);
         showLogD("device_token " + device_token);
-
+        Log.i("TAG","device_token " + device_token);
+        SPUtils.saveSPData("token",device_token);
         register(device_token);
 
     }
@@ -130,7 +133,7 @@ public class MainActivity extends BaseActivity {
                 Toast.makeText(context, "SEARCH", Toast.LENGTH_LONG).show();
                 break;
             case R.id.bt_user:
-                Intent intent = new Intent(this, NiftyActivity.class);
+                Intent intent = new Intent(this, LoginAndRightActivity.class);
                 startActivity(intent);
                 break;
             case R.id.bt_message:

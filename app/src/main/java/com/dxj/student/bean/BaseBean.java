@@ -5,14 +5,14 @@ package com.dxj.student.bean;
  */
 public class BaseBean {
 
-    String code;
+    Long code;
     String msg;
 
-    public void setCode(String code) {
+    public void setCode(Long code) {
         this.code = code;
     }
 
-    public String getCode() {
+    public Long getCode() {
         return code;
     }
 

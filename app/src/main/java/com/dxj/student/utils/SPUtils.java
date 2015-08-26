@@ -2,6 +2,7 @@ package com.dxj.student.utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 import com.dxj.student.base.BaseApplication;
 
@@ -13,9 +14,10 @@ public class SPUtils {
     private static SharedPreferences sharedPreferences;
     //写入
     public static void saveSPData(String key,String value){
-        Context context = BaseApplication.getContext();
-        if(sharedPreferences==null){
-            sharedPreferences = context.getSharedPreferences(CONFIG, Context.MODE_PRIVATE);
+        Context context = BaseApplication.getApplication();
+        if(sharedPreferences==null) {
+            Log.i("TAG","getContext="+getContext());
+            sharedPreferences = getContext().getSharedPreferences(key, Context.MODE_PRIVATE);
         }
         sharedPreferences.edit().putString(key, value).commit();
     }
@@ -23,7 +25,7 @@ public class SPUtils {
     public static String getSPData(String key,String defValue){
         Context context = BaseApplication.getContext();
         if(sharedPreferences==null){
-            sharedPreferences = context.getSharedPreferences(CONFIG, Context.MODE_PRIVATE);
+            sharedPreferences = context.getSharedPreferences(key, Context.MODE_PRIVATE);
         }
         return sharedPreferences.getString(key, defValue);
     }
@@ -58,5 +60,8 @@ public class SPUtils {
             sharedPreferences = context.getSharedPreferences(CONFIG, Context.MODE_PRIVATE);
         }
         return sharedPreferences.getBoolean(key, defValue);
+    }
+    private static Context getContext() {
+        return BaseApplication.getApplication();
     }
 }

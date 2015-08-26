@@ -30,6 +30,7 @@
 
 
     <application
+        android:name=".base.BaseApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -173,6 +174,7 @@
         <activity android:name=".activity.MultiImageSelectorActivity"/>
         <activity android:name=".activity.NiftyActivity"/>
         <activity android:name=".activity.UpdateImageActivity"/>
+        <activity android:name=".activity.LoginAndRightActivity"/>
     </application>
 
 </manifest>

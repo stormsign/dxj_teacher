@@ -32,6 +32,30 @@ import java.util.zip.GZIPInputStream;
  * Created by khb on 2015/8/20.
  */
 public class MyUtils {
+    /**
+     * 根据手机的分辨率从 dp 的单位 转成为 px(像素)
+     */
+    public static int dip2px(Context context, float dpValue) {
+        final float scale = context.getResources().getDisplayMetrics().density;
+        return (int) (dpValue * scale + 0.5f);
+    }
+
+    /**
+     * 根据手机的分辨率从 px(像素) 的单位 转成为 dp
+     */
+    public static int px2dip(Context context, float pxValue) {
+        final float scale = context.getResources().getDisplayMetrics().density;
+        return (int) (pxValue / scale + 0.5f);
+    }
+
+    /**
+     * 获取屏幕的宽度
+     * @param context
+     * @return
+     */
+    public static int getScreenWidth(Context context) {
+        return context.getResources().getDisplayMetrics().widthPixels;
+    }
 
     /**
      * 判断给定字符串是否空白串。 空白串是指由空格、制表符、回车符、换行符组成的字符串 若输入字符串为null或空字符串，返回true
@@ -117,6 +141,7 @@ public class MyUtils {
         }
         return null;
     }
+
     public static void closeSilently(Closeable closeable) {
         if (closeable != null) {
             try {
@@ -131,10 +156,8 @@ public class MyUtils {
      * 将数据缓存到文件
      *
      * @param context
-     * @param name
-     *            缓存文件名
-     * @param data
-     *            数据
+     * @param name    缓存文件名
+     * @param data    数据
      */
     public static void saveDataToFile(Context context, String name, String data) {
         String path = toCachePath(context, name);
@@ -299,6 +322,7 @@ public class MyUtils {
         mediaScanIntent.setData(contentUri);
         ctx.sendBroadcast(mediaScanIntent);
     }
+
     public static Bitmap createImageThumbnail(Context context, String largeImagePath, int square_size) throws IOException {
         // int targetW = mImageView.getWidth();
         // int targetH = mImageView.getHeight();
@@ -327,7 +351,7 @@ public class MyUtils {
         Log.i("TAG", "cur_bitmap+width=" + cur_bitmap.getWidth());
         Log.i("TAG", "cur_bitmap+height=" + cur_bitmap.getHeight());
         // 原始图片的高宽
-        int[] cur_img_size = new int[] { cur_bitmap.getWidth(), cur_bitmap.getHeight() };
+        int[] cur_img_size = new int[]{cur_bitmap.getWidth(), cur_bitmap.getHeight()};
         // 计算原始图片缩放后的宽高
         int[] new_img_size = scaleImageSize(cur_img_size, square_size);
         // 生成缩放后的bitmap
@@ -337,6 +361,7 @@ public class MyUtils {
         // saveImageToSD(null, thumbfilePath, thb_bitmap, quality);
         return thb_bitmap;
     }
+
     public static int calculateInSampleSize(BitmapFactory.Options options, int reqWidth, int reqHeight) {
         final int height = options.outHeight;
         final int width = options.outWidth;
@@ -349,6 +374,7 @@ public class MyUtils {
         }
         return inSampleSize;
     }
+
     /**
      * 获取bitmap
      *
@@ -380,6 +406,7 @@ public class MyUtils {
         }
         return bitmap;
     }
+
     /**
      * 计算缩放图片的宽高
      *
@@ -391,8 +418,9 @@ public class MyUtils {
         if (img_size[0] <= square_size && img_size[1] <= square_size)
             return img_size;
         double ratio = square_size / (double) Math.max(img_size[0], img_size[1]);
-        return new int[] { (int) (img_size[0] * ratio), (int) (img_size[1] * ratio) };
+        return new int[]{(int) (img_size[0] * ratio), (int) (img_size[1] * ratio)};
     }
+
     /**
      * 放大缩小图片
      *
@@ -414,6 +442,7 @@ public class MyUtils {
         }
         return newbmp;
     }
+
     public static byte[] Bitmap2Bytes(Bitmap bm) {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         bm.compress(Bitmap.CompressFormat.PNG, 100, baos);

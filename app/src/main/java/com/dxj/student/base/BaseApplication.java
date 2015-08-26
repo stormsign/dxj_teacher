@@ -17,7 +17,7 @@ public class BaseApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        context = getContext();
+        context = this;
         baseApplication = this;
         ExceptionHandler exceptionHandler = ExceptionHandler.getInstance();
         exceptionHandler.init(baseApplication);

@@ -65,7 +65,6 @@ public class GsonRequest<T> extends Request<T> {
 	}
 	// 拼接请求地址
 	// reqParams;
-	// String urlPath = FinalData.URL_VALUE + reqParams;
 	String md5 = FinalData.PHONE_TYPE_VALUE + FinalData.IMEI_VALUE + FinalData.VERSION_CODE_VALUE + FinalData.APP_KEY_VALUE;
 	md5 = MyUtils.md5String(md5);
 	// 请求数据

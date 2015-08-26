@@ -42,7 +42,6 @@ public class MyRequest {
             jsonObj.put(FinalData.PHONE_TYPE, FinalData.PHONE_TYPE_VALUE);
             jsonObj.put(FinalData.IMEI, FinalData.IMEI_VALUE);
             jsonObj.put(FinalData.VERSION_CODE, FinalData.VERSION_CODE_VALUE);
-            // jsonObj.put(FinalData.CMD, reqParams);
             jsonObj.put("folder", mPhotoBean.getFolder());
             JSONArray ja = new JSONArray();
             // 判断是否还有其他参数需发送到服务器
@@ -86,7 +85,6 @@ public class MyRequest {
             jsonObj.put(FinalData.PHONE_TYPE, FinalData.PHONE_TYPE_VALUE);
             jsonObj.put(FinalData.IMEI, FinalData.IMEI_VALUE);
             jsonObj.put(FinalData.VERSION_CODE, FinalData.VERSION_CODE_VALUE);
-            // jsonObj.put(FinalData.CMD, reqParams);
             // 判断是否还有其他参数需发送到服务器
             if (paramsMap != null) {
                 Set<Entry<String, Object>> set = paramsMap.entrySet();
@@ -101,7 +99,6 @@ public class MyRequest {
         }
         // 拼接请求地址
         // reqParams;
-        // String urlPath = FinalData.URL_VALUE + reqParams;
         String urlPath = FinalData.IMAGE_URL_UPLOAD + "uploadImg";
         Log.i("TAG", "urlPath=" + urlPath);
 
