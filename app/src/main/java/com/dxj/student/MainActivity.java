@@ -57,7 +57,7 @@ public class MainActivity extends BaseActivity {
         bt_search = (Button) findViewById(R.id.bt_search);
         bt_message = (Button) findViewById(R.id.bt_message);
         bt_user = (Button) findViewById(R.id.bt_user);
-
+        showLogD("==============================================");
     }
 
     @Override
@@ -149,13 +149,13 @@ public class MainActivity extends BaseActivity {
     public void showFragment(View v) {
         switch (v.getId()) {
             case R.id.bt_home:
-                Toast.makeText(context, "HOME", Toast.LENGTH_LONG).show();
+                Toast.makeText(context, "HOME", Toast.LENGTH_SHORT).show();
                 fm.beginTransaction()
                         .replace(R.id.rl_fragment_contanier, FragmentFactory.getFragment(0), "HOME")
                         .commit();
                 break;
             case R.id.bt_search:
-                Toast.makeText(context, "SEARCH", Toast.LENGTH_LONG).show();
+                Toast.makeText(context, "SEARCH", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.bt_user:
                 Intent intent = new Intent(this, LoginAndRightActivity.class);
