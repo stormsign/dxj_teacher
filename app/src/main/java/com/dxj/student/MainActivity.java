@@ -12,10 +12,8 @@ import android.widget.Toast;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.dxj.student.activity.CoursesActivity;
+import com.dxj.student.activity.ChatActivity;
 import com.dxj.student.activity.LoginAndRightActivity;
-import com.dxj.student.activity.MultiImageSelectorActivity;
-import com.dxj.student.activity.NiftyActivity;
 import com.dxj.student.activity.UpdateImageActivity;
 import com.dxj.student.base.BaseActivity;
 import com.dxj.student.factory.FragmentFactory;
@@ -23,6 +21,9 @@ import com.dxj.student.http.CustomStringRequest;
 import com.dxj.student.http.FinalData;
 import com.dxj.student.http.VolleySingleton;
 import com.dxj.student.utils.SPUtils;
+import com.easemob.EMCallBack;
+import com.easemob.chat.EMChatManager;
+import com.easemob.chat.EMGroupManager;
 import com.umeng.common.message.UmengMessageDeviceConfig;
 import com.umeng.message.IUmengRegisterCallback;
 import com.umeng.message.MsgConstant;
@@ -68,9 +69,33 @@ public class MainActivity extends BaseActivity {
 
         String device_token = UmengRegistrar.getRegistrationId(context);
         showLogD("device_token " + device_token);
-        Log.i("TAG","device_token " + device_token);
-        SPUtils.saveSPData("token",device_token);
-        register(device_token);
+        Log.i("TAG", "device_token " + device_token);
+        SPUtils.saveSPData("token", device_token);
+
+        EMChatManager.getInstance().login("S1", "123456", new EMCallBack() {//回调
+            @Override
+            public void onSuccess() {
+                runOnUiThread(new Runnable() {
+                    public void run() {
+                        EMGroupManager.getInstance().loadAllGroups();
+                        EMChatManager.getInstance().loadAllConversations();
+                        Log.d("main", "登陆聊天服务器成功！");
+                    }
+                });
+            }
+
+            @Override
+            public void onProgress(int progress, String status) {
+
+            }
+
+            @Override
+            public void onError(int code, String message) {
+                Log.d("main", "登陆聊天服务器失败！");
+            }
+        });
+
+//        register(device_token);
 
     }
 
@@ -144,7 +169,7 @@ public class MainActivity extends BaseActivity {
     }
 
     public void show(View v) {
-        startActivity(new Intent(context, CoursesActivity.class));
+        startActivity(new Intent(context, ChatActivity.class));
     }
 
 }

@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 
-import com.dxj.student.base.BaseApplication;
+import com.dxj.student.application.MyApplication;
 
 /**
  * Created by khb on 2015/8/20.
@@ -58,7 +58,7 @@ public class AppUtils {
     public static PackageInfo getPackageInfo() {
         PackageInfo info = null;
         try {
-            info = BaseApplication.getApplication().getPackageManager().getPackageInfo(BaseApplication.getApplication().getPackageName(), 0);
+            info = MyApplication.getInstance().getPackageManager().getPackageInfo(MyApplication.getInstance().getPackageName(), 0);
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace(System.err);
         }

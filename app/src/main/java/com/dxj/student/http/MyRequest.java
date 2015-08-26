@@ -5,7 +5,7 @@ import android.util.Log;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.dxj.student.base.BaseApplication;
+import com.dxj.student.application.MyApplication;
 import com.dxj.student.utils.MyUtils;
 
 import java.util.Map;

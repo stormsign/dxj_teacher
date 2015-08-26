@@ -2,7 +2,9 @@ package com.dxj.student.base;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.view.View;
 
+import com.dxj.student.application.MyApplication;
 import com.umeng.message.PushAgent;
 
 /**项目
@@ -10,18 +12,48 @@ import com.umeng.message.PushAgent;
  */
 public abstract class BaseActivity extends FinalActivity {
 
-    protected BaseApplication mApplication;
+    protected MyApplication mApplication;
     protected Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mApplication = BaseApplication.getApplication();
+        mApplication = MyApplication.getInstance();
         context = this;
         PushAgent.getInstance(context).onAppStart();
     }
 
-//        初始化标题栏
+    @Override
+    protected void onStart() {
+        super.onStart();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
+
+    public void back(View view){
+        finish();
+    }
+
+    //        初始化标题栏
 //        处理消息栏
 
     /**
@@ -33,5 +65,9 @@ public abstract class BaseActivity extends FinalActivity {
      * 处理数据
      */
     public abstract void initData();
+
+
+
+
 
 }
