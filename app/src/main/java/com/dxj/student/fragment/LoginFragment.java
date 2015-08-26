@@ -24,6 +24,7 @@ import com.dxj.student.bean.UserBean;
 import com.dxj.student.http.FinalData;
 import com.dxj.student.http.GsonRequest;
 import com.dxj.student.http.VolleySingleton;
+import com.dxj.student.utils.AesUtil;
 import com.dxj.student.utils.FileUtils;
 import com.dxj.student.utils.HttpUtils;
 import com.dxj.student.utils.SPUtils;
@@ -96,8 +97,13 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener 
         progressFragment.show(getFragmentManager(), "");
         String urlPath = FinalData.URL_VALUE + HttpUtils.LOGIN;
         Map<String, Object> map = new HashMap<>();
-        map.put("mobile", "13588889999");
-        map.put("planPassword", "123456");
+        map.put("mobile", strUser);
+        try {
+            map.put("plainPassword", AesUtil.Encrypt(strPassword, AesUtil.cKey));
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
         Log.i("TAG", "token=" + SPUtils.getSPData("token", "token"));
         map.put("deviceTokens", SPUtils.getSPData("token", "token"));
         initLogin(map, urlPath);
