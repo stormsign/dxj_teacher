@@ -77,7 +77,6 @@ public class MainActivity extends BaseActivity {
 
         String device_token = UmengRegistrar.getRegistrationId(context);
         showLogD("device_token " + device_token);
-        Log.i("TAG", "device_token " + device_token);
         SPUtils.saveSPData("token", device_token);
 
         //        环信账号登录

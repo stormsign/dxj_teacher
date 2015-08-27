@@ -108,7 +108,7 @@
             android:name="com.umeng.message.RegistrationReceiver"
             android:exported="false" >
             <intent-filter>
-                <action android:name="com.dxj.student.intent.action.COMMAND" />
+                <action android:name="com.dxj.teacher.intent.action.COMMAND" />
             </intent-filter>
         </receiver>
         <receiver android:name="com.umeng.message.UmengMessageBootReceiver" >
@@ -136,10 +136,10 @@
             android:exported="true"
             android:process=":push" >
             <intent-filter>
-                <action android:name="com.dxj.student.intent.action.START" />
+                <action android:name="com.dxj.teacher.intent.action.START" />
             </intent-filter>
             <intent-filter>
-                <action android:name="com.dxj.student.intent.action.COCKROACH" />
+                <action android:name="com.dxj.teacher.intent.action.COCKROACH" />
             </intent-filter>
             <intent-filter>
                 <action android:name="org.agoo.android.intent.action.PING_V4" />
