@@ -15,7 +15,7 @@ public class SPUtils {
     public static void saveSPData(String key,String value){
         Context context = MyApplication.getInstance();
         if(sharedPreferences==null){
-            sharedPreferences = context.getSharedPreferences(CONFIG, Context.MODE_PRIVATE);
+            sharedPreferences = context.getSharedPreferences(key, Context.MODE_PRIVATE);
         }
         sharedPreferences.edit().putString(key, value).commit();
     }
@@ -23,7 +23,7 @@ public class SPUtils {
     public static String getSPData(String key,String defValue){
         Context context = MyApplication.applicationContext;
         if(sharedPreferences==null){
-            sharedPreferences = context.getSharedPreferences(CONFIG, Context.MODE_PRIVATE);
+            sharedPreferences = context.getSharedPreferences(key, Context.MODE_PRIVATE);
         }
         return sharedPreferences.getString(key, defValue);
     }
@@ -31,7 +31,7 @@ public class SPUtils {
     public static void saveSPData(String key,int value){
         Context context = MyApplication.applicationContext;
         if(sharedPreferences==null){
-            sharedPreferences = context.getSharedPreferences(CONFIG, Context.MODE_PRIVATE);
+            sharedPreferences = context.getSharedPreferences(key, Context.MODE_PRIVATE);
         }
         sharedPreferences.edit().putInt(key, value).commit();
     }
@@ -39,7 +39,7 @@ public class SPUtils {
     public static int getSPData(String key,int defValue){
         Context context = MyApplication.applicationContext;
         if(sharedPreferences==null){
-            sharedPreferences = context.getSharedPreferences(CONFIG, Context.MODE_PRIVATE);
+            sharedPreferences = context.getSharedPreferences(key, Context.MODE_PRIVATE);
         }
         return sharedPreferences.getInt(key, defValue);
     }
@@ -47,7 +47,7 @@ public class SPUtils {
     public static void saveSPData(String key,boolean value){
         Context context = MyApplication.applicationContext;
         if(sharedPreferences==null){
-            sharedPreferences = context.getSharedPreferences(CONFIG, Context.MODE_PRIVATE);
+            sharedPreferences = context.getSharedPreferences(key, Context.MODE_PRIVATE);
         }
         sharedPreferences.edit().putBoolean(key, value).commit();
     }
@@ -55,7 +55,7 @@ public class SPUtils {
     public static Boolean getSPData(String key,boolean defValue){
         Context context = MyApplication.applicationContext;
         if(sharedPreferences==null){
-            sharedPreferences = context.getSharedPreferences(CONFIG, Context.MODE_PRIVATE);
+            sharedPreferences = context.getSharedPreferences(key, Context.MODE_PRIVATE);
         }
         return sharedPreferences.getBoolean(key, defValue);
     }
