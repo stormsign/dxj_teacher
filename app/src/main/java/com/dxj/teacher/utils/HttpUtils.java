@@ -10,4 +10,6 @@ public class HttpUtils {
 	public static final String LOGIN="login";
 	//注册
 	public static final String RIGISTER="register";
+	//修改老师名字
+	public static final String NICE_NAME="nickName";
 }
