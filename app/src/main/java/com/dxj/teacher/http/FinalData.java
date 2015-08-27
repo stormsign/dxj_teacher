@@ -16,7 +16,7 @@ public class FinalData {
 
     public final static String URL_YUNDUO = "http://yunduo.miuhouse.com/app/";
 
-     public final static String URL_VALUE = "http://192.168.1.124:8080/appstudent/";
+     public final static String URL_VALUE = "http://192.168.1.124:8080/appteacher/";
 //     public final static String URL_VALUE = "http://cloud.miuhouse.com/app/";
     // 分享链接
     public final static String URL_SHARE = "http://cloud.miuhouse.com/down";
