@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * 图片实体
  */
-public class UserBean extends BaseBean implements Serializable{
+public class UserBean extends BaseBean implements Serializable {
     public UserInfo userInfo;
 
     public void setUserInfo(UserInfo userInfo) {
@@ -18,14 +18,22 @@ public class UserBean extends BaseBean implements Serializable{
         return userInfo;
     }
 
-    public class UserInfo{
-       private String id; //用户id
+    public class UserInfo {
+        private String id; //用户id
+        private Long type;//老师类型
+        private String roleName;
         private String nickName;//用户昵称
-        private String headUrl;//头像
-        private String name;//真实姓名
-        private String sex;//性别
-        private Long type;//学生or家长
         private String mobile;//手机
+        private String sex;//性别
+        private String headUrl;//头像
+        private String university; //大学名称
+        private String major;//
+        private String ability;//
+        private String goodSubject;//
+        private String grades;//
+        private String entranceTime;//
+        private String championType;//
+        private String name;//真实姓名
         private String horoscope;//星座
         private String grade;//年级
         private List<String> images = new ArrayList<String>();
@@ -135,6 +143,70 @@ public class UserBean extends BaseBean implements Serializable{
 
         public String getSex() {
             return sex;
+        }
+
+        public void setAbility(String ability) {
+            this.ability = ability;
+        }
+
+        public String getAbility() {
+            return ability;
+        }
+
+        public void setChampionType(String championType) {
+            this.championType = championType;
+        }
+
+        public String getChampionType() {
+            return championType;
+        }
+
+        public void setEntranceTime(String entranceTime) {
+            this.entranceTime = entranceTime;
+        }
+
+        public String getEntranceTime() {
+            return entranceTime;
+        }
+
+        public void setGoodSubject(String goodSubject) {
+            this.goodSubject = goodSubject;
+        }
+
+        public String getGoodSubject() {
+            return goodSubject;
+        }
+
+        public void setGrades(String grades) {
+            this.grades = grades;
+        }
+
+        public String getGrades() {
+            return grades;
+        }
+
+        public void setMajor(String major) {
+            this.major = major;
+        }
+
+        public String getMajor() {
+            return major;
+        }
+
+        public void setRoleName(String roleName) {
+            this.roleName = roleName;
+        }
+
+        public String getRoleName() {
+            return roleName;
+        }
+
+        public void setUniversity(String university) {
+            this.university = university;
+        }
+
+        public String getUniversity() {
+            return university;
         }
     }
 }

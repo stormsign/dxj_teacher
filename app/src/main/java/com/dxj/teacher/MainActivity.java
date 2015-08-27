@@ -15,6 +15,7 @@ import com.android.volley.VolleyError;
 import com.dxj.teacher.activity.ChatActivity;
 import com.dxj.teacher.activity.LoginAndRightActivity;
 import com.dxj.teacher.activity.UpdateImageActivity;
+import com.dxj.teacher.activity.UpdateUserInfoActivity;
 import com.dxj.teacher.application.MyApplication;
 import com.dxj.teacher.base.BaseActivity;
 import com.dxj.teacher.factory.FragmentFactory;
@@ -77,6 +78,7 @@ public class MainActivity extends BaseActivity {
 
         String device_token = UmengRegistrar.getRegistrationId(context);
         showLogD("device_token " + device_token);
+        Log.i("TAG","device_token " + device_token);
         SPUtils.saveSPData("token", device_token);
 
         //        环信账号登录
@@ -209,7 +211,7 @@ public class MainActivity extends BaseActivity {
                 startActivity(intent);
                 break;
             case R.id.bt_message:
-                Intent intentMulti = new Intent(this, UpdateImageActivity.class);
+                Intent intentMulti = new Intent(this, UpdateUserInfoActivity.class);
                 startActivity(intentMulti);
                 break;
         }

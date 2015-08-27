@@ -119,7 +119,7 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener 
 
             @Override
             public void onResponse(UserBean userBean) {
-                Log.i("TAG", "userBean=" + userBean.toString());
+                Log.i("TAG", "userBean=" + userBean.getUserInfo().getId());
                 progressFragment.dismissAllowingStateLoss();
                 if (userBean != null) {
                     if (userBean.getCode() == 0)
