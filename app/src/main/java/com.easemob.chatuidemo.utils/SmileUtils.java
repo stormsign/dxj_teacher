@@ -18,7 +18,7 @@ import android.text.Spannable;
 import android.text.Spannable.Factory;
 import android.text.style.ImageSpan;
 
-import com.dxj.student.R;
+import com.dxj.teacher.R;
 
 import java.util.HashMap;
 import java.util.Map;

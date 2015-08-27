@@ -26,7 +26,7 @@ import android.widget.ImageView;
 import android.widget.SectionIndexer;
 import android.widget.TextView;
 
-import com.dxj.student.R;
+import com.dxj.teacher.R;
 import com.easemob.chatuidemo.Constant;
 import com.easemob.chatuidemo.domain.User;
 import com.easemob.chatuidemo.utils.UserUtils;

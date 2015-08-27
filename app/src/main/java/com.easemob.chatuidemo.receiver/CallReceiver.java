@@ -18,8 +18,8 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
-import com.dxj.student.activity.VideoCallActivity;
-import com.dxj.student.activity.VoiceCallActivity;
+import com.dxj.teacher.activity.VideoCallActivity;
+import com.dxj.teacher.activity.VoiceCallActivity;
 
 import com.easemob.chatuidemo.DemoHXSDKHelper;
 import com.easemob.util.EMLog;

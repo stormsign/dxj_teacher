@@ -6,8 +6,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.dxj.student.R;
-import com.dxj.student.utils.LogUtils;
+import com.dxj.teacher.R;
+import com.dxj.teacher.utils.LogUtils;
 import com.easemob.applib.controller.HXSDKHelper;
 import com.easemob.chatuidemo.DemoHXSDKHelper;
 import com.easemob.chatuidemo.domain.User;

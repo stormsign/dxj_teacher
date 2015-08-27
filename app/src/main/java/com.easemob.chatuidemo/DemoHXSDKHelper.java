@@ -22,11 +22,11 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.dxj.student.MainActivity;
-import com.dxj.student.R;
-import com.dxj.student.activity.ChatActivity;
-import com.dxj.student.activity.VideoCallActivity;
-import com.dxj.student.activity.VoiceCallActivity;
+import com.dxj.teacher.MainActivity;
+import com.dxj.teacher.R;
+import com.dxj.teacher.activity.ChatActivity;
+import com.dxj.teacher.activity.VideoCallActivity;
+import com.dxj.teacher.activity.VoiceCallActivity;
 
 import com.easemob.EMCallBack;
 import com.easemob.EMChatRoomChangeListener;

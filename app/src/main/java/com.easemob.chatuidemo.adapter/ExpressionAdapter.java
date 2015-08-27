@@ -19,7 +19,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 
-import com.dxj.student.R;
+import com.dxj.teacher.R;
 
 import java.util.List;
 

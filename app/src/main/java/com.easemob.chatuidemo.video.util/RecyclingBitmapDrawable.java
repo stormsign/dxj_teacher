@@ -5,7 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.util.Log;
 
-import com.dxj.student.BuildConfig;
+import com.dxj.teacher.BuildConfig;
 
 public class RecyclingBitmapDrawable extends BitmapDrawable {
 	static final String TAG = "CountingBitmapDrawable";

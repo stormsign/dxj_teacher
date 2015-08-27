@@ -39,14 +39,14 @@ import android.widget.TextView;
 import android.widget.TextView.BufferType;
 import android.widget.Toast;
 
-import com.dxj.student.R;
-import com.dxj.student.activity.AlertDialog;
-import com.dxj.student.activity.ChatActivity;
-import com.dxj.student.activity.ContextMenu;
-import com.dxj.student.activity.ShowBigImage;
-import com.dxj.student.activity.ShowNormalFileActivity;
-import com.dxj.student.activity.ShowVideoActivity;
-import com.dxj.student.activity.UserProfileActivity;
+import com.dxj.teacher.R;
+import com.dxj.teacher.activity.AlertDialog;
+import com.dxj.teacher.activity.ChatActivity;
+import com.dxj.teacher.activity.ContextMenu;
+import com.dxj.teacher.activity.ShowBigImage;
+import com.dxj.teacher.activity.ShowNormalFileActivity;
+import com.dxj.teacher.activity.ShowVideoActivity;
+import com.dxj.teacher.activity.UserProfileActivity;
 
 import com.easemob.EMCallBack;
 import com.easemob.EMError;

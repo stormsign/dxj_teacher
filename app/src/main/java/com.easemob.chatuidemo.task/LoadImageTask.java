@@ -21,7 +21,7 @@ import android.os.AsyncTask;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.dxj.student.activity.ShowBigImage;
+import com.dxj.teacher.activity.ShowBigImage;
 
 import com.easemob.chat.EMChatManager;
 import com.easemob.chat.EMMessage;

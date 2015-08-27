@@ -23,7 +23,7 @@ import android.os.Build;
 import android.util.Log;
 import android.view.SurfaceHolder;
 
-import com.dxj.student.application.MyApplication;
+import com.dxj.teacher.application.MyApplication;
 import com.easemob.chat.EMVideoCallHelper;
 
 public class CameraHelper implements PreviewCallback {

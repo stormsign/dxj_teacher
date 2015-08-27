@@ -24,8 +24,8 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.dxj.student.R;
-import com.dxj.student.activity.ChatActivity;
+import com.dxj.teacher.R;
+import com.dxj.teacher.activity.ChatActivity;
 
 import com.easemob.applib.controller.HXSDKHelper;
 import com.easemob.chat.EMChatManager;

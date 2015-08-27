@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 
-import com.dxj.student.activity.ShowVideoActivity;
+import com.dxj.teacher.activity.ShowVideoActivity;
 
 import com.easemob.chat.EMChatManager;
 import com.easemob.chat.EMMessage;

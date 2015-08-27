@@ -22,9 +22,9 @@ import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.widget.EditText;
 
-import com.dxj.student.R;
-import com.dxj.student.activity.AlertDialog;
-import com.dxj.student.activity.ChatActivity;
+import com.dxj.teacher.R;
+import com.dxj.teacher.activity.AlertDialog;
+import com.dxj.teacher.activity.ChatActivity;
 
 /**
  * 自定义的textview，用来处理复制粘贴的消息
