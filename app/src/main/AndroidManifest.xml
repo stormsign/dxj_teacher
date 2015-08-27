@@ -45,11 +45,11 @@
         android:theme="@style/AppTheme" >
         <meta-data
             android:name="UMENG_APPKEY"
-            android:value="55d6ddb867e58eb7f4002e46" >
+            android:value="55d6f8f0e0f55a32e2002ec0" >
         </meta-data>
         <meta-data
             android:name="UMENG_MESSAGE_SECRET"
-            android:value="86540877f774bf2bf8b10a1e3b3f083e" >
+            android:value="47348582f681f68265326d579cfee09b" >
         </meta-data>
         <meta-data
             android:name="UMENG_CHANNEL"
