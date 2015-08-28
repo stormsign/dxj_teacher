@@ -60,12 +60,14 @@
             android:text="性别" />
 
         <TextView
+            android:id="@+id/tv_sex"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:text="*****" />
     </RelativeLayout>
     <RelativeLayout
+        android:id="@+id/relative_birthday"
         android:layout_width="match_parent"
         android:layout_height="40dp">
 
@@ -76,6 +78,7 @@
             android:text="生日" />
 
         <TextView
+            android:id="@+id/tv_birthday"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
@@ -98,6 +101,7 @@
             android:text="*****" />
     </RelativeLayout>
     <RelativeLayout
+        android:id="@+id/relative_nationality"
         android:layout_width="match_parent"
         android:layout_height="40dp">
 
@@ -108,12 +112,14 @@
             android:text="国籍" />
 
         <TextView
+            android:id="@+id/tv_nationality"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:text="*****" />
     </RelativeLayout>
     <RelativeLayout
+        android:id="@+id/relative_dialect"
         android:layout_width="match_parent"
         android:layout_height="40dp">
 
@@ -124,6 +130,7 @@
             android:text="方言" />
 
         <TextView
+            android:id="@+id/tv_dialect"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
@@ -162,6 +169,7 @@
             android:text="*****" />
     </RelativeLayout>
     <RelativeLayout
+        android:id="@+id/relative_major"
         android:layout_width="match_parent"
         android:layout_height="40dp">
 
@@ -172,12 +180,14 @@
             android:text="专业" />
 
         <TextView
+            android:id="@+id/tv_major"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:text="*****" />
     </RelativeLayout>
     <RelativeLayout
+        android:id="@+id/relative_schollage"
         android:layout_width="match_parent"
         android:layout_height="40dp">
 
@@ -188,6 +198,7 @@
             android:text="教龄" />
 
         <TextView
+            android:id="@+id/tv_schollage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
@@ -210,6 +221,7 @@
             android:text="*****" />
     </RelativeLayout>
     <RelativeLayout
+        android:id="@+id/relative_grades"
         android:layout_width="match_parent"
         android:layout_height="40dp">
 
@@ -220,12 +232,14 @@
             android:text="高考分数" />
 
         <TextView
+            android:id="@+id/tv_grades"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:text="*****" />
     </RelativeLayout>
     <RelativeLayout
+        android:id="@+id/relative_livingcity"
         android:layout_width="match_parent"
         android:layout_height="40dp">
 
@@ -236,6 +250,7 @@
             android:text="现居地" />
 
         <TextView
+            android:id="@+id/tv_livingcity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
@@ -243,6 +258,7 @@
     </RelativeLayout>
 
     <RelativeLayout
+        android:id="@+id/relative_recommend"
         android:layout_width="match_parent"
         android:layout_height="40dp">
 
@@ -253,6 +269,7 @@
             android:text="介绍" />
 
         <TextView
+            android:id="@+id/tv_recomment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
