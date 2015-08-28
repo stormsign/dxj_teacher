@@ -2,11 +2,13 @@ package com.dxj.teacher.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.alibaba.fastjson.JSONObject;
 import com.android.volley.Request;
@@ -28,15 +30,16 @@ import java.util.Map;
 /**
  * Created by kings on 8/27/2015.
  */
-public class UpdateNiceNameActivity extends BaseActivity implements View.OnClickListener {
+public class UpdateRecommendActivity extends BaseActivity implements View.OnClickListener {
     private ImageButton btnNiceName;
     private EditText etNiceName;
     private String strNiceName;
+    private TextView tvCount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_update_nicename);
+        setContentView(R.layout.activity_update_recommend);
         initData();
         initView();
     }
@@ -45,7 +48,26 @@ public class UpdateNiceNameActivity extends BaseActivity implements View.OnClick
     public void initView() {
         btnNiceName = (ImageButton) findViewById(R.id.btn_back);
         etNiceName = (EditText) findViewById(R.id.et);
+        tvCount=(TextView)findViewById(R.id.tv_count);
         btnNiceName.setOnClickListener(this);
+        etNiceName.addTextChangedListener(new TextWatcher(){
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+          }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                tvCount.setText(s.length()+"");
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
     }
 
     @Override
@@ -61,6 +83,7 @@ public class UpdateNiceNameActivity extends BaseActivity implements View.OnClick
                 sendRequestData();
                 break;
         }
+
     }
 
     private void sendRequestData() {
@@ -88,7 +111,7 @@ public class UpdateNiceNameActivity extends BaseActivity implements View.OnClick
                     Bundle bundle = new Bundle();
                     bundle.putString("nicename", strNiceName);
                     intent.putExtras(bundle);
-                    UpdateNiceNameActivity.this.setResult(RESULT_OK, intent);
+                    UpdateRecommendActivity.this.setResult(RESULT_OK, intent);
                     finish();
                 }
             }
@@ -100,7 +123,7 @@ public class UpdateNiceNameActivity extends BaseActivity implements View.OnClick
 
             @Override
             public void onErrorResponse(VolleyError volleyError) {
-                ToastUtils.showToast(UpdateNiceNameActivity.this, "修改失败");
+                ToastUtils.showToast(UpdateRecommendActivity.this, "修改失败");
                 finish();
             }
         };

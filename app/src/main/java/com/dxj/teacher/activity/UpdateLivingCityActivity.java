@@ -6,7 +6,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.RelativeLayout;
 
 import com.alibaba.fastjson.JSONObject;
 import com.android.volley.Request;
@@ -28,10 +27,10 @@ import java.util.Map;
 /**
  * Created by kings on 8/27/2015.
  */
-public class UpdateNiceNameActivity extends BaseActivity implements View.OnClickListener {
+public class UpdateLivingCityActivity extends BaseActivity implements View.OnClickListener {
     private ImageButton btnNiceName;
-    private EditText etNiceName;
-    private String strNiceName;
+    private EditText etLivingCity;
+    private String strLivingCity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +43,7 @@ public class UpdateNiceNameActivity extends BaseActivity implements View.OnClick
     @Override
     public void initView() {
         btnNiceName = (ImageButton) findViewById(R.id.btn_back);
-        etNiceName = (EditText) findViewById(R.id.et);
+        etLivingCity = (EditText) findViewById(R.id.et);
         btnNiceName.setOnClickListener(this);
     }
 
@@ -64,15 +63,15 @@ public class UpdateNiceNameActivity extends BaseActivity implements View.OnClick
     }
 
     private void sendRequestData() {
-        strNiceName = etNiceName.getText().toString().trim();
-        if (StringUtils.isEmpty(strNiceName)) {
+        strLivingCity = etLivingCity.getText().toString().trim();
+        if (StringUtils.isEmpty(strLivingCity)) {
             finish();
             return;
         }
-        String urlPath = FinalData.URL_VALUE + HttpUtils.NICE_NAME;
+        String urlPath = FinalData.URL_VALUE + HttpUtils.LIVING_CITY;
         Map<String, Object> map = new HashMap<>();
         map.put("id", "e1c380f1-c85e-4a0f-aafc-152e189d9d01");
-        map.put("nickName", strNiceName);
+        map.put("livingCity", strLivingCity);
         CustomStringRequest custom = new CustomStringRequest(Request.Method.POST, urlPath, map, getListener(), getErrorListener());
         VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(custom);
     }
@@ -86,9 +85,9 @@ public class UpdateNiceNameActivity extends BaseActivity implements View.OnClick
                 if (message.getCode() == 0) {
                     Intent intent = new Intent();
                     Bundle bundle = new Bundle();
-                    bundle.putString("nicename", strNiceName);
+                    bundle.putString("livingCity", strLivingCity);
                     intent.putExtras(bundle);
-                    UpdateNiceNameActivity.this.setResult(RESULT_OK, intent);
+                    UpdateLivingCityActivity.this.setResult(RESULT_OK, intent);
                     finish();
                 }
             }
@@ -100,7 +99,7 @@ public class UpdateNiceNameActivity extends BaseActivity implements View.OnClick
 
             @Override
             public void onErrorResponse(VolleyError volleyError) {
-                ToastUtils.showToast(UpdateNiceNameActivity.this, "修改失败");
+                ToastUtils.showToast(UpdateLivingCityActivity.this, "修改失败");
                 finish();
             }
         };

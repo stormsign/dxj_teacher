@@ -6,7 +6,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.RelativeLayout;
 
 import com.alibaba.fastjson.JSONObject;
 import com.android.volley.Request;
@@ -28,10 +27,10 @@ import java.util.Map;
 /**
  * Created by kings on 8/27/2015.
  */
-public class UpdateNiceNameActivity extends BaseActivity implements View.OnClickListener {
-    private ImageButton btnNiceName;
-    private EditText etNiceName;
-    private String strNiceName;
+public class UpdateGradesActivity extends BaseActivity implements View.OnClickListener {
+    private ImageButton btnBack;
+    private EditText etGrades;
+    private String strGrades;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,9 +42,9 @@ public class UpdateNiceNameActivity extends BaseActivity implements View.OnClick
 
     @Override
     public void initView() {
-        btnNiceName = (ImageButton) findViewById(R.id.btn_back);
-        etNiceName = (EditText) findViewById(R.id.et);
-        btnNiceName.setOnClickListener(this);
+        btnBack = (ImageButton) findViewById(R.id.btn_back);
+        etGrades = (EditText) findViewById(R.id.et);
+        btnBack.setOnClickListener(this);
     }
 
     @Override
@@ -64,15 +63,15 @@ public class UpdateNiceNameActivity extends BaseActivity implements View.OnClick
     }
 
     private void sendRequestData() {
-        strNiceName = etNiceName.getText().toString().trim();
-        if (StringUtils.isEmpty(strNiceName)) {
+        strGrades = etGrades.getText().toString().trim();
+        if (StringUtils.isEmpty(strGrades)) {
             finish();
             return;
         }
-        String urlPath = FinalData.URL_VALUE + HttpUtils.NICE_NAME;
+        String urlPath = FinalData.URL_VALUE + HttpUtils.GRADES;
         Map<String, Object> map = new HashMap<>();
         map.put("id", "e1c380f1-c85e-4a0f-aafc-152e189d9d01");
-        map.put("nickName", strNiceName);
+        map.put("grades", strGrades);
         CustomStringRequest custom = new CustomStringRequest(Request.Method.POST, urlPath, map, getListener(), getErrorListener());
         VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(custom);
     }
@@ -86,9 +85,9 @@ public class UpdateNiceNameActivity extends BaseActivity implements View.OnClick
                 if (message.getCode() == 0) {
                     Intent intent = new Intent();
                     Bundle bundle = new Bundle();
-                    bundle.putString("nicename", strNiceName);
+                    bundle.putString("grades", strGrades);
                     intent.putExtras(bundle);
-                    UpdateNiceNameActivity.this.setResult(RESULT_OK, intent);
+                    UpdateGradesActivity.this.setResult(RESULT_OK, intent);
                     finish();
                 }
             }
@@ -100,7 +99,7 @@ public class UpdateNiceNameActivity extends BaseActivity implements View.OnClick
 
             @Override
             public void onErrorResponse(VolleyError volleyError) {
-                ToastUtils.showToast(UpdateNiceNameActivity.this, "修改失败");
+                ToastUtils.showToast(UpdateGradesActivity.this, "修改失败");
                 finish();
             }
         };
