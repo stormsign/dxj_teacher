@@ -213,6 +213,13 @@
         <activity android:name=".activity.LoginAndRightActivity"/>
         <activity android:name=".activity.UpdateUserInfoActivity"/>
         <activity android:name=".activity.UpdateNiceNameActivity"/>
+        <activity android:name=".activity.UpdateDialectActivity"/>
+        <activity android:name=".activity.UpdatenationalityActivity"/>
+        <activity android:name=".activity.UpdateMajorActivity"/>
+        <activity android:name=".activity.UpdateGradesActivity"/>
+        <activity android:name=".activity.UpdateLivingCityActivity"/>
+        <activity android:name=".activity.UpdateSchoolAgeActivity"/>
+        <activity android:name=".activity.UpdateRecommendActivity"/>
     </application>
 
 </manifest>
