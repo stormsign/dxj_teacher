@@ -9,19 +9,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.dxj.teacher.activity.ChatActivity;
+import com.dxj.teacher.activity.CoursesActivity;
 import com.dxj.teacher.activity.LoginAndRightActivity;
-import com.dxj.teacher.activity.UpdateImageActivity;
 import com.dxj.teacher.activity.UpdateUserInfoActivity;
 import com.dxj.teacher.application.MyApplication;
 import com.dxj.teacher.base.BaseActivity;
 import com.dxj.teacher.factory.FragmentFactory;
-import com.dxj.teacher.http.CustomStringRequest;
-import com.dxj.teacher.http.FinalData;
-import com.dxj.teacher.http.VolleySingleton;
 import com.dxj.teacher.utils.SPUtils;
 import com.easemob.EMCallBack;
 import com.easemob.applib.controller.HXSDKHelper;
@@ -57,6 +50,11 @@ public class MainActivity extends BaseActivity {
         initView();
 
     }
+
+//    @Override
+//    public void initTitle() {
+//
+//    }
 
     @Override
     public void initView() {
@@ -218,7 +216,7 @@ public class MainActivity extends BaseActivity {
     }
 
     public void show(View v) {
-        startActivity(new Intent(context, ChatActivity.class));
+        startActivity(new Intent(context, CoursesActivity.class));
     }
 
 }

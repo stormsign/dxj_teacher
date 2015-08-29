@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.dxj.teacher.R;
 import com.dxj.teacher.base.BaseActivity;
 import com.dxj.teacher.base.BaseListAdapter;
+import com.dxj.teacher.widget.TitleNavBar;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,8 +38,34 @@ public class CoursesActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         Toast.makeText(CoursesActivity.this, "courses", Toast.LENGTH_SHORT).show();
         setContentView(R.layout.activity_course);
+        initTitle();
         initData();
         initView();
+    }
+
+//    @Override
+    public void initTitle() {
+        TitleNavBar tnb = (TitleNavBar) findViewById(R.id.tnb);
+        tnb.setTitle("CoursesActivity");
+        tnb.setContainerBackgroundResource(R.color.top_bar_normal_bg);
+//        tnb.showSearchBar(true);
+        tnb.setNavOneImageResource(R.drawable.unread_dot);
+        tnb.setOnTitleNavClickListener(new TitleNavBar.OnTitleNavClickListener() {
+            @Override
+            public void onNavOneClick() {
+                showToast("nav1");
+            }
+
+            @Override
+            public void onNavTwoClick() {
+                showToast("nav1");
+            }
+
+            @Override
+            public void onNavThreeClick() {
+                showToast("nav1");
+            }
+        });
     }
 
     @Override
