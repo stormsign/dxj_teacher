@@ -50,6 +50,9 @@ public class UpdateUserInfoActivity extends BaseActivity implements View.OnClick
     public static final int SCHOOLAGE = 0x000005;
     public static final int GRADES = 0x000006;
     public static final int LIVING_CITY = 0x000006;
+    public static final int REMARK = 0x000007;
+    public static final int EXPERIENCE = 0x000008;
+    public static final int RESULT = 0x000009;
     private RelativeLayout relativeNiceName;
     private RelativeLayout relativeSex;
     private RelativeLayout relativeDialect;
@@ -62,6 +65,8 @@ public class UpdateUserInfoActivity extends BaseActivity implements View.OnClick
     private RelativeLayout relativeBirthday;
     private RelativeLayout relativeConstellation;
     private RelativeLayout relativerLabel;
+    private RelativeLayout relativerExperience;
+    private RelativeLayout relativerResult;
     private TextView tvNicename;
     private TextView tvSex;
     private TextView tvNationality;
@@ -73,6 +78,8 @@ public class UpdateUserInfoActivity extends BaseActivity implements View.OnClick
     private TextView tvRecommend;
     private TextView tvBirthday;
     private TextView tvConstellation;
+    private TextView tvExperience;
+    private TextView tvResult;
     private DialogPlus dialogPlus;
 
     @Override
@@ -103,6 +110,8 @@ public class UpdateUserInfoActivity extends BaseActivity implements View.OnClick
         relativeBirthday = (RelativeLayout) findViewById(R.id.relative_birthday);
         relativeConstellation = (RelativeLayout) findViewById(R.id.relative_constellation);
         relativerLabel = (RelativeLayout) findViewById(R.id.relative_label);
+        relativerExperience = (RelativeLayout) findViewById(R.id.relative_experience);
+        relativerResult = (RelativeLayout) findViewById(R.id.relative_result);
         tvNicename = (TextView) findViewById(R.id.tv_nicename);
         tvSchollAge = (TextView) findViewById(R.id.tv_schollage);
         tvSex = (TextView) findViewById(R.id.tv_sex);
@@ -114,6 +123,8 @@ public class UpdateUserInfoActivity extends BaseActivity implements View.OnClick
         tvRecommend = (TextView) findViewById(R.id.tv_recomment);
         tvBirthday = (TextView) findViewById(R.id.tv_birthday);
         tvConstellation = (TextView) findViewById(R.id.tv_constellation);
+        tvExperience = (TextView) findViewById(R.id.tv_experience);
+        tvResult = (TextView) findViewById(R.id.tv_result);
         relativeNiceName.setOnClickListener(this);
         relativeSex.setOnClickListener(this);
         relativeDialect.setOnClickListener(this);
@@ -126,6 +137,8 @@ public class UpdateUserInfoActivity extends BaseActivity implements View.OnClick
         relativeBirthday.setOnClickListener(this);
         relativeConstellation.setOnClickListener(this);
         relativerLabel.setOnClickListener(this);
+        relativerExperience.setOnClickListener(this);
+        relativerResult.setOnClickListener(this);
     }
 
     @Override
@@ -170,7 +183,7 @@ public class UpdateUserInfoActivity extends BaseActivity implements View.OnClick
                 break;
             case R.id.relative_recommend:
                 Intent intentRecommend = new Intent(this, UpdateRecommendActivity.class);
-                startActivityForResult(intentRecommend, LIVING_CITY);
+                startActivityForResult(intentRecommend, REMARK);
                 break;
             case R.id.relative_birthday:
                 updateBirthday();
@@ -182,6 +195,14 @@ public class UpdateUserInfoActivity extends BaseActivity implements View.OnClick
             case R.id.relative_label:
                 Intent intentLabel = new Intent(this, UpdateLabelActivity.class);
                 startActivityForResult(intentLabel, LIVING_CITY);
+                break;
+            case R.id.relative_experience:
+                Intent intentExperience = new Intent(this,UpdateExperienceActivity.class);
+                startActivityForResult(intentExperience,EXPERIENCE);
+                break;
+            case R.id.relative_result:
+                Intent intentResult = new Intent(this,UpdateResultActivity.class);
+                startActivityForResult(intentResult,RESULT);
                 break;
         }
     }
@@ -210,6 +231,15 @@ public class UpdateUserInfoActivity extends BaseActivity implements View.OnClick
         } else if (requestCode == LIVING_CITY) {
             String strLivingCity = data.getStringExtra("livingCity");
             tvLivingCity.setText(strLivingCity);
+        }else if (requestCode==REMARK){
+            String strRemark = data.getStringExtra("remark");
+            tvRecommend.setText(strRemark);
+        }else if (requestCode==EXPERIENCE){
+            String strExperience = data.getStringExtra("experience");
+            tvExperience.setText(strExperience);
+        }else if(requestCode==RESULT){
+            String strResult = data.getStringExtra("result");
+            tvResult.setText(strResult);
         }
     }
 

@@ -24,6 +24,14 @@ public class HttpUtils {
 	public static final String SCHOOLAGE="schoolAge";
 	//高考分数
 	public static final String GRADES="grades";
+	//现居城市
 	public static final String LIVING_CITY="livingCity";
+	//生日
 	public static final String BIRTHDAY="birthday";
+	//介绍
+	public static final String REMARk="remark";
+	//过往经历
+	public static final String EXPERIENCE="experience";
+	//教学成果
+	public static final String RESULT="result";
 }

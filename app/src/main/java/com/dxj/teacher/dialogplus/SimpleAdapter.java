@@ -18,7 +18,7 @@ public class SimpleAdapter extends BaseAdapter {
 
   private LayoutInflater layoutInflater;
   private boolean isGrid;
-
+  private String[] strings ={"白羊座","白羊座","白羊座","白羊座","白羊座","白羊座","白羊座","白羊座","白羊座","白羊座","白羊座","白羊座"};
   public SimpleAdapter(Context context, boolean isGrid) {
     layoutInflater = LayoutInflater.from(context);
     this.isGrid = isGrid;
@@ -26,7 +26,7 @@ public class SimpleAdapter extends BaseAdapter {
 
   @Override
   public int getCount() {
-    return 6;
+    return strings.length;
   }
 
   @Override
@@ -60,20 +60,20 @@ public class SimpleAdapter extends BaseAdapter {
     }
 
     Context context = parent.getContext();
-    switch (position) {
-      case 0:
-        viewHolder.textView.setText(context.getString(R.string.google_plus_title));
-        viewHolder.imageView.setImageResource(R.mipmap.ic_google_plus_icon);
-        break;
-      case 1:
-        viewHolder.textView.setText(context.getString(R.string.google_maps_title));
-        viewHolder.imageView.setImageResource(R.mipmap.ic_google_maps_icon);
-        break;
-      default:
-        viewHolder.textView.setText(context.getString(R.string.google_messenger_title));
+//    switch (position) {
+//      case 0:
+//        viewHolder.textView.setText(context.getString(R.string.google_plus_title));
+//        viewHolder.imageView.setImageResource(R.mipmap.ic_google_plus_icon);
+//        break;
+//      case 1:
+//        viewHolder.textView.setText(context.getString(R.string.google_maps_title));
+//        viewHolder.imageView.setImageResource(R.mipmap.ic_google_maps_icon);
+//        break;
+//      default:
+        viewHolder.textView.setText(strings[position]);
         viewHolder.imageView.setImageResource(R.mipmap.ic_google_messenger_icon);
-        break;
-    }
+//        break;
+//    }
 
     return view;
   }

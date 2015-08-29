@@ -31,10 +31,10 @@ import java.util.Map;
  * Created by kings on 8/27/2015.
  * 介绍
  */
-public class UpdateRecommendActivity extends BaseActivity implements View.OnClickListener {
+public class UpdateResultActivity extends BaseActivity implements View.OnClickListener {
     private ImageButton btnNiceName;
-    private EditText etRemark;
-    private String strRemark;
+    private EditText etResult;
+    private String strResult;
     private TextView tvCount;
 
     @Override
@@ -53,10 +53,10 @@ public class UpdateRecommendActivity extends BaseActivity implements View.OnClic
     @Override
     public void initView() {
         btnNiceName = (ImageButton) findViewById(R.id.btn_back);
-        etRemark = (EditText) findViewById(R.id.et);
+        etResult = (EditText) findViewById(R.id.et);
         tvCount=(TextView)findViewById(R.id.tv_count);
         btnNiceName.setOnClickListener(this);
-        etRemark.addTextChangedListener(new TextWatcher(){
+        etResult.addTextChangedListener(new TextWatcher(){
 
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -93,15 +93,15 @@ public class UpdateRecommendActivity extends BaseActivity implements View.OnClic
     }
 
     private void sendRequestData() {
-        strRemark = etRemark.getText().toString().trim();
-        if (StringUtils.isEmpty(strRemark)) {
+        strResult = etResult.getText().toString().trim();
+        if (StringUtils.isEmpty(strResult)) {
             finish();
             return;
         }
-        String urlPath = FinalData.URL_VALUE + HttpUtils.REMARk;
+        String urlPath = FinalData.URL_VALUE + HttpUtils.RESULT;
         Map<String, Object> map = new HashMap<>();
         map.put("id", "e1c380f1-c85e-4a0f-aafc-152e189d9d01");
-        map.put("remark", strRemark);
+        map.put("result", strResult);
         CustomStringRequest custom = new CustomStringRequest(Request.Method.POST, urlPath, map, getListener(), getErrorListener());
         VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(custom);
     }
@@ -115,9 +115,9 @@ public class UpdateRecommendActivity extends BaseActivity implements View.OnClic
                 if (message.getCode() == 0) {
                     Intent intent = new Intent();
                     Bundle bundle = new Bundle();
-                    bundle.putString("remark", strRemark);
+                    bundle.putString("result", strResult);
                     intent.putExtras(bundle);
-                    UpdateRecommendActivity.this.setResult(RESULT_OK, intent);
+                    UpdateResultActivity.this.setResult(RESULT_OK, intent);
                     finish();
                 }
             }
@@ -129,7 +129,7 @@ public class UpdateRecommendActivity extends BaseActivity implements View.OnClic
 
             @Override
             public void onErrorResponse(VolleyError volleyError) {
-                ToastUtils.showToast(UpdateRecommendActivity.this, "修改失败");
+                ToastUtils.showToast(UpdateResultActivity.this, "修改失败");
                 finish();
             }
         };

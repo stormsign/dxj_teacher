@@ -221,6 +221,8 @@
         <activity android:name=".activity.UpdateSchoolAgeActivity"/>
         <activity android:name=".activity.UpdateRecommendActivity"/>
         <activity android:name=".activity.UpdateLabelActivity"/>
+        <activity android:name=".activity.UpdateExperienceActivity"/>
+        <activity android:name=".activity.UpdateResultActivity"/>
     </application>
 
 </manifest>
