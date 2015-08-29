@@ -220,6 +220,7 @@
         <activity android:name=".activity.UpdateLivingCityActivity"/>
         <activity android:name=".activity.UpdateSchoolAgeActivity"/>
         <activity android:name=".activity.UpdateRecommendActivity"/>
+        <activity android:name=".activity.UpdateLabelActivity"/>
     </application>
 
 </manifest>

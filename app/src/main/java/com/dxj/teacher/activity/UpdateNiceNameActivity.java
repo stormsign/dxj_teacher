@@ -26,6 +26,7 @@ import java.util.Map;
 
 /**
  * Created by kings on 8/27/2015.
+ * 别名
  */
 public class UpdateNiceNameActivity extends BaseActivity implements View.OnClickListener {
     private ImageButton btnNiceName;

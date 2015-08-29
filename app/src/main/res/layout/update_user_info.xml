@@ -85,6 +85,7 @@
             android:text="*****" />
     </RelativeLayout>
     <RelativeLayout
+        android:id="@+id/relative_constellation"
         android:layout_width="match_parent"
         android:layout_height="40dp">
 
@@ -95,6 +96,7 @@
             android:text="星座" />
 
         <TextView
+            android:id="@+id/tv_constellation"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
@@ -311,6 +313,7 @@
     </RelativeLayout>
 
     <RelativeLayout
+        android:id="@+id/relative_label"
         android:layout_width="match_parent"
         android:layout_height="40dp">
 

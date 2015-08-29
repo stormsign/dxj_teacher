@@ -3,7 +3,9 @@ package com.dxj.teacher.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
+import android.widget.BaseAdapter;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -15,11 +17,18 @@ import com.android.volley.VolleyError;
 import com.dxj.teacher.R;
 import com.dxj.teacher.base.BaseActivity;
 import com.dxj.teacher.bean.BaseBean;
+import com.dxj.teacher.dialogplus.SimpleAdapter;
 import com.dxj.teacher.http.CustomStringRequest;
 import com.dxj.teacher.http.FinalData;
 import com.dxj.teacher.http.VolleySingleton;
 import com.dxj.teacher.utils.HttpUtils;
 import com.orhanobut.dialogplus.DialogPlus;
+import com.orhanobut.dialogplus.Holder;
+import com.orhanobut.dialogplus.ListHolder;
+import com.orhanobut.dialogplus.OnCancelListener;
+import com.orhanobut.dialogplus.OnClickListener;
+import com.orhanobut.dialogplus.OnDismissListener;
+import com.orhanobut.dialogplus.OnItemClickListener;
 import com.orhanobut.dialogplus.ViewHolder;
 
 import java.text.SimpleDateFormat;
@@ -51,6 +60,8 @@ public class UpdateUserInfoActivity extends BaseActivity implements View.OnClick
     private RelativeLayout relativeLivingCity;
     private RelativeLayout relativeRecommend;
     private RelativeLayout relativeBirthday;
+    private RelativeLayout relativeConstellation;
+    private RelativeLayout relativerLabel;
     private TextView tvNicename;
     private TextView tvSex;
     private TextView tvNationality;
@@ -61,6 +72,7 @@ public class UpdateUserInfoActivity extends BaseActivity implements View.OnClick
     private TextView tvLivingCity;
     private TextView tvRecommend;
     private TextView tvBirthday;
+    private TextView tvConstellation;
     private DialogPlus dialogPlus;
 
     @Override
@@ -89,6 +101,8 @@ public class UpdateUserInfoActivity extends BaseActivity implements View.OnClick
         relativeGrades = (RelativeLayout) findViewById(R.id.relative_livingcity);
         relativeRecommend = (RelativeLayout) findViewById(R.id.relative_recommend);
         relativeBirthday = (RelativeLayout) findViewById(R.id.relative_birthday);
+        relativeConstellation = (RelativeLayout) findViewById(R.id.relative_constellation);
+        relativerLabel = (RelativeLayout) findViewById(R.id.relative_label);
         tvNicename = (TextView) findViewById(R.id.tv_nicename);
         tvSchollAge = (TextView) findViewById(R.id.tv_schollage);
         tvSex = (TextView) findViewById(R.id.tv_sex);
@@ -99,6 +113,7 @@ public class UpdateUserInfoActivity extends BaseActivity implements View.OnClick
         tvLivingCity = (TextView) findViewById(R.id.tv_livingcity);
         tvRecommend = (TextView) findViewById(R.id.tv_recomment);
         tvBirthday = (TextView) findViewById(R.id.tv_birthday);
+        tvConstellation = (TextView) findViewById(R.id.tv_constellation);
         relativeNiceName.setOnClickListener(this);
         relativeSex.setOnClickListener(this);
         relativeDialect.setOnClickListener(this);
@@ -109,6 +124,8 @@ public class UpdateUserInfoActivity extends BaseActivity implements View.OnClick
         relativeLivingCity.setOnClickListener(this);
         relativeRecommend.setOnClickListener(this);
         relativeBirthday.setOnClickListener(this);
+        relativeConstellation.setOnClickListener(this);
+        relativerLabel.setOnClickListener(this);
     }
 
     @Override
@@ -157,6 +174,14 @@ public class UpdateUserInfoActivity extends BaseActivity implements View.OnClick
                 break;
             case R.id.relative_birthday:
                 updateBirthday();
+                break;
+            case R.id.relative_constellation:
+                SimpleAdapter adapter = new SimpleAdapter(UpdateUserInfoActivity.this, false);
+                showOnlyContentDialog(new ListHolder(), Gravity.BOTTOM,adapter,itemClickListener, dismissListener, cancelListener, true);
+                break;
+            case R.id.relative_label:
+                Intent intentLabel = new Intent(this, UpdateLabelActivity.class);
+                startActivityForResult(intentLabel, LIVING_CITY);
                 break;
         }
     }
@@ -282,6 +307,66 @@ public class UpdateUserInfoActivity extends BaseActivity implements View.OnClick
         public void onDateTimeCancel() {
             Toast.makeText(UpdateUserInfoActivity.this,
                     "Canceled", Toast.LENGTH_SHORT).show();
+        }
+    };
+    private void showOnlyContentDialog(Holder holder, int gravity, BaseAdapter adapter,
+                                       OnItemClickListener itemClickListener, OnDismissListener dismissListener,
+                                       OnCancelListener cancelListener, boolean expanded) {
+        final DialogPlus dialog = DialogPlus.newDialog(this)
+                .setContentHolder(holder)
+                .setGravity(gravity)
+                .setAdapter(adapter)
+                .setOnItemClickListener(itemClickListener)
+                .setOnDismissListener(dismissListener)
+                .setOnCancelListener(cancelListener)
+                .setExpanded(expanded)
+                .setCancelable(true)
+                .create();
+        dialog.show();
+    }
+    OnClickListener clickListener = new OnClickListener() {
+        @Override
+        public void onClick(DialogPlus dialog, View view) {
+            //        switch (view.getId()) {
+            //          case R.id.header_container:
+            //            Toast.makeText(MainActivity.this, "Header clicked", Toast.LENGTH_LONG).show();
+            //            break;
+            //          case R.id.like_it_button:
+            //            Toast.makeText(MainActivity.this, "We're glad that you like it", Toast.LENGTH_LONG).show();
+            //            break;
+            //          case R.id.love_it_button:
+            //            Toast.makeText(MainActivity.this, "We're glad that you love it", Toast.LENGTH_LONG).show();
+            //            break;
+            //          case R.id.footer_confirm_button:
+            //            Toast.makeText(MainActivity.this, "Confirm button clicked", Toast.LENGTH_LONG).show();
+            //            break;
+            //          case R.id.footer_close_button:
+            //            Toast.makeText(MainActivity.this, "Close button clicked", Toast.LENGTH_LONG).show();
+            //            break;
+            //        }
+            //        dialog.dismiss();
+        }
+    };
+    OnItemClickListener itemClickListener = new OnItemClickListener() {
+        @Override
+        public void onItemClick(DialogPlus dialog, Object item, View view, int position) {
+//        TextView textView = (TextView) view.findViewById(R.id.text_view);
+//        String clickedAppName = textView.getText().toString();
+            //        dialog.dismiss();
+            //        Toast.makeText(MainActivity.this, clickedAppName + " clicked", Toast.LENGTH_LONG).show();
+        }
+    };
+    OnDismissListener dismissListener = new OnDismissListener() {
+        @Override
+        public void onDismiss(DialogPlus dialog) {
+            //        Toast.makeText(MainActivity.this, "dismiss listener invoked!", Toast.LENGTH_SHORT).show();
+        }
+    };
+
+    OnCancelListener cancelListener = new OnCancelListener() {
+        @Override
+        public void onCancel(DialogPlus dialog) {
+            //        Toast.makeText(MainActivity.this, "cancel listener invoked!", Toast.LENGTH_SHORT).show();
         }
     };
 }

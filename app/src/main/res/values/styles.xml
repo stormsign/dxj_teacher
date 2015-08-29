@@ -73,5 +73,9 @@
     </style>
 
     <!--环信style 结束-->
+    <declare-styleable name="FlowLayout">
+        <attr name="horizontal_spacing" format="dimension" />
+        <attr name="vertical_spacing" format="dimension" />
+    </declare-styleable>
 
 </resources>

@@ -26,6 +26,7 @@ import java.util.Map;
 
 /**
  * Created by kings on 8/27/2015.
+ * 学校
  */
 public class UpdateSchoolAgeActivity extends BaseActivity implements View.OnClickListener {
     private ImageButton btnBack;

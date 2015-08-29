@@ -29,6 +29,7 @@ import java.util.Map;
 
 /**
  * Created by kings on 8/27/2015.
+ * 介绍
  */
 public class UpdateRecommendActivity extends BaseActivity implements View.OnClickListener {
     private ImageButton btnNiceName;

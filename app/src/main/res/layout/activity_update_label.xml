@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:flowlayout="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+<TextView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="个人标签"
+    />
+    <com.dxj.teacher.widget.FlowLayout
+        android:id="@+id/already_flowlayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        flowlayout:horizontal_spacing="10dp"
+        flowlayout:vertical_spacing="10dp"
+        >
+    </com.dxj.teacher.widget.FlowLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="快速选择"
+        />
+    <com.dxj.teacher.widget.FlowLayout
+        android:id="@+id/select_flowlayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        flowlayout:horizontal_spacing="10dp"
+        flowlayout:vertical_spacing="10dp">
+    </com.dxj.teacher.widget.FlowLayout>
+</LinearLayout>
