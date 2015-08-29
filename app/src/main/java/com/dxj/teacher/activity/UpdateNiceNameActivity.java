@@ -6,7 +6,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.RelativeLayout;
 
 import com.alibaba.fastjson.JSONObject;
 import com.android.volley.Request;
@@ -39,6 +38,11 @@ public class UpdateNiceNameActivity extends BaseActivity implements View.OnClick
         setContentView(R.layout.activity_update_nicename);
         initData();
         initView();
+    }
+
+    @Override
+    public void initTitle() {
+
     }
 
     @Override

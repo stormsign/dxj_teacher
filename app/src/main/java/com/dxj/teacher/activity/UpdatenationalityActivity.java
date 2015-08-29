@@ -41,6 +41,11 @@ public class UpdatenationalityActivity extends BaseActivity implements View.OnCl
     }
 
     @Override
+    public void initTitle() {
+
+    }
+
+    @Override
     public void initView() {
         btnBack = (ImageButton) findViewById(R.id.btn_back);
         etNationality = (EditText) findViewById(R.id.et);

@@ -43,7 +43,7 @@ public class CoursesActivity extends BaseActivity {
         initView();
     }
 
-//    @Override
+    @Override
     public void initTitle() {
         TitleNavBar tnb = (TitleNavBar) findViewById(R.id.tnb);
         tnb.setTitle("CoursesActivity");
@@ -58,12 +58,12 @@ public class CoursesActivity extends BaseActivity {
 
             @Override
             public void onNavTwoClick() {
-                showToast("nav1");
+                showToast("nav2");
             }
 
             @Override
             public void onNavThreeClick() {
-                showToast("nav1");
+                showToast("nav3");
             }
         });
     }

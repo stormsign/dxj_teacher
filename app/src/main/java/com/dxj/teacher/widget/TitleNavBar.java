@@ -54,9 +54,7 @@ public class TitleNavBar extends RelativeLayout {
     private OnTitleNavClickListener mOnTitleNavClickListener;
 
     public void setOnTitleNavClickListener(OnTitleNavClickListener mOnTitleNavClickListener){
-        mOnTitleNavClickListener.onNavOneClick();
-        mOnTitleNavClickListener.onNavTwoClick();
-        mOnTitleNavClickListener.onNavThreeClick();
+        this.mOnTitleNavClickListener = mOnTitleNavClickListener;
     }
 
     private void initView() {
@@ -67,8 +65,11 @@ public class TitleNavBar extends RelativeLayout {
         search_container = (RelativeLayout) view.findViewById(R.id.rl_search_title_container);
         search = (EditText) view.findViewById(R.id.et_search);
         nav_1 = (ImageView) view.findViewById(R.id.iv_nav_1);
+        nav_1.setClickable(true);
         nav_2 = (ImageView) view.findViewById(R.id.iv_nav_2);
+        nav_2.setClickable(true);
         nav_3 = (ImageView) view.findViewById(R.id.iv_nav_3);
+        nav_3.setClickable(true);
 
         back.setOnClickListener(new OnClickListener() {
             @Override

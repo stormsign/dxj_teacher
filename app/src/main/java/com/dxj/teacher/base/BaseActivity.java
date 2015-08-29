@@ -58,7 +58,7 @@ public abstract class BaseActivity extends FinalActivity {
     /**
      * 初始化标题栏
      */
-//    public abstract void initTitle();
+    public abstract void initTitle();
 
     /**
      * 处理页面展示

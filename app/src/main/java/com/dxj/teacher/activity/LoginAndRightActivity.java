@@ -83,7 +83,12 @@ public class LoginAndRightActivity extends BaseActivity implements View.OnClickL
 	// multipleActions.collapse();
     }
 
-    private void addFragment() {
+	@Override
+	public void initTitle() {
+
+	}
+
+	private void addFragment() {
 	LoginFragment loginFragment = new LoginFragment();
 	RightFragment rightFragment = new RightFragment();
 //	// NeighboursFragment neighboursFragment = NeighboursFragment.getInstance(multipleActions, flag, userId);

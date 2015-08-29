@@ -26,6 +26,11 @@ public class NiftyActivity extends BaseActivity {
     }
 
     @Override
+    public void initTitle() {
+
+    }
+
+    @Override
     public void initData() {
 
     }

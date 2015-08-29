@@ -41,6 +41,11 @@ public class UpdateLivingCityActivity extends BaseActivity implements View.OnCli
     }
 
     @Override
+    public void initTitle() {
+
+    }
+
+    @Override
     public void initView() {
         btnNiceName = (ImageButton) findViewById(R.id.btn_back);
         etLivingCity = (EditText) findViewById(R.id.et);

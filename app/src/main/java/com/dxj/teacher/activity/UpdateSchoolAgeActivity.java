@@ -41,6 +41,11 @@ public class UpdateSchoolAgeActivity extends BaseActivity implements View.OnClic
     }
 
     @Override
+    public void initTitle() {
+
+    }
+
+    @Override
     public void initView() {
         btnBack = (ImageButton) findViewById(R.id.btn_back);
         etSchoolAge = (EditText) findViewById(R.id.et);

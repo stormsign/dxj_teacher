@@ -45,6 +45,11 @@ public class UpdateRecommendActivity extends BaseActivity implements View.OnClic
     }
 
     @Override
+    public void initTitle() {
+
+    }
+
+    @Override
     public void initView() {
         btnNiceName = (ImageButton) findViewById(R.id.btn_back);
         etNiceName = (EditText) findViewById(R.id.et);

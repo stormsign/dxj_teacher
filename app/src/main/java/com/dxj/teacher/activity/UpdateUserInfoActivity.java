@@ -72,6 +72,11 @@ public class UpdateUserInfoActivity extends BaseActivity implements View.OnClick
     }
 
     @Override
+    public void initTitle() {
+
+    }
+
+    @Override
     public void initView() {
         relativeNiceName = (RelativeLayout) findViewById(R.id.relative_nicename);
         relativeSex = (RelativeLayout) findViewById(R.id.relative_sex);

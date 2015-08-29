@@ -41,6 +41,11 @@ public class UpdateMajorActivity extends BaseActivity implements View.OnClickLis
     }
 
     @Override
+    public void initTitle() {
+
+    }
+
+    @Override
     public void initView() {
         btnBack = (ImageButton) findViewById(R.id.btn_back);
         etMajor = (EditText) findViewById(R.id.et);

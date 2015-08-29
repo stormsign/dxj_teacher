@@ -41,6 +41,11 @@ public class UpdateDialectActivity extends BaseActivity implements View.OnClickL
     }
 
     @Override
+    public void initTitle() {
+
+    }
+
+    @Override
     public void initView() {
         btnBack = (ImageButton) findViewById(R.id.btn_back);
         etDialect = (EditText) findViewById(R.id.et);

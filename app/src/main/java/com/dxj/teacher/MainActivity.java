@@ -51,10 +51,10 @@ public class MainActivity extends BaseActivity {
 
     }
 
-//    @Override
-//    public void initTitle() {
-//
-//    }
+    @Override
+    public void initTitle() {
+
+    }
 
     @Override
     public void initView() {

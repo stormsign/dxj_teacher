@@ -41,6 +41,11 @@ public class UpdateGradesActivity extends BaseActivity implements View.OnClickLi
     }
 
     @Override
+    public void initTitle() {
+
+    }
+
+    @Override
     public void initView() {
         btnBack = (ImageButton) findViewById(R.id.btn_back);
         etGrades = (EditText) findViewById(R.id.et);
