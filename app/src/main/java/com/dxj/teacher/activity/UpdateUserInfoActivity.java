@@ -43,16 +43,17 @@ import github.jjobes.slidedatetimepicker.SlideDateTimePicker;
  * Created by kings on 8/27/2015.
  */
 public class UpdateUserInfoActivity extends BaseActivity implements View.OnClickListener {
-    public static final int NICE_NAME = 0x000001;
-    public static final int DIALECT = 0x000002;
-    public static final int NATIONALITY = 0x000003;
-    public static final int MAJOR = 0x000004;
-    public static final int SCHOOLAGE = 0x000005;
-    public static final int GRADES = 0x000006;
-    public static final int LIVING_CITY = 0x000006;
-    public static final int REMARK = 0x000007;
-    public static final int EXPERIENCE = 0x000008;
-    public static final int RESULT = 0x000009;
+    public static final int NICE_NAME = 1;
+    public static final int DIALECT = 2;
+    public static final int NATIONALITY = 3;
+    public static final int MAJOR = 4;
+    public static final int SCHOOLAGE = 5;
+    public static final int GRADES = 6;
+    public static final int LIVING_CITY = 6;
+    public static final int REMARK = 7;
+    public static final int EXPERIENCE =8;
+    public static final int RESULT = 9;
+    public static final int SOLVELABEL =10;
     private RelativeLayout relativeNiceName;
     private RelativeLayout relativeSex;
     private RelativeLayout relativeDialect;
@@ -67,6 +68,8 @@ public class UpdateUserInfoActivity extends BaseActivity implements View.OnClick
     private RelativeLayout relativerLabel;
     private RelativeLayout relativerExperience;
     private RelativeLayout relativerResult;
+    private RelativeLayout relativerSolvelabel;
+    private RelativeLayout relativerUniversity;
     private TextView tvNicename;
     private TextView tvSex;
     private TextView tvNationality;
@@ -80,8 +83,9 @@ public class UpdateUserInfoActivity extends BaseActivity implements View.OnClick
     private TextView tvConstellation;
     private TextView tvExperience;
     private TextView tvResult;
+    private TextView tvSolveLabel;
+    private TextView tvUniversity;
     private DialogPlus dialogPlus;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -112,6 +116,8 @@ public class UpdateUserInfoActivity extends BaseActivity implements View.OnClick
         relativerLabel = (RelativeLayout) findViewById(R.id.relative_label);
         relativerExperience = (RelativeLayout) findViewById(R.id.relative_experience);
         relativerResult = (RelativeLayout) findViewById(R.id.relative_result);
+        relativerSolvelabel = (RelativeLayout) findViewById(R.id.relative_solvelabel);
+        relativerSolvelabel = (RelativeLayout) findViewById(R.id.relative_university);
         tvNicename = (TextView) findViewById(R.id.tv_nicename);
         tvSchollAge = (TextView) findViewById(R.id.tv_schollage);
         tvSex = (TextView) findViewById(R.id.tv_sex);
@@ -125,6 +131,8 @@ public class UpdateUserInfoActivity extends BaseActivity implements View.OnClick
         tvConstellation = (TextView) findViewById(R.id.tv_constellation);
         tvExperience = (TextView) findViewById(R.id.tv_experience);
         tvResult = (TextView) findViewById(R.id.tv_result);
+        tvSolveLabel = (TextView) findViewById(R.id.tv_solvelabel);
+        tvUniversity = (TextView) findViewById(R.id.tv_university);
         relativeNiceName.setOnClickListener(this);
         relativeSex.setOnClickListener(this);
         relativeDialect.setOnClickListener(this);
@@ -139,6 +147,8 @@ public class UpdateUserInfoActivity extends BaseActivity implements View.OnClick
         relativerLabel.setOnClickListener(this);
         relativerExperience.setOnClickListener(this);
         relativerResult.setOnClickListener(this);
+        relativerSolvelabel.setOnClickListener(this);
+        relativerUniversity.setOnClickListener(this);
     }
 
     @Override
@@ -190,19 +200,27 @@ public class UpdateUserInfoActivity extends BaseActivity implements View.OnClick
                 break;
             case R.id.relative_constellation:
                 SimpleAdapter adapter = new SimpleAdapter(UpdateUserInfoActivity.this, false);
-                showOnlyContentDialog(new ListHolder(), Gravity.BOTTOM,adapter,itemClickListener, dismissListener, cancelListener, true);
+                showOnlyContentDialog(new ListHolder(), Gravity.BOTTOM, adapter, itemClickListener, dismissListener, cancelListener, true);
                 break;
             case R.id.relative_label:
                 Intent intentLabel = new Intent(this, UpdateLabelActivity.class);
                 startActivityForResult(intentLabel, LIVING_CITY);
                 break;
             case R.id.relative_experience:
-                Intent intentExperience = new Intent(this,UpdateExperienceActivity.class);
-                startActivityForResult(intentExperience,EXPERIENCE);
+                Intent intentExperience = new Intent(this, UpdateExperienceActivity.class);
+                startActivityForResult(intentExperience, EXPERIENCE);
                 break;
             case R.id.relative_result:
-                Intent intentResult = new Intent(this,UpdateResultActivity.class);
-                startActivityForResult(intentResult,RESULT);
+                Intent intentResult = new Intent(this, UpdateResultActivity.class);
+                startActivityForResult(intentResult, RESULT);
+                break;
+            case R.id.relative_solvelabel:
+                Intent intentSolveLabel = new Intent(this, UpdateSolveLabelActivity.class);
+                startActivityForResult(intentSolveLabel, SOLVELABEL);
+                break;
+            case R.id.relative_university:
+                Intent intentSolveLabels = new Intent(this, UpdateSolveLabelActivity.class);
+                startActivityForResult(intentSolveLabels, SOLVELABEL);
                 break;
         }
     }
@@ -231,13 +249,13 @@ public class UpdateUserInfoActivity extends BaseActivity implements View.OnClick
         } else if (requestCode == LIVING_CITY) {
             String strLivingCity = data.getStringExtra("livingCity");
             tvLivingCity.setText(strLivingCity);
-        }else if (requestCode==REMARK){
+        } else if (requestCode == REMARK) {
             String strRemark = data.getStringExtra("remark");
             tvRecommend.setText(strRemark);
-        }else if (requestCode==EXPERIENCE){
+        } else if (requestCode == EXPERIENCE) {
             String strExperience = data.getStringExtra("experience");
             tvExperience.setText(strExperience);
-        }else if(requestCode==RESULT){
+        } else if (requestCode == RESULT) {
             String strResult = data.getStringExtra("result");
             tvResult.setText(strResult);
         }
@@ -255,45 +273,54 @@ public class UpdateUserInfoActivity extends BaseActivity implements View.OnClick
         dialogPlus.findViewById(R.id.tv_woman).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sendRequestData("女");
+                sendRequestData("女", 1);
             }
         });
         dialogPlus.findViewById(R.id.tv_man).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sendRequestData("男");
+                sendRequestData("男", 1);
             }
         });
     }
 
-    private void sendRequestData(String strSex) {
+    private void sendRequestData(String strSex, int index) {
         String urlPath = null;
         Map<String, Object> map = new HashMap<>();
         map.put("id", "e1c380f1-c85e-4a0f-aafc-152e189d9d01");
-        if (!strSex.equals("男") && !strSex.equals("女")) {
-            Log.i("TAG","strSex="+strSex);
+        if (index == 2) {
+            Log.i("TAG", "strSex=" + strSex);
             map.put("birthday", strSex);
             urlPath = FinalData.URL_VALUE + HttpUtils.BIRTHDAY;
-        } else {
+        } else if (index == 1) {
             map.put("sex", strSex);
             urlPath = FinalData.URL_VALUE + HttpUtils.SEX;
+        } else if (index == 3) {
+            map.put("horoscope", strSex);
+            urlPath = FinalData.URL_VALUE + HttpUtils.HOROSCOPE;
         }
 
 
-        CustomStringRequest custom = new CustomStringRequest(Request.Method.POST, urlPath, map, getListener(strSex), getErrorListener());
+        CustomStringRequest custom = new CustomStringRequest(Request.Method.POST, urlPath, map, getListener(strSex, index), getErrorListener());
         VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(custom);
     }
 
-    private Response.Listener<String> getListener(final String strSex) {
+    private Response.Listener<String> getListener(final String strSex, final int index) {
         return new Response.Listener<String>() {
             @Override
             public void onResponse(String str) {
                 Log.i("TAG", "str=" + str);
                 BaseBean message = JSONObject.parseObject(str, BaseBean.class);
                 if (message.getCode() == 0) {
-                    tvSex.setText(strSex);
+                    if (index == 1)
+                        tvSex.setText(strSex);
+                    else if (index == 2)
+                        tvBirthday.setText(strSex);
+                    else if (index == 3)
+                        tvConstellation.setText(strSex);
                 }
-                dialogPlus.dismiss();
+                if (index == 1)
+                    dialogPlus.dismiss();
             }
         };
     }
@@ -329,7 +356,7 @@ public class UpdateUserInfoActivity extends BaseActivity implements View.OnClick
 //            Toast.makeText(UpdateUserInfoActivity.this,
 //                    mFormatter.format(date), Toast.LENGTH_SHORT).show();
             tvBirthday.setText(mFormatter.format(date));
-            sendRequestData(mFormatter.format(date));
+            sendRequestData(mFormatter.format(date), 2);
         }
 
         // Optional cancel listener
@@ -339,6 +366,7 @@ public class UpdateUserInfoActivity extends BaseActivity implements View.OnClick
                     "Canceled", Toast.LENGTH_SHORT).show();
         }
     };
+
     private void showOnlyContentDialog(Holder holder, int gravity, BaseAdapter adapter,
                                        OnItemClickListener itemClickListener, OnDismissListener dismissListener,
                                        OnCancelListener cancelListener, boolean expanded) {
@@ -354,6 +382,7 @@ public class UpdateUserInfoActivity extends BaseActivity implements View.OnClick
                 .create();
         dialog.show();
     }
+
     OnClickListener clickListener = new OnClickListener() {
         @Override
         public void onClick(DialogPlus dialog, View view) {
@@ -384,6 +413,10 @@ public class UpdateUserInfoActivity extends BaseActivity implements View.OnClick
 //        String clickedAppName = textView.getText().toString();
             //        dialog.dismiss();
             //        Toast.makeText(MainActivity.this, clickedAppName + " clicked", Toast.LENGTH_LONG).show();
+            Log.i("TAG", "position=" + position);
+            dialog.dismiss();
+            String str = SimpleAdapter.strings[position];
+            sendRequestData(str, 3);
         }
     };
     OnDismissListener dismissListener = new OnDismissListener() {

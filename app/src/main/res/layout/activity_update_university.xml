@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp">
+
+        <ImageButton
+            android:id="@+id/btn_back"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@mipmap/btn_back" />
+    </LinearLayout>
+   <Button
+       android:id="@+id/btn_entrancetime"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:text="入学时间"
+       android:textSize="@dimen/text_16sp"
+       />
+    <EditText
+        android:id="@+id/et_university"
+        android:layout_width="fill_parent"
+        android:layout_height="55dp"
+        android:layout_below="@id/title"
+        android:layout_margin="10dip"
+        android:background="@drawable/cityhot_edittext_bg"
+        android:drawableLeft="@drawable/wb_search_icon"
+        android:drawablePadding="5dp"
+        android:hint="输入大学名称"
+        android:padding="10dip"
+        android:textColor="#515151"
+        android:textSize="16dp" >
+    </EditText>
+    <ListView
+        android:id="@+id/search_result"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="7dp"
+        android:cacheColorHint="#00000000"
+        android:divider="#00000000"
+        android:dividerHeight="0dp"
+        android:listSelector="@android:color/transparent"
+        android:scrollbars="none"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/tv_noresult"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="10dp"
+        android:text="抱歉,暂时没有找到学校"
+        android:textColor="#000000"
+        android:textSize="16sp"
+        android:visibility="gone" />
+
+
+</LinearLayout>

@@ -64,7 +64,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:text="*****" />
+             />
     </RelativeLayout>
     <RelativeLayout
         android:id="@+id/relative_birthday"
@@ -82,7 +82,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:text="*****" />
+             />
     </RelativeLayout>
     <RelativeLayout
         android:id="@+id/relative_constellation"
@@ -100,7 +100,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:text="*****" />
+             />
     </RelativeLayout>
     <RelativeLayout
         android:id="@+id/relative_nationality"
@@ -118,7 +118,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:text="*****" />
+             />
     </RelativeLayout>
     <RelativeLayout
         android:id="@+id/relative_dialect"
@@ -136,11 +136,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:text="*****" />
+           />
     </RelativeLayout>
     <RelativeLayout
+        android:id="@+id/relative_university"
         android:layout_width="match_parent"
-        android:layout_height="40dp">
+        android:layout_height="40dp"
+        >
 
         <TextView
             android:layout_width="wrap_content"
@@ -149,10 +151,11 @@
             android:text="院校" />
 
         <TextView
+            android:id="@+id/tv_university"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:text="*****" />
+             />
     </RelativeLayout>
     <RelativeLayout
         android:layout_width="match_parent"
@@ -168,7 +171,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:text="*****" />
+             />
     </RelativeLayout>
     <RelativeLayout
         android:id="@+id/relative_major"
@@ -185,8 +188,7 @@
             android:id="@+id/tv_major"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:text="*****" />
+            android:layout_alignParentRight="true" />
     </RelativeLayout>
     <RelativeLayout
         android:id="@+id/relative_schollage"
@@ -204,7 +206,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:text="*****" />
+           />
     </RelativeLayout>
     <RelativeLayout
         android:layout_width="match_parent"
@@ -220,7 +222,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:text="*****" />
+             />
     </RelativeLayout>
     <RelativeLayout
         android:id="@+id/relative_grades"
@@ -238,7 +240,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:text="*****" />
+             />
     </RelativeLayout>
     <RelativeLayout
         android:id="@+id/relative_livingcity"
@@ -256,7 +258,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:text="*****" />
+            />
     </RelativeLayout>
 
     <RelativeLayout
@@ -275,10 +277,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:text="*****" />
+             />
     </RelativeLayout>
 
     <RelativeLayout
+        android:id="@+id/relative_experience"
         android:layout_width="match_parent"
         android:layout_height="40dp">
 
@@ -289,13 +292,15 @@
             android:text="过往经历" />
 
         <TextView
+            android:id="@+id/tv_experience"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:text="*****" />
+             />
     </RelativeLayout>
 
     <RelativeLayout
+        android:id="@+id/relative_solvelabel"
         android:layout_width="match_parent"
         android:layout_height="40dp">
 
@@ -306,10 +311,10 @@
             android:text="善于解决" />
 
         <TextView
+            android:id="@+id/tv_solvelabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:text="*****" />
+            android:layout_alignParentRight="true" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -327,10 +332,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:text="*****" />
+             />
     </RelativeLayout>
 
     <RelativeLayout
+       android:id="@+id/relative_result"
         android:layout_width="match_parent"
         android:layout_height="40dp">
 
@@ -341,10 +347,11 @@
             android:text="成果分享" />
 
         <TextView
+            android:id="@+id/tv_result"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:text="*****" />
+             />
     </RelativeLayout>
 
     <RelativeLayout
@@ -361,7 +368,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:text="*****" />
+             />
     </RelativeLayout>
     <RelativeLayout
         android:layout_width="match_parent"
@@ -377,7 +384,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:text="*****" />
+             />
     </RelativeLayout>
     <RelativeLayout
         android:layout_width="match_parent"
@@ -393,7 +400,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:text="*****" />
+            />
     </RelativeLayout>
    </LinearLayout>
 </ScrollView>

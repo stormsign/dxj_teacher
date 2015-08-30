@@ -223,6 +223,8 @@
         <activity android:name=".activity.UpdateLabelActivity"/>
         <activity android:name=".activity.UpdateExperienceActivity"/>
         <activity android:name=".activity.UpdateResultActivity"/>
+        <activity android:name=".activity.UpdateSolveLabelActivity"/>
+        <activity android:name=".activity.UpdateUniversityActivity"/>
     </application>
 
 </manifest>

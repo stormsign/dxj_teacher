@@ -34,4 +34,9 @@ public class HttpUtils {
 	public static final String EXPERIENCE="experience";
 	//教学成果
 	public static final String RESULT="result";
+	public static final String HOROSCOPE="horoscope";
+	//个人标签
+	public static final String LABEL="label";
+	//擅长解决的问题
+	public static final String SOLVELABEL="solveLabel";
 }

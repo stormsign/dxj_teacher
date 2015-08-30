@@ -18,7 +18,7 @@ public class SimpleAdapter extends BaseAdapter {
 
   private LayoutInflater layoutInflater;
   private boolean isGrid;
-  private String[] strings ={"白羊座","白羊座","白羊座","白羊座","白羊座","白羊座","白羊座","白羊座","白羊座","白羊座","白羊座","白羊座"};
+  public static final String[] strings ={"白羊座","金牛座","双子座","巨蟹座","狮子座","处女座","天坪座","天蝎座","射手座","摩羯座","水平座","双鱼座"};
   public SimpleAdapter(Context context, boolean isGrid) {
     layoutInflater = LayoutInflater.from(context);
     this.isGrid = isGrid;

@@ -17,7 +17,6 @@ import com.dxj.teacher.http.CustomStringRequest;
 import com.dxj.teacher.http.FinalData;
 import com.dxj.teacher.http.VolleySingleton;
 import com.dxj.teacher.utils.HttpUtils;
-import com.dxj.teacher.utils.StringUtils;
 import com.dxj.teacher.utils.ToastUtils;
 import com.dxj.teacher.widget.CheckableButton;
 import com.dxj.teacher.widget.FlowLayout;
@@ -32,12 +31,12 @@ import java.util.Map;
  * Created by kings on 8/27/2015.
  * 个人标签
  */
-public class UpdateLabelActivity extends BaseActivity implements View.OnClickListener, CheckableButton.OnCheckedChangeListener {
+public class UpdateSolveLabelActivity extends BaseActivity implements View.OnClickListener, CheckableButton.OnCheckedChangeListener {
     private String strMajor;
     private FlowLayout alreadtFlowLayout;
     private FlowLayout selectFlowLayout;
     private ImageButton btnLabel;
-    private String[] strings = {"品学兼优", "品学兼优", "讲解详细", "认真负责", "成绩优异"};
+    private String[] strings = {"提升学习方法", "陪伴学习", "心灵沟通的朋友", "学习自信的提升", "及时解决学习难点","各种数学难题"};
     private Map<Integer, CheckableButton> store = new HashMap<>();
 
     @Override
@@ -47,7 +46,7 @@ public class UpdateLabelActivity extends BaseActivity implements View.OnClickLis
         initData();
         initView();
     }
-
+    
 
     @Override
     public void initTitle() {
@@ -113,10 +112,10 @@ public class UpdateLabelActivity extends BaseActivity implements View.OnClickLis
             list.add(checkableButton.getText().toString());
         }
 
-        String urlPath = FinalData.URL_VALUE + HttpUtils.LABEL;
+        String urlPath = FinalData.URL_VALUE + HttpUtils.SOLVELABEL;
         Map<String, Object> map = new HashMap<>();
         map.put("id", "e1c380f1-c85e-4a0f-aafc-152e189d9d01");
-        map.put("label", list);
+        map.put("solveLabel", list);
         CustomStringRequest custom = new CustomStringRequest(Request.Method.POST, urlPath, map, getListener(), getErrorListener());
         VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(custom);
     }
@@ -132,7 +131,7 @@ public class UpdateLabelActivity extends BaseActivity implements View.OnClickLis
 //                    Bundle bundle = new Bundle();
 //                    bundle.putString("major", strMajor);
 //                    intent.putExtras(bundle);
-                    UpdateLabelActivity.this.setResult(RESULT_OK, intent);
+                    UpdateSolveLabelActivity.this.setResult(RESULT_OK, intent);
                     finish();
                 }
             }
@@ -144,7 +143,7 @@ public class UpdateLabelActivity extends BaseActivity implements View.OnClickLis
 
             @Override
             public void onErrorResponse(VolleyError volleyError) {
-                ToastUtils.showToast(UpdateLabelActivity.this, "修改失败");
+                ToastUtils.showToast(UpdateSolveLabelActivity.this, "修改失败");
                 finish();
             }
         };
