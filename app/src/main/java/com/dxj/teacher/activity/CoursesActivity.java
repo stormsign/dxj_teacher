@@ -65,6 +65,11 @@ public class CoursesActivity extends BaseActivity {
             public void onNavThreeClick() {
                 showToast("nav3");
             }
+
+            @Override
+            public void onBackClick() {
+
+            }
         });
     }
 

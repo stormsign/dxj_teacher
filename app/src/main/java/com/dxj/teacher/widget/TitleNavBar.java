@@ -49,6 +49,7 @@ public class TitleNavBar extends RelativeLayout {
         void onNavOneClick();
         void onNavTwoClick();
         void onNavThreeClick();
+        void onBackClick();
     }
 
     private OnTitleNavClickListener mOnTitleNavClickListener;
@@ -74,6 +75,9 @@ public class TitleNavBar extends RelativeLayout {
         back.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (mOnTitleNavClickListener != null){
+                    mOnTitleNavClickListener.onBackClick();
+                }
                 Activity activity = (Activity) mContext;
                 activity.finish();
             }
@@ -166,6 +170,10 @@ public class TitleNavBar extends RelativeLayout {
         container.setBackgroundResource(resource);
     }
 
+    public void setTitleNoRightButton(){
+        nav_1.setVisibility(GONE);
+        nav_2.setVisibility(GONE);
+    }
 //    public void setContainerBackgroundColor(int resource){
 //        container.set
 //    }

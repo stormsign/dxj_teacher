@@ -9,8 +9,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.dxj.teacher.activity.CoursesActivity;
 import com.dxj.teacher.activity.LoginAndRightActivity;
+import com.dxj.teacher.activity.StudyGroupListActivity;
 import com.dxj.teacher.activity.UpdateUserInfoActivity;
 import com.dxj.teacher.application.MyApplication;
 import com.dxj.teacher.base.BaseActivity;
@@ -30,6 +30,9 @@ import com.umeng.message.MsgConstant;
 import com.umeng.message.PushAgent;
 import com.umeng.message.UmengRegistrar;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -42,6 +45,7 @@ public class MainActivity extends BaseActivity {
     private Context context = this;
     private PushAgent mPushAgent;
 
+    private static final String DBNAME = "subject.db";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,6 +68,10 @@ public class MainActivity extends BaseActivity {
         bt_search = (Button) findViewById(R.id.bt_search);
         bt_message = (Button) findViewById(R.id.bt_message);
         bt_user = (Button) findViewById(R.id.bt_user);
+
+        fm.beginTransaction()
+                .replace(R.id.rl_fragment_contanier, FragmentFactory.getFragment(0), "HOME")
+                .commit();
         showLogD("==============================================");
     }
 
@@ -131,8 +139,39 @@ public class MainActivity extends BaseActivity {
         });
 
 //        register(device_token);
+        copyDB(DBNAME);
 
     }
+
+    /**
+     * 把apk中的数据库复制到手机内存
+     * @param dbName
+     */
+    private void copyDB(final String dbName) {
+        new Thread(){
+            public void run() {
+                File file = new File(getFilesDir(), dbName);
+                if (file.exists() && file.length() > 0) {
+                    showLogI("已经拷贝过了数据库,无需重新拷贝");
+                } else {
+                    try {
+                        InputStream is = getAssets().open(dbName);
+                        byte[] buffer = new byte[1024];
+                        FileOutputStream fos = new FileOutputStream(file);
+                        int len = -1;
+                        while ((len = is.read(buffer)) != -1) {
+                            fos.write(buffer, 0, len);
+                        }
+                        fos.close();
+                        is.close();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            };
+        }.start();
+    }
+
 
     //    环信账号登录后的处理
     private void initializeContacts() {
@@ -192,17 +231,18 @@ public class MainActivity extends BaseActivity {
         }
     };
 
-
+    /**
+     * 首页底部四个按钮的事件
+     * @param v
+     */
     public void showFragment(View v) {
         switch (v.getId()) {
             case R.id.bt_home:
-                Toast.makeText(context, "HOME", Toast.LENGTH_SHORT).show();
                 fm.beginTransaction()
                         .replace(R.id.rl_fragment_contanier, FragmentFactory.getFragment(0), "HOME")
                         .commit();
                 break;
             case R.id.bt_search:
-                Toast.makeText(context, "SEARCH", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.bt_user:
                 Intent intent = new Intent(this, LoginAndRightActivity.class);
@@ -216,7 +256,7 @@ public class MainActivity extends BaseActivity {
     }
 
     public void show(View v) {
-        startActivity(new Intent(context, CoursesActivity.class));
+        startActivity(new Intent(context, StudyGroupListActivity.class));
     }
 
 }

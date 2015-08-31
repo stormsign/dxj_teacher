@@ -111,6 +111,7 @@ public class UpdateResultActivity extends BaseActivity implements View.OnClickLi
             @Override
             public void onResponse(String str) {
                 Log.i("TAG", "str=" + str);
+                showLogD("");
                 BaseBean message = JSONObject.parseObject(str, BaseBean.class);
                 if (message.getCode() == 0) {
                     Intent intent = new Intent();
@@ -129,7 +130,7 @@ public class UpdateResultActivity extends BaseActivity implements View.OnClickLi
 
             @Override
             public void onErrorResponse(VolleyError volleyError) {
-                ToastUtils.showToast(UpdateResultActivity.this, "修改失败");
+                ToastUtils.showToast(context, "修改失败");
                 finish();
             }
         };
