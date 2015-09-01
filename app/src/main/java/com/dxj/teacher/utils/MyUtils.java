@@ -76,6 +76,7 @@ public class MyUtils {
         return true;
     }
 
+
     /**
      * 对字符串进行MD5加密 输出：MD5加密后的大写16进制密文
      *

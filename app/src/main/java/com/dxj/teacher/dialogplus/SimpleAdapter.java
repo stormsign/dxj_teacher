@@ -18,8 +18,9 @@ public class SimpleAdapter extends BaseAdapter {
 
   private LayoutInflater layoutInflater;
   private boolean isGrid;
-  public static final String[] strings ={"白羊座","金牛座","双子座","巨蟹座","狮子座","处女座","天坪座","天蝎座","射手座","摩羯座","水平座","双鱼座"};
-  public SimpleAdapter(Context context, boolean isGrid) {
+  public  String[] strings ;
+  public SimpleAdapter(Context context, boolean isGrid,String[] strings) {
+    this.strings=strings;
     layoutInflater = LayoutInflater.from(context);
     this.isGrid = isGrid;
   }
@@ -38,7 +39,6 @@ public class SimpleAdapter extends BaseAdapter {
   public long getItemId(int position) {
     return position;
   }
-
   @Override
   public View getView(int position, View convertView, ViewGroup parent) {
     ViewHolder viewHolder;

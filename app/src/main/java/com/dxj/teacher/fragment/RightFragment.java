@@ -102,9 +102,7 @@ public class RightFragment extends BaseFragment implements View.OnClickListener 
     }
 
     private Response.Listener<String> getListener() {
-        return new Response.Listener<String>(
-
-        ) {
+        return new Response.Listener<String>() {
             @Override
             public void onResponse(String string) {
                 BaseBean message = JSONObject.parseObject(string, BaseBean.class);

@@ -3,9 +3,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+    <com.dxj.teacher.widget.TitleNavBar
+        android:id="@+id/tnb"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"/>
 <ScrollView
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:scrollbars="none"
+    >
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -13,7 +19,8 @@
         >
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:id="@+id/relative_avatar">
 
         <TextView
             android:layout_width="wrap_content"
@@ -23,6 +30,7 @@
             android:text="用户头像" />
 
         <ImageView
+            android:id="@+id/avatar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
@@ -158,6 +166,7 @@
              />
     </RelativeLayout>
     <RelativeLayout
+        android:id="@+id/relative_rolename"
         android:layout_width="match_parent"
         android:layout_height="40dp">
 
@@ -168,6 +177,7 @@
             android:text="目前状况" />
 
         <TextView
+            android:id="@+id/tv_rolename"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"

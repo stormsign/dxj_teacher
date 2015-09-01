@@ -32,7 +32,7 @@ public class MyRequest {
      * @return
      * @throws MyException
      */
-    public String getRequest(String reqParams, com.dxj.teacher.bean.PhotoBean mPhotoBean) throws MyException {
+    public String getRequest(String reqParams, com.dxj.teacher.bean.PhotoBean mPhotoBean,String url) throws MyException {
         JSONObject jsonObj = new JSONObject();
         String json = "";
         try {
@@ -57,8 +57,6 @@ public class MyRequest {
         // 拼接请求地址
         String urlPath = FinalData.IMAGE_URL_UPLOAD + "multiUploadImage";
 
-        // 请求数据
-        json = MyHttpConnection.httpPost(urlPath, json);
 // 请求数据
         jsonString = MyHttpConnection.httpPost(urlPath, json);
         Log.i("TAG", "jsonString=" + jsonString);

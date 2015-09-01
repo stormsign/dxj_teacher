@@ -229,6 +229,7 @@
         <activity android:name=".activity.UpdateResultActivity"/>
         <activity android:name=".activity.UpdateSolveLabelActivity"/>
         <activity android:name=".activity.UpdateUniversityActivity"/>
+        <activity android:name=".activity.UpdateRoleNameActivity"/>
     </application>
 
 </manifest>

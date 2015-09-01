@@ -6,6 +6,7 @@ public class HttpUtils {
 	 * 上传多张图片接口
 	 */
 	public static final String UPADTE_MULT_IMAGE = "multiUploadImage";// 获取banner信息接口
+	public static final String UPLOAD_IMG = "uploadImg";// 获取banner信息接口
 	//登录
 	public static final String LOGIN="login";
 	//注册
@@ -39,4 +40,10 @@ public class HttpUtils {
 	public static final String LABEL="label";
 	//擅长解决的问题
 	public static final String SOLVELABEL="solveLabel";
+    //学校查询
+	public static final String FIND_UNIVERSITY="findUniversity";
+	public static final String UNIVERSITY="university";
+	public static final String ROLENAME="roleName";
+	//上传头像地址
+	public static final String HEAD_URL="headUrl";
 }

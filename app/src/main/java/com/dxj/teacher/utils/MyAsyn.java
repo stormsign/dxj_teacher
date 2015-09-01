@@ -5,7 +5,6 @@ import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
-import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -22,18 +21,16 @@ public class MyAsyn extends AsyncTask<String, String, String> {
 //    private ProgressFragment progressFragment = ProgressFragment.newInstance();
     private WeakReference<FragmentActivity> oAuthActivityWeakReference;
     private String returnStr; // 请求后的返回值
-    private LinearLayout linearInputContent;
-    private BaseAdapter adapter;
     private String folder;
     private Photos photos;
     private Context recordDetailActivity;
+    private String url;
 
-    public MyAsyn(Context recordDetailActivity, AsyncResponse mAsyncResPonse, LinearLayout linearInputContent, BaseAdapter adapter, String folder) {
+    public MyAsyn(Context recordDetailActivity, AsyncResponse mAsyncResPonse, String folder,String url) {
 //        oAuthActivityWeakReference = new WeakReference<FragmentActivity>(recordDetailActivity);
+        this.url=url;
         this.recordDetailActivity =recordDetailActivity;
         this.mAsyncResponse = mAsyncResPonse;
-        this.linearInputContent = linearInputContent;
-        this.adapter = adapter;
         this.folder = folder;
     }
 
@@ -41,7 +38,6 @@ public class MyAsyn extends AsyncTask<String, String, String> {
 
     @Override
     protected String doInBackground(String... params) {
-        Log.i("TAG", "params=" + params[0]);
         // TODO Auto-generated method stub
         ArrayList<Photos> photosList = new ArrayList<Photos>();
         String bitStr;
@@ -62,12 +58,12 @@ public class MyAsyn extends AsyncTask<String, String, String> {
 	    e.printStackTrace();
 	}
         PhotoBean mPhotoBean = new PhotoBean();
-        mPhotoBean.setFolder(folder);
+        mPhotoBean.setFolder("head");
         mPhotoBean.setImage(photosList);
         // 第一次请求，先将图片上传到服务器，获得返回 的图片url
         String returnStr = null;
         try {
-            returnStr = MyRequest.getInstance().getRequest(HttpUtils.UPADTE_MULT_IMAGE, mPhotoBean);
+            returnStr = MyRequest.getInstance().getRequest(HttpUtils.UPADTE_MULT_IMAGE, mPhotoBean,url);
         } catch (Exception e) {
             e.printStackTrace();
         }

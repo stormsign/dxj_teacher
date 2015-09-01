@@ -19,8 +19,10 @@ import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.dxj.teacher.R;
+import com.dxj.teacher.application.MyApplication;
 import com.dxj.teacher.base.BaseFragment;
 import com.dxj.teacher.bean.UserBean;
+import com.dxj.teacher.db.AccountDBTask;
 import com.dxj.teacher.http.FinalData;
 import com.dxj.teacher.http.GsonRequest;
 import com.dxj.teacher.http.VolleySingleton;
@@ -119,11 +121,15 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener 
 
             @Override
             public void onResponse(UserBean userBean) {
-                Log.i("TAG", "userBean=" + userBean.getUserInfo().getId());
+                Log.i("TAG", "userBean=" + userBean.toString());
                 progressFragment.dismissAllowingStateLoss();
                 if (userBean != null) {
-                    if (userBean.getCode() == 0)
+                    if (userBean.getCode() == 0){
                         ToastUtils.showToast(getActivity(), userBean.getMsg());
+                        AccountDBTask.saveUserBean(userBean);
+                        MyApplication.getInstance().setUserBean(userBean);
+
+                    }
                     else
                         ToastUtils.showToast(getActivity(), userBean.getMsg());
                 } else {
