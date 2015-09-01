@@ -42,6 +42,14 @@
     <dimen name="margin_8dp">8dp</dimen>
     <dimen name="margin_16dp">16dp</dimen>
     <dimen name="height_128dp">128dp</dimen>
+    <dimen name="image_80dp">80dp</dimen>
+    <dimen name="image_96dp">96dp</dimen>
+    <dimen name="image_88dp">88dp</dimen>
+    <dimen name="margin_24dp">24dp</dimen>
+    <dimen name="margin_56dp">56dp</dimen>
+    <dimen name="margin_36dp">36dp</dimen>
+    <dimen name="margin_64dp">64dp</dimen>
+    <dimen name="image_48dp">48dp</dimen>
 
     <!--环信dimens 结束-->
 

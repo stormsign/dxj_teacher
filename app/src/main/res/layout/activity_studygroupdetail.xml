@@ -1,63 +1,111 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:scrollbars="none"
+    >
+
+<LinearLayout
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
     <com.dxj.teacher.widget.TitleNavBar
         android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"></com.dxj.teacher.widget.TitleNavBar>
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:gravity="center"
         android:background="#fff"
         android:padding="@dimen/padding_16dp"
         >
         <ImageView
             android:id="@+id/iv_group_head"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="@dimen/image_88dp"
+            android:layout_height="@dimen/image_88dp"
             android:layout_gravity="left"
             android:layout_marginLeft="@dimen/margin_8dp"
+            android:layout_marginBottom="@dimen/margin_16dp"
             android:background="@drawable/imageview_border_white"
             android:src="@mipmap/default_image"/>
-    </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_groupname"
+            android:layout_toRightOf="@id/iv_group_head"
+            android:layout_marginLeft="@dimen/margin_16dp"
+            android:text="学团"
+            android:textSize="@dimen/text_20sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
 
     <LinearLayout
         android:id="@+id/ll_group_subject"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:gravity="center_vertical"
         android:background="#fff"
         android:layout_marginTop="@dimen/margin_16dp"
         android:padding="@dimen/padding_16dp"
         >
         <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="科目"
-            android:layout_gravity="left"
-            android:textSize="@dimen/text_24sp"
-            />
-        <ImageView
-            android:id="@+id/arrow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@mipmap/ic_right_arrow"
+            android:text="团简介"
+            android:layout_gravity="left"
+            android:textSize="@dimen/text_20sp"
             />
         <TextView
-            android:id="@+id/tv_subjectName"
-            android:text="科目"
-            android:textSize="@dimen/text_20sp"
-            android:layout_width="wrap_content"
+            android:id="@+id/et_description"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/orange"
-            android:visibility="gone"
+            android:textSize="@dimen/text_20sp"
+            android:hint="团简介团简介团简介团简介团简介团简介团简介团简介团简介团简介团简介团简介团简介团简介团简介团简介团简介团简介团简介团简介团简介团简介团简介团简介团简介团简介团简介团简介团简介团简介团简介团简介团简介团简介团简介团简介团简介团简介团简介团简介团简介团简介团简介团简介团简介"
+            android:inputType="textMultiLine"
+            android:background="@null"
+            android:maxLines="500"
+            android:gravity="top"
+            android:textColorHint="@color/hint_foreground_material_light"
             />
     </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:background="#fff"
+        android:layout_marginTop="@dimen/margin_16dp"
+        android:padding="@dimen/padding_16dp"
+        >
+
+        <TextView
+            android:id="@+id/gonggao"
+            android:text="团公告"
+            android:textSize="@dimen/text_20sp"
+            android:layout_alignParentLeft="true"
+            android:layout_marginRight="@dimen/margin_16dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/gonggao"
+            android:text="团公告标题"
+            android:layout_marginLeft="@dimen/margin_16dp"
+            android:textSize="@dimen/text_20sp"
+            />
+
+            <ImageView
+                android:src="@mipmap/ic_right_arrow"
+                android:layout_alignParentRight="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+        </RelativeLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -66,36 +114,110 @@
         android:background="#fff"
         android:layout_marginTop="@dimen/margin_16dp"
         >
-
-        <EditText
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="@dimen/padding_16dp"
+        >
+        <TextView
             android:id="@+id/et_groupName"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/text_24sp"
-            android:hint="团名称"
-            android:padding="@dimen/padding_16dp"
+            android:textSize="@dimen/text_20sp"
+            android:hint="团长"
+            android:paddingRight="@dimen/padding_16dp"
             android:background="@null"
             android:textColorHint="@color/hint_foreground_material_light"/>
+
+        <ImageView
+            android:id="@+id/iv_leader_head"
+            android:src="@mipmap/default_avatar"
+            android:background="@drawable/shape_round_corner"
+            android:layout_width="@dimen/image_48dp"
+            android:layout_height="@dimen/image_48dp" />
+        <TextView
+            android:id="@+id/tv_leader_name"
+            android:text="团长"
+            android:textSize="@dimen/text_20sp"
+            android:layout_gravity="center_vertical"
+            android:paddingLeft="@dimen/padding_16dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/tv_leader_school"
+            android:text="学校"
+            android:textSize="@dimen/text_20sp"
+            android:layout_gravity="center_vertical"
+            android:paddingLeft="@dimen/padding_16dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="@color/divider_list"
-            android:layout_marginRight="@dimen/margin_16dp"
-            android:layout_marginLeft="@dimen/margin_16dp"
+            android:layout_marginRight="@dimen/margin_36dp"
+            android:layout_marginLeft="@dimen/margin_64dp"
             />
-        <EditText
-            android:id="@+id/et_description"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/height_128dp"
-            android:textSize="@dimen/text_24sp"
-            android:hint="团简介"
-            android:inputType="textMultiLine"
-            android:background="@null"
-            android:maxLines="500"
+            android:layout_height="wrap_content"
             android:padding="@dimen/padding_16dp"
-            android:gravity="top"
-            android:textColorHint="@color/hint_foreground_material_light"
-            />
+            >
+            <TextView
+                android:id="@+id/et_group_member"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text_20sp"
+                android:hint="团员"
+                android:paddingRight="@dimen/padding_16dp"
+                android:layout_alignParentLeft="true"
+                android:background="@null"
+                android:textColorHint="@color/hint_foreground_material_light"
+                />
+            <LinearLayout
+                android:id="@+id/ll_member_container"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_toRightOf="@+id/et_group_member"
+                >
+                <ImageView
+                    android:src="@mipmap/default_avatar"
+                    android:background="@drawable/shape_round_corner"
+                    android:layout_marginRight="@dimen/margin_8dp"
+                    android:layout_width="@dimen/image_48dp"
+                    android:layout_height="@dimen/image_48dp" />
+                <ImageView
+                    android:src="@mipmap/default_avatar"
+                    android:background="@drawable/shape_round_corner"
+                    android:layout_marginRight="@dimen/margin_8dp"
+                    android:layout_width="@dimen/image_48dp"
+                    android:layout_height="@dimen/image_48dp" />
+                <ImageView
+                    android:src="@mipmap/default_avatar"
+                    android:background="@drawable/shape_round_corner"
+                    android:layout_marginRight="@dimen/margin_8dp"
+                    android:layout_width="@dimen/image_48dp"
+                    android:layout_height="@dimen/image_48dp" />
+                <ImageView
+                    android:src="@mipmap/default_avatar"
+                    android:background="@drawable/shape_round_corner"
+                    android:layout_marginRight="@dimen/margin_8dp"
+                    android:layout_width="@dimen/image_48dp"
+                    android:layout_height="@dimen/image_48dp" />
+
+            </LinearLayout>
+            <ImageView
+                android:id="@+id/iv_member_arrow"
+                android:src="@mipmap/ic_right_arrow"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+        </RelativeLayout>
 
     </LinearLayout>
     <Button
@@ -105,7 +227,6 @@
         style="@style/big_button"
         android:text="进入学团"
         android:textSize="@dimen/text_24sp"
-        android:layout_marginTop="@dimen/margin_8dp"
-        android:onClick="createGroup"
         />
 </LinearLayout>
+</ScrollView>

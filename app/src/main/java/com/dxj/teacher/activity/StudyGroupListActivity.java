@@ -2,6 +2,7 @@ package com.dxj.teacher.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import com.dxj.teacher.R;
 import com.dxj.teacher.base.BaseActivity;
@@ -40,7 +41,7 @@ public class StudyGroupListActivity extends BaseActivity {
 
             @Override
             public void onNavThreeClick() {
-                ToastUtils.showToast(context,"创建");
+                ToastUtils.showToast(context, "创建");
                 startActivity(new Intent(context, CreateStudyGroupActivity.class));
             }
 
@@ -59,5 +60,9 @@ public class StudyGroupListActivity extends BaseActivity {
     @Override
     public void initData() {
 
+    }
+
+    public void detail(View v){
+        startActivity(new Intent(this, StudyGroupDetailActivity.class));
     }
 }
