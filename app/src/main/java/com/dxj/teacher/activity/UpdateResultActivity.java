@@ -15,8 +15,11 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.dxj.teacher.R;
+import com.dxj.teacher.application.MyApplication;
 import com.dxj.teacher.base.BaseActivity;
 import com.dxj.teacher.bean.BaseBean;
+import com.dxj.teacher.db.AccountDBTask;
+import com.dxj.teacher.db.AccountTable;
 import com.dxj.teacher.http.CustomStringRequest;
 import com.dxj.teacher.http.FinalData;
 import com.dxj.teacher.http.VolleySingleton;
@@ -114,6 +117,8 @@ public class UpdateResultActivity extends BaseActivity implements View.OnClickLi
                 showLogD("");
                 BaseBean message = JSONObject.parseObject(str, BaseBean.class);
                 if (message.getCode() == 0) {
+                    AccountDBTask.updateNickName(MyApplication.getInstance().getUserId(), strResult, AccountTable.RESULT);
+
                     Intent intent = new Intent();
                     Bundle bundle = new Bundle();
                     bundle.putString("result", strResult);

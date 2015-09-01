@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.dxj.teacher.R;
+import com.dxj.teacher.utils.HttpUtils;
 import com.dxj.teacher.utils.MyAsyn;
 
 import java.io.File;
@@ -130,7 +131,7 @@ public class UpdateImageAdapter extends BaseAdapter {
         }
         if (mDatas.get(position) != null && !list.contains(mDatas.get(position))) {
             list.add(mDatas.get(position));
-            MyAsyn asyn = new MyAsyn(context, getAsynResponse(holder.tvUpdate), null, null, mDatas.get(position));
+            MyAsyn asyn = new MyAsyn(context, getAsynResponse(holder.tvUpdate), mDatas.get(position), HttpUtils.UPADTE_MULT_IMAGE);
             asyn.executeOnExecutor(fixedThreadPool, String.valueOf(position));
             holder.tvUpdate.setVisibility(View.VISIBLE);
         } else {

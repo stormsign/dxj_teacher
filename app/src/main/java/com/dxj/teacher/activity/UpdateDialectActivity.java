@@ -12,8 +12,11 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.dxj.teacher.R;
+import com.dxj.teacher.application.MyApplication;
 import com.dxj.teacher.base.BaseActivity;
 import com.dxj.teacher.bean.BaseBean;
+import com.dxj.teacher.db.AccountDBTask;
+import com.dxj.teacher.db.AccountTable;
 import com.dxj.teacher.http.CustomStringRequest;
 import com.dxj.teacher.http.FinalData;
 import com.dxj.teacher.http.VolleySingleton;
@@ -26,6 +29,8 @@ import java.util.Map;
 
 /**
  * Created by kings on 8/27/2015.
+ *
+ *方言
  */
 public class UpdateDialectActivity extends BaseActivity implements View.OnClickListener {
     private ImageButton btnBack;
@@ -88,6 +93,7 @@ public class UpdateDialectActivity extends BaseActivity implements View.OnClickL
                 Log.i("TAG", "str=" + str);
                 BaseBean message = JSONObject.parseObject(str, BaseBean.class);
                 if (message.getCode() == 0) {
+                    AccountDBTask.updateNickName(MyApplication.getInstance().getUserId(), strDialect, AccountTable.DIALECT);
                     Intent intent = new Intent();
                     Bundle bundle = new Bundle();
                     bundle.putString("dialect", strDialect);
