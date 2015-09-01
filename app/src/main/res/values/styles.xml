@@ -53,6 +53,12 @@
         <item name="android:textColor">#ffffffff</item>
     </style>
 
+    <style name="popwindow_anim_slide">
+        <item name="android:windowEnterAnimation">@anim/popwindowshow</item>
+        <item name="android:windowExitAnimation">@anim/popwindowhide</item>
+
+    </style>
+    
 
     <!--环信style 开始-->
 

@@ -32,7 +32,10 @@
     <dimen name="image_thumbnail_size">100dp</dimen>
     <dimen name="image_thumbnail_spacing">1dp</dimen>
     <dimen name="padding_16dp">16dp</dimen>
+    <dimen name="text_12sp">12sp</dimen>
+    <dimen name="text_14sp">14sp</dimen>
     <dimen name="text_16sp">16sp</dimen>
+    <dimen name="text_20sp">20sp</dimen>
     <dimen name="text_24sp">24sp</dimen>
     <dimen name="padding_24dp">24dp</dimen>
     <dimen name="padding_8dp">8dp</dimen>
