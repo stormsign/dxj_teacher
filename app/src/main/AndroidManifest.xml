@@ -230,6 +230,7 @@
         <activity android:name=".activity.UpdateSolveLabelActivity"/>
         <activity android:name=".activity.UpdateUniversityActivity"/>
         <activity android:name=".activity.UpdateRoleNameActivity"/>
+        <activity android:name=".activity.UpdateSchoolActivity"/>
     </application>
 
 </manifest>

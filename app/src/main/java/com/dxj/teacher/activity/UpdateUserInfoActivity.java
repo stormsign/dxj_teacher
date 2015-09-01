@@ -82,6 +82,7 @@ public class UpdateUserInfoActivity extends BaseActivity implements View.OnClick
     public static final int SOLVELABEL =11;
     public static final int UNIVERSITY =12;
     public static final int ROLENAME =13;
+    public static final int SCHOOL =14;
     private RelativeLayout relativeNiceName;
     private RelativeLayout relativeSex;
     private RelativeLayout relativeDialect;
@@ -100,6 +101,8 @@ public class UpdateUserInfoActivity extends BaseActivity implements View.OnClick
     private RelativeLayout relativerUniversity;
     private RelativeLayout relativerRolename;
     private RelativeLayout relativerAvatar;
+    private RelativeLayout relativerSchool;
+    private RelativeLayout relativerImages;
     private TextView tvNicename;
     private TextView tvSex;
     private TextView tvNationality;
@@ -116,6 +119,8 @@ public class UpdateUserInfoActivity extends BaseActivity implements View.OnClick
     private TextView tvSolveLabel;
     private TextView tvUniversity;
     private TextView tvRolename;
+    private TextView tvSchool;
+    private TextView tvImages;
     private ImageView avatar;
     private DialogPlus dialogPlus;
     private UserBean userBean;
@@ -155,8 +160,8 @@ public class UpdateUserInfoActivity extends BaseActivity implements View.OnClick
 //                tv.setVisibility(View.GONE);
                 Gson gson = new Gson();
                 HeadUrl headUrl = gson.fromJson(result, HeadUrl.class);
-                if (headUrl.getCode()==0)
-                    sendRequestData(headUrl.getUrl(), 4);
+//                if (headUrl.getCode()==0)
+//                    sendRequestData(headUrl.getUrl(), 4);
             }
         };
     }
@@ -182,6 +187,8 @@ public class UpdateUserInfoActivity extends BaseActivity implements View.OnClick
         relativerUniversity = (RelativeLayout) findViewById(R.id.relative_university);
         relativerRolename= (RelativeLayout) findViewById(R.id.relative_rolename);
         relativerAvatar= (RelativeLayout) findViewById(R.id.relative_avatar);
+        relativerSchool= (RelativeLayout) findViewById(R.id.relative_school);
+        relativerImages= (RelativeLayout) findViewById(R.id.relative_images);
         //------------------------------------- 华丽分割线--------------------------------
 
         tvNicename = (TextView) findViewById(R.id.tv_nicename);
@@ -200,13 +207,14 @@ public class UpdateUserInfoActivity extends BaseActivity implements View.OnClick
         tvSolveLabel = (TextView) findViewById(R.id.tv_solvelabel);
         tvUniversity = (TextView) findViewById(R.id.tv_university);
         tvRolename = (TextView) findViewById(R.id.tv_rolename);
+        tvSchool = (TextView) findViewById(R.id.tv_school);
+        tvImages = (TextView) findViewById(R.id.tv_images);
         //------------------------- 赋值--------------------------
 
         if (userBean!=null){
             showLogI(userBean.getUserInfo().getHeadUrl());
             if (userBean.getUserInfo().getHeadUrl()!=null)
             /** 加载头像 */
-
                     Glide.with(MyApplication.getInstance()).load(userBean.getUserInfo().getHeadUrl()).centerCrop().placeholder(R.mipmap.default_avatar).into(avatar);
                  else
                     Glide.with(MyApplication.getInstance()).load(R.mipmap.default_avatar).centerCrop().into(avatar);
@@ -244,6 +252,8 @@ public class UpdateUserInfoActivity extends BaseActivity implements View.OnClick
         relativerUniversity.setOnClickListener(this);
         relativerRolename.setOnClickListener(this);
         relativerAvatar.setOnClickListener(this);
+        relativerSchool.setOnClickListener(this);
+        relativerImages.setOnClickListener(this);
     }
 
     @Override
@@ -325,6 +335,14 @@ public class UpdateUserInfoActivity extends BaseActivity implements View.OnClick
                 Intent intentRoleName = new Intent(this, UpdateRoleNameActivity.class);
                 startActivityForResult(intentRoleName, ROLENAME);
                 break;
+            case R.id.relative_school:
+                Intent intentSchoolCity = new Intent(this, UpdateSchoolActivity.class);
+                startActivityForResult(intentSchoolCity, SCHOOL);
+                break;
+            case R.id.relative_images:
+                Intent intentImage = new Intent(this, UpdateImageActivity.class);
+                startActivity(intentImage);
+                break;
         }
     }
 
@@ -400,6 +418,9 @@ public class UpdateUserInfoActivity extends BaseActivity implements View.OnClick
         }else if (requestCode==ROLENAME){
             String strResult = data.getStringExtra("roleName");
             tvRolename.setText(strResult);
+        }else if (requestCode==SCHOOL){
+            String strSchool = data.getStringExtra("school");
+            tvSchool.setText(strSchool);
         }
     }
 

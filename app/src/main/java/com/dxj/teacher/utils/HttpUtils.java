@@ -46,4 +46,5 @@ public class HttpUtils {
 	public static final String ROLENAME="roleName";
 	//上传头像地址
 	public static final String HEAD_URL="headUrl";
+	public static final String SCHOOL="school";
 }

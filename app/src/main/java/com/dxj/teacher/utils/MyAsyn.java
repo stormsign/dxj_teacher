@@ -67,7 +67,6 @@ public class MyAsyn extends AsyncTask<String, String, String> {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        Log.i("TAG", "returnStr=" + returnStr);
             return  returnStr;
             // TODO Auto-generated catch block
         // return returnStr;
@@ -75,7 +74,6 @@ public class MyAsyn extends AsyncTask<String, String, String> {
 
     @Override
     protected void onPostExecute(String result) {
-        Log.i("TAG", "result=" + result);
         // TODO Auto-generated method stub
         // if (progressFragment.isVisible()) {
 //        progressFragment.dismissAllowingStateLoss();

@@ -46,6 +46,7 @@ public class MainActivity extends BaseActivity {
     private PushAgent mPushAgent;
 
     private static final String DBNAME = "subject.db";
+    private static final String SCHOOL = "t_city.db";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -140,6 +141,7 @@ public class MainActivity extends BaseActivity {
 
 //        register(device_token);
         copyDB(DBNAME);
+        copyDB(SCHOOL);
 
     }
 

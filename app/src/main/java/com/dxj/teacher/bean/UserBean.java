@@ -20,33 +20,96 @@ public class UserBean extends BaseBean implements Serializable {
 
     public class UserInfo {
         private String id; //用户id
-        private Long type;//老师类型
-        private String roleName;
         private String nickName;//用户昵称
-        private String mobile;//手机
-        private String sex;//性别
         private String headUrl;//头像
+        private String sex;//性别
+        private Long type;//老师类型
+        private String roleName;//老师类型名称
+        private String mobile;//手机号码
         private String university; //大学名称
-        private String major;//
-        private String ability;//
-        private String goodSubject;//
-        private String grades;//
-        private String entranceTime;//
-        private String championType;//
-        private String name;//真实姓名
-        private String horoscope;//星座
-        private String grade;//年级
-        private List<String> images = new ArrayList<String>();
-        private String school;//学校
+        private String major;//大学专业
+        private String ability;//教学能力
+        private String grades;//高考分数
+        private String entranceTime;//入学时间
+        private String championType;//状元等级
+        private List<String> images = new ArrayList<String>();//相册
+        private String school;//高中学校
+        private String schoolProvince;//省份
+        private String schoolCity;//城市
         private String livingCity;//现居城市
-        private String card;//学生证
+        private int schoolAge;//教龄
+        private String dialect;//方言
+        private String birthday;//生日
+        private String nationality;//国籍
+        private String remark;//自我描述
+        private String experience;//过往经历
+        private String result;//教学成果
+        private String degrees;//学历
+        private String horoscope;//星座
+        private List<String> label = new ArrayList<String>();//个人标签
+        private List<String> solveLabel = new ArrayList<String>();//擅长
+//        private String grade;//年级
+        private String jsz;//教师证
+//        private String card;//学生证
 
-        public void setCard(String card) {
-            this.card = card;
+//        public void setCard(String card) {
+//            this.card = card;
+//        }
+//
+//        public void setGrade(String grade) {
+//            this.grade = grade;
+//        }
+
+        public void setRemark(String remark) {
+            this.remark = remark;
         }
 
-        public void setGrade(String grade) {
-            this.grade = grade;
+        public void setBirthday(String birthday) {
+            this.birthday = birthday;
+        }
+
+        public void setDegrees(String degrees) {
+            this.degrees = degrees;
+        }
+
+        public void setDialect(String dialect) {
+            this.dialect = dialect;
+        }
+
+        public void setExperience(String experience) {
+            this.experience = experience;
+        }
+
+        public void setJsz(String jsz) {
+            this.jsz = jsz;
+        }
+
+        public void setLabel(List<String> label) {
+            this.label = label;
+        }
+
+        public void setNationality(String nationality) {
+            this.nationality = nationality;
+        }
+
+        public void setResult(String result) {
+            this.result = result;
+        }
+
+        public void setSchoolAge(int schoolAge) {
+            this.schoolAge = schoolAge;
+        }
+
+        public void setSchoolCity(String schoolCity) {
+            this.schoolCity = schoolCity;
+        }
+
+        public void setSchoolProvince(String schoolProvince) {
+            this.schoolProvince = schoolProvince;
+        }
+
+        public void setSolveLabel(List<String> solveLabel) {
+            this.solveLabel = solveLabel;
         }
 
         public void setHeadUrl(String headUrl) {
@@ -72,11 +135,6 @@ public class UserBean extends BaseBean implements Serializable {
         public void setMobile(String mobile) {
             this.mobile = mobile;
         }
-
-        public void setName(String name) {
-            this.name = name;
-        }
-
         public void setNickName(String nickName) {
             this.nickName = nickName;
         }
@@ -101,13 +159,13 @@ public class UserBean extends BaseBean implements Serializable {
             return type;
         }
 
-        public String getCard() {
-            return card;
-        }
-
-        public String getGrade() {
-            return grade;
-        }
+//        public String getCard() {
+//            return card;
+//        }
+//
+//        public String getGrade() {
+//            return grade;
+//        }
 
         public String getHeadUrl() {
             return headUrl;
@@ -129,9 +187,6 @@ public class UserBean extends BaseBean implements Serializable {
             return mobile;
         }
 
-        public String getName() {
-            return name;
-        }
 
         public String getNickName() {
             return nickName;
@@ -169,13 +224,6 @@ public class UserBean extends BaseBean implements Serializable {
             return entranceTime;
         }
 
-        public void setGoodSubject(String goodSubject) {
-            this.goodSubject = goodSubject;
-        }
-
-        public String getGoodSubject() {
-            return goodSubject;
-        }
 
         public void setGrades(String grades) {
             this.grades = grades;
@@ -207,6 +255,58 @@ public class UserBean extends BaseBean implements Serializable {
 
         public String getUniversity() {
             return university;
+        }
+
+        public String getRemark() {
+            return remark;
+        }
+
+        public int getSchoolAge() {
+            return schoolAge;
+        }
+
+        public List<String> getLabel() {
+            return label;
+        }
+
+        public List<String> getSolveLabel() {
+            return solveLabel;
+        }
+
+        public String getBirthday() {
+            return birthday;
+        }
+
+        public String getDegrees() {
+            return degrees;
+        }
+
+        public String getDialect() {
+            return dialect;
+        }
+
+        public String getExperience() {
+            return experience;
+        }
+
+        public String getJsz() {
+            return jsz;
+        }
+
+        public String getNationality() {
+            return nationality;
+        }
+
+        public String getResult() {
+            return result;
+        }
+
+        public String getSchoolCity() {
+            return schoolCity;
+        }
+
+        public String getSchoolProvince() {
+            return schoolProvince;
         }
     }
 }

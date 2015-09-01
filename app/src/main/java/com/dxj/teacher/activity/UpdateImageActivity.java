@@ -8,8 +8,10 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
+import android.widget.ImageButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
@@ -27,13 +29,13 @@ public class UpdateImageActivity extends Activity {
     private static final int REQUEST_IMAGE = 3;
 
     private TextView mResultText;
-    private RadioGroup mChoiceMode, mShowCamera;
-    private EditText mRequestNum;
+//    private RadioGroup mChoiceMode, mShowCamera;
 
     private ArrayList<String> mSelectPath;
     private GridView feedbackNoScrollgridview;
     private UpdateImageAdapter updateAdapter;
     private List<String> imageList = new ArrayList<>();
+    private ImageButton btnBack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,46 +43,51 @@ public class UpdateImageActivity extends Activity {
         setContentView(R.layout.activity_multiimage);
 
         mResultText = (TextView) findViewById(R.id.result);
-        mChoiceMode = (RadioGroup) findViewById(R.id.choice_mode);
-        mShowCamera = (RadioGroup) findViewById(R.id.show_camera);
-        mRequestNum = (EditText) findViewById(R.id.request_num);
+//        mChoiceMode = (RadioGroup) findViewById(R.id.choice_mode);
+//        mShowCamera = (RadioGroup) findViewById(R.id.show_camera);
         feedbackNoScrollgridview = (GridView) findViewById(R.id.feedback_noScrollgridview);
+        btnBack = (ImageButton)findViewById(R.id.btn_back);
         updateAdapter = new UpdateImageAdapter(UpdateImageActivity.this);
         feedbackNoScrollgridview.setAdapter(updateAdapter);
-        mChoiceMode.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+//        mChoiceMode.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(RadioGroup radioGroup, int checkedId) {
+//                if (checkedId == R.id.multi) {
+//                    mRequestNum.setEnabled(true);
+//                } else {
+//                    mRequestNum.setEnabled(false);
+//                    mRequestNum.setText("");
+//                }
+//            }
+//        });
+        btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onCheckedChanged(RadioGroup radioGroup, int checkedId) {
-                if (checkedId == R.id.multi) {
-                    mRequestNum.setEnabled(true);
-                } else {
-                    mRequestNum.setEnabled(false);
-                    mRequestNum.setText("");
-                }
+            public void onClick(View v) {
+
             }
         });
-
         findViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 int selectedMode = MultiImageSelectorActivity.MODE_MULTI;
 
-                if (mChoiceMode.getCheckedRadioButtonId() == R.id.single) {
-                    selectedMode = MultiImageSelectorActivity.MODE_SINGLE;
-                } else {
-                    selectedMode = MultiImageSelectorActivity.MODE_MULTI;
-                }
+//                if (mChoiceMode.getCheckedRadioButtonId() == R.id.single) {
+//                    selectedMode = MultiImageSelectorActivity.MODE_SINGLE;
+//                } else {
+//                    selectedMode = MultiImageSelectorActivity.MODE_MULTI;
+//                }
 
-                boolean showCamera = mShowCamera.getCheckedRadioButtonId() == R.id.show;
+//                boolean showCamera = mShowCamera.getCheckedRadioButtonId() == R.id.show;
 
                 int maxNum = 9;
-                if (!TextUtils.isEmpty(mRequestNum.getText())) {
-                    maxNum = Integer.valueOf(mRequestNum.getText().toString());
-                }
+//                if (!TextUtils.isEmpty(mRequestNum.getText())) {
+//                    maxNum = Integer.valueOf(mRequestNum.getText().toString());
+//                }
 
                 Intent intent = new Intent(UpdateImageActivity.this, MultiImageSelectorActivity.class);
                 // 是否显示拍摄图片
-                intent.putExtra(MultiImageSelectorActivity.EXTRA_SHOW_CAMERA, showCamera);
+                intent.putExtra(MultiImageSelectorActivity.EXTRA_SHOW_CAMERA, true);
                 // 最大可选择图片数量
                 intent.putExtra(MultiImageSelectorActivity.EXTRA_SELECT_COUNT, maxNum);
                 // 选择模式

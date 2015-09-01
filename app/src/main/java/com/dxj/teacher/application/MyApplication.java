@@ -3,6 +3,8 @@ package com.dxj.teacher.application;
 import android.app.Application;
 import android.content.Context;
 
+import com.dxj.teacher.bean.UserBean;
+import com.dxj.teacher.db.AccountDBTask;
 import com.dxj.teacher.utils.ExceptionHandler;
 import com.easemob.EMCallBack;
 import com.easemob.chatuidemo.DemoHXSDKHelper;
@@ -15,7 +17,8 @@ public class MyApplication extends Application {
 
     public static Context applicationContext;
     private static MyApplication instance;
-
+    private  UserBean mUserBean;
+    private String id;
     // login user name
     public final String PREF_USERNAME = "username";
 
@@ -45,7 +48,27 @@ public class MyApplication extends Application {
     public String getUserName() {
         return hxSDKHelper.getHXId();
     }
+    /**
+     * 获取用户信息
+     *
+     * @return
+     */
+    public UserBean getUserBean() {
+        if (mUserBean == null) {
+            // 从文件获取
 
+            mUserBean = AccountDBTask.getAccount();
+        }
+        return mUserBean;
+    }
+    public String getUserId() {
+        if (id == null) {
+            // 从文件获取
+
+            id = getUserBean().getUserInfo().getId();
+        }
+        return id;
+    }
     /**
      * 获取密码
      *
@@ -85,5 +108,7 @@ public class MyApplication extends Application {
     public static MyApplication getInstance(){
         return instance;
     }
-
+    public void setUserBean(UserBean userbean) {
+        this.mUserBean = userbean;
+    }
 }

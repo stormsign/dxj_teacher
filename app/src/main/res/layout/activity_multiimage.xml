@@ -8,82 +8,91 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".MainActivity">
-
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:focusable="true"
-        android:focusableInTouchMode="true"
-        android:text="@string/select_mode"
-        android:textColor="@android:color/black"
-        android:textSize="16sp"
-        android:textStyle="bold" />
+        android:layout_height="48dp">
 
-    <RadioGroup
-        android:id="@+id/choice_mode"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:checkedButton="@+id/multi"
-        android:orientation="vertical">
-
-        <RadioButton
-            android:id="@+id/single"
+        <ImageButton
+            android:id="@+id/btn_back"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/mode_single" />
+            android:layout_height="match_parent"
+            android:src="@mipmap/btn_back" />
+    </LinearLayout>
+    <!--<TextView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:focusable="true"-->
+        <!--android:focusableInTouchMode="true"-->
+        <!--android:text="@string/select_mode"-->
+        <!--android:textColor="@android:color/black"-->
+        <!--android:textSize="16sp"-->
+        <!--android:textStyle="bold" />-->
 
-        <RadioButton
-            android:id="@+id/multi"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/mode_multi" />
+    <!--<RadioGroup-->
+        <!--android:id="@+id/choice_mode"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:checkedButton="@+id/multi"-->
+        <!--android:orientation="vertical">-->
 
-    </RadioGroup>
+        <!--<RadioButton-->
+            <!--android:id="@+id/single"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="@string/mode_single" />-->
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/max_select_amount"
-        android:textColor="@android:color/black"
-        android:textSize="16sp"
-        android:textStyle="bold" />
+        <!--<RadioButton-->
+            <!--android:id="@+id/multi"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="@string/mode_multi" />-->
 
-    <EditText
-        android:id="@+id/request_num"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:enabled="false"
-        android:hint="@string/hint_default_amount"
-        android:inputType="number" />
+    <!--</RadioGroup>-->
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/enable_camera"
-        android:textColor="@android:color/black"
-        android:textSize="16sp"
-        android:textStyle="bold" />
+    <!--<TextView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="@string/max_select_amount"-->
+        <!--android:textColor="@android:color/black"-->
+        <!--android:textSize="16sp"-->
+        <!--android:textStyle="bold" />-->
 
-    <RadioGroup
-        android:id="@+id/show_camera"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:checkedButton="@+id/show"
-        android:orientation="vertical">
+    <!--<EditText-->
+        <!--android:id="@+id/request_num"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:enabled="false"-->
+        <!--android:hint="@string/hint_default_amount"-->
+        <!--android:inputType="number" />-->
 
-        <RadioButton
-            android:id="@+id/show"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/enable" />
+    <!--<TextView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="@string/enable_camera"-->
+        <!--android:textColor="@android:color/black"-->
+        <!--android:textSize="16sp"-->
+        <!--android:textStyle="bold" />-->
 
-        <RadioButton
-            android:id="@+id/no_show"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/disable" />
+    <!--<RadioGroup-->
+        <!--android:id="@+id/show_camera"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:checkedButton="@+id/show"-->
+        <!--android:orientation="vertical">-->
 
-    </RadioGroup>
+        <!--<RadioButton-->
+            <!--android:id="@+id/show"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="@string/enable" />-->
+
+        <!--<RadioButton-->
+            <!--android:id="@+id/no_show"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="@string/disable" />-->
+
+    <!--</RadioGroup>-->
 
     <LinearLayout
         android:layout_width="match_parent"
