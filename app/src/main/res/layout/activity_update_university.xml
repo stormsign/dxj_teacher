@@ -22,6 +22,10 @@
        android:textSize="@dimen/text_16sp"
        />
     <EditText
+        android:id="@+id/et_major"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <EditText
         android:id="@+id/et_university"
         android:layout_width="fill_parent"
         android:layout_height="55dp"

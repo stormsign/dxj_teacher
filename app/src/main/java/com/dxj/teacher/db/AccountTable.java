@@ -34,8 +34,8 @@ public class AccountTable {
     public static final String RESULT="result";//教学成果
     public static final String DEGREES="degrees";//学历
     public static final String HOROSCOPE="horoscope";//星座
-    public static final List<String> label = new ArrayList<String>();//个人标签
-    public static final List<String> solveLabel = new ArrayList<String>();//擅长
+    public static final String LABEL ="label";//个人标签
+    public static final String SOLVELABEL = "solvelabel";//擅长
     //        private String grade;//年级
     public static final String JSZ="jsz";//教师证
 

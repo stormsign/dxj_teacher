@@ -50,6 +50,7 @@ import github.jjobes.slidedatetimepicker.SlideDateTimePicker;
 public class UpdateUniversityActivity extends BaseActivity implements View.OnClickListener {
     private ImageButton btnBack;
     private EditText etSearch;
+    private EditText etMajor;
     private ListView lvSearchResult;
     private Button btnEntrancetime;
     private TextView tvNoresult;
@@ -80,6 +81,7 @@ public class UpdateUniversityActivity extends BaseActivity implements View.OnCli
         lvSearchResult = (ListView) findViewById(R.id.search_result);
         btnEntrancetime=(Button)findViewById(R.id.btn_entrancetime);
         tvNoresult=(TextView)findViewById(R.id.tv_noresult);
+        etMajor=(EditText)findViewById(R.id.et_major);
         btnBack.setOnClickListener(this);
         btnEntrancetime.setOnClickListener(this);
 
@@ -176,6 +178,7 @@ public class UpdateUniversityActivity extends BaseActivity implements View.OnCli
         if(index==1){
             map.put("universityId",id);
             map.put("entranceTime",strEntranceTime);
+            map.put("major",etMajor.getText().toString());
         }
         CustomStringRequest custom = new CustomStringRequest(Request.Method.POST, urlPath, map, getListener(index), getErrorListener());
         VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(custom);

@@ -1,16 +1,19 @@
 package com.dxj.teacher.activity;
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSONObject;
@@ -18,11 +21,16 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.dxj.teacher.R;
+import com.dxj.teacher.adapter.SchoolAdapter;
 import com.dxj.teacher.application.MyApplication;
 import com.dxj.teacher.base.BaseActivity;
 import com.dxj.teacher.bean.BaseBean;
+import com.dxj.teacher.bean.SchoolBean;
+import com.dxj.teacher.bean.TeacherBean;
 import com.dxj.teacher.db.AccountDBTask;
 import com.dxj.teacher.db.AccountTable;
+import com.dxj.teacher.db.dao.CityDao;
+import com.dxj.teacher.db.dao.TeacherTypeDao;
 import com.dxj.teacher.dialogplus.SimpleAdapter;
 import com.dxj.teacher.http.CustomStringRequest;
 import com.dxj.teacher.http.FinalData;
@@ -38,20 +46,28 @@ import com.orhanobut.dialogplus.OnClickListener;
 import com.orhanobut.dialogplus.OnDismissListener;
 import com.orhanobut.dialogplus.OnItemClickListener;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
  * Created by kings on 8/27/2015.
- * 介绍
+ * 目前状态
  */
 public class UpdateRoleNameActivity extends BaseActivity implements View.OnClickListener {
     public static final String[] strings ={"省级状元","市级状元","区级状元","校级状元"};
+    public static final String DBNAME ="t_teacher_role.db";
+    private SQLiteDatabase db;
 
     private ImageButton btnNiceName;
-    private Button btn;
+    private ListView lvTeacher;
     private String strRemark;
     private String str;
+    private int typeID;
+    private int childTypeID;
+    private List<SchoolBean> list = new ArrayList<>();
+    private List<SchoolBean> teacherList = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,13 +84,30 @@ public class UpdateRoleNameActivity extends BaseActivity implements View.OnClick
     @Override
     public void initView() {
         btnNiceName = (ImageButton) findViewById(R.id.btn_back);
-        btn = (Button) findViewById(R.id.btn_1);
+        lvTeacher = (ListView) findViewById(R.id.lv_teacher);
         btnNiceName.setOnClickListener(this);
-        btn.setOnClickListener(this);
-    }
+        SchoolAdapter adapters = new SchoolAdapter(this, false,list);
+        lvTeacher.setAdapter(adapters);
+        lvTeacher.setOnItemClickListener(getItemClickListener());
 
+    }
+   private AdapterView.OnItemClickListener getItemClickListener(){
+       return  new AdapterView.OnItemClickListener() {
+           @Override
+           public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+               int level = list.get(position).getId();
+               teacherList = TeacherTypeDao.getChildTeacherFromParent(db, level);
+                               SchoolAdapter adapter = new SchoolAdapter(UpdateRoleNameActivity.this, false,teacherList);
+                showOnlyContentDialog(new ListHolder(), Gravity.BOTTOM, adapter, itemClickListener, dismissListener, cancelListener, true);
+//                break;
+
+           }
+       };
+   }
     @Override
     public void initData() {
+        db = SQLiteDatabase.openDatabase(getFilesDir() + "/" + DBNAME, null, SQLiteDatabase.OPEN_READONLY);
+        list = TeacherTypeDao.getFirstTeacher(db);
 
     }
 
@@ -85,10 +118,10 @@ public class UpdateRoleNameActivity extends BaseActivity implements View.OnClick
             case R.id.btn_back:
                 sendRequestData();
                 break;
-            case R.id.btn_1:
-                SimpleAdapter adapter = new SimpleAdapter(this, false,strings);
-                showOnlyContentDialog(new ListHolder(), Gravity.BOTTOM, adapter, itemClickListener, dismissListener, cancelListener, true);
-                break;
+//            case R.id.btn_1:
+//                SimpleAdapter adapter = new SimpleAdapter(this, false,strings);
+//                showOnlyContentDialog(new ListHolder(), Gravity.BOTTOM, adapter, itemClickListener, dismissListener, cancelListener, true);
+//                break;
         }
 
     }
@@ -102,6 +135,8 @@ public class UpdateRoleNameActivity extends BaseActivity implements View.OnClick
         String urlPath = FinalData.URL_VALUE + HttpUtils.ROLENAME;
         Map<String, Object> map = new HashMap<>();
         map.put("id", "e1c380f1-c85e-4a0f-aafc-152e189d9d01");
+        map.put("childType", childTypeID);
+        map.put("type", typeID);
         map.put("roleName", str);
         CustomStringRequest custom = new CustomStringRequest(Request.Method.POST, urlPath, map, getListener(), getErrorListener());
         VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(custom);
@@ -185,7 +220,9 @@ public class UpdateRoleNameActivity extends BaseActivity implements View.OnClick
             //        Toast.makeText(MainActivity.this, clickedAppName + " clicked", Toast.LENGTH_LONG).show();
             Log.i("TAG", "position=" + position);
             dialog.dismiss();
-            str= strings[position];
+            str= teacherList.get(position).getName();
+            typeID= teacherList.get(position).getParentId();
+            childTypeID= teacherList.get(position).getId();
 //            sendRequestData(str, 3);
 
         }

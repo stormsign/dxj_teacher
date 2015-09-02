@@ -38,7 +38,7 @@ public class UpdateSolveLabelActivity extends BaseActivity implements View.OnCli
     private ImageButton btnLabel;
     private String[] strings = {"提升学习方法", "陪伴学习", "心灵沟通的朋友", "学习自信的提升", "及时解决学习难点","各种数学难题"};
     private Map<Integer, CheckableButton> store = new HashMap<>();
-
+    private ArrayList<String> list;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -104,7 +104,7 @@ public class UpdateSolveLabelActivity extends BaseActivity implements View.OnCli
             finish();
             return;}
         Iterator iter  = store.entrySet().iterator();
-        List<String> list = new ArrayList<>();
+       list   = new ArrayList<>();
         while (iter.hasNext()){
             Map.Entry<Integer,CheckableButton> entry = (Map.Entry<Integer,CheckableButton>)iter.next();
             CheckableButton checkableButton = entry.getValue();
@@ -128,9 +128,9 @@ public class UpdateSolveLabelActivity extends BaseActivity implements View.OnCli
                 BaseBean message = JSONObject.parseObject(str, BaseBean.class);
                 if (message.getCode() == 0) {
                     Intent intent = new Intent();
-//                    Bundle bundle = new Bundle();
-//                    bundle.putString("major", strMajor);
-//                    intent.putExtras(bundle);
+                    Bundle bundle = new Bundle();
+                    bundle.putStringArrayList("solveLabel", list);
+                    intent.putExtras(bundle);
                     UpdateSolveLabelActivity.this.setResult(RESULT_OK, intent);
                     finish();
                 }

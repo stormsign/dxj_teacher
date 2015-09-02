@@ -55,6 +55,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import github.jjobes.slidedatetimepicker.SlideDateTimeListener;
@@ -72,9 +73,9 @@ public class UpdateUserInfoActivity extends BaseActivity implements View.OnClick
     public static final int NICE_NAME = 1;
     public static final int DIALECT = 2;
     public static final int NATIONALITY = 3;
-    public static final int MAJOR = 4;
+    public static final int LABEL = 4;
     public static final int SCHOOLAGE = 5;
-    public static final int GRADES = 6;
+//    public static final int GRADES = 6;
     public static final int LIVING_CITY = 7;
     public static final int REMARK = 8;
     public static final int EXPERIENCE =9;
@@ -87,9 +88,9 @@ public class UpdateUserInfoActivity extends BaseActivity implements View.OnClick
     private RelativeLayout relativeSex;
     private RelativeLayout relativeDialect;
     private RelativeLayout relativeNationality;
-    private RelativeLayout relativeMajor;
+//    private RelativeLayout relativeMajor;
     private RelativeLayout relativeSchollAge;
-    private RelativeLayout relativeGrades;
+//    private RelativeLayout relativeGrades;
     private RelativeLayout relativeLivingCity;
     private RelativeLayout relativeRecommend;
     private RelativeLayout relativeBirthday;
@@ -107,9 +108,9 @@ public class UpdateUserInfoActivity extends BaseActivity implements View.OnClick
     private TextView tvSex;
     private TextView tvNationality;
     private TextView tvDialect;
-    private TextView tvMajor;
+//    private TextView tvMajor;
     private TextView tvSchollAge;
-    private TextView tvGrades;
+//    private TextView tvGrades;
     private TextView tvLivingCity;
     private TextView tvRecommend;
     private TextView tvBirthday;
@@ -121,6 +122,7 @@ public class UpdateUserInfoActivity extends BaseActivity implements View.OnClick
     private TextView tvRolename;
     private TextView tvSchool;
     private TextView tvImages;
+    private TextView tvLabel;
     private ImageView avatar;
     private DialogPlus dialogPlus;
     private UserBean userBean;
@@ -172,11 +174,11 @@ public class UpdateUserInfoActivity extends BaseActivity implements View.OnClick
         relativeSex = (RelativeLayout) findViewById(R.id.relative_sex);
         relativeDialect = (RelativeLayout) findViewById(R.id.relative_dialect);
         relativeNationality = (RelativeLayout) findViewById(R.id.relative_nationality);
-        relativeMajor = (RelativeLayout) findViewById(R.id.relative_major);
+//        relativeMajor = (RelativeLayout) findViewById(R.id.relative_major);
         relativeSchollAge = (RelativeLayout) findViewById(R.id.relative_schollage);
-        relativeGrades = (RelativeLayout) findViewById(R.id.relative_grades);
+//        relativeGrades = (RelativeLayout) findViewById(R.id.relative_grades);
         relativeLivingCity = (RelativeLayout) findViewById(R.id.relative_livingcity);
-        relativeGrades = (RelativeLayout) findViewById(R.id.relative_livingcity);
+//        relativeGrades = (RelativeLayout) findViewById(R.id.relative_livingcity);
         relativeRecommend = (RelativeLayout) findViewById(R.id.relative_recommend);
         relativeBirthday = (RelativeLayout) findViewById(R.id.relative_birthday);
         relativeConstellation = (RelativeLayout) findViewById(R.id.relative_constellation);
@@ -196,8 +198,8 @@ public class UpdateUserInfoActivity extends BaseActivity implements View.OnClick
         tvSex = (TextView) findViewById(R.id.tv_sex);
         tvDialect = (TextView) findViewById(R.id.tv_dialect);
         tvNationality = (TextView) findViewById(R.id.tv_nationality);
-        tvMajor = (TextView) findViewById(R.id.tv_major);
-        tvGrades = (TextView) findViewById(R.id.tv_major);
+//        tvMajor = (TextView) findViewById(R.id.tv_major);
+//        tvGrades = (TextView) findViewById(R.id.tv_major);
         tvLivingCity = (TextView) findViewById(R.id.tv_livingcity);
         tvRecommend = (TextView) findViewById(R.id.tv_recomment);
         tvBirthday = (TextView) findViewById(R.id.tv_birthday);
@@ -209,6 +211,7 @@ public class UpdateUserInfoActivity extends BaseActivity implements View.OnClick
         tvRolename = (TextView) findViewById(R.id.tv_rolename);
         tvSchool = (TextView) findViewById(R.id.tv_school);
         tvImages = (TextView) findViewById(R.id.tv_images);
+        tvLabel = (TextView) findViewById(R.id.tv_label);
         //------------------------- 赋值--------------------------
 
         if (userBean!=null){
@@ -223,8 +226,8 @@ public class UpdateUserInfoActivity extends BaseActivity implements View.OnClick
         tvSex.setText(userBean.getUserInfo().getSex());
         tvDialect.setText(userBean.getUserInfo().getDialect());
         tvNationality.setText(userBean.getUserInfo().getNationality());
-        tvMajor.setText(userBean.getUserInfo().getMajor());
-        tvGrades.setText(userBean.getUserInfo().getGrades());
+//        tvMajor.setText(userBean.getUserInfo().getMajor());
+//        tvGrades.setText(userBean.getUserInfo().getGrades());
         tvLivingCity.setText(userBean.getUserInfo().getLivingCity());
         tvRecommend.setText(userBean.getUserInfo().getRemark());
         tvBirthday.setText(userBean.getUserInfo().getBirthday());
@@ -233,14 +236,38 @@ public class UpdateUserInfoActivity extends BaseActivity implements View.OnClick
 //        tvSolveLabel.setText(userBean.getUserInfo().getSolveLabel());
         tvResult.setText(userBean.getUserInfo().getResult());
         tvUniversity.setText(userBean.getUserInfo().getUniversity());}
+        if (userBean.getUserInfo().getLabel().size()>0){
+            StringBuffer sbf = new StringBuffer();
+            for (int i=0;i<userBean.getUserInfo().getLabel().size();i++){
+                if (i==userBean.getUserInfo().getLabel().size()-1)
+                sbf.append(userBean.getUserInfo().getLabel().get(i).toString());
+                else
+                    sbf.append(userBean.getUserInfo().getLabel().get(i).toString()+",");
+
+            }
+            tvLabel.setText(sbf.toString());
+
+        }
+        if (userBean.getUserInfo().getSolveLabel().size()>0){
+            StringBuffer sbf = new StringBuffer();
+            for (int i=0;i<userBean.getUserInfo().getSolveLabel().size();i++){
+                if (i==userBean.getUserInfo().getSolveLabel().size()-1)
+                    sbf.append(userBean.getUserInfo().getSolveLabel().get(i).toString());
+                else
+                    sbf.append(userBean.getUserInfo().getSolveLabel().get(i).toString()+",");
+
+            }
+            tvSolveLabel.setText(sbf.toString());
+
+        }
         //------------------------添加点击事件-----------------------------
         relativeNiceName.setOnClickListener(this);
         relativeSex.setOnClickListener(this);
         relativeDialect.setOnClickListener(this);
         relativeNationality.setOnClickListener(this);
-        relativeMajor.setOnClickListener(this);
+//        relativeMajor.setOnClickListener(this);
         relativeSchollAge.setOnClickListener(this);
-        relativeGrades.setOnClickListener(this);
+//        relativeGrades.setOnClickListener(this);
         relativeLivingCity.setOnClickListener(this);
         relativeRecommend.setOnClickListener(this);
         relativeBirthday.setOnClickListener(this);
@@ -284,18 +311,18 @@ public class UpdateUserInfoActivity extends BaseActivity implements View.OnClick
                 Intent intentNationality = new Intent(this, UpdatenationalityActivity.class);
                 startActivityForResult(intentNationality, NATIONALITY);
                 break;
-            case R.id.relative_major:
-                Intent intentMajor = new Intent(this, UpdateMajorActivity.class);
-                startActivityForResult(intentMajor, MAJOR);
-                break;
+//            case R.id.relative_major:
+//                Intent intentMajor = new Intent(this, UpdateMajorActivity.class);
+//                startActivityForResult(intentMajor, MAJOR);
+//                break;
             case R.id.relative_schollage:
                 Intent intentSchool = new Intent(this, UpdateSchoolAgeActivity.class);
                 startActivityForResult(intentSchool, SCHOOLAGE);
                 break;
-            case R.id.relative_grades:
-                Intent intentGrades = new Intent(this, UpdateGradesActivity.class);
-                startActivityForResult(intentGrades, GRADES);
-                break;
+//            case R.id.relative_grades:
+//                Intent intentGrades = new Intent(this, UpdateGradesActivity.class);
+//                startActivityForResult(intentGrades, GRADES);
+//                break;
             case R.id.relative_livingcity:
                 Intent intentLivingCity = new Intent(this, UpdateLivingCityActivity.class);
                 startActivityForResult(intentLivingCity, LIVING_CITY);
@@ -313,7 +340,7 @@ public class UpdateUserInfoActivity extends BaseActivity implements View.OnClick
                 break;
             case R.id.relative_label:
                 Intent intentLabel = new Intent(this, UpdateLabelActivity.class);
-                startActivityForResult(intentLabel, 20);
+                startActivityForResult(intentLabel, LABEL);
                 break;
             case R.id.relative_experience:
                 Intent intentExperience = new Intent(this, UpdateExperienceActivity.class);
@@ -329,7 +356,7 @@ public class UpdateUserInfoActivity extends BaseActivity implements View.OnClick
                 break;
             case R.id.relative_university:
                 Intent intentSolveLabels = new Intent(this, UpdateUniversityActivity.class);
-                startActivityForResult(intentSolveLabels, UNIVERSITY);
+                startActivityForResult(intentSolveLabels, SOLVELABEL);
                 break;
             case R.id.relative_rolename:
                 Intent intentRoleName = new Intent(this, UpdateRoleNameActivity.class);
@@ -394,16 +421,30 @@ public class UpdateUserInfoActivity extends BaseActivity implements View.OnClick
         } else if (requestCode == NATIONALITY) {
             String nationality = data.getStringExtra("nationality");
             tvNationality.setText(nationality);
-        } else if (requestCode == MAJOR) {
-            String nationality = data.getStringExtra("major");
-            tvMajor.setText(nationality);
-        } else if (requestCode == SCHOOLAGE) {
+        }
+        else if (requestCode == LABEL) {
+            List<String> labelList= data.getStringArrayListExtra("label");
+            StringBuffer sbf = new StringBuffer();
+            for (String str : labelList){
+                sbf.append(str+",");
+            }
+            sbf.delete(sbf.length()-1,sbf.length());
+            tvLabel.setText(sbf.toString());
+        }
+        else if (requestCode == SCHOOLAGE) {
             String strSchoolAge = data.getStringExtra("schoolAge");
             tvSchollAge.setText(strSchoolAge);
-        } else if (requestCode == GRADES) {
-            String strGrades = data.getStringExtra("grades");
-            tvGrades.setText(strGrades);
-        } else if (requestCode == LIVING_CITY) {
+        }
+        else if (requestCode == SOLVELABEL) {
+            List<String> labelList= data.getStringArrayListExtra("solveLabel");
+            StringBuffer sbf = new StringBuffer();
+            for (String str : labelList){
+                sbf.append(str+",");
+            }
+            sbf.delete(sbf.length()-1,sbf.length());
+            tvSolveLabel.setText(sbf.toString());
+        }
+        else if (requestCode == LIVING_CITY) {
             String strLivingCity = data.getStringExtra("livingCity");
             tvLivingCity.setText(strLivingCity);
         } else if (requestCode == REMARK) {

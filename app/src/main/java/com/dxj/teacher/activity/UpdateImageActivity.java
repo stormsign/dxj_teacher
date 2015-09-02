@@ -16,12 +16,27 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 
+import com.alibaba.fastjson.JSONObject;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.dxj.teacher.R;
 import com.dxj.teacher.adapter.UpdateImageAdapter;
+import com.dxj.teacher.application.MyApplication;
+import com.dxj.teacher.bean.BaseBean;
+import com.dxj.teacher.db.AccountDBTask;
+import com.dxj.teacher.db.AccountTable;
+import com.dxj.teacher.http.CustomStringRequest;
+import com.dxj.teacher.http.FinalData;
+import com.dxj.teacher.http.VolleySingleton;
+import com.dxj.teacher.utils.HttpUtils;
+import com.dxj.teacher.utils.StringUtils;
+import com.dxj.teacher.utils.ToastUtils;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-
+import java.util.Map;
 
 
 public class UpdateImageActivity extends Activity {
@@ -35,6 +50,7 @@ public class UpdateImageActivity extends Activity {
     private GridView feedbackNoScrollgridview;
     private UpdateImageAdapter updateAdapter;
     private List<String> imageList = new ArrayList<>();
+    private List<String> imageUrls = new ArrayList<>();
     private ImageButton btnBack;
 
     @Override
@@ -63,7 +79,10 @@ public class UpdateImageActivity extends Activity {
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                if (updateAdapter.getImageUrls().size()>0){
+                    imageUrls.addAll(updateAdapter.getImageUrls());
+                    sendRequestData();
+                }
             }
         });
         findViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
@@ -175,5 +194,49 @@ public class UpdateImageActivity extends Activity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+    private void sendRequestData() {
+//        strNiceName = etNiceName.getText().toString().trim();
+//        if (StringUtils.isEmpty(strNiceName)) {
+//            finish();
+//            return;
+//        }
+        String urlPath = FinalData.URL_VALUE + HttpUtils.IMAGES;
+        Map<String, Object> map = new HashMap<>();
+        map.put("id", "e1c380f1-c85e-4a0f-aafc-152e189d9d01");
+        map.put("images", imageUrls);
+        CustomStringRequest custom = new CustomStringRequest(Request.Method.POST, urlPath, map, getListener(), getErrorListener());
+        VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(custom);
+    }
+
+    private Response.Listener<String> getListener() {
+        return new Response.Listener<String>() {
+            @Override
+            public void onResponse(String str) {
+                Log.i("TAG", "str=" + str);
+                BaseBean message = JSONObject.parseObject(str, BaseBean.class);
+                if (message.getCode() == 0) {
+//
+//                    AccountDBTask.updateNickName(MyApplication.getInstance().getUserId(), strNiceName, AccountTable.NICKNAME);
+//                    Intent intent = new Intent();
+//                    Bundle bundle = new Bundle();
+//                    bundle.putString("nicename", strNiceName);
+//                    intent.putExtras(bundle);
+//                    UpdateNiceNameActivity.this.setResult(RESULT_OK, intent);
+                    finish();
+                }
+            }
+        };
+    }
+
+    private Response.ErrorListener getErrorListener() {
+        return new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError volleyError) {
+                ToastUtils.showToast(UpdateImageActivity.this, "修改失败");
+                finish();
+            }
+        };
     }
 }

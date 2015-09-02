@@ -39,7 +39,7 @@ public class UpdateLabelActivity extends BaseActivity implements View.OnClickLis
     private ImageButton btnLabel;
     private String[] strings = {"品学兼优", "品学兼优", "讲解详细", "认真负责", "成绩优异"};
     private Map<Integer, CheckableButton> store = new HashMap<>();
-
+    private ArrayList<String> list;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -105,7 +105,7 @@ public class UpdateLabelActivity extends BaseActivity implements View.OnClickLis
             finish();
             return;}
         Iterator iter  = store.entrySet().iterator();
-        List<String> list = new ArrayList<>();
+        list = new ArrayList<>();
         while (iter.hasNext()){
             Map.Entry<Integer,CheckableButton> entry = (Map.Entry<Integer,CheckableButton>)iter.next();
             CheckableButton checkableButton = entry.getValue();
@@ -129,9 +129,9 @@ public class UpdateLabelActivity extends BaseActivity implements View.OnClickLis
                 BaseBean message = JSONObject.parseObject(str, BaseBean.class);
                 if (message.getCode() == 0) {
                     Intent intent = new Intent();
-//                    Bundle bundle = new Bundle();
-//                    bundle.putString("major", strMajor);
-//                    intent.putExtras(bundle);
+                    Bundle bundle = new Bundle();
+                    bundle.putStringArrayList("label", list);
+                    intent.putExtras(bundle);
                     UpdateLabelActivity.this.setResult(RESULT_OK, intent);
                     finish();
                 }
