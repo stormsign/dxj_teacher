@@ -183,23 +183,23 @@
             android:layout_alignParentRight="true"
              />
     </RelativeLayout>
-    <RelativeLayout
-        android:id="@+id/relative_major"
-        android:layout_width="match_parent"
-        android:layout_height="40dp">
+    <!--<RelativeLayout-->
+        <!--android:id="@+id/relative_major"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="40dp">-->
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:text="专业" />
+        <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_alignParentLeft="true"-->
+            <!--android:text="专业" />-->
 
-        <TextView
-            android:id="@+id/tv_major"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true" />
-    </RelativeLayout>
+        <!--<TextView-->
+            <!--android:id="@+id/tv_major"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_alignParentRight="true" />-->
+    <!--</RelativeLayout>-->
     <RelativeLayout
         android:id="@+id/relative_schollage"
         android:layout_width="match_parent"
@@ -236,24 +236,24 @@
             android:layout_alignParentRight="true"
              />
     </RelativeLayout>
-    <RelativeLayout
-        android:id="@+id/relative_grades"
-        android:layout_width="match_parent"
-        android:layout_height="40dp">
+    <!--<RelativeLayout-->
+        <!--android:id="@+id/relative_grades"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="40dp">-->
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:text="高考分数" />
+        <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_alignParentLeft="true"-->
+            <!--android:text="高考分数" />-->
 
-        <TextView
-            android:id="@+id/tv_grades"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-             />
-    </RelativeLayout>
+        <!--<TextView-->
+            <!--android:id="@+id/tv_grades"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_alignParentRight="true"-->
+             <!--/>-->
+    <!--</RelativeLayout>-->
     <RelativeLayout
         android:id="@+id/relative_livingcity"
         android:layout_width="match_parent"
@@ -341,6 +341,7 @@
             android:text="个人标签" />
 
         <TextView
+            android:id="@+id/tv_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"

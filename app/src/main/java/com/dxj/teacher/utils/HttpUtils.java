@@ -43,8 +43,9 @@ public class HttpUtils {
     //学校查询
 	public static final String FIND_UNIVERSITY="findUniversity";
 	public static final String UNIVERSITY="university";
-	public static final String ROLENAME="roleName";
+	public static final String ROLENAME="role";
 	//上传头像地址
 	public static final String HEAD_URL="headUrl";
 	public static final String SCHOOL="school";
+	public static final String  IMAGES="images";
 }

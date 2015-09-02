@@ -6,6 +6,11 @@ import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import com.dxj.teacher.bean.UserBean;
+import com.dxj.teacher.utils.StringUtils;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.regex.Pattern;
 
 
 /**
@@ -60,6 +65,33 @@ public class AccountDBTask {
 	    values.put(AccountTable.SCHOOLAGE, String.valueOf(userBean.getUserInfo().getSchoolAge()));
 	    values.put(AccountTable.SCHOOLCITY, userBean.getUserInfo().getSchoolCity());
 	    values.put(AccountTable.SCHOOLPROVINCE, userBean.getUserInfo().getSchoolProvince());
+
+		if (userBean.getUserInfo().getLabel() != null && userBean.getUserInfo().getLabel().size() > 0) {
+			StringBuffer strBuffer = new StringBuffer();
+			for (int i = 0; i <userBean.getUserInfo().getLabel().size(); i++) {
+				if (i != userBean.getUserInfo().getLabel().size() - 1) {
+					strBuffer.append(userBean.getUserInfo().getLabel().get(i)).append(",");
+				} else {
+					strBuffer.append(userBean.getUserInfo().getLabel().get(i));
+				}
+			}
+			Log.i("TAG", "strBuffer=" + strBuffer.toString());
+			values.put(AccountTable.LABEL, strBuffer.toString());
+
+		}
+		if (userBean.getUserInfo().getSolveLabel() != null && userBean.getUserInfo().getSolveLabel().size() > 0) {
+			StringBuffer strBuffer = new StringBuffer();
+			for (int i = 0; i <userBean.getUserInfo().getSolveLabel().size(); i++) {
+				if (i != userBean.getUserInfo().getSolveLabel().size() - 1) {
+					strBuffer.append(userBean.getUserInfo().getSolveLabel().get(i)).append(",");
+				} else {
+					strBuffer.append(userBean.getUserInfo().getSolveLabel().get(i));
+				}
+			}
+			Log.i("TAG", "strBuffer=" + strBuffer.toString());
+			values.put(AccountTable.SOLVELABEL, strBuffer.toString());
+
+		}
 	    getWsd().insert(AccountTable.TABLE_NAME, null, values);
 	}
 
@@ -162,7 +194,30 @@ public class AccountDBTask {
 
 		colid = c.getColumnIndex(AccountTable.UNIVERSITY);
 		userinfo.setUniversity(c.getString(colid));
+		colid = c.getColumnIndex(AccountTable.LABEL);
+		String str = c.getString(colid);
 	    Log.i("TAG", "account=" + userinfo.getNickName());
+		if (!StringUtils.isEmpty(str)) {
+			List<String> strList = new ArrayList<String>();
+			String[] array = str.split(Pattern.quote(","));
+			for (int i = 0; i < array.length; i++) {
+				Log.i("TAG", "strList");
+				strList.add(array[i]);
+			}
+			userinfo.setLabel(strList);
+		}
+		colid = c.getColumnIndex(AccountTable.SOLVELABEL);
+		String strSolveLabel = c.getString(colid);
+		Log.i("TAG", "account=" + userinfo.getNickName());
+		if (!StringUtils.isEmpty(strSolveLabel)) {
+			List<String> strList = new ArrayList<>();
+			String[] array = strSolveLabel.split(Pattern.quote(","));
+			for (int i = 0; i < array.length; i++) {
+				Log.i("TAG", "strList");
+				strList.add(array[i]);
+			}
+			userinfo.setSolveLabel(strList);
+		}
 		account.setUserInfo(userinfo);
 	    return account;
 	}

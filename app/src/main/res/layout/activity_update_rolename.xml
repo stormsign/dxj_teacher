@@ -14,61 +14,16 @@
             android:layout_height="match_parent"
             android:src="@mipmap/btn_back" />
     </LinearLayout>
-   <Button
-       android:layout_width="match_parent"
-       android:layout_height="wrap_content"
-       android:text="你属于哪一类老师"
-       android:textSize="@dimen/text_16sp"
-       />
-    <Button
-        android:id="@+id/btn_1"
+    <ListView
+        android:id="@+id/lv_teacher"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="在校大学生"
-        android:textSize="@dimen/text_16sp"
-        />
-    <Button
-        android:id="@+id/btn_2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="研究生(硕士/博士)"
-        android:textSize="@dimen/text_16sp"
-        />
-    <Button
-        android:id="@+id/btn_3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="高考状元"
-        android:textSize="@dimen/text_16sp"
-        />
-    <Button
-        android:id="@+id/btn_4"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="协会/外国留学生"
-        android:textSize="@dimen/text_16sp"
-        />
-    <Button
-        android:id="@+id/btn_5"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="大学老师"
-        android:textSize="@dimen/text_16sp"
-        />
-    <Button
-        android:id="@+id/btn_6"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="退休老师"
-        android:textSize="@dimen/text_16sp"
-        />
-    <Button
-        android:id="@+id/btn_7"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="其他老师"
-        android:textSize="@dimen/text_16sp"
-        />
-
+        android:layout_height="match_parent"
+        android:layout_marginTop="7dp"
+        android:cacheColorHint="#00000000"
+        android:divider="#00000000"
+        android:dividerHeight="0dp"
+        android:listSelector="@android:color/transparent"
+        android:scrollbars="none"
+        android:visibility="visible" />
 
 </LinearLayout>

@@ -47,6 +47,7 @@ public class MainActivity extends BaseActivity {
 
     private static final String DBNAME = "subject.db";
     private static final String SCHOOL = "t_city.db";
+    private static final String TEACHER_TYPE = "t_teacher_role.db";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -142,6 +143,7 @@ public class MainActivity extends BaseActivity {
 //        register(device_token);
         copyDB(DBNAME);
         copyDB(SCHOOL);
+        copyDB(TEACHER_TYPE);
 
     }
 
