@@ -50,6 +50,7 @@
     <dimen name="margin_36dp">36dp</dimen>
     <dimen name="margin_64dp">64dp</dimen>
     <dimen name="image_48dp">48dp</dimen>
+    <dimen name="height_56dp">56dp</dimen>
 
     <!--环信dimens 结束-->
 

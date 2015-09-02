@@ -24,6 +24,7 @@
         android:src="@mipmap/ic_arrow_back_white_24dp"
         android:padding="@dimen/padding_16dp"
         android:layout_alignParentLeft="true"
+        android:background="@drawable/title_button_selector"
         />
     <RelativeLayout
         android:id="@+id/rl_search_title_container"
@@ -41,6 +42,7 @@
             android:layout_centerVertical="true"
             android:visibility="visible"
             android:src="@mipmap/ic_search_white_24dp"
+            android:background="@drawable/title_button_selector"
             android:padding="@dimen/padding_16dp"/>
         <EditText
             android:id="@+id/et_search"
@@ -60,9 +62,21 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:background="@android:color/transparent"
+        android:background="@drawable/title_button_selector"
         android:src="@mipmap/ic_add_white_24dp"
         android:padding="@dimen/padding_16dp"/>
+    <TextView
+        android:id="@+id/tv_action"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:gravity="center"
+        android:text="创建"
+        android:textSize="@dimen/text_14sp"
+        android:textColor="@color/abc_primary_text_material_dark"
+        android:background="@drawable/title_button_selector"
+        android:layout_width="@dimen/height_56dp"
+        android:layout_height="@dimen/height_56dp"
+        android:visibility="gone"/>
     <ImageView
         android:id="@+id/iv_nav_1"
         android:layout_width="wrap_content"
@@ -70,5 +84,6 @@
         android:layout_toLeftOf="@id/iv_nav_2"
         android:layout_centerVertical="true"
         android:src="@mipmap/ic_search_white_24dp"
+        android:background="@drawable/title_button_selector"
         android:padding="@dimen/padding_16dp"/>
 </RelativeLayout>

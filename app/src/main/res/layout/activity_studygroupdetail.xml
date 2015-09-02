@@ -41,7 +41,6 @@
     </RelativeLayout>
 
     <LinearLayout
-        android:id="@+id/ll_group_subject"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -58,20 +57,16 @@
             android:textSize="@dimen/text_20sp"
             />
         <TextView
-            android:id="@+id/et_description"
+            android:id="@+id/tv_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="@dimen/text_20sp"
-            android:hint="团简介团简介团简介团简介团简介团简介团简介团简介团简介团简介团简介团简介团简介团简介团简介团简介团简介团简介团简介团简介团简介团简介团简介团简介团简介团简介团简介团简介团简介团简介团简介团简介团简介团简介团简介团简介团简介团简介团简介团简介团简介团简介团简介团简介团简介"
-            android:inputType="textMultiLine"
-            android:background="@null"
-            android:maxLines="500"
-            android:gravity="top"
             android:textColorHint="@color/hint_foreground_material_light"
             />
     </LinearLayout>
 
     <RelativeLayout
+        android:id="@+id/rl_group_announce"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
@@ -90,6 +85,8 @@
             android:layout_height="wrap_content" />
 
         <TextView
+            android:id="@+id/tv_announce"
+
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_toRightOf="@id/gonggao"
@@ -221,7 +218,7 @@
 
     </LinearLayout>
     <Button
-        android:id="@+id/createGroup"
+        android:id="@+id/enterGroup"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         style="@style/big_button"

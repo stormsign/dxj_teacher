@@ -127,7 +127,7 @@ public class CreateStudyGroupActivity extends BaseActivity implements View.OnCli
         String url = FinalData.URL_VALUE+"createGroup";
         Map<String, Object> map = new HashMap<String, Object>();
 
-        map.put("imId", mApplication.getUserName());
+        map.put("teacherId", mApplication.getUserId());
         map.put("groupName", groupName);
         map.put("headUrl", headUrl);
         map.put("description", description);

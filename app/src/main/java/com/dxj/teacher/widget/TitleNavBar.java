@@ -28,6 +28,7 @@ public class TitleNavBar extends RelativeLayout {
 
     private boolean isSearchBar = false;
     private RelativeLayout container;
+    private TextView action;
 
     public TitleNavBar(Context context) {
         this(context, null);
@@ -65,6 +66,7 @@ public class TitleNavBar extends RelativeLayout {
         title = (TextView) view.findViewById(R.id.tv_title);
         search_container = (RelativeLayout) view.findViewById(R.id.rl_search_title_container);
         search = (EditText) view.findViewById(R.id.et_search);
+        action = (TextView) view.findViewById(R.id.tv_action);
         nav_1 = (ImageView) view.findViewById(R.id.iv_nav_1);
         nav_1.setClickable(true);
         nav_2 = (ImageView) view.findViewById(R.id.iv_nav_2);
@@ -177,5 +179,50 @@ public class TitleNavBar extends RelativeLayout {
 //    public void setContainerBackgroundColor(int resource){
 //        container.set
 //    }
+
+    public void setActionText(String text){
+        action.setText(text);
+    }
+
+    public void showActionOnly(){
+        nav_1.setVisibility(View.GONE);
+        nav_2.setVisibility(View.GONE);
+        nav_3.setVisibility(View.GONE);
+        action.setVisibility(View.VISIBLE);
+    }
+
+    public void showNavOne(boolean flag){
+        if (flag){
+            nav_1.setVisibility(VISIBLE);
+        }else{
+            nav_1.setVisibility(GONE);
+        }
+    }
+
+    public void showNavTwo(boolean flag){
+        if (flag){
+            nav_2.setVisibility(VISIBLE);
+        }else{
+            nav_2.setVisibility(GONE);
+        }
+    }
+
+    public void showNavThree(boolean flag){
+        if (flag){
+            nav_1.setVisibility(VISIBLE);
+        }else{
+            nav_1.setVisibility(GONE);
+        }
+    }
+
+    public void showAction(boolean flag){
+        if (flag){
+            action.setVisibility(VISIBLE);
+        }else{
+            action.setVisibility(GONE);
+        }
+    }
+
+
 
 }
