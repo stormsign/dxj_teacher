@@ -22,9 +22,9 @@ public class TitleNavBar extends RelativeLayout {
     private TextView title;
     private RelativeLayout search_container;
     private EditText search;
-    private ImageView nav_1;
-    private ImageView nav_2;
-    private TextView nav_3;
+    public ImageView nav_1;
+    public ImageView nav_2;
+    public TextView nav_3;
 
     private boolean isSearchBar = false;
     private RelativeLayout container;

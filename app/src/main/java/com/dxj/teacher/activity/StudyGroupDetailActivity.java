@@ -70,9 +70,12 @@ public class StudyGroupDetailActivity extends BaseActivity {
 
             @Override
             public void onNavTwoClick() {
-                Intent intent = new Intent(activity, GroupSettingActivity.class);
-                intent.putExtra("studyGroup", studyGroup);
-                startActivityForResult(intent, SETTING);
+                if (studyGroup!=null) { //为空的情况是网络条件不好时studygroup没有加载完
+                    Intent intent = new Intent(activity, GroupSettingActivity.class);
+                    intent.putExtra("studyGroup", studyGroup);
+                    startActivityForResult(intent, SETTING);
+                }
+
             }
 
             @Override
@@ -97,7 +100,8 @@ public class StudyGroupDetailActivity extends BaseActivity {
         leader_head = (ImageView) findViewById(R.id.iv_leader_head);
         leader_name = (TextView) findViewById(R.id.tv_leader_name);
         leader_school = (TextView) findViewById(R.id.tv_leader_school);
-
+//        由于网络请求耗时，刚进入页面时可能还没加载完，这时不能点击设置
+        title.nav_2.setClickable(false);
     }
 
     @Override
@@ -173,6 +177,8 @@ public class StudyGroupDetailActivity extends BaseActivity {
         group_name.setText(studyGroup.getGroupName());
         title.setTitle(studyGroup.getGroupName());
         description.setText(studyGroup.getDescription());
+//        数据加载完毕，可以点击设置
+        title.nav_2.setClickable(true);
     }
 
     @Override

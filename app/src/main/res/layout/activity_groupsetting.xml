@@ -223,12 +223,13 @@
         </android.support.v7.widget.CardView>
 
         <Button
-            android:id="@+id/enterGroup"
+            android:id="@+id/quit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             style="@style/big_button"
             android:text="解散学团"
             android:textSize="@dimen/text_14sp"
+            android:onClick="quit"
             />
     </LinearLayout>
 </ScrollView>

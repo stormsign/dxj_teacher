@@ -7,6 +7,7 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -74,9 +75,9 @@ public class GroupSettingActivity extends BaseActivity{
             @Override
             public void onBackClick() {
                 setResult(RESULT_OK, new Intent().putExtra("groupname", groupname.getText().toString().trim())
-                                                .putExtra("desc", description.getText().toString().trim())
-                                                .putExtra("headUrl", headUrl)
-                                                .putExtra("isMsgBlocked", isMsgBlocked));
+                        .putExtra("desc", description.getText().toString().trim())
+                        .putExtra("headUrl", headUrl)
+                        .putExtra("isMsgBlocked", isMsgBlocked));
             }
         });
     }
@@ -145,24 +146,6 @@ public class GroupSettingActivity extends BaseActivity{
                 }
             }
         });
-//        tv_description.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-//            @Override
-//            public void onFocusChange(View v, boolean hasFocus) {
-//                if (hasFocus) {
-//                    description.setVisibility(View.VISIBLE);
-//                    tv_description.setVisibility(View.GONE);
-//                }
-//            }
-//        });
-//        tv_groupname.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-//            @Override
-//            public void onFocusChange(View v, boolean hasFocus) {
-//                if (hasFocus){
-//                    groupname.setVisibility(View.VISIBLE);
-//                    tv_groupname.setVisibility(View.GONE);
-//                }
-//            }
-//        });
 
         tv_groupname.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -187,6 +170,7 @@ public class GroupSettingActivity extends BaseActivity{
         tv_description.setText(group.getDescription());
         description.setText(group.getDescription());
 
+        findViewById(R.id.quit);
 
     }
 
@@ -195,5 +179,26 @@ public class GroupSettingActivity extends BaseActivity{
         Intent intent = getIntent();
         group = (StudyGroup) intent.getSerializableExtra("studyGroup");
         headUrl = group.getHeadUrl();
+//        判断当前用户是学生还是老师
+        Button quit = (Button) findViewById(R.id.quit);
+        if(isLeader(mApplication.getUserId(), group)){
+            quit.setText("解散学团");
+        }else{
+            quit.setText("退出学团");
+        }
+    }
+
+    /**
+     * 判断当前用户是否是团长
+     * @return
+     */
+    private boolean isLeader(String id, StudyGroup group) {
+        return (group.getTeacherId()).equals(id);
+    }
+
+    public void quit(View view){
+        if (isLeader(mApplication.getUserId(), group)){
+
+        }
     }
 }

@@ -178,15 +178,17 @@
 
     </LinearLayout>
     </android.support.v7.widget.CardView>
-    <Button
+    <TextView
         android:id="@+id/createGroup"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         style="@style/big_button"
         android:text="创建学团"
         android:textSize="@dimen/text_14sp"
-        android:layout_marginTop="@dimen/margin_8dp"
+        android:layout_marginTop="@dimen/margin_24dp"
         android:onClick="createGroup"
+        android:clickable="true"
+        android:padding="@dimen/padding_16dp"
         />
 
 
