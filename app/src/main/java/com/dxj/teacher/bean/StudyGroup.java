@@ -1,11 +1,12 @@
 package com.dxj.teacher.bean;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by khb on 2015/9/2.
  */
-public class StudyGroup {
+public class StudyGroup implements Serializable{
     /**
      * 学团主键
      */
