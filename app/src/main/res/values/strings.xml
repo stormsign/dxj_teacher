@@ -358,4 +358,5 @@
     <string name="preview">Preview</string>
     <string name="msg_no_camera">No system camera found</string>
     <string name="msg_amount_limit">Select images amount is limit</string>
+    <string name="edit_search">输入老师或学团名称</string>
 </resources>

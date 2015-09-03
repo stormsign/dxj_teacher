@@ -12,6 +12,7 @@ import com.android.volley.VolleyError;
 import com.bumptech.glide.Glide;
 import com.dxj.teacher.R;
 import com.dxj.teacher.base.BaseActivity;
+import com.dxj.teacher.bean.BaseBean;
 import com.dxj.teacher.bean.StudyGroup;
 import com.dxj.teacher.bean.StudyGroupBean;
 import com.dxj.teacher.http.CustomStringRequest;
@@ -23,6 +24,7 @@ import com.dxj.teacher.widget.TitleNavBar;
 import com.easemob.chat.EMGroup;
 import com.easemob.chat.EMGroupManager;
 import com.easemob.exceptions.EaseMobException;
+import com.google.gson.Gson;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -56,8 +58,10 @@ public class StudyGroupDetailActivity extends BaseActivity {
     @Override
     public void initTitle() {
         title = (TitleNavBar) findViewById(R.id.title);
-        title.showNavOne(false);
-        title.setNavTwoImageResource(R.mipmap.ic_settings_white_24dp);
+        title.showSearchBar(false);
+//        title.setNavTwoImageResource(R.mipmap.ic_settings_white_24dp);
+        title.setTitleNoRightButton();
+        title.showNavTwo(true);
         title.setOnTitleNavClickListener(new TitleNavBar.OnTitleNavClickListener() {
             @Override
             public void onNavOneClick() {
@@ -66,7 +70,6 @@ public class StudyGroupDetailActivity extends BaseActivity {
 
             @Override
             public void onNavTwoClick() {
-                showToast("设置");
                 Intent intent = new Intent(activity, GroupSettingActivity.class);
                 intent.putExtra("studyGroup", studyGroup);
                 startActivityForResult(intent, SETTING);
@@ -228,7 +231,9 @@ public class StudyGroupDetailActivity extends BaseActivity {
         return new Response.Listener<String>() {
             @Override
             public void onResponse(String s) {
-                showToast(s);
+                Gson gson = new Gson();
+                BaseBean msg = gson.fromJson(s, BaseBean.class);
+                showToast(msg.getMsg());
                 getGroupDetail();
             }
         };

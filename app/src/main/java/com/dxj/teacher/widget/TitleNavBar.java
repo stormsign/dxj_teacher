@@ -24,7 +24,7 @@ public class TitleNavBar extends RelativeLayout {
     private EditText search;
     private ImageView nav_1;
     private ImageView nav_2;
-    private ImageView nav_3;
+    private TextView nav_3;
 
     private boolean isSearchBar = false;
     private RelativeLayout container;
@@ -71,7 +71,7 @@ public class TitleNavBar extends RelativeLayout {
         nav_1.setClickable(true);
         nav_2 = (ImageView) view.findViewById(R.id.iv_nav_2);
         nav_2.setClickable(true);
-        nav_3 = (ImageView) view.findViewById(R.id.iv_nav_3);
+        nav_3 = (TextView) view.findViewById(R.id.iv_nav_3);
         nav_3.setClickable(true);
 
         back.setOnClickListener(new OnClickListener() {
@@ -154,8 +154,11 @@ public class TitleNavBar extends RelativeLayout {
     public void setNavTwoImageResource(int resource){
         nav_2.setImageResource(resource);
     }
-    public void setNavThreeImageResource(int resource){
-        nav_3.setImageResource(resource);
+//    public void setNavThreeImageResource(int resource){
+//        nav_3.setImageResource(resource);
+//    }
+    public  void setNavThreeText(String text){
+        nav_3.setText(text);
     }
     /**
      *設置搜索條提示信息
