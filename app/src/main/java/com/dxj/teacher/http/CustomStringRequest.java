@@ -41,7 +41,9 @@ public class CustomStringRequest extends Request<String> {
 	    if (map != null) {
 		Set<Entry<String, Object>> set = map.entrySet();
 		for (Entry<String, Object> entry : set) {
-		    jsonObj.put(entry.getKey(), entry.getValue());
+			Log.i("TAG","CustomStringRequest");
+
+			jsonObj.put(entry.getKey(), entry.getValue());
 		}
 	    }
 	    // 转为json格式String

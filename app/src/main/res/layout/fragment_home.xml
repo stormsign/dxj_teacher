@@ -6,7 +6,18 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:text="个人信息"
+        />
+    <Button
+        android:id="@+id/btn_good_subject"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="擅长科目设置"
+       />
+    <Button
+        android:id="@+id/btn_laoshi"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:text="laoshi"
         android:onClick="show"/>
-
 </LinearLayout>

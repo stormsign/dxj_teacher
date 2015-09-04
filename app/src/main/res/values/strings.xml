@@ -8,6 +8,7 @@
     <string name="bt_message">消息</string>
     <string name="bt_user">我</string>
 
+    <string name="appbar_scrolling_view_behavior" translatable="false">android.support.design.widget.AppBarLayout$ScrollingViewBehavior</string>
 
 
     <!--来自环信的string 开始-->

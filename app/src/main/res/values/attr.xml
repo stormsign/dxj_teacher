@@ -4,4 +4,8 @@
     <declare-styleable name="ViewPagerIndicator">
         <attr name="item_count" />
     </declare-styleable>
+    <declare-styleable name="MultiSwipeRefreshLayout">
+        <attr name="foreground"
+            format="reference"/>
+    </declare-styleable>
 </resources>

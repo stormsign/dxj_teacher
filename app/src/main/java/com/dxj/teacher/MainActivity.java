@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.dxj.teacher.activity.EditCourseActivity;
 import com.dxj.teacher.activity.LoginAndRightActivity;
 import com.dxj.teacher.activity.StudyGroupListActivity;
 import com.dxj.teacher.activity.UpdateUserInfoActivity;
@@ -211,6 +212,7 @@ public class MainActivity extends BaseActivity {
         List<User> users = new ArrayList<User>(userlist.values());
         dao.saveContactList(users);
     }
+
 
 
 

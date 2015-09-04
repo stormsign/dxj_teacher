@@ -48,4 +48,9 @@ public class HttpUtils {
 	public static final String HEAD_URL="headUrl";
 	public static final String SCHOOL="school";
 	public static final String  IMAGES="images";
+	//添加课程
+	public static final String  GOODSUBJECT="goodSubject";
+	public static final String  GOOD_SUBJECT_LIST="goodSubjectList";
+	//删除课程
+	public static final String  DELGOODSUBJECT="delGoodSubject";
 }

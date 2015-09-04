@@ -115,7 +115,7 @@ public class SubjectListActivity extends BaseActivity implements View.OnClickLis
 //        subjectList = getPopWindow();
     }
 
-    private PopupWindow getPopWindow() {
+    public PopupWindow getPopWindow() {
         PopupWindow popSubject = new PopupWindow(this);
         View popView = getLayoutInflater().inflate(R.layout.popup_subject_list, null);
         showLogD("subjectTitle.getWidth()" + subjectTitle.getWidth());
