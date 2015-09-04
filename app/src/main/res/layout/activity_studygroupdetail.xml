@@ -233,6 +233,17 @@
                 android:background="@null"
                 android:textColor="@color/text_color_323232"
                 />
+            <TextView
+                android:id="@+id/tv_member_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/et_group_member"
+                android:textSize="@dimen/text_12sp"
+                android:hint="0人"
+                android:layout_alignParentLeft="true"
+                android:background="@null"
+                android:textColor="@color/text_color_323232"
+                />
             <LinearLayout
                 android:id="@+id/ll_member_container"
                 android:layout_width="wrap_content"
@@ -240,6 +251,18 @@
                 android:orientation="horizontal"
                 android:layout_toRightOf="@+id/et_group_member"
                 >
+                <ImageView
+                    android:src="@mipmap/default_avatar"
+                    android:background="@drawable/shape_round_corner"
+                    android:layout_marginRight="@dimen/margin_8dp"
+                    android:layout_width="@dimen/image_36dp"
+                    android:layout_height="@dimen/image_36dp" />
+                <ImageView
+                    android:src="@mipmap/default_avatar"
+                    android:background="@drawable/shape_round_corner"
+                    android:layout_marginRight="@dimen/margin_8dp"
+                    android:layout_width="@dimen/image_36dp"
+                    android:layout_height="@dimen/image_36dp" />
                 <ImageView
                     android:src="@mipmap/default_avatar"
                     android:background="@drawable/shape_round_corner"

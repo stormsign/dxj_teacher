@@ -10,6 +10,11 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.dxj.teacher.bean.StudyGroup;
+import com.dxj.teacher.bean.UserBean;
+import com.google.gson.Gson;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
@@ -25,6 +30,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -35,6 +41,50 @@ import java.util.zip.GZIPInputStream;
  * Created by khb on 2015/8/20.
  */
 public class MyUtils {
+
+    public static StudyGroup getGroupDetailFromJson(String json){
+
+        try {
+            JSONObject jObject = new JSONObject(json);
+            if (jObject.has("group")){
+
+                JSONObject jGroup = (JSONObject) jObject.get("group");
+                LogUtils.d("GROUP JSON:"+jGroup.toString());
+                Gson gson = new Gson();
+                StudyGroup studyGroup = gson.fromJson(jGroup.toString(), StudyGroup.class);
+                return studyGroup;
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+
+        }
+        return  null;
+    }
+
+    public static List<UserBean.UserInfo> getGroupMembersFromJson(StudyGroup group, String json){
+        List<String> members = new ArrayList<String>();
+        List<UserBean.UserInfo> groupMembers = new ArrayList<UserBean.UserInfo>();
+        try {
+            JSONObject jObject = new JSONObject(json);
+            members.add(group.getOwner());
+            members.addAll(group.getMembers());
+            for (int i = 0; i<members.size(); i++){
+                if (jObject.has(members.get(i))){
+                    JSONObject jUserInfo = (JSONObject) jObject.get(members.get(i));
+                    Gson gUserInfo = new Gson();
+                    UserBean.UserInfo userInfo = gUserInfo.fromJson(jUserInfo.toString(), UserBean.UserInfo.class);
+                    groupMembers.add(userInfo);
+                }
+            }
+            return groupMembers;
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+
+
 
     /**
      * 根据手机号拼接老师环信账号

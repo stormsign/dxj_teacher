@@ -28,7 +28,7 @@ public class TitleNavBar extends RelativeLayout {
 
     private boolean isSearchBar = false;
     private RelativeLayout container;
-    private TextView action;
+    public TextView action;
 
     public TitleNavBar(Context context) {
         this(context, null);
@@ -151,11 +151,13 @@ public class TitleNavBar extends RelativeLayout {
             search_container.setVisibility(View.VISIBLE);
             nav_1.setVisibility(View.GONE);
             nav_2.setVisibility(View.GONE);
+            action.setVisibility(GONE);
             isSearchBar = true;
         }else{
             search_container.setVisibility(View.GONE);
             nav_1.setVisibility(View.VISIBLE);
             nav_2.setVisibility(View.VISIBLE);
+            action.setVisibility(VISIBLE);
             isSearchBar = false;
         }
     }
@@ -190,6 +192,7 @@ public class TitleNavBar extends RelativeLayout {
     public void setTitleNoRightButton(){
         nav_1.setVisibility(GONE);
         nav_2.setVisibility(GONE);
+        action.setVisibility(GONE);
     }
 //    public void setContainerBackgroundColor(int resource){
 //        container.set

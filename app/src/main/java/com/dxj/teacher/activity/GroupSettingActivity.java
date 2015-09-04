@@ -13,7 +13,6 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.android.volley.Request;
@@ -29,7 +28,6 @@ import com.dxj.teacher.http.FinalData;
 import com.dxj.teacher.http.VolleySingleton;
 import com.dxj.teacher.utils.SPUtils;
 import com.dxj.teacher.widget.TitleNavBar;
-import com.easemob.chat.EMGroup;
 import com.easemob.chat.EMGroupManager;
 import com.easemob.exceptions.EaseMobException;
 import com.google.gson.Gson;
@@ -44,15 +42,12 @@ public class GroupSettingActivity extends BaseActivity{
 
     private static final int EXIT = 3;
     private static final int DISMISS = 4;
-    private RelativeLayout rl_head;
     private EditText groupname;
     private EditText description;
-    private ImageView toggle;
     private final static int MAX_WORD_COUNT = 200;
     private TextView word_count;
     private SwitchCompat message_switch;
     private StudyGroup group;
-    private EMGroup emGroup;
     private TextView tv_groupname;
     private TextView tv_description;
     private ImageView group_head;
@@ -111,16 +106,20 @@ public class GroupSettingActivity extends BaseActivity{
         title.setTitleNoRightButton();
         title.setOnTitleNavClickListener(new TitleNavBar.OnTitleNavClickListener() {
             @Override
-            public void onNavOneClick() { }
+            public void onNavOneClick() {
+            }
 
             @Override
-            public void onNavTwoClick() { }
+            public void onNavTwoClick() {
+            }
 
             @Override
-            public void onNavThreeClick() {}
+            public void onNavThreeClick() {
+            }
 
             @Override
-            public void onActionClick() {}
+            public void onActionClick() {
+            }
 
             @Override
             public void onBackClick() {
@@ -143,7 +142,6 @@ public class GroupSettingActivity extends BaseActivity{
 
     @Override
     public void initView() {
-        rl_head = (RelativeLayout) findViewById(R.id.rl_group_head);
         group_head = (ImageView)findViewById(R.id.iv_group_head);
         groupname = (EditText) findViewById(R.id.et_groupname);
         description = (EditText) findViewById(R.id.et_description);
@@ -224,6 +222,24 @@ public class GroupSettingActivity extends BaseActivity{
         findViewById(R.id.quit);
 
     }
+
+    @Override
+    public void initData() {
+        Intent intent = getIntent();
+        group = (StudyGroup) intent.getSerializableExtra("studyGroup");
+        headUrl = group.getHeadUrl();
+//        判断当前用户是学生还是老师
+        Button quit = (Button) findViewById(R.id.quit);
+        if(isLeader(mApplication.getUserId(), group)){
+            quit.setText("解散学团");
+        }else{
+            findViewById(R.id.cv_group_head).setVisibility(View.GONE);
+            findViewById(R.id.cv_group_name).setVisibility(View.GONE);
+            findViewById(R.id.cv_group_desc).setVisibility(View.GONE);
+            quit.setText("退出学团");
+        }
+    }
+
 //    屏蔽学团消息
     private void blockGroupMsg(final boolean isMsgBlocked) {
             new Thread(new Runnable() {
@@ -259,20 +275,6 @@ public class GroupSettingActivity extends BaseActivity{
             }).start();
     }
 
-
-    @Override
-    public void initData() {
-        Intent intent = getIntent();
-        group = (StudyGroup) intent.getSerializableExtra("studyGroup");
-        headUrl = group.getHeadUrl();
-//        判断当前用户是学生还是老师
-        Button quit = (Button) findViewById(R.id.quit);
-        if(isLeader(mApplication.getUserId(), group)){
-            quit.setText("解散学团");
-        }else{
-            quit.setText("退出学团");
-        }
-    }
 
     /**
      * 判断当前用户是否是团长

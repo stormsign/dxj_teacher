@@ -6,6 +6,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.android.volley.Request;
@@ -16,10 +17,9 @@ import com.dxj.teacher.R;
 import com.dxj.teacher.base.BaseActivity;
 import com.dxj.teacher.bean.BaseBean;
 import com.dxj.teacher.bean.StudyGroup;
-import com.dxj.teacher.bean.StudyGroupBean;
+import com.dxj.teacher.bean.UserBean;
 import com.dxj.teacher.http.CustomStringRequest;
 import com.dxj.teacher.http.FinalData;
-import com.dxj.teacher.http.GsonRequest;
 import com.dxj.teacher.http.VolleySingleton;
 import com.dxj.teacher.utils.MyUtils;
 import com.dxj.teacher.utils.SPUtils;
@@ -30,6 +30,7 @@ import com.easemob.exceptions.EaseMobException;
 import com.google.gson.Gson;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /** 学团详情
@@ -50,6 +51,8 @@ public class StudyGroupDetailActivity extends BaseActivity implements View.OnCli
     private EMGroup emGroup;
     private Button enterGroup;
     private String teacherHX;
+    private LinearLayout member_container;
+    private TextView member_count;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,6 +106,8 @@ public class StudyGroupDetailActivity extends BaseActivity implements View.OnCli
         leader_name = (TextView) findViewById(R.id.tv_leader_name);
         leader_school = (TextView) findViewById(R.id.tv_leader_school);
         enterGroup = (Button) findViewById(R.id.enterGroup);
+        member_container = (LinearLayout) findViewById(R.id.ll_member_container);
+        member_count = (TextView) findViewById(R.id.tv_member_count);
 //        由于网络请求耗时，刚进入页面时可能还没加载完，这时不能点击设置
         title.nav_2.setClickable(false);
         leader_head.setOnClickListener(this);
@@ -125,20 +130,23 @@ public class StudyGroupDetailActivity extends BaseActivity implements View.OnCli
         String groupid = "abdefcbf-3e35-47d5-a4b0-563dd700a03a";
         map.put("id", groupid);
 
-        GsonRequest<StudyGroupBean> gRequest = new GsonRequest<>(Request.Method.POST, url, StudyGroupBean.class, map, getListener(), getErrorListener());
-        VolleySingleton.getInstance(this).addToRequestQueue(gRequest);
+        CustomStringRequest cRequest = new CustomStringRequest(Request.Method.POST, url, map, getListener(), getErrorListener());
+        VolleySingleton.getInstance(this).addToRequestQueue(cRequest);
     }
 
-    private Response.Listener<StudyGroupBean> getListener() {
-        return new Response.Listener<StudyGroupBean>() {
+    private Response.Listener<String> getListener() {
+        return new Response.Listener<String>() {
             @Override
-            public void onResponse(StudyGroupBean response) {
+            public void onResponse(String response) {
                 showLogD("response " + response);
-                if (response!= null && response.getCode() == 0){
-                    studyGroup = response.getGroup();
-//                    getEMGroup(studyGroup.getGroupId());
-                    processData(studyGroup);
-                }
+                studyGroup = MyUtils.getGroupDetailFromJson(response);
+
+//                if (response!= null && response.getCode() == 0){
+//                    studyGroup = response.getGroup();
+////                    getEMGroup(studyGroup.getGroupId());
+                    processData(studyGroup, response);
+
+//                }
             }
         };
     }
@@ -177,17 +185,37 @@ public class StudyGroupDetailActivity extends BaseActivity implements View.OnCli
      * 处理请求结果，显示到界面上
      */
 
-    private void processData(StudyGroup studyGroup) {
+    private void processData(StudyGroup studyGroup, String json) {
         if (!TextUtils.isEmpty(studyGroup.getHeadUrl())){
             Glide.with(this).load(studyGroup.getHeadUrl()).placeholder(R.mipmap.default_error).into(group_head);
         }
         group_name.setText(studyGroup.getGroupName());
         title.setTitle(studyGroup.getGroupName());
         description.setText(studyGroup.getDescription());
+
 //        如果已加入团，显示设置，按钮为进入学团，反之为加入学团
         if(MyUtils.isMember(teacherHX, studyGroup)){
             title.showNavTwo(true);
             enterGroup.setText("进入学团");
+        }
+//        获取团成员，包括团长，团长在第一个
+        List<UserBean.UserInfo> members = MyUtils.getGroupMembersFromJson(studyGroup, json);
+        if (!TextUtils.isEmpty(members.get(0).getHeadUrl())){
+            Glide.with(this).load(members.get(0).getHeadUrl()).placeholder(R.mipmap.default_error).into(group_head);
+        }
+        leader_name.setText(members.get(0).getNickName());
+        leader_school.setText(members.get(0).getSchool());
+        member_count.setText(members.size()-1+"人");
+        member_container.removeAllViews();
+        int length = Math.min(6, members.size());    //最多只取六个成员头像
+        for (int i = 1; i<length; i++) {
+            UserBean.UserInfo userInfo = members.get(i);
+            ImageView memberHead = new ImageView(this);
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(MyUtils.dip2px(this,36), MyUtils.dip2px(this,36));
+            Glide.with(this).load(userInfo.getHeadUrl()).placeholder(R.mipmap.default_avatar).into(memberHead);
+            memberHead.setLayoutParams(params);
+            member_container.addView(memberHead);
+            member_container.invalidate();
         }
 
 //        数据加载完毕，可以点击设置

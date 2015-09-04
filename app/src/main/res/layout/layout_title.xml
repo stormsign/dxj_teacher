@@ -92,11 +92,11 @@
         android:gravity="center"
         android:text="创建"
         android:textSize="@dimen/text_14sp"
-        android:textColor="@color/abc_primary_text_material_dark"
+        android:textColor="@color/text_color_323232"
         android:background="@drawable/title_button_selector"
         android:layout_width="@dimen/height_56dp"
         android:layout_height="@dimen/height_56dp"
-        android:visibility="gone"/>
+        />
     <ImageView
         android:id="@+id/iv_nav_1"
         android:layout_width="wrap_content"

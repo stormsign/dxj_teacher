@@ -203,6 +203,7 @@
         <activity android:name=".activity.StudyGroupDetailActivity"/>
         <activity android:name=".activity.GroupSettingActivity"/>
         <activity android:name=".activity.GroupNoticeActivity"/>
+        <activity android:name=".activity.CreateNoticeActivity"/>
 
         <activity android:name=".activity.MultiImageSelectorActivity"/>
         <activity android:name=".activity.NiftyActivity"/>
