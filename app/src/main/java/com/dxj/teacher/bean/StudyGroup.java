@@ -16,7 +16,7 @@ public class StudyGroup implements Serializable{
      */
     private String teacherId;
     /**
-     *
+     * 环信的群id
      */
     private String groupId;
     /**

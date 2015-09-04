@@ -71,16 +71,16 @@ public class SubjectListActivity extends BaseActivity implements View.OnClickLis
         title.setTitleNoRightButton();
         title.setOnTitleNavClickListener(new TitleNavBar.OnTitleNavClickListener() {
             @Override
-            public void onNavOneClick() {
-            }
+            public void onNavOneClick() {}
 
             @Override
-            public void onNavTwoClick() {
-            }
+            public void onNavTwoClick() { }
 
             @Override
-            public void onNavThreeClick() {
-            }
+            public void onNavThreeClick() {  }
+
+            @Override
+            public void onActionClick() { }
 
             @Override
             public void onBackClick() {

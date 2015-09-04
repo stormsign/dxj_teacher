@@ -67,6 +67,11 @@ public class CoursesActivity extends BaseActivity {
             }
 
             @Override
+            public void onActionClick() {
+
+            }
+
+            @Override
             public void onBackClick() {
 
             }

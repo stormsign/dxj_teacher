@@ -9,6 +9,8 @@ import android.net.Uri;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.dxj.teacher.bean.StudyGroup;
+
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
@@ -23,6 +25,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
@@ -32,6 +35,41 @@ import java.util.zip.GZIPInputStream;
  * Created by khb on 2015/8/20.
  */
 public class MyUtils {
+
+    /**
+     * 根据手机号拼接老师环信账号
+     * @param mobile
+     * @return
+     */
+    public static String getTeacherHX(String mobile) {
+        return "teacher"+mobile;
+    }
+
+    /**
+     * 根据手机号拼接学生环信账号
+     * @param mobile
+     * @return
+     */
+    public static String getStudentHX(String mobile){
+        return "student"+mobile;
+    }
+
+
+    /**
+     * 判断是否是该团成员，包括团长
+     * @param teacherHX
+     * @param studyGroup
+     * @return
+     */
+    public static boolean isMember(String teacherHX, StudyGroup studyGroup) {
+        List<String> members =  studyGroup.getMembers();
+        if (members!=null && !members.isEmpty()){
+            return (!studyGroup.getOwner().equals(teacherHX) && !members.contains(teacherHX))?false:true;
+        }else{
+            return studyGroup.getOwner().equals(teacherHX);
+        }
+    }
+
     /**
      * 根据手机的分辨率从 dp 的单位 转成为 px(像素)
      */

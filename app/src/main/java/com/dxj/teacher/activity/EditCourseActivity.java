@@ -2,40 +2,26 @@ package com.dxj.teacher.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.TextView;
 
-import com.alibaba.fastjson.JSONObject;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.dxj.teacher.R;
 import com.dxj.teacher.adapter.CourseAdapter;
-import com.dxj.teacher.application.MyApplication;
-import com.dxj.teacher.base.BaseActivity;
 import com.dxj.teacher.base.SwipeRefreshBaseActivity;
-import com.dxj.teacher.bean.BaseBean;
 import com.dxj.teacher.bean.CourseSubjectBean;
 import com.dxj.teacher.bean.CourseSubjectList;
-import com.dxj.teacher.db.AccountDBTask;
-import com.dxj.teacher.db.AccountTable;
-import com.dxj.teacher.http.CustomStringRequest;
 import com.dxj.teacher.http.FinalData;
 import com.dxj.teacher.http.GsonRequest;
 import com.dxj.teacher.http.VolleySingleton;
 import com.dxj.teacher.utils.HttpUtils;
-import com.dxj.teacher.utils.StringUtils;
 import com.dxj.teacher.utils.ToastUtils;
 import com.dxj.teacher.widget.TitleNavBar;
-import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -103,6 +89,11 @@ public class EditCourseActivity extends SwipeRefreshBaseActivity implements View
             @Override
             public void onNavThreeClick() {
                 Log.i("TAG", "onNavThreeClick");
+
+            }
+
+            @Override
+            public void onActionClick() {
 
             }
 

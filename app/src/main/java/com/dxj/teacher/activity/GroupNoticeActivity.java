@@ -1,33 +1,29 @@
 package com.dxj.teacher.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 
 import com.dxj.teacher.R;
 import com.dxj.teacher.base.BaseActivity;
-import com.dxj.teacher.utils.ToastUtils;
 import com.dxj.teacher.widget.TitleNavBar;
 
 /**
- * Created by khb on 2015/8/31.
+ * Created by khb on 2015/9/4.
  */
-public class StudyGroupListActivity extends BaseActivity {
+public class GroupNoticeActivity extends BaseActivity{
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_studygruoplist);
-        initTitle();
-        initView();
-        initData();
+        setContentView(R.layout.activity_group_notice);
+
     }
 
     @Override
     public void initTitle() {
         TitleNavBar title = (TitleNavBar) findViewById(R.id.title);
-        title.setTitle("交友学团");
-        title.showSearchBar(true);
-        title.setSearchHint("输入老师或学团名称");
+        title.setTitle("团公告");
+        title.showActionOnly();
+        title.setActionText("发布");
         title.setOnTitleNavClickListener(new TitleNavBar.OnTitleNavClickListener() {
             @Override
             public void onNavOneClick() {}
@@ -36,17 +32,17 @@ public class StudyGroupListActivity extends BaseActivity {
             public void onNavTwoClick() {}
 
             @Override
-            public void onNavThreeClick() {
-                ToastUtils.showToast(context, "创建");
-                startActivity(new Intent(context, CreateStudyGroupActivity.class));
-            }
+            public void onNavThreeClick() {}
 
             @Override
-            public void onActionClick() {}
+            public void onActionClick() {
+                showToast("发布公告");
+            }
 
             @Override
             public void onBackClick() {}
         });
+
     }
 
     @Override
@@ -57,9 +53,5 @@ public class StudyGroupListActivity extends BaseActivity {
     @Override
     public void initData() {
 
-    }
-
-    public void detail(View v){
-        startActivity(new Intent(this, StudyGroupDetailActivity.class));
     }
 }

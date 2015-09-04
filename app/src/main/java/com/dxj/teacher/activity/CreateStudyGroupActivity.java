@@ -146,9 +146,7 @@ public class CreateStudyGroupActivity extends BaseActivity implements View.OnCli
             @Override
             public void onResponse(String s) {
                 showLogD("response "+s);
-
                 Gson gson = new Gson();
-
                 BaseBean msg= gson.fromJson(s, BaseBean.class);
                 if (msg.getCode() == 0){
                     showToast(msg.getMsg());

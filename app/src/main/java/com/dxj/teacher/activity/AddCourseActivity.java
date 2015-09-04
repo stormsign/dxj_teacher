@@ -1,6 +1,5 @@
 package com.dxj.teacher.activity;
 
-import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
@@ -8,9 +7,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.Checkable;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
@@ -22,7 +18,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.dxj.teacher.R;
 import com.dxj.teacher.adapter.SubjectAdapter;
-import com.dxj.teacher.application.MyApplication;
 import com.dxj.teacher.base.BaseActivity;
 import com.dxj.teacher.bean.BaseBean;
 import com.dxj.teacher.bean.ClassWayBean;
@@ -33,7 +28,6 @@ import com.dxj.teacher.http.FinalData;
 import com.dxj.teacher.http.VolleySingleton;
 import com.dxj.teacher.utils.HttpUtils;
 import com.dxj.teacher.utils.StringUtils;
-import com.dxj.teacher.utils.ToastUtils;
 import com.dxj.teacher.widget.CheckableButton;
 import com.dxj.teacher.widget.TitleNavBar;
 
@@ -116,6 +110,11 @@ public class AddCourseActivity extends BaseActivity implements View.OnClickListe
             @Override
             public void onNavThreeClick() {
                 Log.i("TAG", "onNavThreeClick");
+
+            }
+
+            @Override
+            public void onActionClick() {
 
             }
 
