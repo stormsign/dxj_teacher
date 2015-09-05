@@ -38,5 +38,6 @@ public class AccountTable {
     public static final String SOLVELABEL = "solvelabel";//擅长
     //        private String grade;//年级
     public static final String JSZ="jsz";//教师证
+    public static final String CARD="card";//教师证
 
 }

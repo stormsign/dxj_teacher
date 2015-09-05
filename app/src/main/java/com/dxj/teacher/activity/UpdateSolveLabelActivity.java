@@ -20,6 +20,7 @@ import com.dxj.teacher.utils.HttpUtils;
 import com.dxj.teacher.utils.ToastUtils;
 import com.dxj.teacher.widget.CheckableButton;
 import com.dxj.teacher.widget.FlowLayout;
+import com.dxj.teacher.widget.TitleNavBar;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -29,42 +30,70 @@ import java.util.Map;
 
 /**
  * Created by kings on 8/27/2015.
- * 个人标签
+ * 善于解决
  */
 public class UpdateSolveLabelActivity extends BaseActivity implements View.OnClickListener, CheckableButton.OnCheckedChangeListener {
-    private String strMajor;
     private FlowLayout alreadtFlowLayout;
     private FlowLayout selectFlowLayout;
-    private ImageButton btnLabel;
-    private String[] strings = {"提升学习方法", "陪伴学习", "心灵沟通的朋友", "学习自信的提升", "及时解决学习难点","各种数学难题"};
+    private String[] strings = {"提升学习方法", "陪伴学习", "心灵沟通的朋友", "学习自信的提升", "及时解决学习难点", "各种数学难题"};
     private Map<Integer, CheckableButton> store = new HashMap<>();
     private ArrayList<String> list;
+    private String id;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update_label);
+        initTitle();
         initData();
         initView();
     }
-    
+
 
     @Override
     public void initTitle() {
+        TitleNavBar title = (TitleNavBar) findViewById(R.id.title);
+        title.disableBack(true);
+        title.setTitle("善于解决");
+        title.setTitleNoRightButton();
+        title.setOnTitleNavClickListener(new TitleNavBar.OnTitleNavClickListener() {
+            @Override
+            public void onNavOneClick() {
 
+            }
+
+            @Override
+            public void onNavTwoClick() {
+
+            }
+
+            @Override
+            public void onNavThreeClick() {
+
+            }
+
+            @Override
+            public void onActionClick() {
+
+            }
+
+            @Override
+            public void onBackClick() {
+                sendRequestData();
+            }
+        });
     }
 
     @Override
     public void initView() {
         alreadtFlowLayout = (FlowLayout) this.findViewById(R.id.already_flowlayout);
         selectFlowLayout = (FlowLayout) this.findViewById(R.id.select_flowlayout);
-        btnLabel = (ImageButton) this.findViewById(R.id.btn_back);
-        btnLabel.setOnClickListener(this);
         addChildTo(selectFlowLayout);
     }
 
     @Override
     public void initData() {
-
+        id = getIntent().getStringExtra("id");
     }
 
     private void addChildTo(FlowLayout flowLayout) {
@@ -92,21 +121,20 @@ public class UpdateSolveLabelActivity extends BaseActivity implements View.OnCli
     public void onClick(View v) {
         int id = v.getId();
         switch (id) {
-            case R.id.btn_back:
-                sendRequestData();
-                break;
+
         }
     }
 
     private void sendRequestData() {
 //        strMajor = etMajor.getText().toString().trim();
-        if (store.size()==0){
+        if (store.size() == 0) {
             finish();
-            return;}
-        Iterator iter  = store.entrySet().iterator();
-       list   = new ArrayList<>();
-        while (iter.hasNext()){
-            Map.Entry<Integer,CheckableButton> entry = (Map.Entry<Integer,CheckableButton>)iter.next();
+            return;
+        }
+        Iterator iter = store.entrySet().iterator();
+        list = new ArrayList<>();
+        while (iter.hasNext()) {
+            Map.Entry<Integer, CheckableButton> entry = (Map.Entry<Integer, CheckableButton>) iter.next();
             CheckableButton checkableButton = entry.getValue();
             Log.i("TAG", "text=" + checkableButton.getText());
             list.add(checkableButton.getText().toString());
@@ -114,7 +142,7 @@ public class UpdateSolveLabelActivity extends BaseActivity implements View.OnCli
 
         String urlPath = FinalData.URL_VALUE + HttpUtils.SOLVELABEL;
         Map<String, Object> map = new HashMap<>();
-        map.put("id", "e1c380f1-c85e-4a0f-aafc-152e189d9d01");
+        map.put("id", id);
         map.put("solveLabel", list);
         CustomStringRequest custom = new CustomStringRequest(Request.Method.POST, urlPath, map, getListener(), getErrorListener());
         VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(custom);

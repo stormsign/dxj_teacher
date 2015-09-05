@@ -50,9 +50,16 @@ public class UserBean extends BaseBean implements Serializable {
         private List<String> solveLabel = new ArrayList<String>();//擅长
 //        private String grade;//年级
         private String jsz;//教师证
-//        private String card;//学生证
+        private CardBean card;//学生证
 
-//        public void setCard(String card) {
+        public void setCard(CardBean card) {
+            this.card = card;
+        }
+
+        public CardBean getCard() {
+            return card;
+        }
+        //        public void setCard(String card) {
 //            this.card = card;
 //        }
 //

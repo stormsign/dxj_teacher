@@ -44,7 +44,7 @@
                     android:layout_height="@dimen/linear_60dp">
 
                     <TextView
-                        style="@style/user_info_text"
+                        style="@style/user_info_text_v"
                         android:layout_alignParentLeft="true"
                         android:layout_marginLeft="@dimen/sidebar_text_size"
                         android:text="用户头像"
@@ -82,7 +82,7 @@
 
                     <TextView
                         android:id="@+id/tv_nicename"
-                        style="@style/user_info_text"
+                        style="@style/user_info_text_v"
                         android:layout_marginRight="10dp"
                         android:layout_toLeftOf="@+id/img_nicename"
                         />
@@ -112,7 +112,7 @@
 
                     <TextView
                         android:id="@+id/tv_sex"
-                        style="@style/user_info_text"
+                        style="@style/user_info_text_v"
                         android:layout_marginRight="10dp"
                         android:layout_toLeftOf="@+id/img_sex" />
 
@@ -143,7 +143,7 @@
 
                     <TextView
                         android:id="@+id/tv_birthday"
-                        style="@style/user_info_text"
+                        style="@style/user_info_text_v"
                         android:layout_marginRight="10dp"
                         android:layout_toLeftOf="@+id/img_birthday" />
 
@@ -173,7 +173,7 @@
 
                     <TextView
                         android:id="@+id/tv_constellation"
-                        style="@style/user_info_text"
+                        style="@style/user_info_text_v"
                         android:layout_marginRight="10dp"
                         android:layout_toLeftOf="@+id/img_constellation" />
 
@@ -202,7 +202,7 @@
 
                     <TextView
                         android:id="@+id/tv_nationality"
-                        style="@style/user_info_text"
+                        style="@style/user_info_text_v"
                         android:layout_marginRight="10dp"
                         android:layout_toLeftOf="@+id/img_nationality"
 
@@ -238,7 +238,7 @@
 
                     <TextView
                         android:id="@+id/tv_dialect"
-                        style="@style/user_info_text"
+                        style="@style/user_info_text_v"
                         android:layout_marginRight="10dp"
 
                         android:layout_toLeftOf="@+id/img_dialect" />
@@ -269,7 +269,7 @@
 
                     <TextView
                         android:id="@+id/tv_university"
-                        style="@style/user_info_text"
+                        style="@style/user_info_text_v"
                         android:layout_marginRight="10dp"
 
                         android:layout_toLeftOf="@+id/img_university" />
@@ -300,7 +300,7 @@
 
                     <TextView
                         android:id="@+id/tv_rolename"
-                        style="@style/user_info_text"
+                        style="@style/user_info_text_v"
                         android:layout_marginRight="10dp"
 
                         android:layout_toLeftOf="@+id/img_rolename" />
@@ -331,7 +331,7 @@
 
                     <TextView
                         android:id="@+id/tv_schollage"
-                        style="@style/user_info_text"
+                        style="@style/user_info_text_v"
                         android:layout_marginRight="10dp"
 
                         android:layout_toLeftOf="@+id/img_schollage" />
@@ -365,7 +365,7 @@
 
                     <TextView
                         android:id="@+id/tv_school"
-                        style="@style/user_info_text"
+                        style="@style/user_info_text_v"
                         android:layout_toLeftOf="@+id/img_school" />
 
                     <ImageView
@@ -395,7 +395,7 @@
 
                     <TextView
                         android:id="@+id/tv_livingcity"
-                        style="@style/user_info_text"
+                        style="@style/user_info_text_v"
                         android:layout_toLeftOf="@+id/img_livingcity" />
 
                     <ImageView
@@ -425,9 +425,8 @@
 
                     <TextView
                         android:id="@+id/tv_recomment"
-                        style="@style/user_info_text"
+                        style="@style/user_info_text_v"
                         android:layout_marginRight="10dp"
-
                         android:layout_toLeftOf="@+id/img_recomment" />
 
                     <ImageView
@@ -456,7 +455,7 @@
 
                     <TextView
                         android:id="@+id/tv_experience"
-                        style="@style/user_info_text"
+                        style="@style/user_info_text_v"
                         android:layout_marginRight="10dp"
 
                         android:layout_toLeftOf="@+id/img_experience" />
@@ -487,7 +486,7 @@
 
                     <TextView
                         android:id="@+id/tv_solvelabel"
-                        style="@style/user_info_text"
+                        style="@style/user_info_text_v"
                         android:layout_toLeftOf="@+id/img_solvelabel" />
 
                     <ImageView
@@ -516,7 +515,7 @@
 
                     <TextView
                         android:id="@+id/tv_label"
-                        style="@style/user_info_text"
+                        style="@style/user_info_text_v"
                         android:layout_marginRight="10dp"
 
                         android:layout_toLeftOf="@+id/img_label" />
@@ -547,7 +546,7 @@
 
                     <TextView
                         android:id="@+id/tv_result"
-                        style="@style/user_info_text"
+                        style="@style/user_info_text_v"
                         android:layout_marginRight="10dp"
 
                         android:layout_toLeftOf="@+id/img_result" />
@@ -578,7 +577,7 @@
 
                     <TextView
                         android:id="@+id/tv_images"
-                        style="@style/user_info_text"
+                        style="@style/user_info_text_v"
                         android:layout_marginRight="10dp"
 
                         android:layout_toLeftOf="@+id/img_images" />
@@ -606,7 +605,7 @@
                         android:layout_marginLeft="@dimen/sidebar_text_size"
                         android:text="视频" />
 
-                    <TextView style="@style/user_info_text" />
+                    <TextView style="@style/user_info_text_v" />
 
                 </RelativeLayout>
             </android.support.v7.widget.CardView>
@@ -628,7 +627,7 @@
                         android:layout_marginLeft="@dimen/sidebar_text_size"
                         android:text="语音" />
 
-                    <TextView style="@style/user_info_text" />
+                    <TextView style="@style/user_info_text_v" />
                 </RelativeLayout>
             </android.support.v7.widget.CardView>
         </LinearLayout>

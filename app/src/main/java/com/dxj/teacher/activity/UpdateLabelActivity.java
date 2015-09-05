@@ -21,6 +21,7 @@ import com.dxj.teacher.utils.StringUtils;
 import com.dxj.teacher.utils.ToastUtils;
 import com.dxj.teacher.widget.CheckableButton;
 import com.dxj.teacher.widget.FlowLayout;
+import com.dxj.teacher.widget.TitleNavBar;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -33,17 +34,17 @@ import java.util.Map;
  * 个人标签
  */
 public class UpdateLabelActivity extends BaseActivity implements View.OnClickListener, CheckableButton.OnCheckedChangeListener {
-    private String strMajor;
     private FlowLayout alreadtFlowLayout;
     private FlowLayout selectFlowLayout;
-    private ImageButton btnLabel;
     private String[] strings = {"品学兼优", "品学兼优", "讲解详细", "认真负责", "成绩优异"};
     private Map<Integer, CheckableButton> store = new HashMap<>();
     private ArrayList<String> list;
+    private String id;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update_label);
+        initTitle();
         initData();
         initView();
     }
@@ -51,21 +52,48 @@ public class UpdateLabelActivity extends BaseActivity implements View.OnClickLis
 
     @Override
     public void initTitle() {
+        TitleNavBar title = (TitleNavBar) findViewById(R.id.title);
+        title.disableBack(true);
+        title.setTitle("个人标签");
+        title.setTitleNoRightButton();
+        title.setOnTitleNavClickListener(new TitleNavBar.OnTitleNavClickListener() {
+            @Override
+            public void onNavOneClick() {
 
+            }
+
+            @Override
+            public void onNavTwoClick() {
+
+            }
+
+            @Override
+            public void onNavThreeClick() {
+
+            }
+
+            @Override
+            public void onActionClick() {
+
+            }
+
+            @Override
+            public void onBackClick() {
+                sendRequestData();
+            }
+        });
     }
 
     @Override
     public void initView() {
         alreadtFlowLayout = (FlowLayout) this.findViewById(R.id.already_flowlayout);
         selectFlowLayout = (FlowLayout) this.findViewById(R.id.select_flowlayout);
-        btnLabel = (ImageButton) this.findViewById(R.id.btn_back);
-        btnLabel.setOnClickListener(this);
         addChildTo(selectFlowLayout);
     }
 
     @Override
     public void initData() {
-
+  id=getIntent().getStringExtra("id");
     }
 
     private void addChildTo(FlowLayout flowLayout) {
@@ -115,7 +143,7 @@ public class UpdateLabelActivity extends BaseActivity implements View.OnClickLis
 
         String urlPath = FinalData.URL_VALUE + HttpUtils.LABEL;
         Map<String, Object> map = new HashMap<>();
-        map.put("id", "e1c380f1-c85e-4a0f-aafc-152e189d9d01");
+        map.put("id", id);
         map.put("label", list);
         CustomStringRequest custom = new CustomStringRequest(Request.Method.POST, urlPath, map, getListener(), getErrorListener());
         VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(custom);

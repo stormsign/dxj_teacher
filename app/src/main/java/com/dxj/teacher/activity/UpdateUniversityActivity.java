@@ -33,6 +33,7 @@ import com.dxj.teacher.http.VolleySingleton;
 import com.dxj.teacher.utils.HttpUtils;
 import com.dxj.teacher.utils.StringUtils;
 import com.dxj.teacher.utils.ToastUtils;
+import com.dxj.teacher.widget.TitleNavBar;
 
 
 import java.text.SimpleDateFormat;
@@ -48,7 +49,6 @@ import github.jjobes.slidedatetimepicker.SlideDateTimePicker;
  * Created by kings on 8/27/2015.
  */
 public class UpdateUniversityActivity extends BaseActivity implements View.OnClickListener {
-    private ImageButton btnBack;
     private EditText etSearch;
     private EditText etMajor;
     private ListView lvSearchResult;
@@ -58,31 +58,61 @@ public class UpdateUniversityActivity extends BaseActivity implements View.OnCli
     private String strEntranceTime;
     private String strSearch;
     private ResultListAdapter resultListAdapter;
-    private ArrayList<UniversityBean> universityResult=new ArrayList<>();
+    private ArrayList<UniversityBean> universityResult = new ArrayList<>();
     private String strUniversity;
     private long id;
+    private String userId;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update_university);
+        initTitle();
         initData();
         initView();
     }
 
     @Override
     public void initTitle() {
+        TitleNavBar title = (TitleNavBar) findViewById(R.id.title);
+        title.disableBack(true);
+        title.setTitle("院校");
+        title.setTitleNoRightButton();
+        title.setOnTitleNavClickListener(new TitleNavBar.OnTitleNavClickListener() {
+            @Override
+            public void onNavOneClick() {
 
+            }
+
+            @Override
+            public void onNavTwoClick() {
+
+            }
+
+            @Override
+            public void onNavThreeClick() {
+
+            }
+
+            @Override
+            public void onActionClick() {
+
+            }
+
+            @Override
+            public void onBackClick() {
+                sendRequestData(1);
+            }
+        });
     }
 
     @Override
     public void initView() {
-        btnBack = (ImageButton) findViewById(R.id.btn_back);
         etSearch = (EditText) findViewById(R.id.et_university);
         lvSearchResult = (ListView) findViewById(R.id.search_result);
-        btnEntrancetime=(Button)findViewById(R.id.btn_entrancetime);
-        tvNoresult=(TextView)findViewById(R.id.tv_noresult);
-        etMajor=(EditText)findViewById(R.id.et_major);
-        btnBack.setOnClickListener(this);
+        btnEntrancetime = (Button) findViewById(R.id.btn_entrancetime);
+        tvNoresult = (TextView) findViewById(R.id.tv_noresult);
+        etMajor = (EditText) findViewById(R.id.et_major);
         btnEntrancetime.setOnClickListener(this);
 
         etSearch.addTextChangedListener(new TextWatcher() {
@@ -116,8 +146,8 @@ public class UpdateUniversityActivity extends BaseActivity implements View.OnCli
         lvSearchResult.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long ids) {
-                strUniversity=universityResult.get(position).getName();
-                id=universityResult.get(position).getId();
+                strUniversity = universityResult.get(position).getName();
+                id = universityResult.get(position).getId();
                 etSearch.setText(strUniversity);
             }
         });
@@ -125,6 +155,7 @@ public class UpdateUniversityActivity extends BaseActivity implements View.OnCli
 
     @Override
     public void initData() {
+        userId = getIntent().getStringExtra("id");
     }
 
     @Override
@@ -142,18 +173,18 @@ public class UpdateUniversityActivity extends BaseActivity implements View.OnCli
 
     private void sendRequestData(int index) {
 
-        String parameter=null;
-        String urlPath =null;
-        String key =null;
+        String parameter = null;
+        String urlPath = null;
+        String key = null;
 
-        if(index==1){
+        if (index == 1) {
             parameter = etSearch.getText().toString().trim();
 
-            if (StringUtils.isEmpty(parameter)){
+            if (StringUtils.isEmpty(parameter)) {
                 finish();
-            }else{
-                if (StringUtils.isEmpty(strEntranceTime)){
-                    ToastUtils.showToast(this,"请输入开学时间");
+            } else {
+                if (StringUtils.isEmpty(strEntranceTime)) {
+                    ToastUtils.showToast(this, "请输入开学时间");
                     return;
                 }
             }
@@ -162,23 +193,23 @@ public class UpdateUniversityActivity extends BaseActivity implements View.OnCli
                 finish();
                 return;
             }
-            key="university";
-        }else if (index==3){
+            key = "university";
+        } else if (index == 3) {
             parameter = strSearch;
             urlPath = FinalData.URL_VALUE + HttpUtils.FIND_UNIVERSITY;
             if (StringUtils.isEmpty(parameter)) {
                 return;
             }
-            key="name";
+            key = "name";
         }
 
         Map<String, Object> map = new HashMap<>();
-        map.put("id", "e1c380f1-c85e-4a0f-aafc-152e189d9d01");
+        map.put("id", userId);
         map.put(key, parameter);
-        if(index==1){
-            map.put("universityId",id);
-            map.put("entranceTime",strEntranceTime);
-            map.put("major",etMajor.getText().toString());
+        if (index == 1) {
+            map.put("universityId", id);
+            map.put("entranceTime", strEntranceTime);
+            map.put("major", etMajor.getText().toString());
         }
         CustomStringRequest custom = new CustomStringRequest(Request.Method.POST, urlPath, map, getListener(index), getErrorListener());
         VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(custom);
@@ -189,30 +220,30 @@ public class UpdateUniversityActivity extends BaseActivity implements View.OnCli
             @Override
             public void onResponse(String str) {
                 Log.i("TAG", "str=" + str);
-                if (index==3){
+                if (index == 3) {
                     UniversityListBean message = JSONObject.parseObject(str, UniversityListBean.class);
-                    Log.i("TAG","message="+message.getList().size());
+                    Log.i("TAG", "message=" + message.getList().size());
 //                  if (message.getCode()==0){
                     universityResult.clear();
                     universityResult.addAll(message.getList());
-                      if (universityResult.size() <= 0) {
-                          Log.i("TAG","city_result="+universityResult.size());
+                    if (universityResult.size() <= 0) {
+                        Log.i("TAG", "city_result=" + universityResult.size());
 
-                          tvNoresult.setVisibility(View.VISIBLE);
-                          lvSearchResult.setVisibility(View.GONE);
-                      } else {
-                          Log.i("TAG","message="+message.getList().size());
-                          Log.i("TAG","city_result="+universityResult.size());
+                        tvNoresult.setVisibility(View.VISIBLE);
+                        lvSearchResult.setVisibility(View.GONE);
+                    } else {
+                        Log.i("TAG", "message=" + message.getList().size());
+                        Log.i("TAG", "city_result=" + universityResult.size());
 
-                          tvNoresult.setVisibility(View.GONE);
-                          lvSearchResult.setVisibility(View.VISIBLE);
+                        tvNoresult.setVisibility(View.GONE);
+                        lvSearchResult.setVisibility(View.VISIBLE);
                         resultListAdapter.notifyDataSetChanged();
 //                      }
-                  }
-                }else{
-                BaseBean message = JSONObject.parseObject(str, BaseBean.class);
-                if (message.getCode() == 0) {
-                    AccountDBTask.updateNickName(MyApplication.getInstance().getUserId(), strUniversity, AccountTable.UNIVERSITY);
+                    }
+                } else {
+                    BaseBean message = JSONObject.parseObject(str, BaseBean.class);
+                    if (message.getCode() == 0) {
+                        AccountDBTask.updateNickName(MyApplication.getInstance().getUserId(), strUniversity, AccountTable.UNIVERSITY);
 
                         Intent intent = new Intent();
                         Bundle bundle = new Bundle();
@@ -220,7 +251,8 @@ public class UpdateUniversityActivity extends BaseActivity implements View.OnCli
                         intent.putExtras(bundle);
                         UpdateUniversityActivity.this.setResult(RESULT_OK, intent);
                         finish();
-                }}
+                    }
+                }
             }
         };
     }
@@ -235,6 +267,7 @@ public class UpdateUniversityActivity extends BaseActivity implements View.OnCli
             }
         };
     }
+
     private void updateBirthday() {
         new SlideDateTimePicker.Builder(getSupportFragmentManager())
                 .setListener(listener)
@@ -247,6 +280,7 @@ public class UpdateUniversityActivity extends BaseActivity implements View.OnCli
                 .build()
                 .show();
     }
+
     private SimpleDateFormat mFormatter = new SimpleDateFormat("yyyy-MM-dd");
     private SlideDateTimeListener listener = new SlideDateTimeListener() {
 
@@ -255,7 +289,7 @@ public class UpdateUniversityActivity extends BaseActivity implements View.OnCli
 //            Toast.makeText(UpdateUserInfoActivity.this,
 //                    mFormatter.format(date), Toast.LENGTH_SHORT).show();
             btnEntrancetime.setText(mFormatter.format(date));
-            strEntranceTime=mFormatter.format(date);
+            strEntranceTime = mFormatter.format(date);
 
         }
 

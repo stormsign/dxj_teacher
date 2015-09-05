@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
@@ -49,7 +50,10 @@ public class UpdateNiceNameActivity extends BaseActivity implements View.OnClick
     @Override
     public void initTitle() {
         TitleNavBar title = (TitleNavBar) findViewById(R.id.title);
+        title.disableBack(true);
         title.setTitle("昵称");
+        title.setTitleNoRightButton();
+
         title.setOnTitleNavClickListener(new TitleNavBar.OnTitleNavClickListener() {
             @Override
             public void onNavOneClick() {
@@ -86,15 +90,14 @@ public class UpdateNiceNameActivity extends BaseActivity implements View.OnClick
 
     @Override
     public void initData() {
-        strNiceName=getIntent().getStringExtra("niceName");
-        id=getIntent().getStringExtra("id");
+        strNiceName = getIntent().getStringExtra("niceName");
+        id = getIntent().getStringExtra("id");
     }
 
     @Override
     public void onClick(View v) {
         int id = v.getId();
         switch (id) {
-
         }
     }
 
@@ -121,11 +124,10 @@ public class UpdateNiceNameActivity extends BaseActivity implements View.OnClick
                 if (message.getCode() == 0) {
 
                     AccountDBTask.updateNickName(MyApplication.getInstance().getUserId(), strNiceName, AccountTable.NICKNAME);
-                    Intent intent = new Intent();
-                    Bundle bundle = new Bundle();
-                    bundle.putString("nicename", strNiceName);
-                    intent.putExtras(bundle);
-                    UpdateNiceNameActivity.this.setResult(RESULT_OK, intent);
+//
+                    getIntent().putExtra("nicename", strNiceName);
+                    Log.i("TAG", "intent");
+                    UpdateNiceNameActivity.this.setResult(RESULT_OK, getIntent());
                     finish();
                 }
             }

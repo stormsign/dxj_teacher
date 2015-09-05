@@ -80,10 +80,11 @@ public class TitleNavBar extends RelativeLayout {
         back.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (isDisableBack) {
+
                     if (mOnTitleNavClickListener != null) {
                         mOnTitleNavClickListener.onBackClick();
                     }
+                if (!isDisableBack) {
                     Activity activity = (Activity) mContext;
                     activity.finish();
                 }

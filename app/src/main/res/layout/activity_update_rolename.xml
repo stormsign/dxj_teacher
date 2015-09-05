@@ -4,16 +4,11 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="48dp">
-
-        <ImageButton
-            android:id="@+id/btn_back"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:src="@mipmap/btn_back" />
-    </LinearLayout>
+<com.dxj.teacher.widget.TitleNavBar
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/title"
+    ></com.dxj.teacher.widget.TitleNavBar>
     <ListView
         android:id="@+id/lv_teacher"
         android:layout_width="match_parent"

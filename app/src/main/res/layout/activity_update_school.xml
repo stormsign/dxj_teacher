@@ -3,11 +3,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-    <ImageButton
-        android:id="@+id/btn_back"
-        android:layout_width="wrap_content"
+    <com.dxj.teacher.widget.TitleNavBar
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:src="@mipmap/btn_back" />
+        android:id="@+id/title"></com.dxj.teacher.widget.TitleNavBar>
+
     <Button
         android:id="@+id/btn_province"
         android:layout_width="wrap_content"

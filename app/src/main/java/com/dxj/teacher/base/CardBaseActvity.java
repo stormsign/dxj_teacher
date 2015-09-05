@@ -31,6 +31,7 @@ import com.dxj.teacher.utils.MyUtils;
 import com.dxj.teacher.utils.StringUtils;
 import com.dxj.teacher.utils.ToastUtils;
 import com.dxj.teacher.utils.UpdatePhotoUtils;
+import com.dxj.teacher.widget.TitleNavBar;
 import com.google.gson.Gson;
 
 import java.io.IOException;
@@ -77,7 +78,9 @@ public abstract class CardBaseActvity extends BaseActivity {
 
     @Override
     public void initTitle() {
-
+        TitleNavBar title = (TitleNavBar)findViewById(R.id.title);
+        title.setTitle("认证");
+        title.setTitleNoRightButton();
     }
 
     @Override

@@ -3,9 +3,7 @@ package com.dxj.teacher.activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.provider.MediaStore;
@@ -68,9 +66,9 @@ import github.jjobes.slidedatetimepicker.SlideDateTimePicker;
  */
 public class UpdateUserInfoActivity extends BaseActivity implements View.OnClickListener {
     public String[] strings = {"白羊座", "金牛座", "双子座", "巨蟹座", "狮子座", "处女座", "天坪座", "天蝎座", "射手座", "摩羯座", "水平座", "双鱼座"};
-    public static final int TAKE_PICTURE = 0;// 拍照
-    public static final int RESULT_LOAD_IMAGE = 1;// 从相册中选择
-    public static final int CUT_PHOTO_REQUEST_CODE = 2;
+    public static final int TAKE_PICTURE = 15;// 拍照
+    public static final int RESULT_LOAD_IMAGE = 16;// 从相册中选择
+    public static final int CUT_PHOTO_REQUEST_CODE = 17;
 
     public static final int BIRTHDAY = 2;
     public static final int SEX = 1;
@@ -221,12 +219,13 @@ public class UpdateUserInfoActivity extends BaseActivity implements View.OnClick
         //------------------------- 赋值--------------------------
 
         if (userBean != null) {
-            showLogI(userBean.getUserInfo().getHeadUrl());
+//            showLogI(userBean.getUserInfo().getHeadUrl());
             if (userBean.getUserInfo().getHeadUrl() != null)
             /** 加载头像 */
                 Glide.with(MyApplication.getInstance()).load(userBean.getUserInfo().getHeadUrl()).centerCrop().placeholder(R.mipmap.default_avatar).into(avatar);
             else
                 Glide.with(MyApplication.getInstance()).load(R.mipmap.default_avatar).centerCrop().into(avatar);
+//            Log.i("TAG","Card="+userBean.getUserInfo().getCard().getName());
             tvNicename.setText(userBean.getUserInfo().getNickName());
             tvSchollAge.setText(String.valueOf(userBean.getUserInfo().getSchoolAge()));
             tvSex.setText(userBean.getUserInfo().getSex());
@@ -239,6 +238,8 @@ public class UpdateUserInfoActivity extends BaseActivity implements View.OnClick
             tvExperience.setText(userBean.getUserInfo().getExperience());
             tvResult.setText(userBean.getUserInfo().getResult());
             tvUniversity.setText(userBean.getUserInfo().getUniversity());
+            tvRolename.setText(userBean.getUserInfo().getRoleName());
+            tvSchool.setText(userBean.getUserInfo().getSchool());
         }
         if (userBean.getUserInfo().getLabel().size() > 0) {
             StringBuffer sbf = new StringBuffer();
@@ -319,10 +320,10 @@ public class UpdateUserInfoActivity extends BaseActivity implements View.OnClick
                 startActivityForResult(intentNationality, NATIONALITY);
                 break;
             case R.id.relative_schollage:
-                Intent intentSchool = new Intent(this, UpdateSchoolAgeActivity.class);
-                intentSchool.putExtra("schoolAge",userBean.getUserInfo().getSchoolAge());
-                intentSchool.putExtra("id",userId);
-                startActivityForResult(intentSchool, SCHOOLAGE);
+                Intent intentSchoolage = new Intent(this, UpdateSchoolAgeActivity.class);
+                intentSchoolage.putExtra("schoolAge",userBean.getUserInfo().getSchoolAge());
+                intentSchoolage.putExtra("id",userId);
+                startActivityForResult(intentSchoolage, SCHOOLAGE);
                 break;
             case R.id.relative_livingcity:
                 Intent intentLivingCity = new Intent(this, UpdateLivingCityActivity.class);
@@ -344,34 +345,47 @@ public class UpdateUserInfoActivity extends BaseActivity implements View.OnClick
                 break;
             case R.id.relative_label:
                 Intent intentLabel = new Intent(this, UpdateLabelActivity.class);
+                intentLabel.putExtra("id",userId);
                 startActivityForResult(intentLabel, LABEL);
                 break;
             case R.id.relative_experience:
                 Intent intentExperience = new Intent(this, UpdateExperienceActivity.class);
+                intentExperience.putExtra("experience",userBean.getUserInfo().getExperience());
+                intentExperience.putExtra("id",userId);
                 startActivityForResult(intentExperience, EXPERIENCE);
                 break;
             case R.id.relative_result:
                 Intent intentResult = new Intent(this, UpdateResultActivity.class);
+                intentResult.putExtra("result",userBean.getUserInfo().getResult());
+                intentResult.putExtra("id",userId);
                 startActivityForResult(intentResult, RESULT);
                 break;
             case R.id.relative_solvelabel:
                 Intent intentSolveLabel = new Intent(this, UpdateSolveLabelActivity.class);
+//                intentExperience.putExtra("solveLabel",userBean.getUserInfo().getExperience());
+                intentSolveLabel.putExtra("id",userId);
                 startActivityForResult(intentSolveLabel, SOLVELABEL);
                 break;
             case R.id.relative_university:
-                Intent intentSolveLabels = new Intent(this, UpdateUniversityActivity.class);
-                startActivityForResult(intentSolveLabels, SOLVELABEL);
+                Intent intentUniversity = new Intent(this, UpdateUniversityActivity.class);
+                intentUniversity.putExtra("id",userId);
+                startActivityForResult(intentUniversity, UNIVERSITY);
                 break;
             case R.id.relative_rolename:
                 Intent intentRoleName = new Intent(this, UpdateRoleNameActivity.class);
+                intentRoleName.putExtra("roleName",userBean.getUserInfo().getRoleName());
+                intentRoleName.putExtra("id",userId);
                 startActivityForResult(intentRoleName, ROLENAME);
                 break;
             case R.id.relative_school:
-                Intent intentSchoolCity = new Intent(this, UpdateSchoolActivity.class);
-                startActivityForResult(intentSchoolCity, SCHOOL);
+                Intent intentSchool = new Intent(this, UpdateSchoolActivity.class);
+                intentSchool.putExtra("school",userBean.getUserInfo().getSchool());
+                intentSchool.putExtra("id",userId);
+                startActivityForResult(intentSchool, SCHOOL);
                 break;
             case R.id.relative_images:
                 Intent intentImage = new Intent(this, UpdateImageActivity.class);
+                intentImage.putExtra("id",userId);
                 startActivity(intentImage);
                 break;
         }
@@ -379,7 +393,6 @@ public class UpdateUserInfoActivity extends BaseActivity implements View.OnClick
 
     @Override
     protected void onActivityResult(final int requestCode, final int resultCode, final Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == RESULT_LOAD_IMAGE || requestCode == TAKE_PICTURE || requestCode == CUT_PHOTO_REQUEST_CODE) {
             new Thread() {
                 @Override
@@ -419,6 +432,8 @@ public class UpdateUserInfoActivity extends BaseActivity implements View.OnClick
                 ;
             }.start();
         }
+
+        if (resultCode==RESULT_OK){
         if (data == null)
             return;
         if (requestCode == NICE_NAME) {
@@ -468,7 +483,7 @@ public class UpdateUserInfoActivity extends BaseActivity implements View.OnClick
             String strSchool = data.getStringExtra("school");
             tvSchool.setText(strSchool);
         }
-    }
+    }}
 
     private void updateSex() {
 
@@ -496,7 +511,7 @@ public class UpdateUserInfoActivity extends BaseActivity implements View.OnClick
     private void sendRequestData(String strSex, int index) {
         String urlPath = null;
         Map<String, Object> map = new HashMap<>();
-        map.put("id", "e1c380f1-c85e-4a0f-aafc-152e189d9d01");
+        map.put("id", userBean.getUserInfo().getId());
         if (index == BIRTHDAY) {
             Log.i("TAG", "strSex=" + strSex);
             map.put("birthday", strSex);

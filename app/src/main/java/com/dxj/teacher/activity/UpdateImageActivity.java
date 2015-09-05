@@ -23,6 +23,7 @@ import com.android.volley.VolleyError;
 import com.dxj.teacher.R;
 import com.dxj.teacher.adapter.UpdateImageAdapter;
 import com.dxj.teacher.application.MyApplication;
+import com.dxj.teacher.base.BaseActivity;
 import com.dxj.teacher.bean.BaseBean;
 import com.dxj.teacher.db.AccountDBTask;
 import com.dxj.teacher.db.AccountTable;
@@ -32,6 +33,7 @@ import com.dxj.teacher.http.VolleySingleton;
 import com.dxj.teacher.utils.HttpUtils;
 import com.dxj.teacher.utils.StringUtils;
 import com.dxj.teacher.utils.ToastUtils;
+import com.dxj.teacher.widget.TitleNavBar;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -39,7 +41,7 @@ import java.util.List;
 import java.util.Map;
 
 
-public class UpdateImageActivity extends Activity {
+public class UpdateImageActivity extends BaseActivity {
 
     private static final int REQUEST_IMAGE = 3;
 
@@ -51,18 +53,58 @@ public class UpdateImageActivity extends Activity {
     private UpdateImageAdapter updateAdapter;
     private List<String> imageList = new ArrayList<>();
     private List<String> imageUrls = new ArrayList<>();
-    private ImageButton btnBack;
+    private String id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_multiimage);
+        initTitle();
+        initData();
+        initView();
 
+    }
+
+    @Override
+    public void initTitle() {
+        TitleNavBar title = (TitleNavBar) findViewById(R.id.title);
+        title.disableBack(true);
+        title.setTitle("相册");
+        title.setTitleNoRightButton();
+        title.setOnTitleNavClickListener(new TitleNavBar.OnTitleNavClickListener() {
+            @Override
+            public void onNavOneClick() {
+
+            }
+
+            @Override
+            public void onNavTwoClick() {
+
+            }
+
+            @Override
+            public void onNavThreeClick() {
+
+            }
+
+            @Override
+            public void onActionClick() {
+
+            }
+
+            @Override
+            public void onBackClick() {
+                sendRequestData();
+            }
+        });
+    }
+
+    @Override
+    public void initView() {
         mResultText = (TextView) findViewById(R.id.result);
 //        mChoiceMode = (RadioGroup) findViewById(R.id.choice_mode);
 //        mShowCamera = (RadioGroup) findViewById(R.id.show_camera);
         feedbackNoScrollgridview = (GridView) findViewById(R.id.feedback_noScrollgridview);
-        btnBack = (ImageButton)findViewById(R.id.btn_back);
         updateAdapter = new UpdateImageAdapter(UpdateImageActivity.this);
         feedbackNoScrollgridview.setAdapter(updateAdapter);
 //        mChoiceMode.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -76,15 +118,7 @@ public class UpdateImageActivity extends Activity {
 //                }
 //            }
 //        });
-        btnBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (updateAdapter.getImageUrls().size()>0){
-                    imageUrls.addAll(updateAdapter.getImageUrls());
-                    sendRequestData();
-                }
-            }
-        });
+
         findViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -125,29 +159,29 @@ public class UpdateImageActivity extends Activity {
             public void onClick(View view) {
                 List<String> mSelectedImages = new ArrayList<String>();
                 mSelectedImages.addAll(updateAdapter.getmSelectedImages());
-               if(mSelectedImages.size()>0){
-                   for(String list : mSelectedImages){
-                       Log.i("TAG", "list=" + list);
-                       if(imageList.contains(list)){
-                           Log.i("TAG", "contains");
-                           imageList.remove(list);
+                if (mSelectedImages.size() > 0) {
+                    for (String list : mSelectedImages) {
+                        Log.i("TAG", "list=" + list);
+                        if (imageList.contains(list)) {
+                            Log.i("TAG", "contains");
+                            imageList.remove(list);
 
-                       }
-                   }
-                   Log.i("TAG", "imageList=" + imageList.size());
-                   updateAdapter.addData(imageList);
-               }
+                        }
+                    }
+                    Log.i("TAG", "imageList=" + imageList.size());
+                    updateAdapter.addData(imageList);
+                }
             }
         });
         findViewById(R.id.button1).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (updateAdapter.isShape()){
+                if (updateAdapter.isShape()) {
                     updateAdapter.setShape(false);
-                }else{
+                } else {
                     updateAdapter.setShape(true);
                 }
-          }
+            }
         });
         feedbackNoScrollgridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -155,6 +189,11 @@ public class UpdateImageActivity extends Activity {
                 updateAdapter.select(imageList.get(position));
             }
         });
+    }
+
+    @Override
+    public void initData() {
+        id = getIntent().getStringExtra("id");
     }
 
     @Override
@@ -195,6 +234,7 @@ public class UpdateImageActivity extends Activity {
 
         return super.onOptionsItemSelected(item);
     }
+
     private void sendRequestData() {
 //        strNiceName = etNiceName.getText().toString().trim();
 //        if (StringUtils.isEmpty(strNiceName)) {
@@ -203,7 +243,7 @@ public class UpdateImageActivity extends Activity {
 //        }
         String urlPath = FinalData.URL_VALUE + HttpUtils.IMAGES;
         Map<String, Object> map = new HashMap<>();
-        map.put("id", "e1c380f1-c85e-4a0f-aafc-152e189d9d01");
+        map.put("id", id);
         map.put("images", imageUrls);
         CustomStringRequest custom = new CustomStringRequest(Request.Method.POST, urlPath, map, getListener(), getErrorListener());
         VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(custom);

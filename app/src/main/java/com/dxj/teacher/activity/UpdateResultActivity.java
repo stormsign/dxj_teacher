@@ -26,49 +26,79 @@ import com.dxj.teacher.http.VolleySingleton;
 import com.dxj.teacher.utils.HttpUtils;
 import com.dxj.teacher.utils.StringUtils;
 import com.dxj.teacher.utils.ToastUtils;
+import com.dxj.teacher.widget.TitleNavBar;
 
 import java.util.HashMap;
 import java.util.Map;
 
 /**
  * Created by kings on 8/27/2015.
- * 介绍
+ * 教学成果
  */
 public class UpdateResultActivity extends BaseActivity implements View.OnClickListener {
-    private ImageButton btnNiceName;
     private EditText etResult;
     private String strResult;
+    private String id;
     private TextView tvCount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update_recommend);
+        initTitle();
         initData();
         initView();
     }
 
     @Override
     public void initTitle() {
+        TitleNavBar title = (TitleNavBar) findViewById(R.id.title);
+        title.disableBack(true);
+        title.setTitle("教学成果");
+        title.setTitleNoRightButton();
+        title.setOnTitleNavClickListener(new TitleNavBar.OnTitleNavClickListener() {
+            @Override
+            public void onNavOneClick() {
 
+            }
+
+            @Override
+            public void onNavTwoClick() {
+
+            }
+
+            @Override
+            public void onNavThreeClick() {
+
+            }
+
+            @Override
+            public void onActionClick() {
+
+            }
+
+            @Override
+            public void onBackClick() {
+                sendRequestData();
+            }
+        });
     }
 
     @Override
     public void initView() {
-        btnNiceName = (ImageButton) findViewById(R.id.btn_back);
         etResult = (EditText) findViewById(R.id.et);
-        tvCount=(TextView)findViewById(R.id.tv_count);
-        btnNiceName.setOnClickListener(this);
-        etResult.addTextChangedListener(new TextWatcher(){
+        etResult.setText(strResult);
+        tvCount = (TextView) findViewById(R.id.tv_count);
+        etResult.addTextChangedListener(new TextWatcher() {
 
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-          }
+            }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
 
-                tvCount.setText(s.length()+"");
+                tvCount.setText(s.length() + "");
 
             }
 
@@ -81,16 +111,14 @@ public class UpdateResultActivity extends BaseActivity implements View.OnClickLi
 
     @Override
     public void initData() {
-
+        id = getIntent().getStringExtra("id");
+        strResult = getIntent().getStringExtra("result");
     }
 
     @Override
     public void onClick(View v) {
         int id = v.getId();
         switch (id) {
-            case R.id.btn_back:
-                sendRequestData();
-                break;
         }
 
     }
@@ -103,7 +131,7 @@ public class UpdateResultActivity extends BaseActivity implements View.OnClickLi
         }
         String urlPath = FinalData.URL_VALUE + HttpUtils.RESULT;
         Map<String, Object> map = new HashMap<>();
-        map.put("id", "e1c380f1-c85e-4a0f-aafc-152e189d9d01");
+        map.put("id", id);
         map.put("result", strResult);
         CustomStringRequest custom = new CustomStringRequest(Request.Method.POST, urlPath, map, getListener(), getErrorListener());
         VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(custom);

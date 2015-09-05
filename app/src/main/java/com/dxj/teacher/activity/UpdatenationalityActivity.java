@@ -49,7 +49,9 @@ public class UpdatenationalityActivity extends BaseActivity implements View.OnCl
     @Override
     public void initTitle() {
         TitleNavBar title = (TitleNavBar) findViewById(R.id.title);
+        title.disableBack(true);
         title.setTitle("国籍");
+        title.setTitleNoRightButton();
         title.setOnTitleNavClickListener(new TitleNavBar.OnTitleNavClickListener() {
             @Override
             public void onNavOneClick() {

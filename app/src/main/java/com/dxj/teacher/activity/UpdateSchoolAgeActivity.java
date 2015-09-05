@@ -49,7 +49,9 @@ public class UpdateSchoolAgeActivity extends BaseActivity implements View.OnClic
     @Override
     public void initTitle() {
         TitleNavBar title = (TitleNavBar) findViewById(R.id.title);
+        title.disableBack(true);
         title.setTitle("教龄");
+        title.setTitleNoRightButton();
         title.setOnTitleNavClickListener(new TitleNavBar.OnTitleNavClickListener() {
             @Override
             public void onNavOneClick() {

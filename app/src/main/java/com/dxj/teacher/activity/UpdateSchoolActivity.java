@@ -33,6 +33,7 @@ import com.dxj.teacher.http.VolleySingleton;
 import com.dxj.teacher.utils.HttpUtils;
 import com.dxj.teacher.utils.StringUtils;
 import com.dxj.teacher.utils.ToastUtils;
+import com.dxj.teacher.widget.TitleNavBar;
 import com.orhanobut.dialogplus.DialogPlus;
 import com.orhanobut.dialogplus.Holder;
 import com.orhanobut.dialogplus.ListHolder;
@@ -54,40 +55,69 @@ import java.util.Map;
  */
 public class UpdateSchoolActivity extends BaseActivity implements View.OnClickListener {
     private static final String DBNAME = "t_city.db";
-
-    private ImageButton btnNiceName;
     private EditText etGrades;
     private EditText etSchool;
     private Button btnCity;
     private Button btnProvince;
     private String strNiceName;
     private List<SchoolBean> list = new ArrayList<>();
-    private List<SchoolBean>  listCity = new ArrayList<>();
+    private List<SchoolBean> listCity = new ArrayList<>();
     private SQLiteDatabase db;
     private int index;
-    private int   provinceId;
-    private int   cityIndex;
+    private int provinceId;
+    private int cityIndex;
+    private String id;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update_school);
+        initTitle();
         initData();
         initView();
     }
 
     @Override
     public void initTitle() {
+        TitleNavBar title = (TitleNavBar) findViewById(R.id.title);
+        title.disableBack(true);
+        title.setTitle("就读高中");
+        title.setTitleNoRightButton();
+        title.setOnTitleNavClickListener(new TitleNavBar.OnTitleNavClickListener() {
+            @Override
+            public void onNavOneClick() {
 
+            }
+
+            @Override
+            public void onNavTwoClick() {
+
+            }
+
+            @Override
+            public void onNavThreeClick() {
+
+            }
+
+            @Override
+            public void onActionClick() {
+
+            }
+
+            @Override
+            public void onBackClick() {
+                sendRequestData();
+            }
+        });
     }
 
     @Override
     public void initView() {
-        btnNiceName = (ImageButton) findViewById(R.id.btn_back);
         etGrades = (EditText) findViewById(R.id.et_grades);
         etSchool = (EditText) findViewById(R.id.et_school);
+       etSchool.setText(strNiceName);
         btnCity = (Button) findViewById(R.id.btn_city);
         btnProvince = (Button) findViewById(R.id.btn_province);
-        btnNiceName.setOnClickListener(this);
         btnCity.setOnClickListener(this);
         btnProvince.setOnClickListener(this);
 
@@ -96,31 +126,28 @@ public class UpdateSchoolActivity extends BaseActivity implements View.OnClickLi
     @Override
     public void initData() {
 //        copyDB(DBNAME);
-         db = SQLiteDatabase.openDatabase(getFilesDir() + "/" + DBNAME, null, SQLiteDatabase.OPEN_READONLY);
-
-
-
+        db = SQLiteDatabase.openDatabase(getFilesDir() + "/" + DBNAME, null, SQLiteDatabase.OPEN_READONLY);
+        id = getIntent().getStringExtra("id");
+        strNiceName=getIntent().getStringExtra("school");
     }
 
     @Override
     public void onClick(View v) {
         int id = v.getId();
         switch (id) {
-            case R.id.btn_back:
-                sendRequestData();
-                break;
+
             case R.id.btn_province:
                 list = CityDao.getFirstCity(db);
-                SchoolAdapter adapter = new SchoolAdapter(this, false,list);
+                SchoolAdapter adapter = new SchoolAdapter(this, false, list);
                 showOnlyContentDialog(new ListHolder(), Gravity.BOTTOM, adapter, itemClickListener(0), null, null, true);
                 break;
             case R.id.btn_city:
-                if (list.size()<=0){
+                if (list.size() <= 0) {
                     return;
                 }
-                 provinceId=list.get(index).getId();
-                listCity=CityDao.getChildCityFromParent(db,provinceId);
-                SchoolAdapter adapters = new SchoolAdapter(this, false,listCity);
+                provinceId = list.get(index).getId();
+                listCity = CityDao.getChildCityFromParent(db, provinceId);
+                SchoolAdapter adapters = new SchoolAdapter(this, false, listCity);
                 showOnlyContentDialog(new ListHolder(), Gravity.BOTTOM, adapters, itemClickListener(1), null, null, true);
                 break;
         }
@@ -134,10 +161,7 @@ public class UpdateSchoolActivity extends BaseActivity implements View.OnClickLi
         }
         String urlPath = FinalData.URL_VALUE + HttpUtils.SCHOOL;
         Map<String, Object> map = new HashMap<>();
-//
-
-
-        map.put("id", "e1c380f1-c85e-4a0f-aafc-152e189d9d01");
+        map.put("id", id);
         map.put("school", strNiceName);
         map.put("schoolProvince", provinceId);
         map.put("schoolCity", listCity.get(cityIndex).getId());
@@ -177,6 +201,7 @@ public class UpdateSchoolActivity extends BaseActivity implements View.OnClickLi
             }
         };
     }
+
     private void showOnlyContentDialog(Holder holder, int gravity, BaseAdapter adapter,
                                        OnItemClickListener itemClickListener, OnDismissListener dismissListener,
                                        OnCancelListener cancelListener, boolean expanded) {
@@ -192,8 +217,9 @@ public class UpdateSchoolActivity extends BaseActivity implements View.OnClickLi
                 .create();
         dialog.show();
     }
+
     private OnItemClickListener itemClickListener(final int i) {
-       return new OnItemClickListener() {
+        return new OnItemClickListener() {
             @Override
             public void onItemClick(DialogPlus dialog, Object item, View view, int position) {
 //        TextView textView = (TextView) view.findViewById(R.id.text_view);
@@ -206,7 +232,7 @@ public class UpdateSchoolActivity extends BaseActivity implements View.OnClickLi
                     btnProvince.setText(list.get(index).getName());
                 } else {
                     btnCity.setText(listCity.get(position).getName());
-                    cityIndex=position;
+                    cityIndex = position;
                 }
                 dialog.dismiss();
 //            String str = strings[position];
