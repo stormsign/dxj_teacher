@@ -44,6 +44,7 @@
     <dimen name="height_128dp">128dp</dimen>
     <dimen name="image_80dp">80dp</dimen>
     <dimen name="image_96dp">96dp</dimen>
+    <dimen name="linear_60dp">50dp</dimen>
     <dimen name="image_64dp">64dp</dimen>
     <dimen name="margin_24dp">24dp</dimen>
     <dimen name="margin_56dp">56dp</dimen>

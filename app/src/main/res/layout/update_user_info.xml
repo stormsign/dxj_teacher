@@ -1,422 +1,636 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
-    <com.dxj.teacher.widget.TitleNavBar
-        android:id="@+id/tnb"
-        android:layout_width="match_parent"
-        android:layout_height="56dp"/>
-<ScrollView
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:scrollbars="none"
+    android:orientation="vertical"
+    android:background="@color/background_content"
+
     >
-    <LinearLayout
+
+    <com.dxj.teacher.widget.TitleNavBar
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="32dp"
+        android:background="@color/bg_userinfo"
+        android:gravity="center"
+        android:text="审核未通过"
+        android:textColor="@color/msg_color"
+        android:textSize="@dimen/text_16sp"></TextView>
+
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        >
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/relative_avatar">
+        android:scrollbars="none">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
-            android:text="用户头像" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-        <ImageView
-            android:id="@+id/avatar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:src="@mipmap/default_avatar" />
-    </RelativeLayout>
+            <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="0dp"
+                app:cardElevation="1dp">
+
+                <RelativeLayout
+                    android:id="@+id/relative_avatar"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/linear_60dp">
+
+                    <TextView
+                        style="@style/user_info_text"
+                        android:layout_alignParentLeft="true"
+                        android:layout_marginLeft="@dimen/sidebar_text_size"
+                        android:text="用户头像"
+                         />
+
+                    <ImageView
+                        android:id="@+id/avatar"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:scaleType="centerCrop"
+                        android:src="@mipmap/default_avatar" />
+                </RelativeLayout>
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="0dp"
+                app:cardElevation="1dp"
+
+                >
+
+                <RelativeLayout
+                    android:id="@+id/relative_nicename"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/linear_60dp">
+
+                    <TextView
+                        style="@style/user_info_text"
+                        android:layout_alignParentLeft="true"
+                        android:layout_marginLeft="@dimen/sidebar_text_size"
+                        android:text="昵称" />
+
+                    <TextView
+                        android:id="@+id/tv_nicename"
+                        style="@style/user_info_text"
+                        android:layout_marginRight="10dp"
+                        android:layout_toLeftOf="@+id/img_nicename"
+                        />
+
+                    <ImageView
+                        android:id="@+id/img_nicename"
+                        style="@style/user_info_imageview" />
+                </RelativeLayout>
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="0dp"
+                app:cardElevation="1dp">
+
+                <RelativeLayout
+                    android:id="@+id/relative_sex"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/linear_60dp">
+
+                    <TextView
+                        style="@style/user_info_text"
+                        android:layout_alignParentLeft="true"
+                        android:layout_marginLeft="@dimen/sidebar_text_size"
+                        android:text="性别" />
+
+                    <TextView
+                        android:id="@+id/tv_sex"
+                        style="@style/user_info_text"
+                        android:layout_marginRight="10dp"
+                        android:layout_toLeftOf="@+id/img_sex" />
+
+                    <ImageView
+                        android:id="@+id/img_sex"
+                        style="@style/user_info_imageview" />
+                </RelativeLayout>
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="0dp"
+                app:cardElevation="1dp">
 
 
-    <RelativeLayout
-        android:id="@+id/relative_nicename"
-        android:layout_width="match_parent"
-        android:layout_height="40dp">
+                <RelativeLayout
+                    android:id="@+id/relative_birthday"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/linear_60dp">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:text="昵称" />
+                    <TextView
+                        style="@style/user_info_text"
+                        android:layout_alignParentLeft="true"
+                        android:layout_marginLeft="@dimen/sidebar_text_size"
+                        android:text="生日" />
 
-        <TextView
-            android:id="@+id/tv_nicename"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:text="你是谁" />
-    </RelativeLayout>
-    <RelativeLayout
-        android:id="@+id/relative_sex"
-        android:layout_width="match_parent"
-        android:layout_height="40dp">
+                    <TextView
+                        android:id="@+id/tv_birthday"
+                        style="@style/user_info_text"
+                        android:layout_marginRight="10dp"
+                        android:layout_toLeftOf="@+id/img_birthday" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:text="性别" />
+                    <ImageView
+                        android:id="@+id/img_birthday"
+                        style="@style/user_info_imageview" />
+                </RelativeLayout>
+            </android.support.v7.widget.CardView>
 
-        <TextView
-            android:id="@+id/tv_sex"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-             />
-    </RelativeLayout>
-    <RelativeLayout
-        android:id="@+id/relative_birthday"
-        android:layout_width="match_parent"
-        android:layout_height="40dp">
+            <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="0dp"
+                app:cardElevation="1dp">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:text="生日" />
+                <RelativeLayout
+                    android:id="@+id/relative_constellation"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/linear_60dp">
 
-        <TextView
-            android:id="@+id/tv_birthday"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-             />
-    </RelativeLayout>
-    <RelativeLayout
-        android:id="@+id/relative_constellation"
-        android:layout_width="match_parent"
-        android:layout_height="40dp">
+                    <TextView
+                        style="@style/user_info_text"
+                        android:layout_alignParentLeft="true"
+                        android:layout_marginLeft="@dimen/sidebar_text_size"
+                        android:text="星座" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:text="星座" />
+                    <TextView
+                        android:id="@+id/tv_constellation"
+                        style="@style/user_info_text"
+                        android:layout_marginRight="10dp"
+                        android:layout_toLeftOf="@+id/img_constellation" />
 
-        <TextView
-            android:id="@+id/tv_constellation"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-             />
-    </RelativeLayout>
-    <RelativeLayout
-        android:id="@+id/relative_nationality"
-        android:layout_width="match_parent"
-        android:layout_height="40dp">
+                    <ImageView
+                        android:id="@+id/img_constellation"
+                        style="@style/user_info_imageview" />
+                </RelativeLayout>
+            </android.support.v7.widget.CardView>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:text="国籍" />
+            <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="0dp"
+                app:cardElevation="1dp">
 
-        <TextView
-            android:id="@+id/tv_nationality"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-             />
-    </RelativeLayout>
-    <RelativeLayout
-        android:id="@+id/relative_dialect"
-        android:layout_width="match_parent"
-        android:layout_height="40dp">
+                <RelativeLayout
+                    android:id="@+id/relative_nationality"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/linear_60dp">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:text="方言" />
+                    <TextView
+                        style="@style/user_info_text"
+                        android:layout_alignParentLeft="true"
+                        android:layout_marginLeft="@dimen/sidebar_text_size"
+                        android:text="国籍" />
 
-        <TextView
-            android:id="@+id/tv_dialect"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-           />
-    </RelativeLayout>
-    <RelativeLayout
-        android:id="@+id/relative_university"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        >
+                    <TextView
+                        android:id="@+id/tv_nationality"
+                        style="@style/user_info_text"
+                        android:layout_marginRight="10dp"
+                        android:layout_toLeftOf="@+id/img_nationality"
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:text="院校" />
+                        />
 
-        <TextView
-            android:id="@+id/tv_university"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-             />
-    </RelativeLayout>
-    <RelativeLayout
-        android:id="@+id/relative_rolename"
-        android:layout_width="match_parent"
-        android:layout_height="40dp">
+                    <ImageView
+                        android:id="@+id/img_nationality"
+                        style="@style/user_info_imageview" />
+                </RelativeLayout>
+            </android.support.v7.widget.CardView>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:text="目前状况" />
+            <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="0dp"
+                app:cardElevation="1dp"
+                android:layout_marginTop="@dimen/margin_8dp"
+                >
 
-        <TextView
-            android:id="@+id/tv_rolename"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-             />
-    </RelativeLayout>
-    <!--<RelativeLayout-->
-        <!--android:id="@+id/relative_major"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="40dp">-->
+                <RelativeLayout
+                    android:id="@+id/relative_dialect"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/linear_60dp">
 
-        <!--<TextView-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_alignParentLeft="true"-->
-            <!--android:text="专业" />-->
+                    <TextView
 
-        <!--<TextView-->
-            <!--android:id="@+id/tv_major"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_alignParentRight="true" />-->
-    <!--</RelativeLayout>-->
-    <RelativeLayout
-        android:id="@+id/relative_schollage"
-        android:layout_width="match_parent"
-        android:layout_height="40dp">
+                        style="@style/user_info_text"
+                        android:layout_alignParentLeft="true"
+                        android:layout_marginLeft="@dimen/sidebar_text_size"
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:text="教龄" />
+                        android:text="方言" />
 
-        <TextView
-            android:id="@+id/tv_schollage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-           />
-    </RelativeLayout>
-    <RelativeLayout
-        android:id="@+id/relative_school"
-        android:layout_width="match_parent"
-        android:layout_height="40dp">
+                    <TextView
+                        android:id="@+id/tv_dialect"
+                        style="@style/user_info_text"
+                        android:layout_marginRight="10dp"
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:text="就读高中" />
+                        android:layout_toLeftOf="@+id/img_dialect" />
 
-        <TextView
-            android:id="@+id/tv_school"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-             />
-    </RelativeLayout>
-    <!--<RelativeLayout-->
-        <!--android:id="@+id/relative_grades"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="40dp">-->
+                    <ImageView
+                        android:id="@+id/img_dialect"
+                        style="@style/user_info_imageview" />
+                </RelativeLayout>
+            </android.support.v7.widget.CardView>
 
-        <!--<TextView-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_alignParentLeft="true"-->
-            <!--android:text="高考分数" />-->
+            <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="0dp"
+                app:cardElevation="1dp">
 
-        <!--<TextView-->
-            <!--android:id="@+id/tv_grades"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_alignParentRight="true"-->
-             <!--/>-->
-    <!--</RelativeLayout>-->
-    <RelativeLayout
-        android:id="@+id/relative_livingcity"
-        android:layout_width="match_parent"
-        android:layout_height="40dp">
+                <RelativeLayout
+                    android:id="@+id/relative_university"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/linear_60dp">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:text="现居地" />
+                    <TextView
+                        style="@style/user_info_text"
+                        android:layout_alignParentLeft="true"
+                        android:layout_marginLeft="@dimen/sidebar_text_size"
+                        android:text="院校" />
 
-        <TextView
-            android:id="@+id/tv_livingcity"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            />
-    </RelativeLayout>
+                    <TextView
+                        android:id="@+id/tv_university"
+                        style="@style/user_info_text"
+                        android:layout_marginRight="10dp"
 
-    <RelativeLayout
-        android:id="@+id/relative_recommend"
-        android:layout_width="match_parent"
-        android:layout_height="40dp">
+                        android:layout_toLeftOf="@+id/img_university" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:text="介绍" />
+                    <ImageView
+                        android:id="@+id/img_university"
+                        style="@style/user_info_imageview" />
+                </RelativeLayout>
+            </android.support.v7.widget.CardView>
 
-        <TextView
-            android:id="@+id/tv_recomment"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-             />
-    </RelativeLayout>
+            <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="0dp"
+                app:cardElevation="1dp">
 
-    <RelativeLayout
-        android:id="@+id/relative_experience"
-        android:layout_width="match_parent"
-        android:layout_height="40dp">
+                <RelativeLayout
+                    android:id="@+id/relative_rolename"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/linear_60dp">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:text="过往经历" />
+                    <TextView
+                        style="@style/user_info_text"
+                        android:layout_alignParentLeft="true"
+                        android:layout_marginLeft="@dimen/sidebar_text_size"
+                        android:text="目前状况" />
 
-        <TextView
-            android:id="@+id/tv_experience"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-             />
-    </RelativeLayout>
+                    <TextView
+                        android:id="@+id/tv_rolename"
+                        style="@style/user_info_text"
+                        android:layout_marginRight="10dp"
 
-    <RelativeLayout
-        android:id="@+id/relative_solvelabel"
-        android:layout_width="match_parent"
-        android:layout_height="40dp">
+                        android:layout_toLeftOf="@+id/img_rolename" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:text="善于解决" />
+                    <ImageView
+                        android:id="@+id/img_rolename"
+                        style="@style/user_info_imageview" />
+                </RelativeLayout>
+            </android.support.v7.widget.CardView>
 
-        <TextView
-            android:id="@+id/tv_solvelabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true" />
-    </RelativeLayout>
+            <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="0dp"
+                app:cardElevation="1dp">
 
-    <RelativeLayout
-        android:id="@+id/relative_label"
-        android:layout_width="match_parent"
-        android:layout_height="40dp">
+                <RelativeLayout
+                    android:id="@+id/relative_schollage"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/linear_60dp">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:text="个人标签" />
+                    <TextView
+                        style="@style/user_info_text"
+                        android:layout_alignParentLeft="true"
+                        android:layout_marginLeft="@dimen/sidebar_text_size"
+                        android:text="教龄" />
 
-        <TextView
-            android:id="@+id/tv_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-             />
-    </RelativeLayout>
+                    <TextView
+                        android:id="@+id/tv_schollage"
+                        style="@style/user_info_text"
+                        android:layout_marginRight="10dp"
 
-    <RelativeLayout
-       android:id="@+id/relative_result"
-        android:layout_width="match_parent"
-        android:layout_height="40dp">
+                        android:layout_toLeftOf="@+id/img_schollage" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:text="成果分享" />
+                    <ImageView
+                        android:id="@+id/img_schollage"
+                        style="@style/user_info_imageview" />
+                </RelativeLayout>
 
-        <TextView
-            android:id="@+id/tv_result"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-             />
-    </RelativeLayout>
+            </android.support.v7.widget.CardView>
 
-    <RelativeLayout
-        android:id="@+id/relative_images"
-        android:layout_width="match_parent"
-        android:layout_height="40dp">
+            <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="0dp"
+                app:cardElevation="1dp">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:text="照片" />
+                <RelativeLayout
+                    android:id="@+id/relative_school"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/linear_60dp">
 
-        <TextView
-            android:id="@+id/tv_images"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-             />
-    </RelativeLayout>
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="40dp">
+                    <TextView
+                        style="@style/user_info_text"
+                        android:layout_alignParentLeft="true"
+                        android:layout_marginLeft="@dimen/sidebar_text_size"
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:text="视频" />
+                        android:layout_marginRight="10dp"
+                        android:text="就读高中" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-             />
-    </RelativeLayout>
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="40dp">
+                    <TextView
+                        android:id="@+id/tv_school"
+                        style="@style/user_info_text"
+                        android:layout_toLeftOf="@+id/img_school" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:text="语音" />
+                    <ImageView
+                        android:id="@+id/img_school"
+                        style="@style/user_info_imageview" />
+                </RelativeLayout>
+            </android.support.v7.widget.CardView>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            />
-    </RelativeLayout>
-   </LinearLayout>
-</ScrollView>
+            <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="0dp"
+                app:cardElevation="1dp">
+                c
+
+                <RelativeLayout
+                    android:id="@+id/relative_livingcity"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/linear_60dp">
+
+                    <TextView
+                        style="@style/user_info_text"
+                        android:layout_alignParentLeft="true"
+                        android:layout_marginLeft="@dimen/sidebar_text_size"
+                        android:text="现居地" />
+
+                    <TextView
+                        android:id="@+id/tv_livingcity"
+                        style="@style/user_info_text"
+                        android:layout_toLeftOf="@+id/img_livingcity" />
+
+                    <ImageView
+                        android:id="@+id/img_livingcity"
+                        style="@style/user_info_imageview" />
+                </RelativeLayout>
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="0dp"
+                app:cardElevation="1dp">
+
+
+                <RelativeLayout
+                    android:id="@+id/relative_recommend"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/linear_60dp">
+
+                    <TextView
+                        style="@style/user_info_text"
+                        android:layout_alignParentLeft="true"
+                        android:layout_marginLeft="@dimen/sidebar_text_size"
+                        android:text="介绍" />
+
+                    <TextView
+                        android:id="@+id/tv_recomment"
+                        style="@style/user_info_text"
+                        android:layout_marginRight="10dp"
+
+                        android:layout_toLeftOf="@+id/img_recomment" />
+
+                    <ImageView
+                        android:id="@+id/img_recomment"
+                        style="@style/user_info_imageview" />
+                </RelativeLayout>
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="0dp"
+                app:cardElevation="1dp">
+
+                <RelativeLayout
+                    android:id="@+id/relative_experience"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/linear_60dp">
+
+                    <TextView
+                        style="@style/user_info_text"
+                        android:layout_alignParentLeft="true"
+                        android:layout_marginLeft="@dimen/sidebar_text_size"
+                        android:text="过往经历" />
+
+                    <TextView
+                        android:id="@+id/tv_experience"
+                        style="@style/user_info_text"
+                        android:layout_marginRight="10dp"
+
+                        android:layout_toLeftOf="@+id/img_experience" />
+
+                    <ImageView
+                        android:id="@+id/img_experience"
+                        style="@style/user_info_imageview" />
+                </RelativeLayout>
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="0dp"
+                app:cardElevation="1dp">
+
+                <RelativeLayout
+                    android:id="@+id/relative_solvelabel"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/linear_60dp">
+
+                    <TextView
+                        style="@style/user_info_text"
+                        android:layout_alignParentLeft="true"
+                        android:layout_marginLeft="@dimen/sidebar_text_size"
+                        android:text="善于解决" />
+
+                    <TextView
+                        android:id="@+id/tv_solvelabel"
+                        style="@style/user_info_text"
+                        android:layout_toLeftOf="@+id/img_solvelabel" />
+
+                    <ImageView
+                        android:id="@+id/img_solvelabel"
+                        style="@style/user_info_imageview" />
+                </RelativeLayout>
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="0dp"
+                app:cardElevation="1dp">
+
+                <RelativeLayout
+                    android:id="@+id/relative_label"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/linear_60dp">
+
+                    <TextView
+                        style="@style/user_info_text"
+                        android:layout_alignParentLeft="true"
+                        android:layout_marginLeft="@dimen/sidebar_text_size"
+                        android:text="个人标签" />
+
+                    <TextView
+                        android:id="@+id/tv_label"
+                        style="@style/user_info_text"
+                        android:layout_marginRight="10dp"
+
+                        android:layout_toLeftOf="@+id/img_label" />
+
+                    <ImageView
+                        android:id="@+id/img_label"
+                        style="@style/user_info_imageview" />
+                </RelativeLayout>
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="0dp"
+                app:cardElevation="1dp">
+
+                <RelativeLayout
+                    android:id="@+id/relative_result"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/linear_60dp">
+
+                    <TextView
+                        style="@style/user_info_text"
+                        android:layout_alignParentLeft="true"
+                        android:layout_marginLeft="@dimen/sidebar_text_size"
+                        android:text="成果分享" />
+
+                    <TextView
+                        android:id="@+id/tv_result"
+                        style="@style/user_info_text"
+                        android:layout_marginRight="10dp"
+
+                        android:layout_toLeftOf="@+id/img_result" />
+
+                    <ImageView
+                        android:id="@+id/img_result"
+                        style="@style/user_info_imageview" />
+                </RelativeLayout>
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="0dp"
+                app:cardElevation="1dp">
+
+                <RelativeLayout
+                    android:id="@+id/relative_images"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/linear_60dp">
+
+                    <TextView
+                        style="@style/user_info_text"
+                        android:layout_alignParentLeft="true"
+                        android:layout_marginLeft="@dimen/sidebar_text_size"
+                        android:text="照片" />
+
+                    <TextView
+                        android:id="@+id/tv_images"
+                        style="@style/user_info_text"
+                        android:layout_marginRight="10dp"
+
+                        android:layout_toLeftOf="@+id/img_images" />
+
+                    <ImageView
+                        android:id="@+id/img_images"
+                        style="@style/user_info_imageview" />
+                </RelativeLayout>
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="0dp"
+                app:cardElevation="1dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/linear_60dp">
+
+                    <TextView
+                        style="@style/user_info_text"
+                        android:layout_alignParentLeft="true"
+                        android:layout_marginLeft="@dimen/sidebar_text_size"
+                        android:text="视频" />
+
+                    <TextView style="@style/user_info_text" />
+
+                </RelativeLayout>
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="0dp"
+                app:cardElevation="1dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/linear_60dp">
+
+                    <TextView
+                        style="@style/user_info_text"
+                        android:layout_alignParentLeft="true"
+                        android:layout_marginLeft="@dimen/sidebar_text_size"
+                        android:text="语音" />
+
+                    <TextView style="@style/user_info_text" />
+                </RelativeLayout>
+            </android.support.v7.widget.CardView>
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>

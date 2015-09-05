@@ -23,6 +23,7 @@ import com.dxj.teacher.http.VolleySingleton;
 import com.dxj.teacher.utils.HttpUtils;
 import com.dxj.teacher.utils.StringUtils;
 import com.dxj.teacher.utils.ToastUtils;
+import com.dxj.teacher.widget.TitleNavBar;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -32,42 +33,67 @@ import java.util.Map;
  * 学校
  */
 public class UpdateSchoolAgeActivity extends BaseActivity implements View.OnClickListener {
-    private ImageButton btnBack;
     private EditText etSchoolAge;
     private String strSchoolAge;
+    private String id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update_nicename);
+        initTitle();
         initData();
         initView();
     }
 
     @Override
     public void initTitle() {
+        TitleNavBar title = (TitleNavBar) findViewById(R.id.title);
+        title.setTitle("教龄");
+        title.setOnTitleNavClickListener(new TitleNavBar.OnTitleNavClickListener() {
+            @Override
+            public void onNavOneClick() {
 
+            }
+
+            @Override
+            public void onNavTwoClick() {
+
+            }
+
+            @Override
+            public void onNavThreeClick() {
+
+            }
+
+            @Override
+            public void onActionClick() {
+
+            }
+
+            @Override
+            public void onBackClick() {
+                sendRequestData();
+            }
+        });
     }
 
     @Override
     public void initView() {
-        btnBack = (ImageButton) findViewById(R.id.btn_back);
         etSchoolAge = (EditText) findViewById(R.id.et);
-        btnBack.setOnClickListener(this);
+        etSchoolAge.setText(strSchoolAge);
     }
 
     @Override
     public void initData() {
-
+        strSchoolAge = getIntent().getStringExtra("schoolAge");
+        id = getIntent().getStringExtra("id");
     }
 
     @Override
     public void onClick(View v) {
         int id = v.getId();
         switch (id) {
-            case R.id.btn_back:
-                sendRequestData();
-                break;
         }
     }
 
@@ -79,7 +105,7 @@ public class UpdateSchoolAgeActivity extends BaseActivity implements View.OnClic
         }
         String urlPath = FinalData.URL_VALUE + HttpUtils.SCHOOLAGE;
         Map<String, Object> map = new HashMap<>();
-        map.put("id", "e1c380f1-c85e-4a0f-aafc-152e189d9d01");
+        map.put("id", id);
         map.put("schoolAge", strSchoolAge);
         CustomStringRequest custom = new CustomStringRequest(Request.Method.POST, urlPath, map, getListener(), getErrorListener());
         VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(custom);

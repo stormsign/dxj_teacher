@@ -53,4 +53,14 @@ public class HttpUtils {
 	public static final String  GOOD_SUBJECT_LIST="goodSubjectList";
 	//删除课程
 	public static final String  DELGOODSUBJECT="delGoodSubject";
+	//修改证件
+	public static final String  CARD="card";
+	//学历
+	public static final String  DEGREES="degrees";
+	//教师证
+	public static final String  JSZ="jsz";
+	//资质证书
+	public static final String  APTITUDE="aptitude";
+
+
 }

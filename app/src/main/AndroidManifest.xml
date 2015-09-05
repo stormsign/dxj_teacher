@@ -236,6 +236,11 @@
         <activity android:name=".activity.UpdateSchoolActivity"/>
         <activity android:name=".activity.AddCourseActivity"/>
         <activity android:name=".activity.EditCourseActivity"/>
+        <activity android:name=".activity.CardActvity"/>
+        <activity android:name=".activity.CardSettingActivity"/>
+        <activity android:name=".activity.CardTeacherActvity"/>
+        <activity android:name=".activity.CardAptitudeActvity"/>
+        <activity android:name=".activity.CardDegreesActvity"/>
     </application>
 
 </manifest>
