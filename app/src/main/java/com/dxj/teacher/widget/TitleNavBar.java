@@ -29,6 +29,7 @@ public class TitleNavBar extends RelativeLayout {
     private boolean isSearchBar = false;
     private RelativeLayout container;
     public TextView action;
+    private boolean isDisableBack = false;
 
     public TitleNavBar(Context context) {
         this(context, null);
@@ -79,11 +80,13 @@ public class TitleNavBar extends RelativeLayout {
         back.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mOnTitleNavClickListener != null){
-                    mOnTitleNavClickListener.onBackClick();
+                if (isDisableBack) {
+                    if (mOnTitleNavClickListener != null) {
+                        mOnTitleNavClickListener.onBackClick();
+                    }
+                    Activity activity = (Activity) mContext;
+                    activity.finish();
                 }
-                Activity activity = (Activity) mContext;
-                activity.finish();
             }
         });
         if (!isSearchBar){
@@ -241,6 +244,13 @@ public class TitleNavBar extends RelativeLayout {
         }
     }
 
+    /**
+     * 取消返回键功能
+     * @param isDisable
+     */
+    public void disableBack(boolean isDisable){
+        isDisableBack = isDisable;
+    }
 
 
 }
