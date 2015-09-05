@@ -23,52 +23,79 @@ import com.dxj.teacher.http.VolleySingleton;
 import com.dxj.teacher.utils.HttpUtils;
 import com.dxj.teacher.utils.StringUtils;
 import com.dxj.teacher.utils.ToastUtils;
+import com.dxj.teacher.widget.TitleNavBar;
 
 import java.util.HashMap;
 import java.util.Map;
 
 /**
  * Created by kings on 8/27/2015.
- *
- *方言
+ * <p/>
+ * 方言
  */
 public class UpdateDialectActivity extends BaseActivity implements View.OnClickListener {
-    private ImageButton btnBack;
     private EditText etDialect;
     private String strDialect;
+    private String id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update_nicename);
+        initTitle();
         initData();
         initView();
     }
 
     @Override
     public void initTitle() {
+        TitleNavBar title = (TitleNavBar) findViewById(R.id.title);
+        title.setTitle("方言");
+        title.setOnTitleNavClickListener(new TitleNavBar.OnTitleNavClickListener() {
+            @Override
+            public void onNavOneClick() {
 
+            }
+
+            @Override
+            public void onNavTwoClick() {
+
+            }
+
+            @Override
+            public void onNavThreeClick() {
+
+            }
+
+            @Override
+            public void onActionClick() {
+
+            }
+
+            @Override
+            public void onBackClick() {
+                sendRequestData();
+            }
+        });
     }
 
     @Override
     public void initView() {
-        btnBack = (ImageButton) findViewById(R.id.btn_back);
         etDialect = (EditText) findViewById(R.id.et);
-        btnBack.setOnClickListener(this);
+        etDialect.setText(strDialect);
     }
 
     @Override
     public void initData() {
-
+        strDialect = getIntent().getStringExtra("dialect");
+        id = getIntent().getStringExtra("id");
     }
 
     @Override
     public void onClick(View v) {
         int id = v.getId();
         switch (id) {
-            case R.id.btn_back:
-                sendRequestData();
-                break;
+
         }
     }
 
@@ -80,7 +107,7 @@ public class UpdateDialectActivity extends BaseActivity implements View.OnClickL
         }
         String urlPath = FinalData.URL_VALUE + HttpUtils.DIALECT;
         Map<String, Object> map = new HashMap<>();
-        map.put("id", "e1c380f1-c85e-4a0f-aafc-152e189d9d01");
+        map.put("id", id);
         map.put("dialect", strDialect);
         CustomStringRequest custom = new CustomStringRequest(Request.Method.POST, urlPath, map, getListener(), getErrorListener());
         VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(custom);

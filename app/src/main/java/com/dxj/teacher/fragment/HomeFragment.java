@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.dxj.teacher.R;
+import com.dxj.teacher.activity.CardSettingActivity;
 import com.dxj.teacher.activity.EditCourseActivity;
 import com.dxj.teacher.base.BaseFragment;
 
@@ -16,6 +17,7 @@ import com.dxj.teacher.base.BaseFragment;
  */
 public class HomeFragment extends BaseFragment implements View.OnClickListener{
  private Button btnGoodSubject;
+ private Button btnCard;
     @Override
     public void initData() {
 //        List<String>
@@ -25,7 +27,9 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
     public View initView(LayoutInflater inflater) {
         view = inflater.inflate(R.layout.fragment_home, null);
         btnGoodSubject =(Button)view.findViewById(R.id.btn_good_subject);
+        btnCard =(Button)view.findViewById(R.id.btn_card);
         btnGoodSubject.setOnClickListener(this);
+        btnCard.setOnClickListener(this);
         return view;
     }
 
@@ -39,6 +43,9 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
                 Log.i("TAG","onClick");
                 Intent intent  = new Intent(getActivity(), EditCourseActivity.class);
                 startActivity(intent);
+                break;
+            case R.id.btn_card:
+                startActivity(new Intent(getActivity(), CardSettingActivity.class));
                 break;
         }
     }

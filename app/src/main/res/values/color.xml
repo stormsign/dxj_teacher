@@ -6,6 +6,10 @@
     <color name="divider_color">#11000000</color>
     <color name="msg_color">#FFFFFFFF</color>
     <color name="dialog_bg">#ffe74c3c</color>
+    <!-- userInfo-->
+    <color name="bg_userinfo">#feb28c</color>
+    <color name="linear">#bfbfbf</color>
+    <color name="text_black">#323232</color>
 
     <color name="btn_press_color">#66000000</color>
     <color name="btn_unpress_color">#22000000</color>

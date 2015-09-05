@@ -41,6 +41,7 @@ import com.dxj.teacher.utils.MyUtils;
 import com.dxj.teacher.utils.PhotoFileUtils;
 import com.dxj.teacher.utils.StringUtils;
 import com.dxj.teacher.utils.UpdatePhotoUtils;
+import com.dxj.teacher.widget.TitleNavBar;
 import com.google.gson.Gson;
 import com.orhanobut.dialogplus.DialogPlus;
 import com.orhanobut.dialogplus.Holder;
@@ -71,12 +72,16 @@ public class UpdateUserInfoActivity extends BaseActivity implements View.OnClick
     public static final int RESULT_LOAD_IMAGE = 1;// 从相册中选择
     public static final int CUT_PHOTO_REQUEST_CODE = 2;
 
+    public static final int BIRTHDAY = 2;
+    public static final int SEX = 1;
+    public static final int HOROSCOPE = 3;
+    public static final int HEAD_URL = 4;
+
     public static final int NICE_NAME = 1;
     public static final int DIALECT = 2;
     public static final int NATIONALITY = 3;
     public static final int LABEL = 4;
     public static final int SCHOOLAGE = 5;
-    //    public static final int GRADES = 6;
     public static final int LIVING_CITY = 7;
     public static final int REMARK = 8;
     public static final int EXPERIENCE = 9;
@@ -89,9 +94,7 @@ public class UpdateUserInfoActivity extends BaseActivity implements View.OnClick
     private RelativeLayout relativeSex;
     private RelativeLayout relativeDialect;
     private RelativeLayout relativeNationality;
-    //    private RelativeLayout relativeMajor;
     private RelativeLayout relativeSchollAge;
-    //    private RelativeLayout relativeGrades;
     private RelativeLayout relativeLivingCity;
     private RelativeLayout relativeRecommend;
     private RelativeLayout relativeBirthday;
@@ -109,9 +112,7 @@ public class UpdateUserInfoActivity extends BaseActivity implements View.OnClick
     private TextView tvSex;
     private TextView tvNationality;
     private TextView tvDialect;
-    //    private TextView tvMajor;
     private TextView tvSchollAge;
-    //    private TextView tvGrades;
     private TextView tvLivingCity;
     private TextView tvRecommend;
     private TextView tvBirthday;
@@ -129,6 +130,7 @@ public class UpdateUserInfoActivity extends BaseActivity implements View.OnClick
     private UserBean userBean;
     private Uri photoUri;
     private String imagePath;
+    private String strHeadUrl;
     private final Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -145,13 +147,16 @@ public class UpdateUserInfoActivity extends BaseActivity implements View.OnClick
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.update_user_info);
+        initTitle();
         initData();
         initView();
     }
 
     @Override
     public void initTitle() {
-
+        TitleNavBar titleNavBar = (TitleNavBar)findViewById(R.id.title);
+        titleNavBar.setTitle("个人资料");
+        titleNavBar.setTitleNoRightButton();
     }
 
     private MyAsyn.AsyncResponse getAsynResponse() {
@@ -162,12 +167,13 @@ public class UpdateUserInfoActivity extends BaseActivity implements View.OnClick
 
                 // TODO Auto-generated method stub
                 Log.i("TAG", "Update+result=" + result);
-//                tv.setVisibility(View.GONE);
                 Gson gson = new Gson();
                 HeadUrl headUrl = gson.fromJson(result, HeadUrl.class);
-                Log.i("TAG","headUrl="+headUrl.getImages().get(0));
-//                if (headUrl.getCode()==0)
-//                    sendRequestData(headUrl.getUrl(), 4);
+                if (headUrl.getCode()==0){
+                    strHeadUrl=headUrl.getImages().get(0);
+                    sendRequestData(strHeadUrl,HEAD_URL);
+                }else
+                    showToast("头像上传失败");
             }
         };
     }
@@ -179,11 +185,8 @@ public class UpdateUserInfoActivity extends BaseActivity implements View.OnClick
         relativeSex = (RelativeLayout) findViewById(R.id.relative_sex);
         relativeDialect = (RelativeLayout) findViewById(R.id.relative_dialect);
         relativeNationality = (RelativeLayout) findViewById(R.id.relative_nationality);
-//        relativeMajor = (RelativeLayout) findViewById(R.id.relative_major);
         relativeSchollAge = (RelativeLayout) findViewById(R.id.relative_schollage);
-//        relativeGrades = (RelativeLayout) findViewById(R.id.relative_grades);
         relativeLivingCity = (RelativeLayout) findViewById(R.id.relative_livingcity);
-//        relativeGrades = (RelativeLayout) findViewById(R.id.relative_livingcity);
         relativeRecommend = (RelativeLayout) findViewById(R.id.relative_recommend);
         relativeBirthday = (RelativeLayout) findViewById(R.id.relative_birthday);
         relativeConstellation = (RelativeLayout) findViewById(R.id.relative_constellation);
@@ -203,8 +206,6 @@ public class UpdateUserInfoActivity extends BaseActivity implements View.OnClick
         tvSex = (TextView) findViewById(R.id.tv_sex);
         tvDialect = (TextView) findViewById(R.id.tv_dialect);
         tvNationality = (TextView) findViewById(R.id.tv_nationality);
-//        tvMajor = (TextView) findViewById(R.id.tv_major);
-//        tvGrades = (TextView) findViewById(R.id.tv_major);
         tvLivingCity = (TextView) findViewById(R.id.tv_livingcity);
         tvRecommend = (TextView) findViewById(R.id.tv_recomment);
         tvBirthday = (TextView) findViewById(R.id.tv_birthday);
@@ -231,14 +232,11 @@ public class UpdateUserInfoActivity extends BaseActivity implements View.OnClick
             tvSex.setText(userBean.getUserInfo().getSex());
             tvDialect.setText(userBean.getUserInfo().getDialect());
             tvNationality.setText(userBean.getUserInfo().getNationality());
-//        tvMajor.setText(userBean.getUserInfo().getMajor());
-//        tvGrades.setText(userBean.getUserInfo().getGrades());
             tvLivingCity.setText(userBean.getUserInfo().getLivingCity());
             tvRecommend.setText(userBean.getUserInfo().getRemark());
             tvBirthday.setText(userBean.getUserInfo().getBirthday());
             tvConstellation.setText(userBean.getUserInfo().getHoroscope());
             tvExperience.setText(userBean.getUserInfo().getExperience());
-//        tvSolveLabel.setText(userBean.getUserInfo().getSolveLabel());
             tvResult.setText(userBean.getUserInfo().getResult());
             tvUniversity.setText(userBean.getUserInfo().getUniversity());
         }
@@ -252,7 +250,6 @@ public class UpdateUserInfoActivity extends BaseActivity implements View.OnClick
 
             }
             tvLabel.setText(sbf.toString());
-
         }
         if (userBean.getUserInfo().getSolveLabel().size() > 0) {
             StringBuffer sbf = new StringBuffer();
@@ -271,9 +268,7 @@ public class UpdateUserInfoActivity extends BaseActivity implements View.OnClick
         relativeSex.setOnClickListener(this);
         relativeDialect.setOnClickListener(this);
         relativeNationality.setOnClickListener(this);
-//        relativeMajor.setOnClickListener(this);
         relativeSchollAge.setOnClickListener(this);
-//        relativeGrades.setOnClickListener(this);
         relativeLivingCity.setOnClickListener(this);
         relativeRecommend.setOnClickListener(this);
         relativeBirthday.setOnClickListener(this);
@@ -292,18 +287,20 @@ public class UpdateUserInfoActivity extends BaseActivity implements View.OnClick
     @Override
     public void initData() {
         userBean = MyApplication.getInstance().getUserBean();
-        Log.i("TAG", "userBean=" + userBean);
     }
 
     @Override
     public void onClick(View v) {
         int id = v.getId();
+        String userId =userBean.getUserInfo().getId();
         switch (id) {
             case R.id.relative_avatar:
                 UpdatePhotoUtils.startPhotoZoom(this);
                 break;
             case R.id.relative_nicename:
                 Intent intent = new Intent(this, UpdateNiceNameActivity.class);
+                intent.putExtra("niceName",userBean.getUserInfo().getNickName());
+                intent.putExtra("id",userId);
                 startActivityForResult(intent, NICE_NAME);
                 break;
             case R.id.relative_sex:
@@ -311,29 +308,38 @@ public class UpdateUserInfoActivity extends BaseActivity implements View.OnClick
                 break;
             case R.id.relative_dialect:
                 Intent intentDialect = new Intent(this, UpdateDialectActivity.class);
+                intentDialect.putExtra("dialect",userBean.getUserInfo().getDialect());
+                intentDialect.putExtra("id",userId);
                 startActivityForResult(intentDialect, DIALECT);
                 break;
             case R.id.relative_nationality:
                 Intent intentNationality = new Intent(this, UpdatenationalityActivity.class);
+                intentNationality.putExtra("nationality",userBean.getUserInfo().getNationality());
+                intentNationality.putExtra("id",userId);
                 startActivityForResult(intentNationality, NATIONALITY);
                 break;
             case R.id.relative_schollage:
                 Intent intentSchool = new Intent(this, UpdateSchoolAgeActivity.class);
+                intentSchool.putExtra("schoolAge",userBean.getUserInfo().getSchoolAge());
+                intentSchool.putExtra("id",userId);
                 startActivityForResult(intentSchool, SCHOOLAGE);
                 break;
             case R.id.relative_livingcity:
                 Intent intentLivingCity = new Intent(this, UpdateLivingCityActivity.class);
+                intentLivingCity.putExtra("id",userId);
                 startActivityForResult(intentLivingCity, LIVING_CITY);
                 break;
             case R.id.relative_recommend:
                 Intent intentRecommend = new Intent(this, UpdateRecommendActivity.class);
+                intentRecommend.putExtra("recommend",userBean.getUserInfo().getRemark());
+                intentRecommend.putExtra("id",userId);
                 startActivityForResult(intentRecommend, REMARK);
                 break;
             case R.id.relative_birthday:
                 updateBirthday();
                 break;
             case R.id.relative_constellation:
-                SimpleAdapter adapter = new SimpleAdapter(UpdateUserInfoActivity.this, false, strings);
+                SimpleAdapter adapter = new SimpleAdapter(UpdateUserInfoActivity.this, strings);
                 showOnlyContentDialog(new ListHolder(), Gravity.BOTTOM, adapter, itemClickListener, dismissListener, cancelListener, true);
                 break;
             case R.id.relative_label:
@@ -385,26 +391,21 @@ public class UpdateUserInfoActivity extends BaseActivity implements View.OnClick
                             return;
                         }
                         Uri selectedImageUri = data.getData();
-//                        startPhotoZoomOne(selectedImageUri);
-//                        startPhotoZoomOne(selectedImageUri);
                         //图片裁剪
-                                            imagePath = UpdatePhotoUtils.getImagePath();
-                        UpdatePhotoUtils.startPhotoZoomOne(selectedImageUri,UpdateUserInfoActivity.this);
+                        imagePath = UpdatePhotoUtils.getImagePath();
+                        UpdatePhotoUtils.startPhotoZoomOne(selectedImageUri, UpdateUserInfoActivity.this);
 
                     } else {
                         if (requestCode == TAKE_PICTURE) {
                             // 拍摄图片
-                            // if (bitmap == null && !StringUtils.isEmpty(theLarge)) {
-                            // bitmap = Util.loadImgThumbnail(theLarge, 600, 600);
-                            // }
                             imagePath = UpdatePhotoUtils.getImagePath();
-                            UpdatePhotoUtils.startPhotoZoomOne(photoUri,UpdateUserInfoActivity.this);
+                            UpdatePhotoUtils.startPhotoZoomOne(photoUri, UpdateUserInfoActivity.this);
                         } else if (requestCode == CUT_PHOTO_REQUEST_CODE) {
                             if (resultCode == RESULT_OK && null != data) {// 裁剪返回
-                                Log.i("TAG","imagePath="+imagePath);
+                                Log.i("TAG", "imagePath=" + imagePath);
                                 if (bitmap == null && !StringUtils.isEmpty(imagePath)) {
                                     bitmap = MyUtils.getBitmapByPath(imagePath);
-                                    Log.i("TAG","bitmap="+bitmap);
+                                    Log.i("TAG", "bitmap=" + bitmap);
                                     Message msg = new Message();
                                     msg.what = 1;
                                     msg.obj = bitmap;
@@ -481,13 +482,13 @@ public class UpdateUserInfoActivity extends BaseActivity implements View.OnClick
         dialogPlus.findViewById(R.id.tv_woman).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sendRequestData("女", 1);
+                sendRequestData("女", SEX);
             }
         });
         dialogPlus.findViewById(R.id.tv_man).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sendRequestData("男", 1);
+                sendRequestData("男", SEX);
             }
         });
     }
@@ -496,17 +497,17 @@ public class UpdateUserInfoActivity extends BaseActivity implements View.OnClick
         String urlPath = null;
         Map<String, Object> map = new HashMap<>();
         map.put("id", "e1c380f1-c85e-4a0f-aafc-152e189d9d01");
-        if (index == 2) {
+        if (index == BIRTHDAY) {
             Log.i("TAG", "strSex=" + strSex);
             map.put("birthday", strSex);
             urlPath = FinalData.URL_VALUE + HttpUtils.BIRTHDAY;
-        } else if (index == 1) {
+        } else if (index == SEX) {
             map.put("sex", strSex);
             urlPath = FinalData.URL_VALUE + HttpUtils.SEX;
-        } else if (index == 3) {
+        } else if (index == HOROSCOPE) {
             map.put("horoscope", strSex);
             urlPath = FinalData.URL_VALUE + HttpUtils.HOROSCOPE;
-        } else if (index == 4) {
+        } else if (index == HEAD_URL) {
             Log.i("TAG", "headUrl=" + strSex);
             map.put("headUrl", strSex);
             urlPath = FinalData.URL_VALUE + HttpUtils.HEAD_URL;
@@ -525,16 +526,16 @@ public class UpdateUserInfoActivity extends BaseActivity implements View.OnClick
                 BaseBean message = JSONObject.parseObject(str, BaseBean.class);
                 String accountTable = null;
                 if (message.getCode() == 0) {
-                    if (index == 1) {
+                    if (index == SEX) {
                         tvSex.setText(strSex);
                         accountTable = AccountTable.SET;
-                    } else if (index == 2) {
+                    } else if (index == BIRTHDAY) {
                         tvBirthday.setText(strSex);
                         accountTable = AccountTable.BIRTHDAY;
-                    } else if (index == 3) {
+                    } else if (index == HOROSCOPE) {
                         tvConstellation.setText(strSex);
                         accountTable = AccountTable.HOROSCOPE;
-                    } else if (index == 4) {
+                    } else if (index == HEAD_URL) {
                         accountTable = AccountTable.HEADURL;
                         showToast("上传成功");
                     }
@@ -574,7 +575,7 @@ public class UpdateUserInfoActivity extends BaseActivity implements View.OnClick
 //            Toast.makeText(UpdateUserInfoActivity.this,
 //                    mFormatter.format(date), Toast.LENGTH_SHORT).show();
             tvBirthday.setText(mFormatter.format(date));
-            sendRequestData(mFormatter.format(date), 2);
+            sendRequestData(mFormatter.format(date), BIRTHDAY);
         }
 
         // Optional cancel listener
@@ -617,7 +618,7 @@ public class UpdateUserInfoActivity extends BaseActivity implements View.OnClick
             Log.i("TAG", "position=" + position);
             dialog.dismiss();
             String str = strings[position];
-            sendRequestData(str, 3);
+            sendRequestData(str, HOROSCOPE);
         }
     };
     OnDismissListener dismissListener = new OnDismissListener() {
@@ -637,47 +638,10 @@ public class UpdateUserInfoActivity extends BaseActivity implements View.OnClick
 
     public void photo() {
         //获取文件
-       File out = UpdatePhotoUtils.photo(this);
+        File out = UpdatePhotoUtils.photo(this);
         photoUri = Uri.fromFile(out);
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         intent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri);
         startActivityForResult(intent, TAKE_PICTURE);
     }
-    private void startPhotoZoomOne(Uri uri) {
-        try {
-            // 获取系统时间 然后将裁剪后的图片保存至指定的文件夹
-            SimpleDateFormat sDateFormat = new SimpleDateFormat("yyyyMMddhhmmss");
-            String address = sDateFormat.format(new java.util.Date());
-            if (!PhotoFileUtils.isFileExist("")) {
-                PhotoFileUtils.createSDDir("");
-
-            }
-            imagePath = PhotoFileUtils.SDPATH + address + ".JPEG";
-            Uri imageUri = Uri.parse("file:///sdcard/formats/" + UpdatePhotoUtils.getImageAddress() + ".JPEG");
-
-            final Intent intent = new Intent("com.android.camera.action.CROP");
-            // Intent intent = new Intent(Intent.ACTION_GET_CONTENT, null);
-
-            // 照片URL地址
-            intent.setDataAndType(uri, "image/*");
-
-            intent.putExtra("crop", "true");
-            intent.putExtra("aspectX", 2);
-            intent.putExtra("aspectY", 2);
-            intent.putExtra("outputX", 200);
-            intent.putExtra("outputY", 200);
-            // 输出路径
-            intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
-            // 输出格式
-            intent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString());
-            // 不启用人脸识别
-            intent.putExtra("noFaceDetection", false);
-            intent.putExtra("return-data", false);
-            startActivityForResult(intent, CUT_PHOTO_REQUEST_CODE);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
 }

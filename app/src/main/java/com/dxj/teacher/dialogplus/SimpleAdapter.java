@@ -16,50 +16,46 @@ import com.dxj.teacher.R;
  */
 public class SimpleAdapter extends BaseAdapter {
 
-  private LayoutInflater layoutInflater;
-  private boolean isGrid;
-  public  String[] strings ;
-  public SimpleAdapter(Context context, boolean isGrid,String[] strings) {
-    this.strings=strings;
-    layoutInflater = LayoutInflater.from(context);
-    this.isGrid = isGrid;
-  }
+    private LayoutInflater layoutInflater;
+    public String[] strings;
 
-  @Override
-  public int getCount() {
-    return strings.length;
-  }
-
-  @Override
-  public Object getItem(int position) {
-    return position;
-  }
-
-  @Override
-  public long getItemId(int position) {
-    return position;
-  }
-  @Override
-  public View getView(int position, View convertView, ViewGroup parent) {
-    ViewHolder viewHolder;
-    View view = convertView;
-
-    if (view == null) {
-      if (isGrid) {
-        view = layoutInflater.inflate(R.layout.simple_grid_item, parent, false);
-      } else {
-        view = layoutInflater.inflate(R.layout.simple_list_item, parent, false);
-      }
-
-      viewHolder = new ViewHolder();
-      viewHolder.textView = (TextView) view.findViewById(R.id.text_view);
-      viewHolder.imageView = (ImageView) view.findViewById(R.id.image_view);
-      view.setTag(viewHolder);
-    } else {
-      viewHolder = (ViewHolder) view.getTag();
+    public SimpleAdapter(Context context, String[] strings) {
+        this.strings = strings;
+        layoutInflater = LayoutInflater.from(context);
     }
 
-    Context context = parent.getContext();
+    @Override
+    public int getCount() {
+        return strings.length;
+    }
+
+    @Override
+    public Object getItem(int position) {
+        return position;
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return position;
+    }
+
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent) {
+        ViewHolder viewHolder;
+        View view = convertView;
+
+        if (view == null) {
+
+            view = layoutInflater.inflate(R.layout.simple_list_item, parent, false);
+            viewHolder = new ViewHolder();
+            viewHolder.textView = (TextView) view.findViewById(R.id.text_view);
+            viewHolder.imageView = (ImageView) view.findViewById(R.id.image_view);
+            view.setTag(viewHolder);
+        } else {
+            viewHolder = (ViewHolder) view.getTag();
+        }
+
+        Context context = parent.getContext();
 //    switch (position) {
 //      case 0:
 //        viewHolder.textView.setText(context.getString(R.string.google_plus_title));
@@ -75,11 +71,11 @@ public class SimpleAdapter extends BaseAdapter {
 //        break;
 //    }
 
-    return view;
-  }
+        return view;
+    }
 
-  static class ViewHolder {
-    TextView textView;
-    ImageView imageView;
-  }
+    static class ViewHolder {
+        TextView textView;
+        ImageView imageView;
+    }
 }

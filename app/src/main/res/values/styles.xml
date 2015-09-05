@@ -59,8 +59,24 @@
         <item name="android:windowExitAnimation">@anim/popwindowhide</item>
 
     </style>
-    
+    <style name="user_info_text">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/text_16sp</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:textColor">@color/text_black</item>
+        <item name="android:layout_marginLeft">@dimen/sidebar_text_size</item>
+        <item name="android:singleLine">true</item>
+    </style>
 
+    <style name="user_info_imageview">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:layout_alignParentRight">true</item>
+        <item name="android:src">@mipmap/home_gerenziliao_jiantou</item>
+        <item name="android:layout_marginRight">@dimen/sidebar_text_size</item>
+    </style>
     <!--环信style 开始-->
 
     <style name="chat_text_date_style">

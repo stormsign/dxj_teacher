@@ -26,6 +26,7 @@ import com.dxj.teacher.http.VolleySingleton;
 import com.dxj.teacher.utils.HttpUtils;
 import com.dxj.teacher.utils.StringUtils;
 import com.dxj.teacher.utils.ToastUtils;
+import com.dxj.teacher.widget.TitleNavBar;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -35,40 +36,67 @@ import java.util.Map;
  * 介绍
  */
 public class UpdateRecommendActivity extends BaseActivity implements View.OnClickListener {
-    private ImageButton btnNiceName;
     private EditText etRemark;
     private String strRemark;
     private TextView tvCount;
+    private String id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update_recommend);
+        initTitle();
         initData();
         initView();
     }
 
     @Override
     public void initTitle() {
+        TitleNavBar title = (TitleNavBar) findViewById(R.id.title);
+        title.setTitle("介绍");
+        title.setOnTitleNavClickListener(new TitleNavBar.OnTitleNavClickListener() {
+            @Override
+            public void onNavOneClick() {
 
+            }
+
+            @Override
+            public void onNavTwoClick() {
+
+            }
+
+            @Override
+            public void onNavThreeClick() {
+
+            }
+
+            @Override
+            public void onActionClick() {
+
+            }
+
+            @Override
+            public void onBackClick() {
+                sendRequestData();
+            }
+        });
     }
 
     @Override
     public void initView() {
-        btnNiceName = (ImageButton) findViewById(R.id.btn_back);
         etRemark = (EditText) findViewById(R.id.et);
-        tvCount=(TextView)findViewById(R.id.tv_count);
-        btnNiceName.setOnClickListener(this);
-        etRemark.addTextChangedListener(new TextWatcher(){
+        etRemark.setText(strRemark);
+        tvCount = (TextView) findViewById(R.id.tv_count);
+        etRemark.addTextChangedListener(new TextWatcher() {
 
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-          }
+            }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
 
-                tvCount.setText(s.length()+"");
+                tvCount.setText(s.length() + "");
 
             }
 
@@ -81,16 +109,15 @@ public class UpdateRecommendActivity extends BaseActivity implements View.OnClic
 
     @Override
     public void initData() {
-
+        id = getIntent().getStringExtra("id");
+        strRemark=getIntent().getStringExtra("recommend");
     }
 
     @Override
     public void onClick(View v) {
         int id = v.getId();
         switch (id) {
-            case R.id.btn_back:
-                sendRequestData();
-                break;
+
         }
 
     }
@@ -103,7 +130,7 @@ public class UpdateRecommendActivity extends BaseActivity implements View.OnClic
         }
         String urlPath = FinalData.URL_VALUE + HttpUtils.REMARk;
         Map<String, Object> map = new HashMap<>();
-        map.put("id", "e1c380f1-c85e-4a0f-aafc-152e189d9d01");
+        map.put("id", id);
         map.put("remark", strRemark);
         CustomStringRequest custom = new CustomStringRequest(Request.Method.POST, urlPath, map, getListener(), getErrorListener());
         VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(custom);

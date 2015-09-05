@@ -353,6 +353,7 @@ public class MyUtils {
     }
 
     /**
+     *
      * 检测是否有emoji表情
      *
      * @param source
@@ -425,7 +426,7 @@ public class MyUtils {
 
         // Log.i("TAG", "calculateInSampleSize=" + calculateInSampleSize(bmOptions, 300, 600));
         // Decode the image file into a Bitmap sized to fill the View
-        bmOptions.inSampleSize = calculateInSampleSize(bmOptions, 300, 600);
+        bmOptions.inSampleSize = calculateInSampleSize(bmOptions, 600, 600);
         bmOptions.inJustDecodeBounds = false;
         // bmOptions.inPurgeable = true;
         // BitmapFactory.Options options = new BitmapFactory.Options();
@@ -481,6 +482,7 @@ public class MyUtils {
         try {
             File file = new File(filePath);
             fis = new FileInputStream(file);
+
             bitmap = BitmapFactory.decodeStream(fis, null, opts);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
