@@ -98,7 +98,7 @@ public class StudyGroupListActivity extends BaseActivity {
         List<GroupListFragment> fList = new ArrayList<>();
         for (int i = 0; i<titleList.size();i++){
 //            i == 0时是推荐学团
-            if (i == 0){
+            if (i == 0){    //-1表示fragment应该显示推荐学团
                 GroupListFragment fragment = GroupListFragment.newInstance(-1);
                 fList.add(fragment);
             }
@@ -132,4 +132,9 @@ public class StudyGroupListActivity extends BaseActivity {
         };
     }
 
+    @Override
+    protected void onDestroy() {
+        db.close();
+        super.onDestroy();
+    }
 }

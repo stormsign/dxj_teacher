@@ -29,6 +29,7 @@ import com.easemob.chat.EMGroupManager;
 import com.easemob.exceptions.EaseMobException;
 import com.google.gson.Gson;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -54,6 +55,7 @@ public class StudyGroupDetailActivity extends BaseActivity implements View.OnCli
     private LinearLayout member_container;
     private TextView member_count;
     private String groupId;
+    private List<UserBean.UserInfo> members;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -200,7 +202,7 @@ public class StudyGroupDetailActivity extends BaseActivity implements View.OnCli
             enterGroup.setText("进入学团");
         }
 //        获取团成员，包括团长，团长在第一个
-        List<UserBean.UserInfo> members = MyUtils.getGroupMembersFromJson(studyGroup, json);
+        members = MyUtils.getGroupMembersFromJson(studyGroup, json);
         if (!TextUtils.isEmpty(members.get(0).getHeadUrl())){
             Glide.with(this).load(members.get(0).getHeadUrl()).placeholder(R.mipmap.default_error).into(group_head);
         }
@@ -329,7 +331,8 @@ public class StudyGroupDetailActivity extends BaseActivity implements View.OnCli
                 startActivity(new Intent(activity, GroupNoticeActivity.class));
                 break;
             case R.id.rl_group_members:
-                startActivity(new Intent(activity, GroupMemberListActivity.class));
+                startActivity(new Intent(activity, GroupMemberListActivity.class)
+                        .putExtra("members", (Serializable) members));
                 break;
             case R.id.iv_leader_head:
 

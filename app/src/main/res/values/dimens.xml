@@ -60,6 +60,7 @@
     <dimen name="height_48dp">48dp</dimen>
     <dimen name="height_80dp">80dp</dimen>
     <dimen name="height_88dp">88dp</dimen>
+    <dimen name="image_24dp">24dp</dimen>
 
     <!--环信dimens 结束-->
 

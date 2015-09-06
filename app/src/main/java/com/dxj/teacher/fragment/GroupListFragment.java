@@ -13,6 +13,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.dxj.teacher.R;
+import com.dxj.teacher.activity.MoreGroupsActivity;
 import com.dxj.teacher.activity.StudyGroupDetailActivity;
 import com.dxj.teacher.adapter.GroupAdapter;
 import com.dxj.teacher.base.BaseFragment;
@@ -57,10 +58,14 @@ public class GroupListFragment extends BaseFragment {
     public void initData() {
         parentId = getArguments().getInt(SECOND_CATEGORY);
         LogUtils.d("parentId :"+parentId);
+        db = SQLiteDatabase.openDatabase(context.getFilesDir() + "/" + DBNAME, null, SQLiteDatabase.OPEN_READONLY);
+        showView(parentId);
+    }
+
+    private void showView(int parentId) {
         if (parentId == -1) {
             getRecommendedGroupList();
         }else{  //获取二级目录列表
-            db = SQLiteDatabase.openDatabase(context.getFilesDir() + "/" + DBNAME, null, SQLiteDatabase.OPEN_READONLY);
             secondList = SubjectDao.getChildCategoryFromParent(db, parentId);
             secondIdList = new ArrayList<>();
             secondIdList.clear();
@@ -70,7 +75,18 @@ public class GroupListFragment extends BaseFragment {
             }
             getSecondGroups(parentId);
         }
+    }
 
+    @Override
+    public void onResume() {
+        showView(parentId);
+        super.onResume();
+    }
+
+    @Override
+    public void onDestroy() {
+        db.close();
+        super.onDestroy();
     }
 
     @Override
@@ -161,6 +177,7 @@ public class GroupListFragment extends BaseFragment {
             @Override
             public void onMoreClick(View view, int position) {
                 ToastUtils.showToast(context, groupList.get(position).getSubjectSecond()+"");
+                startActivity(new Intent(context, MoreGroupsActivity.class).putExtra("secondId", groupList.get(position).getSubjectSecond()));
             }
         });
         rv_grouplist.setAdapter(gAdapter);
