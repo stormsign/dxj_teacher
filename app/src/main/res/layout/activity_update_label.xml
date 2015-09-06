@@ -3,41 +3,66 @@
     xmlns:flowlayout="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/background_content"
+
+    >
     <com.dxj.teacher.widget.TitleNavBar
         android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
     </com.dxj.teacher.widget.TitleNavBar>
-
-<TextView
+<RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:text="个人标签"
-    />
+    android:padding="@dimen/margin_10dp"
+    >
+    <TextView
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="个人标签"
+        android:textSize="@dimen/text_13sp"
+        android:textColor="@color/text_show"
+        android:layout_alignParentLeft="true"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="最多设置10个"
+        android:textSize="@dimen/text_13sp"
+        android:textColor="@color/text_show"
+        android:layout_alignParentRight="true"
+        />
+</RelativeLayout>
+
     <com.dxj.teacher.widget.FlowLayout
         android:id="@+id/already_flowlayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
+     android:padding="@dimen/margin_10dp"
         flowlayout:horizontal_spacing="10dp"
         flowlayout:vertical_spacing="10dp"
+        android:background="@android:color/white"
         >
     </com.dxj.teacher.widget.FlowLayout>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textSize="@dimen/text_13sp"
+        android:textColor="@color/text_show"
         android:text="快速选择"
+        android:padding="@dimen/margin_10dp"
         />
     <com.dxj.teacher.widget.FlowLayout
         android:id="@+id/select_flowlayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
+      android:padding="@dimen/margin_10dp"
         flowlayout:horizontal_spacing="10dp"
-        flowlayout:vertical_spacing="10dp">
+        flowlayout:vertical_spacing="10dp"
+        android:background="@android:color/white"
+        >
     </com.dxj.teacher.widget.FlowLayout>
 </LinearLayout>

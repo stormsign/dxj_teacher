@@ -53,14 +53,10 @@ public class FlowLayout extends ViewGroup {
 	int paddingBottom = getPaddingBottom();
 	int childLeft = paddingLeft;
 	int childTop = paddingTop;
-	Log.i("TAG", "paddingLeft=" + paddingLeft + "top=" + paddingTop + "right=" + paddingRight + "bottom=" + paddingBottom);
 	int lineHeight = 0;
 
 	// Measure each child and put the child to the right of previous child
 	// if there's enough room for it, otherwise, wrap the line and put the child to next line
-	Log.i("TAG", "widthMeasureSpec=" + widthMeasureSpec);
-	Log.i("TAG", "heightMeasureSpec=" + heightMeasureSpec);
-	Log.i("TAG", "childCount=" + getChildCount());
 	for (int i = 0, childCount = getChildCount(); i < childCount; ++i) {
 
 	    View childView = getChildAt(i);
@@ -69,12 +65,10 @@ public class FlowLayout extends ViewGroup {
 		    getChildMeasureSpec(heightMeasureSpec, paddingTop + paddingBottom, childLayoutParams.height));
 	    int childWidth = childView.getMeasuredWidth();
 	    int childHeight = childView.getMeasuredHeight();
-	    Log.i("TAG", "childWidth=" + childWidth);
-	    Log.i("TAG", "childHeight=" + childHeight);
+
 	    lineHeight = Math.max(childHeight, lineHeight);
 
 	    if (childLeft + childWidth + paddingRight > myWidth) {
-		Log.i("TAG", "childWidth=" + childLeft + childWidth + paddingRight);
 		childLeft = paddingLeft;
 		childTop += mVerticalSpacing + lineHeight;
 		lineHeight = childHeight;
@@ -97,7 +91,6 @@ public class FlowLayout extends ViewGroup {
 	int paddingRight = getPaddingRight();
 	int childLeft = paddingLeft;
 	int childTop = paddingTop;
-	Log.i("TAG", "onLayout");
 	int lineHeight = 0;
 	for (int i = 0, childCount = getChildCount(); i < childCount; ++i) {
 	    View childView = getChildAt(i);

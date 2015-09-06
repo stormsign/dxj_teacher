@@ -39,7 +39,9 @@ public class UpdateLabelActivity extends BaseActivity implements View.OnClickLis
     private String[] strings = {"品学兼优", "品学兼优", "讲解详细", "认真负责", "成绩优异"};
     private Map<Integer, CheckableButton> store = new HashMap<>();
     private ArrayList<String> list;
+    private ArrayList<String> lists=new ArrayList<>();
     private String id;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -93,14 +95,18 @@ public class UpdateLabelActivity extends BaseActivity implements View.OnClickLis
 
     @Override
     public void initData() {
-  id=getIntent().getStringExtra("id");
+        id = getIntent().getStringExtra("id");
+        lists = getIntent().getStringArrayListExtra("label");
+        Log.i("TAG","LIST="+lists.size());
     }
 
     private void addChildTo(FlowLayout flowLayout) {
         for (int i = 0; i < strings.length; i++) {
+//            if (strings[i].equals())
+
             CheckableButton btn = new CheckableButton(this);
             btn.setHeight(dp2px(32));
-            btn.setTextSize(16);
+            btn.setTextSize(12);
             btn.setTextColor(getResources().getColorStateList(R.color.checkable_text_color));
             btn.setBackgroundResource(R.drawable.checkable_background);
             StringBuilder sb = new StringBuilder();
@@ -109,7 +115,15 @@ public class UpdateLabelActivity extends BaseActivity implements View.OnClickLis
             flowLayout.addView(btn);
             btn.setTag(i);
             btn.setOnCheckedChangeWidgetListener(this);
-
+            Log.i("TAG", "setChecked=sss" + strings[i]);
+            for (int n=0;n<lists.size();n++){
+                if (strings[i].equals(lists.get(n))){
+                    addChildTo(alreadtFlowLayout, i);
+                    Log.i("TAG", "setChecked=" + lists.get(i));
+                    btn.setChecked(true);
+                    break;
+                }
+            }
         }
     }
 
@@ -129,13 +143,15 @@ public class UpdateLabelActivity extends BaseActivity implements View.OnClickLis
 
     private void sendRequestData() {
 //        strMajor = etMajor.getText().toString().trim();
-        if (store.size()==0){
+        if (store.size() == 0) {
             finish();
-            return;}
-        Iterator iter  = store.entrySet().iterator();
+            return;
+        }
+        Iterator iter = store.entrySet().iterator();
+
         list = new ArrayList<>();
-        while (iter.hasNext()){
-            Map.Entry<Integer,CheckableButton> entry = (Map.Entry<Integer,CheckableButton>)iter.next();
+        while (iter.hasNext()) {
+            Map.Entry<Integer, CheckableButton> entry = (Map.Entry<Integer, CheckableButton>) iter.next();
             CheckableButton checkableButton = entry.getValue();
             Log.i("TAG", "text=" + checkableButton.getText());
             list.add(checkableButton.getText().toString());
@@ -182,24 +198,29 @@ public class UpdateLabelActivity extends BaseActivity implements View.OnClickLis
     public void onCheckedChanged(CheckableButton buttonView, boolean isChecked) {
         int index = (Integer) buttonView.getTag();
         int count = 0;
-        Log.i("TAG", "index=" + index);
+        Log.i("TAG", "isChecked=" + isChecked);
         if (isChecked) {
             addChildTo(alreadtFlowLayout, index);
         } else {
             CheckableButton checkableButton = store.get(index);
             alreadtFlowLayout.removeView(checkableButton);
+            store.remove(index);
         }
     }
 
     private void addChildTo(FlowLayout flowLayout, int i) {
+        if (store.containsKey(i)){
+            return;
+        }
         CheckableButton btn = new CheckableButton(this);
         btn.setHeight(dp2px(32));
-        btn.setTextSize(16);
+        btn.setTextSize(12);
         btn.setTextColor(getResources().getColorStateList(R.color.checkable_text_color));
         btn.setBackgroundResource(R.drawable.checkable_background);
         StringBuilder sb = new StringBuilder();
         sb.append(strings[i]);
         btn.setText(sb.toString());
+        btn.setChecked(true);
         flowLayout.addView(btn);
         store.put(i, btn);
 

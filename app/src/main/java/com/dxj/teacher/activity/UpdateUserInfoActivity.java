@@ -53,6 +53,7 @@ import com.orhanobut.dialogplus.ViewHolder;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -345,7 +346,8 @@ public class UpdateUserInfoActivity extends BaseActivity implements View.OnClick
                 break;
             case R.id.relative_label:
                 Intent intentLabel = new Intent(this, UpdateLabelActivity.class);
-                intentLabel.putExtra("id",userId);
+                intentLabel.putStringArrayListExtra("label", (ArrayList<String>) userBean.getUserInfo().getLabel());
+                intentLabel.putExtra("id", userId);
                 startActivityForResult(intentLabel, LABEL);
                 break;
             case R.id.relative_experience:
