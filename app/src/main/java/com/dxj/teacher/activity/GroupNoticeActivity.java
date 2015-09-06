@@ -2,13 +2,22 @@ package com.dxj.teacher.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
+import android.view.View;
 
 import com.dxj.teacher.R;
+import com.dxj.teacher.adapter.NoticeAdapter;
 import com.dxj.teacher.base.BaseActivity;
+import com.dxj.teacher.bean.Notice;
 import com.dxj.teacher.widget.TitleNavBar;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by khb on 2015/9/4.
@@ -18,6 +27,15 @@ public class GroupNoticeActivity extends BaseActivity{
     private RecyclerView rv_notices;
     private SwipeRefreshLayout srl;
     private String groupId;
+    private List<Notice> list;
+
+    private Handler handler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            srl.setRefreshing(false);
+            super.handleMessage(msg);
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +79,15 @@ public class GroupNoticeActivity extends BaseActivity{
     @Override
     public void initView() {
         rv_notices = (RecyclerView) findViewById(R.id.rv_notices);
+        rv_notices.setLayoutManager(new LinearLayoutManager(this));
+        NoticeAdapter adapter = new NoticeAdapter(this, list);
+        rv_notices.setAdapter(adapter);
+        adapter.setOnNoticeClickListener(new NoticeAdapter.OnNoticeClickListener() {
+            @Override
+            public void onNoticeClick(View view, int position) {
+                showToast(position + " clicked");
+            }
+        });
         srl = (SwipeRefreshLayout) findViewById(R.id.srl);
 
 //        srl.setColorScheme(R.color.color1, R.color.color2,
@@ -68,9 +95,12 @@ public class GroupNoticeActivity extends BaseActivity{
         srl.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-
+                showToast("刷新数据");
+                handler.sendEmptyMessageDelayed(1, 2000);
             }
         });
+
+
 
         // 这句话是为了，第一次进入页面的时候显示加载进度条
         srl.setProgressViewOffset(false, 0, (int) TypedValue
@@ -96,5 +126,12 @@ public class GroupNoticeActivity extends BaseActivity{
     @Override
     public void initData() {
         groupId = getIntent().getStringExtra("groupId");
+        list = new ArrayList<>();
+        for (int i = 0 ; i < 20; i++){
+            Notice notice = new Notice();
+            notice.setName(i+i+i+i+"");
+            notice.setDescription("sdfsfsdfsfasdffsadfsafdsafssdfasfgdgds");
+            list.add(notice);
+        }
     }
 }

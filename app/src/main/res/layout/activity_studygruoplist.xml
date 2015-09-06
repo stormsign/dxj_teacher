@@ -1,16 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:indicator="http://schemas.android.com/apk/res-auto"
+    android:background="@color/background_content"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
     <com.dxj.teacher.widget.TitleNavBar
         android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="学团"
-        android:onClick="detail"
-        />
+    <com.dxj.teacher.widget.ViewPagerIndicator
+        android:id="@+id/indicator"
+        android:layout_width="match_parent"
+        android:background="@color/primary_text_default_material_light"
+        android:layout_height="48dp"
+        indicator:item_count="4"
+        >
+    </com.dxj.teacher.widget.ViewPagerIndicator>
+    <android.support.v4.view.ViewPager
+        android:id="@+id/vp_groups"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" >
+    </android.support.v4.view.ViewPager>
 
 </LinearLayout>

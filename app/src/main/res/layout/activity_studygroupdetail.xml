@@ -43,7 +43,7 @@
             <!--android:padding="@dimen/padding_16dp"-->
             <!-->-->
         <ImageView
-            android:id="@+id/iv_group_head"
+            android:id="@+id/group_head"
             android:layout_width="@dimen/image_64dp"
             android:layout_height="@dimen/image_64dp"
             android:layout_gravity="left"
@@ -53,7 +53,7 @@
 
         <TextView
             android:id="@+id/tv_groupname"
-            android:layout_toRightOf="@id/iv_group_head"
+            android:layout_toRightOf="@id/group_head"
             android:layout_marginLeft="@dimen/margin_16dp"
             android:text="学团"
             android:textSize="@dimen/text_14sp"

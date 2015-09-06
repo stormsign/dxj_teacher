@@ -53,6 +53,7 @@ public class StudyGroupDetailActivity extends BaseActivity implements View.OnCli
     private String teacherHX;
     private LinearLayout member_container;
     private TextView member_count;
+    private String groupId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,7 +99,7 @@ public class StudyGroupDetailActivity extends BaseActivity implements View.OnCli
 
     @Override
     public void initView() {
-        group_head = (ImageView) findViewById(R.id.iv_group_head);
+        group_head = (ImageView) findViewById(R.id.group_head);
         group_name = (TextView) findViewById(R.id.tv_groupname);
         description = (TextView) findViewById(R.id.tv_description);
         announce = (TextView) findViewById(R.id.tv_announce);
@@ -118,17 +119,17 @@ public class StudyGroupDetailActivity extends BaseActivity implements View.OnCli
     @Override
 
     public void initData() {
-        getIntent();
-        getGroupDetail();
+        groupId = getIntent().getStringExtra("groupId");
+        getGroupDetail(groupId);
         teacherHX = MyUtils.getTeacherHX(mApplication.getUserBean().getUserInfo().getMobile());
 
     }
 
-    private void getGroupDetail() {
+    private void getGroupDetail(String groupId) {
         String url = FinalData.URL_VALUE_COMMON+"getGroupDetail";
         Map<String, Object> map = new HashMap<String, Object>();
         String groupid = "abdefcbf-3e35-47d5-a4b0-563dd700a03a";
-        map.put("id", groupid);
+        map.put("id", groupId);
 
         CustomStringRequest cRequest = new CustomStringRequest(Request.Method.POST, url, map, getListener(), getErrorListener());
         VolleySingleton.getInstance(this).addToRequestQueue(cRequest);
@@ -276,7 +277,7 @@ public class StudyGroupDetailActivity extends BaseActivity implements View.OnCli
                 Gson gson = new Gson();
                 BaseBean msg = gson.fromJson(s, BaseBean.class);
                 showToast(msg.getMsg());
-                getGroupDetail();
+                getGroupDetail(groupId);
             }
         };
     }
@@ -284,6 +285,7 @@ public class StudyGroupDetailActivity extends BaseActivity implements View.OnCli
  public void enterGroup(View view){
     if (MyUtils.isMember(teacherHX, studyGroup)){
         showToast("进入学团");
+        startActivity(new Intent(this, ChatActivity.class).putExtra("userId", studyGroup.getGroupId()));
     }else{
         joinGroup(studyGroup.getId(), teacherHX);
     }
@@ -327,7 +329,7 @@ public class StudyGroupDetailActivity extends BaseActivity implements View.OnCli
                 startActivity(new Intent(activity, GroupNoticeActivity.class));
                 break;
             case R.id.rl_group_members:
-
+                startActivity(new Intent(activity, GroupMemberListActivity.class));
                 break;
             case R.id.iv_leader_head:
 

@@ -80,7 +80,7 @@ public class CreateStudyGroupActivity extends BaseActivity implements View.OnCli
 
     @Override
     public void initView() {
-        groupHead = (ImageView) findViewById(R.id.iv_group_head);
+        groupHead = (ImageView) findViewById(R.id.group_head);
         Glide.with(this).load(headUrl).into(groupHead);
         LinearLayout groupSubject = (LinearLayout) findViewById(R.id.ll_group_subject);
         arrow = (ImageView) findViewById(R.id.arrow);
@@ -187,7 +187,7 @@ public class CreateStudyGroupActivity extends BaseActivity implements View.OnCli
     @Override
     public void onClick(View v) {
         switch (v.getId()){
-            case R.id.iv_group_head:
+            case R.id.group_head:
                 showLogD(" 上传群头像");
                 uploadImg();
                 break;

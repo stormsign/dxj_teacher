@@ -12,7 +12,9 @@ import android.util.Log;
 import com.dxj.teacher.bean.StudyGroup;
 import com.dxj.teacher.bean.UserBean;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -27,6 +29,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -42,14 +45,33 @@ import java.util.zip.GZIPInputStream;
  */
 public class MyUtils {
 
+    public static List<StudyGroup> getSecondListGroupsFromJson(String json, List<Integer> secondIdList){
+        try {
+            JSONObject jObject = new JSONObject(json);
+            List<StudyGroup> groupList = new ArrayList<>();
+            for (int secondId :
+                    secondIdList) {
+                if (jObject.has(secondId+"")) {
+                    JSONArray jGroupArray = (JSONArray) jObject.get(secondId + "");
+                    Gson gson = new Gson();
+                    Type type = new TypeToken<ArrayList<StudyGroup>>() {}.getType();
+                    List<StudyGroup> groups = gson.fromJson(jGroupArray.toString(), type);
+                    groupList.addAll(groups);
+                }
+            }
+            return groupList;
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     public static StudyGroup getGroupDetailFromJson(String json){
 
         try {
             JSONObject jObject = new JSONObject(json);
             if (jObject.has("group")){
-
                 JSONObject jGroup = (JSONObject) jObject.get("group");
-                LogUtils.d("GROUP JSON:"+jGroup.toString());
                 Gson gson = new Gson();
                 StudyGroup studyGroup = gson.fromJson(jGroup.toString(), StudyGroup.class);
                 return studyGroup;
@@ -67,7 +89,9 @@ public class MyUtils {
         try {
             JSONObject jObject = new JSONObject(json);
             members.add(group.getOwner());
-            members.addAll(group.getMembers());
+            if (group.getMembers()!=null) {
+                members.addAll(group.getMembers());
+            }
             for (int i = 0; i<members.size(); i++){
                 if (jObject.has(members.get(i))){
                     JSONObject jUserInfo = (JSONObject) jObject.get(members.get(i));

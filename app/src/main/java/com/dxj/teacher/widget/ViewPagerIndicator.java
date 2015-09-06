@@ -84,7 +84,7 @@ public class ViewPagerIndicator extends LinearLayout {
     /**
      * 标题选中时的颜色
      */
-    private static final int COLOR_TEXT_HIGHLIGHTCOLOR = 0xFFFFFFFF;
+    private static final int COLOR_TEXT_HIGHLIGHTCOLOR = 0xFFF97957;
 
     public ViewPagerIndicator(Context context){
         this(context, null);

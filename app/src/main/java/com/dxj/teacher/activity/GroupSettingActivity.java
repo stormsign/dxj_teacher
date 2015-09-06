@@ -142,7 +142,7 @@ public class GroupSettingActivity extends BaseActivity{
 
     @Override
     public void initView() {
-        group_head = (ImageView)findViewById(R.id.iv_group_head);
+        group_head = (ImageView)findViewById(R.id.group_head);
         groupname = (EditText) findViewById(R.id.et_groupname);
         description = (EditText) findViewById(R.id.et_description);
         tv_groupname = (TextView) findViewById(R.id.tv_groupname);

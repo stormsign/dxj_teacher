@@ -54,6 +54,12 @@ public class SubjectDao  {
         return subjects;
     }
 
-
+    public static String getCategoryNameById(SQLiteDatabase db, int id){
+        Cursor cursor = db.rawQuery("select name from t_subject where id = ?", new String[]{id+""});
+        if (cursor.moveToNext()){
+            return cursor.getString(0);
+        }
+        return null;
+    }
 
 }
