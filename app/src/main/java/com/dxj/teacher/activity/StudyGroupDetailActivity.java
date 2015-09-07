@@ -331,8 +331,10 @@ public class StudyGroupDetailActivity extends BaseActivity implements View.OnCli
                 startActivity(new Intent(activity, GroupNoticeActivity.class));
                 break;
             case R.id.rl_group_members:
+                showLogD("studyGroup.getTeacherId() "+studyGroup.getTeacherId()+"=====mApplication.getUserId() "+mApplication.getUserId());
                 startActivity(new Intent(activity, GroupMemberListActivity.class)
-                        .putExtra("members", (Serializable) members));
+                        .putExtra("members", (Serializable) members)
+                        .putExtra("isOwner", studyGroup.getTeacherId().equals(mApplication.getUserId())));
                 break;
             case R.id.iv_leader_head:
 

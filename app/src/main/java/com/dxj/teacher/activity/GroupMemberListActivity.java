@@ -24,6 +24,10 @@ public class GroupMemberListActivity extends BaseActivity{
     private SwipeRefreshLayout refresh;
     private RecyclerView rv_members;
     private MemberAdapter mAdapter;
+    /**
+     * 当前用户是否是团长
+     */
+    private boolean isOwner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,11 +40,13 @@ public class GroupMemberListActivity extends BaseActivity{
 
     @Override
     public void initTitle() {
-        TitleNavBar title = (TitleNavBar) findViewById(R.id.title);
+        final TitleNavBar title = (TitleNavBar) findViewById(R.id.title);
         title.setTitle("团员");
         title.setTitleNoRightButton();
-        title.showAction(true);
-        title.setActionText("编辑");
+        if (isOwner) {
+            title.showAction(true);
+            title.setActionText("编辑");
+        }
         title.setOnTitleNavClickListener(new TitleNavBar.OnTitleNavClickListener() {
             @Override
             public void onNavOneClick() {
@@ -59,7 +65,13 @@ public class GroupMemberListActivity extends BaseActivity{
 
             @Override
             public void onActionClick() {
-                mAdapter.setCheckVisible(true);
+                if (mAdapter.isCheckable()) {
+                    title.setActionText("编辑");
+                    mAdapter.setIsCheckable(false);
+                }else{
+                    title.setActionText("取消");
+                    mAdapter.setIsCheckable(true);
+                }
                 mAdapter.notifyDataSetChanged();
             }
 
@@ -81,12 +93,19 @@ public class GroupMemberListActivity extends BaseActivity{
         mAdapter.setOnMemberClickListener(new MemberAdapter.OnMemberClickListener() {
             @Override
             public void onMemberClick(View view, int position) {
-                ToastUtils.showToast(context, "member");
+//                当显示选择删除图标时，即进入编辑状态，此时屏蔽点击团成员的事件
+                if (!mAdapter.isCheckable()) {
+                    ToastUtils.showToast(context, "member");
+                }
             }
 
             @Override
             public void onMemberDeleteClick(View view, int position) {
                 ToastUtils.showToast(context, "check");
+//                android.app.AlertDialog.Builder builder = new AlertDialog.Builder(context);
+//                builder.setTitle("删除团员");
+//                builder.setMessage("确定要删除该团员吗？");
+
             }
         });
 
@@ -95,6 +114,6 @@ public class GroupMemberListActivity extends BaseActivity{
     @Override
     public void initData() {
         members = (List<UserBean.UserInfo>)getIntent().getSerializableExtra("members");
-
+        isOwner = getIntent().getBooleanExtra("isOwner", false);
     }
 }
