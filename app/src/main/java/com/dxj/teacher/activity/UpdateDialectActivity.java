@@ -84,6 +84,7 @@ public class UpdateDialectActivity extends BaseActivity implements View.OnClickL
     @Override
     public void initView() {
         etDialect = (EditText) findViewById(R.id.et);
+        etDialect.setHint("方言");
         etDialect.setText(strDialect);
     }
 

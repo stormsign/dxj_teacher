@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.dxj.teacher" >
 
-
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"></uses-permission>
     <!-- 添加权限开始 -->
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -42,35 +42,41 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme">
+        <service
+            android:name="com.baidu.location.f"
+            android:enabled="true"
+            android:process=":remote"></service>
+
+        <meta-data
+            android:name="com.baidu.lbsapi.API_KEY"
+            android:value="Vaa2PiRUhvFsp7KuPTSUVYgO" />
         <meta-data
             android:name="UMENG_APPKEY"
-            android:value="55d6f8f0e0f55a32e2002ec0" >
-        </meta-data>
+            android:value="55d6f8f0e0f55a32e2002ec0"></meta-data>
         <meta-data
             android:name="UMENG_MESSAGE_SECRET"
-            android:value="47348582f681f68265326d579cfee09b" >
-        </meta-data>
+            android:value="47348582f681f68265326d579cfee09b"></meta-data>
         <meta-data
             android:name="UMENG_CHANNEL"
-            android:value="Umeng" >
-        </meta-data>
+            android:value="Umeng"></meta-data>
 
         <!-- 设置环信应用的appkey -->
-        <meta-data android:name="EASEMOB_APPKEY"  android:value="daxuejiao#daxuejiao" />
+        <meta-data
+            android:name="EASEMOB_APPKEY"
+            android:value="daxuejiao#daxuejiao" />
         <!-- 声明sdk所需的service SDK核心功能-->
         <service android:name="com.easemob.chat.EMChatService" />
 
         <!-- 监听通知点击或者忽略处理的广播 -->
         <receiver
             android:name="com.umeng.message.NotificationProxyBroadcastReceiver"
-            android:exported="false" >
-        </receiver>
+            android:exported="false"></receiver>
 
         <!-- 监听开机运行、网络连接变化、卸载的广播 -->
         <receiver
             android:name="com.umeng.message.SystemReceiver"
-            android:process=":push" >
+            android:process=":push">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
@@ -86,7 +92,7 @@
         <!-- 监听消息到达的广播 -->
         <receiver
             android:name="com.umeng.message.MessageReceiver"
-            android:process=":push" >
+            android:process=":push">
             <intent-filter>
                 <action android:name="org.agoo.android.intent.action.RECEIVE" />
             </intent-filter>
@@ -95,7 +101,7 @@
         <!-- 监听宿主选举的广播 -->
         <receiver
             android:name="com.umeng.message.ElectionReceiver"
-            android:process=":push" >
+            android:process=":push">
             <intent-filter>
                 <action android:name="org.agoo.android.intent.action.ELECTION_RESULT_V4" />
                 <category android:name="umeng" />
@@ -106,12 +112,12 @@
         <!-- 【应用包名】字符串需要替换成本应用的应用包名 -->
         <receiver
             android:name="com.umeng.message.RegistrationReceiver"
-            android:exported="false" >
+            android:exported="false">
             <intent-filter>
                 <action android:name="com.dxj.teacher.intent.action.COMMAND" />
             </intent-filter>
         </receiver>
-        <receiver android:name="com.umeng.message.UmengMessageBootReceiver" >
+        <receiver android:name="com.umeng.message.UmengMessageBootReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
@@ -119,8 +125,8 @@
 
 
         <!-- 环信开机自启动服务 -->
-        <receiver android:name="com.easemob.chat.StartServiceReceiver" >
-            <intent-filter android:priority="1000" >
+        <receiver android:name="com.easemob.chat.StartServiceReceiver">
+            <intent-filter android:priority="1000">
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
                 <action android:name="android.intent.action.QUICKBOOT_POWERON" />
 
@@ -132,9 +138,9 @@
         <!-- 【应用包名】字符串需要替换成本应用的应用包名 -->
         <service
             android:name="com.umeng.message.UmengService"
-            android:label="PushService"
             android:exported="true"
-            android:process=":push" >
+            android:label="PushService"
+            android:process=":push">
             <intent-filter>
                 <action android:name="com.dxj.teacher.intent.action.START" />
             </intent-filter>
@@ -148,14 +154,15 @@
         </service>
 
         <!-- Umeng的消息接收服务 -->
-        <service android:name="com.umeng.message.UmengIntentService"
+        <service
+            android:name="com.umeng.message.UmengIntentService"
             android:process=":push" />
 
         <!-- Umeng的消息路由服务 -->
         <service
             android:name="com.umeng.message.UmengMessageIntentReceiverService"
-            android:process=":push"
-            android:exported="true" >
+            android:exported="true"
+            android:process=":push">
             <intent-filter>
                 <action android:name="org.android.agoo.client.MessageReceiverService" />
             </intent-filter>
@@ -165,19 +172,20 @@
         </service>
 
         <!-- v2.4.1添加的Service，Umeng的消息接收后的处理服务 -->
-        <service android:name="com.umeng.message.UmengMessageCallbackHandlerService"
+        <service
+            android:name="com.umeng.message.UmengMessageCallbackHandlerService"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.umeng.messge.registercallback.action" />
             </intent-filter>
             <intent-filter>
-                <action android:name="com.umeng.message.unregistercallback.action"/>
+                <action android:name="com.umeng.message.unregistercallback.action" />
             </intent-filter>
             <intent-filter>
-                <action android:name="com.umeng.message.message.handler.action"/>
+                <action android:name="com.umeng.message.message.handler.action" />
             </intent-filter>
             <intent-filter>
-                <action android:name="com.umeng.message.autoupdate.handler.action"/>
+                <action android:name="com.umeng.message.autoupdate.handler.action" />
             </intent-filter>
         </service>
 
@@ -188,8 +196,7 @@
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
-            android:launchMode="singleTask"
-            >
+            android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

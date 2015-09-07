@@ -20,7 +20,6 @@ public class AccountTable {
     public static final String GRADES="grades";//高考分数
     public static final String ENTRANCETIME="entranceTime";//入学时间
     public static final String CHAMPIONTYPE="championType";//状元等级
-//    public static final List<String> images = new ArrayList<String>();//相册
     public static final String SCHOOL="school";//高中学校
     public static final String SCHOOLPROVINCE="schoolProvince";//省份
     public static final String SCHOOLCITY="schoolCity";//城市
@@ -39,5 +38,6 @@ public class AccountTable {
     //        private String grade;//年级
     public static final String JSZ="jsz";//教师证
     public static final String CARD="card";//教师证
+    public static final String PHOTO="photo";//相册
 
 }

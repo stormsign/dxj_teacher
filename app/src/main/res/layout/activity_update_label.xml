@@ -52,7 +52,7 @@
         android:layout_height="wrap_content"
         android:textSize="@dimen/text_13sp"
         android:textColor="@color/text_show"
-        android:text="快速选择"
+        android:text="快速选择一个标签"
         android:padding="@dimen/margin_10dp"
         />
     <com.dxj.teacher.widget.FlowLayout

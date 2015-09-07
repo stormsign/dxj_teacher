@@ -61,6 +61,8 @@ public class HttpUtils {
 	public static final String  JSZ="jsz";
 	//资质证书
 	public static final String  APTITUDE="aptitude";
+	//传递经纬度
+	public static final String  LOC="loc";
 
 
 }

@@ -9,6 +9,7 @@ import android.widget.Button;
 import com.dxj.teacher.R;
 import com.dxj.teacher.activity.CardSettingActivity;
 import com.dxj.teacher.activity.EditCourseActivity;
+import com.dxj.teacher.activity.UpdateUserInfoActivity;
 import com.dxj.teacher.base.BaseFragment;
 
 
@@ -18,6 +19,7 @@ import com.dxj.teacher.base.BaseFragment;
 public class HomeFragment extends BaseFragment implements View.OnClickListener{
  private Button btnGoodSubject;
  private Button btnCard;
+ private Button btnUserInfo;
     @Override
     public void initData() {
 //        List<String>
@@ -28,8 +30,11 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
         view = inflater.inflate(R.layout.fragment_home, null);
         btnGoodSubject =(Button)view.findViewById(R.id.btn_good_subject);
         btnCard =(Button)view.findViewById(R.id.btn_card);
+        btnUserInfo =(Button)view.findViewById(R.id.btn_userinfo);
         btnGoodSubject.setOnClickListener(this);
         btnCard.setOnClickListener(this);
+        btnCard.setOnClickListener(this);
+        btnUserInfo.setOnClickListener(this);
         return view;
     }
 
@@ -46,6 +51,9 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
                 break;
             case R.id.btn_card:
                 startActivity(new Intent(getActivity(), CardSettingActivity.class));
+                break;
+            case R.id.btn_userinfo:
+                startActivity(new Intent(getActivity(), UpdateUserInfoActivity.class));
                 break;
         }
     }

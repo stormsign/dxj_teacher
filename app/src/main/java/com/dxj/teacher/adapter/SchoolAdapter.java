@@ -21,12 +21,10 @@ import java.util.List;
 public class SchoolAdapter extends BaseAdapter {
 
   private LayoutInflater layoutInflater;
-  private boolean isGrid;
   public List<SchoolBean> strings = new ArrayList<>();
-  public SchoolAdapter(Context context, boolean isGrid, List<SchoolBean> strings) {
+  public SchoolAdapter(Context context, List<SchoolBean> strings) {
     this.strings=strings;
     layoutInflater = LayoutInflater.from(context);
-    this.isGrid = isGrid;
   }
 
   @Override
@@ -49,12 +47,7 @@ public class SchoolAdapter extends BaseAdapter {
     View view = convertView;
 
     if (view == null) {
-      if (isGrid) {
-        view = layoutInflater.inflate(R.layout.simple_grid_item, parent, false);
-      } else {
         view = layoutInflater.inflate(R.layout.simple_list_item, parent, false);
-      }
-
       viewHolder = new ViewHolder();
       viewHolder.textView = (TextView) view.findViewById(R.id.text_view);
       viewHolder.imageView = (ImageView) view.findViewById(R.id.image_view);

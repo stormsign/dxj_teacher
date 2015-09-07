@@ -11,8 +11,11 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.dxj.teacher.R;
+import com.dxj.teacher.application.MyApplication;
 import com.dxj.teacher.base.BaseActivity;
 import com.dxj.teacher.bean.BaseBean;
+import com.dxj.teacher.db.AccountDBTask;
+import com.dxj.teacher.db.AccountTable;
 import com.dxj.teacher.http.CustomStringRequest;
 import com.dxj.teacher.http.FinalData;
 import com.dxj.teacher.http.VolleySingleton;
@@ -38,6 +41,8 @@ public class UpdateSolveLabelActivity extends BaseActivity implements View.OnCli
     private String[] strings = {"提升学习方法", "陪伴学习", "心灵沟通的朋友", "学习自信的提升", "及时解决学习难点", "各种数学难题"};
     private Map<Integer, CheckableButton> store = new HashMap<>();
     private ArrayList<String> list;
+    private ArrayList<String> lists=new ArrayList<>();
+
     private String id;
 
     @Override
@@ -94,13 +99,15 @@ public class UpdateSolveLabelActivity extends BaseActivity implements View.OnCli
     @Override
     public void initData() {
         id = getIntent().getStringExtra("id");
+        lists = getIntent().getStringArrayListExtra("solveLabel");
+
     }
 
     private void addChildTo(FlowLayout flowLayout) {
         for (int i = 0; i < strings.length; i++) {
             CheckableButton btn = new CheckableButton(this);
-            btn.setHeight(dp2px(32));
-            btn.setTextSize(16);
+            btn.setHeight(dp2px(22));
+            btn.setTextSize(12);
             btn.setTextColor(getResources().getColorStateList(R.color.checkable_text_color));
             btn.setBackgroundResource(R.drawable.checkable_background);
             StringBuilder sb = new StringBuilder();
@@ -109,6 +116,13 @@ public class UpdateSolveLabelActivity extends BaseActivity implements View.OnCli
             flowLayout.addView(btn);
             btn.setTag(i);
             btn.setOnCheckedChangeWidgetListener(this);
+            for (int n=0;n<lists.size();n++){
+                if (strings[i].equals(lists.get(n))){
+                    addChildTo(alreadtFlowLayout, i);
+                    btn.setChecked(true);
+                    break;
+                }
+            }
 
         }
     }
@@ -154,18 +168,26 @@ public class UpdateSolveLabelActivity extends BaseActivity implements View.OnCli
             public void onResponse(String str) {
                 Log.i("TAG", "str=" + str);
                 BaseBean message = JSONObject.parseObject(str, BaseBean.class);
-                if (message.getCode() == 0) {
-                    Intent intent = new Intent();
-                    Bundle bundle = new Bundle();
-                    bundle.putStringArrayList("solveLabel", list);
-                    intent.putExtras(bundle);
-                    UpdateSolveLabelActivity.this.setResult(RESULT_OK, intent);
-                    finish();
+                    StringBuffer strBuffer = new StringBuffer();
+                    if (message.getCode() == 0) {
+                        for (int i = 0; i < list.size(); i++) {
+                            if (i != list.size() - 1) {
+                                strBuffer.append(list.get(i)).append(",");
+                            } else {
+                                strBuffer.append(list.get(i));
+                            }
+                        }
+                        AccountDBTask.updateNickName(MyApplication.getInstance().getUserId(), strBuffer.toString(), AccountTable.SOLVELABEL);
+                        Intent intent = new Intent();
+                        Bundle bundle = new Bundle();
+                        bundle.putStringArrayList("solveLabel", list);
+                        intent.putExtras(bundle);
+                        UpdateSolveLabelActivity.this.setResult(RESULT_OK, intent);
+                        finish();
+                    }
                 }
-            }
-        };
+            };
     }
-
     private Response.ErrorListener getErrorListener() {
         return new Response.ErrorListener() {
 
@@ -187,21 +209,25 @@ public class UpdateSolveLabelActivity extends BaseActivity implements View.OnCli
         } else {
             CheckableButton checkableButton = store.get(index);
             alreadtFlowLayout.removeView(checkableButton);
+            store.remove(index);
         }
     }
 
     private void addChildTo(FlowLayout flowLayout, int i) {
+        if (store.containsKey(i)){
+            return;
+        }
         CheckableButton btn = new CheckableButton(this);
-        btn.setHeight(dp2px(32));
-        btn.setTextSize(16);
+        btn.setHeight(dp2px(22));
+        btn.setTextSize(12);
         btn.setTextColor(getResources().getColorStateList(R.color.checkable_text_color));
         btn.setBackgroundResource(R.drawable.checkable_background);
         StringBuilder sb = new StringBuilder();
         sb.append(strings[i]);
         btn.setText(sb.toString());
+        btn.setChecked(true);
         flowLayout.addView(btn);
         store.put(i, btn);
-
 
 //            btn.setTag(i);
 //            btn.setOnCheckedChangeWidgetListener(this);

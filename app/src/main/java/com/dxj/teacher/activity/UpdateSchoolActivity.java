@@ -10,6 +10,8 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.alibaba.fastjson.JSONObject;
 import com.android.volley.Request;
@@ -57,15 +59,17 @@ public class UpdateSchoolActivity extends BaseActivity implements View.OnClickLi
     private static final String DBNAME = "t_city.db";
     private EditText etGrades;
     private EditText etSchool;
-    private Button btnCity;
-    private Button btnProvince;
+    private LinearLayout btnCity;
+    private LinearLayout btnProvince;
+    private TextView tvCity;
+    private TextView tvProvince;
     private String strNiceName;
     private List<SchoolBean> list = new ArrayList<>();
     private List<SchoolBean> listCity = new ArrayList<>();
     private SQLiteDatabase db;
     private int index;
     private int provinceId;
-    private int cityIndex;
+    private int cityIndex=-1;
     private String id;
 
     @Override
@@ -115,9 +119,11 @@ public class UpdateSchoolActivity extends BaseActivity implements View.OnClickLi
     public void initView() {
         etGrades = (EditText) findViewById(R.id.et_grades);
         etSchool = (EditText) findViewById(R.id.et_school);
-       etSchool.setText(strNiceName);
-        btnCity = (Button) findViewById(R.id.btn_city);
-        btnProvince = (Button) findViewById(R.id.btn_province);
+        etSchool.setText(strNiceName);
+        btnCity = (LinearLayout) findViewById(R.id.btn_city);
+        tvCity = (TextView) findViewById(R.id.tv_city);
+        btnProvince = (LinearLayout) findViewById(R.id.btn_province);
+        tvProvince = (TextView) findViewById(R.id.tv_province);
         btnCity.setOnClickListener(this);
         btnProvince.setOnClickListener(this);
 
@@ -138,7 +144,7 @@ public class UpdateSchoolActivity extends BaseActivity implements View.OnClickLi
 
             case R.id.btn_province:
                 list = CityDao.getFirstCity(db);
-                SchoolAdapter adapter = new SchoolAdapter(this, false, list);
+                SchoolAdapter adapter = new SchoolAdapter(this, list);
                 showOnlyContentDialog(new ListHolder(), Gravity.BOTTOM, adapter, itemClickListener(0), null, null, true);
                 break;
             case R.id.btn_city:
@@ -147,7 +153,7 @@ public class UpdateSchoolActivity extends BaseActivity implements View.OnClickLi
                 }
                 provinceId = list.get(index).getId();
                 listCity = CityDao.getChildCityFromParent(db, provinceId);
-                SchoolAdapter adapters = new SchoolAdapter(this, false, listCity);
+                SchoolAdapter adapters = new SchoolAdapter(this, listCity);
                 showOnlyContentDialog(new ListHolder(), Gravity.BOTTOM, adapters, itemClickListener(1), null, null, true);
                 break;
         }
@@ -156,6 +162,10 @@ public class UpdateSchoolActivity extends BaseActivity implements View.OnClickLi
     private void sendRequestData() {
         strNiceName = etSchool.getText().toString().trim();
         if (StringUtils.isEmpty(strNiceName)) {
+            finish();
+            return;
+        }
+        if (cityIndex==-1){
             finish();
             return;
         }
@@ -229,9 +239,9 @@ public class UpdateSchoolActivity extends BaseActivity implements View.OnClickLi
                 Log.i("TAG", "position=" + position);
                 if (i == 0) {
                     index = position;
-                    btnProvince.setText(list.get(index).getName());
+                    tvProvince.setText(list.get(index).getName());
                 } else {
-                    btnCity.setText(listCity.get(position).getName());
+                    tvCity.setText(listCity.get(position).getName());
                     cityIndex = position;
                 }
                 dialog.dismiss();

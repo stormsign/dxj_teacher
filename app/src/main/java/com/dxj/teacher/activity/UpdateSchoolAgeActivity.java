@@ -30,7 +30,7 @@ import java.util.Map;
 
 /**
  * Created by kings on 8/27/2015.
- * 学校
+ * 教龄
  */
 public class UpdateSchoolAgeActivity extends BaseActivity implements View.OnClickListener {
     private EditText etSchoolAge;
@@ -83,6 +83,7 @@ public class UpdateSchoolAgeActivity extends BaseActivity implements View.OnClic
     @Override
     public void initView() {
         etSchoolAge = (EditText) findViewById(R.id.et);
+        etSchoolAge.setHint("教龄");
         etSchoolAge.setText(strSchoolAge);
     }
 

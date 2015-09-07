@@ -11,8 +11,11 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.dxj.teacher.R;
+import com.dxj.teacher.application.MyApplication;
 import com.dxj.teacher.base.BaseActivity;
 import com.dxj.teacher.bean.BaseBean;
+import com.dxj.teacher.db.AccountDBTask;
+import com.dxj.teacher.db.AccountTable;
 import com.dxj.teacher.http.CustomStringRequest;
 import com.dxj.teacher.http.FinalData;
 import com.dxj.teacher.http.VolleySingleton;
@@ -36,7 +39,7 @@ import java.util.Map;
 public class UpdateLabelActivity extends BaseActivity implements View.OnClickListener, CheckableButton.OnCheckedChangeListener {
     private FlowLayout alreadtFlowLayout;
     private FlowLayout selectFlowLayout;
-    private String[] strings = {"品学兼优", "品学兼优", "讲解详细", "认真负责", "成绩优异"};
+    private String[] strings = {"成绩好", "品学兼优", "讲解详细", "认真负责", "成绩优异"};
     private Map<Integer, CheckableButton> store = new HashMap<>();
     private ArrayList<String> list;
     private ArrayList<String> lists=new ArrayList<>();
@@ -97,7 +100,6 @@ public class UpdateLabelActivity extends BaseActivity implements View.OnClickLis
     public void initData() {
         id = getIntent().getStringExtra("id");
         lists = getIntent().getStringArrayListExtra("label");
-        Log.i("TAG","LIST="+lists.size());
     }
 
     private void addChildTo(FlowLayout flowLayout) {
@@ -105,7 +107,7 @@ public class UpdateLabelActivity extends BaseActivity implements View.OnClickLis
 //            if (strings[i].equals())
 
             CheckableButton btn = new CheckableButton(this);
-            btn.setHeight(dp2px(32));
+            btn.setHeight(dp2px(22));
             btn.setTextSize(12);
             btn.setTextColor(getResources().getColorStateList(R.color.checkable_text_color));
             btn.setBackgroundResource(R.drawable.checkable_background);
@@ -119,7 +121,6 @@ public class UpdateLabelActivity extends BaseActivity implements View.OnClickLis
             for (int n=0;n<lists.size();n++){
                 if (strings[i].equals(lists.get(n))){
                     addChildTo(alreadtFlowLayout, i);
-                    Log.i("TAG", "setChecked=" + lists.get(i));
                     btn.setChecked(true);
                     break;
                 }
@@ -171,7 +172,17 @@ public class UpdateLabelActivity extends BaseActivity implements View.OnClickLis
             public void onResponse(String str) {
                 Log.i("TAG", "str=" + str);
                 BaseBean message = JSONObject.parseObject(str, BaseBean.class);
+                StringBuffer strBuffer = new StringBuffer();
                 if (message.getCode() == 0) {
+                    for (int i = 0; i < list.size(); i++) {
+                        if (i != list.size() - 1) {
+                            strBuffer.append(list.get(i)).append(",");
+                        } else {
+                            strBuffer.append(list.get(i));
+                        }
+                    }
+                    AccountDBTask.updateNickName(MyApplication.getInstance().getUserId(), strBuffer.toString(), AccountTable.LABEL);
+
                     Intent intent = new Intent();
                     Bundle bundle = new Bundle();
                     bundle.putStringArrayList("label", list);
@@ -213,7 +224,7 @@ public class UpdateLabelActivity extends BaseActivity implements View.OnClickLis
             return;
         }
         CheckableButton btn = new CheckableButton(this);
-        btn.setHeight(dp2px(32));
+        btn.setHeight(dp2px(22));
         btn.setTextSize(12);
         btn.setTextColor(getResources().getColorStateList(R.color.checkable_text_color));
         btn.setBackgroundResource(R.drawable.checkable_background);
@@ -223,10 +234,6 @@ public class UpdateLabelActivity extends BaseActivity implements View.OnClickLis
         btn.setChecked(true);
         flowLayout.addView(btn);
         store.put(i, btn);
-
-
-//            btn.setTag(i);
-//            btn.setOnCheckedChangeWidgetListener(this);
 
     }
 

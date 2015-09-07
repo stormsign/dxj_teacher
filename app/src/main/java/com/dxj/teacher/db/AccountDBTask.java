@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import com.dxj.teacher.bean.CardBean;
+import com.dxj.teacher.bean.HeadUrl;
 import com.dxj.teacher.bean.UserBean;
 import com.dxj.teacher.utils.StringUtils;
 import com.google.gson.Gson;
@@ -69,7 +70,12 @@ public class AccountDBTask {
             values.put(AccountTable.SCHOOLCITY, userBean.getUserInfo().getSchoolCity());
             values.put(AccountTable.SCHOOLPROVINCE, userBean.getUserInfo().getSchoolProvince());
             String json = new Gson().toJson(userBean.getUserInfo().getCard());
+
             values.put(AccountTable.CARD, json);
+            HeadUrl headUrl = new HeadUrl();
+            headUrl.setImages(userBean.getUserInfo().getImages());
+            String jsonPhoto = new Gson().toJson(headUrl);
+            values.put(AccountTable.PHOTO, jsonPhoto);
 
             if (userBean.getUserInfo().getLabel() != null && userBean.getUserInfo().getLabel().size() > 0) {
                 StringBuffer strBuffer = new StringBuffer();
@@ -192,6 +198,12 @@ public class AccountDBTask {
 
             colid = c.getColumnIndex(AccountTable.SET);
             userinfo.setSex(c.getString(colid));
+            colid = c.getColumnIndex(AccountTable.PHOTO);
+            String photoJson = c.getString(colid);
+//            List<String> photoList = new ArrayList<>();
+            Gson gsonPhoto = new Gson();
+            HeadUrl headUrl = gsonPhoto.fromJson(photoJson, HeadUrl.class);
+            userinfo.setImages(headUrl.getImages());
             Gson gson = new Gson();
             String json = c.getString(c.getColumnIndex(AccountTable.CARD));
 
@@ -238,6 +250,17 @@ public class AccountDBTask {
         if (getWsd().isOpen()) {
             ContentValues values = new ContentValues();
             values.put(bigLetter, nickName);
+            String[] whereArgs = {uid};
+            getWsd().update(AccountTable.TABLE_NAME, values, AccountTable.ID + "=?", whereArgs);
+        }
+    }
+
+    public static void updatePhoto(String uid, HeadUrl photoList, String bigLetter) {
+        if (getWsd().isOpen()) {
+            ContentValues values = new ContentValues();
+            Gson gson = new Gson();
+            String photoJson = gson.toJson(photoList);
+            values.put(bigLetter, photoJson);
             String[] whereArgs = {uid};
             getWsd().update(AccountTable.TABLE_NAME, values, AccountTable.ID + "=?", whereArgs);
         }

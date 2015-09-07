@@ -105,7 +105,7 @@ public class UpdateRoleNameActivity extends BaseActivity implements View.OnClick
     @Override
     public void initView() {
         lvTeacher = (ListView) findViewById(R.id.lv_teacher);
-        SchoolAdapter adapters = new SchoolAdapter(this, false, list);
+        SchoolAdapter adapters = new SchoolAdapter(this, list);
         lvTeacher.setAdapter(adapters);
         lvTeacher.setOnItemClickListener(getItemClickListener());
 
@@ -117,13 +117,13 @@ public class UpdateRoleNameActivity extends BaseActivity implements View.OnClick
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 int level = list.get(position).getId();
                 teacherList = TeacherTypeDao.getChildTeacherFromParent(db, level);
-                if (teacherList.size()==0){
+                if (teacherList.size() == 0) {
                     str = list.get(position).getName();
                     typeID = list.get(position).getParentId();
                     childTypeID = list.get(position).getId();
                     return;
                 }
-                SchoolAdapter adapter = new SchoolAdapter(UpdateRoleNameActivity.this, false, teacherList);
+                SchoolAdapter adapter = new SchoolAdapter(UpdateRoleNameActivity.this, teacherList);
                 showOnlyContentDialog(new ListHolder(), Gravity.BOTTOM, adapter, itemClickListener, dismissListener, cancelListener, true);
 //                break;
 

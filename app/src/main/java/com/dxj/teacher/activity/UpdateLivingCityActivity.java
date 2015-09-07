@@ -82,6 +82,7 @@ public class UpdateLivingCityActivity extends BaseActivity implements View.OnCli
     @Override
     public void initView() {
         etLivingCity = (EditText) findViewById(R.id.et);
+        etLivingCity.setHint("现居地");
     }
 
     @Override

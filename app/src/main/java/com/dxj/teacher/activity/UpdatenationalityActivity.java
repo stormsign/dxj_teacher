@@ -83,6 +83,7 @@ public class UpdatenationalityActivity extends BaseActivity implements View.OnCl
     @Override
     public void initView() {
         etNationality = (EditText) findViewById(R.id.et);
+        etNationality.setHint("国籍");
         etNationality.setText(strNationality);
     }
 

@@ -2,21 +2,22 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background_content"
     android:orientation="vertical">
 
-<com.dxj.teacher.widget.TitleNavBar
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:id="@+id/title"
-    ></com.dxj.teacher.widget.TitleNavBar>
+    <com.dxj.teacher.widget.TitleNavBar
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"></com.dxj.teacher.widget.TitleNavBar>
+
     <ListView
         android:id="@+id/lv_teacher"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="7dp"
         android:cacheColorHint="#00000000"
-        android:divider="#00000000"
-        android:dividerHeight="0dp"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="0.5dp"
         android:listSelector="@android:color/transparent"
         android:scrollbars="none"
         android:visibility="visible" />

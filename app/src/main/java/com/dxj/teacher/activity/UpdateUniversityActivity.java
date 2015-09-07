@@ -10,6 +10,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -51,8 +52,9 @@ import github.jjobes.slidedatetimepicker.SlideDateTimePicker;
 public class UpdateUniversityActivity extends BaseActivity implements View.OnClickListener {
     private EditText etSearch;
     private EditText etMajor;
+    private TextView tvEntrancetime;
     private ListView lvSearchResult;
-    private Button btnEntrancetime;
+    private LinearLayout linearEntrancetime;
     private TextView tvNoresult;
     private String strGrades;
     private String strEntranceTime;
@@ -110,10 +112,11 @@ public class UpdateUniversityActivity extends BaseActivity implements View.OnCli
     public void initView() {
         etSearch = (EditText) findViewById(R.id.et_university);
         lvSearchResult = (ListView) findViewById(R.id.search_result);
-        btnEntrancetime = (Button) findViewById(R.id.btn_entrancetime);
+        linearEntrancetime = (LinearLayout) findViewById(R.id.linear_entrancetime);
         tvNoresult = (TextView) findViewById(R.id.tv_noresult);
+        tvEntrancetime = (TextView) findViewById(R.id.tv_entrancetime);
         etMajor = (EditText) findViewById(R.id.et_major);
-        btnEntrancetime.setOnClickListener(this);
+        linearEntrancetime.setOnClickListener(this);
 
         etSearch.addTextChangedListener(new TextWatcher() {
 
@@ -124,8 +127,6 @@ public class UpdateUniversityActivity extends BaseActivity implements View.OnCli
                     lvSearchResult.setVisibility(View.GONE);
                     tvNoresult.setVisibility(View.GONE);
                 } else {
-//                    letterListView.setVisibility(View.GONE);
-//                    personList.setVisibility(View.GONE);
                     strSearch = s.toString();
                     sendRequestData(3);
 
@@ -149,6 +150,7 @@ public class UpdateUniversityActivity extends BaseActivity implements View.OnCli
                 strUniversity = universityResult.get(position).getName();
                 id = universityResult.get(position).getId();
                 etSearch.setText(strUniversity);
+                lvSearchResult.setVisibility(View.GONE);
             }
         });
     }
@@ -165,7 +167,7 @@ public class UpdateUniversityActivity extends BaseActivity implements View.OnCli
             case R.id.btn_back:
                 sendRequestData(1);
                 break;
-            case R.id.btn_entrancetime:
+            case R.id.linear_entrancetime:
                 updateBirthday();
                 break;
         }
@@ -288,7 +290,7 @@ public class UpdateUniversityActivity extends BaseActivity implements View.OnCli
         public void onDateTimeSet(Date date) {
 //            Toast.makeText(UpdateUserInfoActivity.this,
 //                    mFormatter.format(date), Toast.LENGTH_SHORT).show();
-            btnEntrancetime.setText(mFormatter.format(date));
+            tvEntrancetime.setText(mFormatter.format(date));
             strEntranceTime = mFormatter.format(date);
 
         }

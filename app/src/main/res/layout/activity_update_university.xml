@@ -2,38 +2,30 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background_content"
     android:orientation="vertical">
 
- <com.dxj.teacher.widget.TitleNavBar
-     android:layout_width="match_parent"
-     android:layout_height="wrap_content"
-     android:id="@+id/title"
-     ></com.dxj.teacher.widget.TitleNavBar>
-   <Button
-       android:id="@+id/btn_entrancetime"
-       android:layout_width="match_parent"
-       android:layout_height="wrap_content"
-       android:text="入学时间"
-       android:textSize="@dimen/text_16sp"
-       />
-    <EditText
-        android:id="@+id/et_major"
+    <com.dxj.teacher.widget.TitleNavBar
+        android:id="@+id/title"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"></com.dxj.teacher.widget.TitleNavBar>
+
     <EditText
         android:id="@+id/et_university"
-        android:layout_width="fill_parent"
-        android:layout_height="55dp"
+        android:layout_width="match_parent"
+        android:layout_height="42dp"
         android:layout_below="@id/title"
-        android:layout_margin="10dip"
-        android:background="@drawable/cityhot_edittext_bg"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="@dimen/margin_10dp"
+        android:background="@android:color/white"
         android:drawableLeft="@drawable/wb_search_icon"
         android:drawablePadding="5dp"
-        android:hint="输入大学名称"
+        android:hint="输入你的学校"
         android:padding="10dip"
         android:textColor="#515151"
-        android:textSize="16dp" >
-    </EditText>
+        android:textSize="14sp"></EditText>
+
     <ListView
         android:id="@+id/search_result"
         android:layout_width="match_parent"
@@ -45,6 +37,46 @@
         android:listSelector="@android:color/transparent"
         android:scrollbars="none"
         android:visibility="gone" />
+
+    <LinearLayout
+        android:id="@+id/linear_entrancetime"
+        android:layout_width="match_parent"
+        android:layout_height="42dp"
+        android:layout_margin="@dimen/margin_10dp"
+        android:background="@android:color/white"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@null"
+            android:gravity="left"
+            android:padding="@dimen/margin_10dp"
+            android:text="入学时间"
+            android:textSize="@dimen/text_14sp" />
+
+        <TextView
+            android:id="@+id/tv_entrancetime"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/margin_20dp"
+            android:gravity="center"
+            android:padding="@dimen/margin_10dp"
+            android:textColor="@color/text_black"
+            android:textSize="@dimen/text_14sp" />
+    </LinearLayout>
+
+
+    <EditText
+        android:id="@+id/et_major"
+        android:layout_width="match_parent"
+        android:layout_height="42dp"
+        android:layout_margin="@dimen/margin_10dp"
+        android:background="@android:color/white"
+        android:hint="专业"
+        android:paddingLeft="@dimen/margin_10dp"
+        android:textColor="@color/text_black"
+        android:textSize="@dimen/text_14sp" />
 
     <TextView
         android:id="@+id/tv_noresult"

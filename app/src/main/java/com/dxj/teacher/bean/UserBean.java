@@ -32,7 +32,7 @@ public class UserBean extends BaseBean implements Serializable {
         private String grades;//高考分数
         private String entranceTime;//入学时间
         private String championType;//状元等级
-        private List<String> images = new ArrayList<String>();//相册
+        private ArrayList<String> images = new ArrayList<>();//相册
         private String school;//高中学校
         private String schoolProvince;//省份
         private String schoolCity;//城市
@@ -131,7 +131,7 @@ public class UserBean extends BaseBean implements Serializable {
             this.id = id;
         }
 
-        public void setImages(List<String> images) {
+        public void setImages(ArrayList<String> images) {
             this.images = images;
         }
 
@@ -158,7 +158,7 @@ public class UserBean extends BaseBean implements Serializable {
             this.type = type;
         }
 
-        public List<String> getImages() {
+        public ArrayList<String> getImages() {
             return images;
         }
 

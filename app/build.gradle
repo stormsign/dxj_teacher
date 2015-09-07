@@ -18,6 +18,11 @@ android {
     }
     productFlavors {
     }
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+    }
 }
 
 dependencies {
@@ -36,4 +41,5 @@ dependencies {
     compile 'com.nineoldandroids:library:2.4.0'
     compile 'com.orhanobut:dialogplus:1.10@aar'
     compile 'com.squareup.picasso:picasso:2.4.0'
+    compile files('libs/locSDK_6.03.jar')
 }

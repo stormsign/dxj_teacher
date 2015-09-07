@@ -36,7 +36,6 @@ import com.dxj.teacher.http.VolleySingleton;
 import com.dxj.teacher.utils.HttpUtils;
 import com.dxj.teacher.utils.MyAsyn;
 import com.dxj.teacher.utils.MyUtils;
-import com.dxj.teacher.utils.PhotoFileUtils;
 import com.dxj.teacher.utils.StringUtils;
 import com.dxj.teacher.utils.UpdatePhotoUtils;
 import com.dxj.teacher.widget.TitleNavBar;
@@ -51,7 +50,6 @@ import com.orhanobut.dialogplus.OnItemClickListener;
 import com.orhanobut.dialogplus.ViewHolder;
 
 import java.io.File;
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -67,9 +65,9 @@ import github.jjobes.slidedatetimepicker.SlideDateTimePicker;
  */
 public class UpdateUserInfoActivity extends BaseActivity implements View.OnClickListener {
     public String[] strings = {"白羊座", "金牛座", "双子座", "巨蟹座", "狮子座", "处女座", "天坪座", "天蝎座", "射手座", "摩羯座", "水平座", "双鱼座"};
-    public static final int TAKE_PICTURE = 15;// 拍照
-    public static final int RESULT_LOAD_IMAGE = 16;// 从相册中选择
-    public static final int CUT_PHOTO_REQUEST_CODE = 17;
+    public static final int TAKE_PICTURE = 16;// 拍照
+    public static final int RESULT_LOAD_IMAGE = 17;// 从相册中选择
+    public static final int CUT_PHOTO_REQUEST_CODE = 18;
 
     public static final int BIRTHDAY = 2;
     public static final int SEX = 1;
@@ -89,6 +87,7 @@ public class UpdateUserInfoActivity extends BaseActivity implements View.OnClick
     public static final int UNIVERSITY = 12;
     public static final int ROLENAME = 13;
     public static final int SCHOOL = 14;
+    public static final int PHOTO = 15;
     private RelativeLayout relativeNiceName;
     private RelativeLayout relativeSex;
     private RelativeLayout relativeDialect;
@@ -153,7 +152,7 @@ public class UpdateUserInfoActivity extends BaseActivity implements View.OnClick
 
     @Override
     public void initTitle() {
-        TitleNavBar titleNavBar = (TitleNavBar)findViewById(R.id.title);
+        TitleNavBar titleNavBar = (TitleNavBar) findViewById(R.id.title);
         titleNavBar.setTitle("个人资料");
         titleNavBar.setTitleNoRightButton();
     }
@@ -168,10 +167,10 @@ public class UpdateUserInfoActivity extends BaseActivity implements View.OnClick
                 Log.i("TAG", "Update+result=" + result);
                 Gson gson = new Gson();
                 HeadUrl headUrl = gson.fromJson(result, HeadUrl.class);
-                if (headUrl.getCode()==0){
-                    strHeadUrl=headUrl.getImages().get(0);
-                    sendRequestData(strHeadUrl,HEAD_URL);
-                }else
+                if (headUrl.getCode() == 0) {
+                    strHeadUrl = headUrl.getImages().get(0);
+                    sendRequestData(strHeadUrl, HEAD_URL);
+                } else
                     showToast("头像上传失败");
             }
         };
@@ -241,6 +240,7 @@ public class UpdateUserInfoActivity extends BaseActivity implements View.OnClick
             tvUniversity.setText(userBean.getUserInfo().getUniversity());
             tvRolename.setText(userBean.getUserInfo().getRoleName());
             tvSchool.setText(userBean.getUserInfo().getSchool());
+            tvImages.setText(String.valueOf(userBean.getUserInfo().getImages().size()));
         }
         if (userBean.getUserInfo().getLabel().size() > 0) {
             StringBuffer sbf = new StringBuffer();
@@ -294,15 +294,15 @@ public class UpdateUserInfoActivity extends BaseActivity implements View.OnClick
     @Override
     public void onClick(View v) {
         int id = v.getId();
-        String userId =userBean.getUserInfo().getId();
+        String userId = userBean.getUserInfo().getId();
         switch (id) {
             case R.id.relative_avatar:
                 UpdatePhotoUtils.startPhotoZoom(this);
                 break;
             case R.id.relative_nicename:
                 Intent intent = new Intent(this, UpdateNiceNameActivity.class);
-                intent.putExtra("niceName",userBean.getUserInfo().getNickName());
-                intent.putExtra("id",userId);
+                intent.putExtra("niceName", userBean.getUserInfo().getNickName());
+                intent.putExtra("id", userId);
                 startActivityForResult(intent, NICE_NAME);
                 break;
             case R.id.relative_sex:
@@ -310,31 +310,31 @@ public class UpdateUserInfoActivity extends BaseActivity implements View.OnClick
                 break;
             case R.id.relative_dialect:
                 Intent intentDialect = new Intent(this, UpdateDialectActivity.class);
-                intentDialect.putExtra("dialect",userBean.getUserInfo().getDialect());
-                intentDialect.putExtra("id",userId);
+                intentDialect.putExtra("dialect", userBean.getUserInfo().getDialect());
+                intentDialect.putExtra("id", userId);
                 startActivityForResult(intentDialect, DIALECT);
                 break;
             case R.id.relative_nationality:
                 Intent intentNationality = new Intent(this, UpdatenationalityActivity.class);
-                intentNationality.putExtra("nationality",userBean.getUserInfo().getNationality());
-                intentNationality.putExtra("id",userId);
+                intentNationality.putExtra("nationality", userBean.getUserInfo().getNationality());
+                intentNationality.putExtra("id", userId);
                 startActivityForResult(intentNationality, NATIONALITY);
                 break;
             case R.id.relative_schollage:
                 Intent intentSchoolage = new Intent(this, UpdateSchoolAgeActivity.class);
-                intentSchoolage.putExtra("schoolAge",userBean.getUserInfo().getSchoolAge());
-                intentSchoolage.putExtra("id",userId);
+                intentSchoolage.putExtra("schoolAge", userBean.getUserInfo().getSchoolAge());
+                intentSchoolage.putExtra("id", userId);
                 startActivityForResult(intentSchoolage, SCHOOLAGE);
                 break;
             case R.id.relative_livingcity:
                 Intent intentLivingCity = new Intent(this, UpdateLivingCityActivity.class);
-                intentLivingCity.putExtra("id",userId);
+                intentLivingCity.putExtra("id", userId);
                 startActivityForResult(intentLivingCity, LIVING_CITY);
                 break;
             case R.id.relative_recommend:
                 Intent intentRecommend = new Intent(this, UpdateRecommendActivity.class);
-                intentRecommend.putExtra("recommend",userBean.getUserInfo().getRemark());
-                intentRecommend.putExtra("id",userId);
+                intentRecommend.putExtra("recommend", userBean.getUserInfo().getRemark());
+                intentRecommend.putExtra("id", userId);
                 startActivityForResult(intentRecommend, REMARK);
                 break;
             case R.id.relative_birthday:
@@ -352,43 +352,44 @@ public class UpdateUserInfoActivity extends BaseActivity implements View.OnClick
                 break;
             case R.id.relative_experience:
                 Intent intentExperience = new Intent(this, UpdateExperienceActivity.class);
-                intentExperience.putExtra("experience",userBean.getUserInfo().getExperience());
-                intentExperience.putExtra("id",userId);
+                intentExperience.putExtra("experience", userBean.getUserInfo().getExperience());
+                intentExperience.putExtra("id", userId);
                 startActivityForResult(intentExperience, EXPERIENCE);
                 break;
             case R.id.relative_result:
                 Intent intentResult = new Intent(this, UpdateResultActivity.class);
-                intentResult.putExtra("result",userBean.getUserInfo().getResult());
-                intentResult.putExtra("id",userId);
+                intentResult.putExtra("result", userBean.getUserInfo().getResult());
+                intentResult.putExtra("id", userId);
                 startActivityForResult(intentResult, RESULT);
                 break;
             case R.id.relative_solvelabel:
                 Intent intentSolveLabel = new Intent(this, UpdateSolveLabelActivity.class);
-//                intentExperience.putExtra("solveLabel",userBean.getUserInfo().getExperience());
-                intentSolveLabel.putExtra("id",userId);
+                intentSolveLabel.putStringArrayListExtra("solveLabel", (ArrayList<String>) userBean.getUserInfo().getSolveLabel());
+                intentSolveLabel.putExtra("id", userId);
                 startActivityForResult(intentSolveLabel, SOLVELABEL);
                 break;
             case R.id.relative_university:
                 Intent intentUniversity = new Intent(this, UpdateUniversityActivity.class);
-                intentUniversity.putExtra("id",userId);
+                intentUniversity.putExtra("id", userId);
                 startActivityForResult(intentUniversity, UNIVERSITY);
                 break;
             case R.id.relative_rolename:
                 Intent intentRoleName = new Intent(this, UpdateRoleNameActivity.class);
-                intentRoleName.putExtra("roleName",userBean.getUserInfo().getRoleName());
-                intentRoleName.putExtra("id",userId);
+                intentRoleName.putExtra("roleName", userBean.getUserInfo().getRoleName());
+                intentRoleName.putExtra("id", userId);
                 startActivityForResult(intentRoleName, ROLENAME);
                 break;
             case R.id.relative_school:
                 Intent intentSchool = new Intent(this, UpdateSchoolActivity.class);
-                intentSchool.putExtra("school",userBean.getUserInfo().getSchool());
-                intentSchool.putExtra("id",userId);
+                intentSchool.putExtra("school", userBean.getUserInfo().getSchool());
+                intentSchool.putExtra("id", userId);
                 startActivityForResult(intentSchool, SCHOOL);
                 break;
             case R.id.relative_images:
                 Intent intentImage = new Intent(this, UpdateImageActivity.class);
-                intentImage.putExtra("id",userId);
-                startActivity(intentImage);
+                intentImage.putExtra("id", userId);
+                intentImage.putStringArrayListExtra("photoList", userBean.getUserInfo().getImages());
+                startActivityForResult(intentImage, PHOTO);
                 break;
         }
     }
@@ -435,57 +436,61 @@ public class UpdateUserInfoActivity extends BaseActivity implements View.OnClick
             }.start();
         }
 
-        if (resultCode==RESULT_OK){
-        if (data == null)
-            return;
-        if (requestCode == NICE_NAME) {
-            String niceName = data.getStringExtra("nicename");
-            tvNicename.setText(niceName);
-        } else if (requestCode == DIALECT) {
-            String dialect = data.getStringExtra("dialect");
-            tvDialect.setText(dialect);
-        } else if (requestCode == NATIONALITY) {
-            String nationality = data.getStringExtra("nationality");
-            tvNationality.setText(nationality);
-        } else if (requestCode == LABEL) {
-            List<String> labelList = data.getStringArrayListExtra("label");
-            StringBuffer sbf = new StringBuffer();
-            for (String str : labelList) {
-                sbf.append(str + ",");
+        if (resultCode == RESULT_OK) {
+            if (data == null)
+                return;
+            if (requestCode == NICE_NAME) {
+                String niceName = data.getStringExtra("nicename");
+                tvNicename.setText(niceName);
+            } else if (requestCode == DIALECT) {
+                String dialect = data.getStringExtra("dialect");
+                tvDialect.setText(dialect);
+            } else if (requestCode == NATIONALITY) {
+                String nationality = data.getStringExtra("nationality");
+                tvNationality.setText(nationality);
+            } else if (requestCode == LABEL) {
+                List<String> labelList = data.getStringArrayListExtra("label");
+                StringBuffer sbf = new StringBuffer();
+                for (String str : labelList) {
+                    sbf.append(str + ",");
+                }
+                sbf.delete(sbf.length() - 1, sbf.length());
+                tvLabel.setText(sbf.toString());
+            } else if (requestCode == SCHOOLAGE) {
+                String strSchoolAge = data.getStringExtra("schoolAge");
+                tvSchollAge.setText(strSchoolAge);
+            } else if (requestCode == SOLVELABEL) {
+                List<String> labelList = data.getStringArrayListExtra("solveLabel");
+                StringBuffer sbf = new StringBuffer();
+                for (String str : labelList) {
+                    sbf.append(str + ",");
+                }
+                sbf.delete(sbf.length() - 1, sbf.length());
+                tvSolveLabel.setText(sbf.toString());
+            } else if (requestCode == LIVING_CITY) {
+                String strLivingCity = data.getStringExtra("livingCity");
+                tvLivingCity.setText(strLivingCity);
+            } else if (requestCode == REMARK) {
+                String strRemark = data.getStringExtra("remark");
+                tvRecommend.setText(strRemark);
+            } else if (requestCode == EXPERIENCE) {
+                String strExperience = data.getStringExtra("experience");
+                tvExperience.setText(strExperience);
+            } else if (requestCode == RESULT) {
+                String strResult = data.getStringExtra("result");
+                tvResult.setText(strResult);
+            } else if (requestCode == ROLENAME) {
+                String strResult = data.getStringExtra("roleName");
+                tvRolename.setText(strResult);
+            } else if (requestCode == SCHOOL) {
+                String strSchool = data.getStringExtra("school");
+                tvSchool.setText(strSchool);
+            } else if (requestCode == PHOTO) {
+                String strPhotoCount = data.getStringExtra("photoCount");
+                tvImages.setText(strPhotoCount);
             }
-            sbf.delete(sbf.length() - 1, sbf.length());
-            tvLabel.setText(sbf.toString());
-        } else if (requestCode == SCHOOLAGE) {
-            String strSchoolAge = data.getStringExtra("schoolAge");
-            tvSchollAge.setText(strSchoolAge);
-        } else if (requestCode == SOLVELABEL) {
-            List<String> labelList = data.getStringArrayListExtra("solveLabel");
-            StringBuffer sbf = new StringBuffer();
-            for (String str : labelList) {
-                sbf.append(str + ",");
-            }
-            sbf.delete(sbf.length() - 1, sbf.length());
-            tvSolveLabel.setText(sbf.toString());
-        } else if (requestCode == LIVING_CITY) {
-            String strLivingCity = data.getStringExtra("livingCity");
-            tvLivingCity.setText(strLivingCity);
-        } else if (requestCode == REMARK) {
-            String strRemark = data.getStringExtra("remark");
-            tvRecommend.setText(strRemark);
-        } else if (requestCode == EXPERIENCE) {
-            String strExperience = data.getStringExtra("experience");
-            tvExperience.setText(strExperience);
-        } else if (requestCode == RESULT) {
-            String strResult = data.getStringExtra("result");
-            tvResult.setText(strResult);
-        } else if (requestCode == ROLENAME) {
-            String strResult = data.getStringExtra("roleName");
-            tvRolename.setText(strResult);
-        } else if (requestCode == SCHOOL) {
-            String strSchool = data.getStringExtra("school");
-            tvSchool.setText(strSchool);
         }
-    }}
+    }
 
     private void updateSex() {
 

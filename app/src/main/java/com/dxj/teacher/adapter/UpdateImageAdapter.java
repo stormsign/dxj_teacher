@@ -1,6 +1,7 @@
 package com.dxj.teacher.adapter;
 
 import android.content.Context;
+import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -36,22 +37,26 @@ public class UpdateImageAdapter extends BaseAdapter {
     private List<String> list = new ArrayList<>();
     private boolean isShow;
     private List<String> mSelectedImages = new ArrayList<>();
-    private List<String> imageUrls = new ArrayList<>();
+    private ArrayList<String> imageUrls = new ArrayList<>();
+
     /**
      * 选择某个图片，改变选择状态
+     *
      * @param image
      */
     public void select(String image) {
-        if(mSelectedImages.contains(image)){
+        if (mSelectedImages.contains(image)) {
             mSelectedImages.remove(image);
-        }else{
+        } else {
             mSelectedImages.add(image);
         }
         notifyDataSetChanged();
     }
-   public List<String> getmSelectedImages(){
-       return mSelectedImages;
-   }
+
+    public List<String> getmSelectedImages() {
+        return mSelectedImages;
+    }
+
     public boolean isShape() {
         return shape;
     }
@@ -67,9 +72,10 @@ public class UpdateImageAdapter extends BaseAdapter {
     }
 
     public int getCount() {
-        return mDatas.size();
+        return mDatas.size() + 1;
     }
-//    public void setBoolean(boolean isShow){
+
+    //    public void setBoolean(boolean isShow){
 //        this
 //    }
     public void addData(List<String> data) {
@@ -107,9 +113,9 @@ public class UpdateImageAdapter extends BaseAdapter {
             convertView = inflater.inflate(R.layout.item_published_grida, parent, false);
             holder = new ViewHolder();
             holder.image = (ImageView) convertView.findViewById(R.id.item_grida_image);
-            holder.add_image = (ImageView) convertView.findViewById(R.id.item_grida_addimage);
+            holder.add_image = (CardView) convertView.findViewById(R.id.item_grida_addimage);
             holder.tvUpdate = (TextView) convertView.findViewById(R.id.tv);
-            holder.checkmark=(ImageView)convertView.findViewById(R.id.checkmark);
+            holder.checkmark = (ImageView) convertView.findViewById(R.id.checkmark);
             convertView.setTag(holder);
 
         } else {
@@ -117,22 +123,25 @@ public class UpdateImageAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
 
         }
-        if(shape){
+        if (shape) {
             holder.checkmark.setVisibility(View.VISIBLE);
-            if(mSelectedImages.contains(mDatas.get(position))){
+
+            if (mDatas.size() != position && mSelectedImages.contains(mDatas.get(position))) {
                 // 设置选中状态
                 holder.checkmark.setImageResource(R.mipmap.btn_selected);
 //                mask.setVisibility(View.VISIBLE);
-            }else{
+            } else {
                 // 未选择
                 holder.checkmark.setImageResource(R.mipmap.btn_unselected);
-//                mask.setVisibility(View.GONE);
             }
-        }else{
+            if (mDatas.size() == position) {
+                holder.checkmark.setVisibility(View.GONE);
+            }
+        } else {
             holder.checkmark.setVisibility(View.GONE);
 
         }
-        if (mDatas.get(position) != null && !list.contains(mDatas.get(position))) {
+        if (mDatas.size() != position && mDatas.get(position) != null && !list.contains(mDatas.get(position)) && !mDatas.get(position).contains("http://img.miuhouse.com")) {
             list.add(mDatas.get(position));
             MyAsyn asyn = new MyAsyn(context, getAsynResponse(holder.tvUpdate), mDatas.get(position), HttpUtils.UPADTE_MULT_IMAGE);
             asyn.executeOnExecutor(fixedThreadPool, String.valueOf(position));
@@ -140,7 +149,6 @@ public class UpdateImageAdapter extends BaseAdapter {
         } else {
             holder.tvUpdate.setVisibility(View.GONE);
         }
-        Log.i("TAG", "path=" + mDatas.get(position));
         if (position == mDatas.size()) {
             holder.image.setVisibility(convertView.GONE);
 //            holder.del_image.setVisibility(convertView.GONE);
@@ -151,8 +159,7 @@ public class UpdateImageAdapter extends BaseAdapter {
             }
 
         } else {
-
-            Glide.with(context).load(new File(mDatas.get(position))).error(R.mipmap.default_error).override(mImageSize,mImageSize).centerCrop().into(holder.image);
+            Glide.with(context).load(mDatas.get(position)).error(R.mipmap.default_error).override(mImageSize, mImageSize).centerCrop().into(holder.image);
 //	    holder.image.setImageBitmap(Bimp.tempSelectBitmap.get(position).getBitmap());
             holder.image.setVisibility(convertView.VISIBLE);
 //            holder.del_imageage.setVisibilitybility(convertView.VISIBLE);
@@ -181,21 +188,21 @@ public class UpdateImageAdapter extends BaseAdapter {
                 // TODO Auto-generated method stub
                 Log.i("TAG", "Update+result=" + result);
                 Gson gson = new Gson();
-                HeadUrl headUrl = gson.fromJson(result,HeadUrl.class);
-                Log.i("TAG","headUrl="+headUrl.getImages().get(0));
+                HeadUrl headUrl = gson.fromJson(result, HeadUrl.class);
+                Log.i("TAG", "headUrl=" + headUrl.getImages().get(0));
                 imageUrls.add(headUrl.getImages().get(0));
                 tv.setVisibility(View.GONE);
             }
         };
     }
-   public List<String> getImageUrls(){
-       return imageUrls;
-   }
+
+    public ArrayList<String> getImageUrls() {
+        return imageUrls;
+    }
 
     public class ViewHolder {
         public ImageView image;
-        //        public ImageView del_image;
-        public ImageView add_image;
+        public CardView add_image;
         public TextView tvUpdate;
         public ImageView checkmark;
     }

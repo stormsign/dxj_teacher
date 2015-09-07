@@ -2,27 +2,40 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/background_content"
+    >
 <com.dxj.teacher.widget.TitleNavBar
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:id="@+id/title"
     ></com.dxj.teacher.widget.TitleNavBar>
+<FrameLayout
+    android:layout_marginTop="@dimen/margin_10dp"
+    android:layout_width="match_parent"
+    android:layout_height="150dp"
+    android:background="@android:color/white"
+    android:padding="@dimen/margin_10dp"
+    >
 
     <EditText
         android:id="@+id/et"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:lines="3"
+        android:layout_height="match_parent"
         android:hint="填写所获成就,经历"
+        android:background="@null"
+        android:gravity="top"
+        android:textSize="@dimen/text_14sp"
+        android:textColor="@color/text_black"
         />
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+
+        android:layout_gravity="bottom|right"
+        >
 
         <TextView
             android:id="@+id/tv_count"
@@ -48,5 +61,5 @@
 
             />
     </LinearLayout>
-
+</FrameLayout>
 </LinearLayout>
