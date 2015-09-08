@@ -10,6 +10,7 @@ import android.widget.Button;
 
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
+import com.dxj.teacher.activity.DrawerTestActivity;
 import com.dxj.teacher.activity.LoginAndRightActivity;
 import com.dxj.teacher.activity.StudyGroupListActivity;
 import com.dxj.teacher.activity.UpdateUserInfoActivity;
@@ -195,5 +196,9 @@ public class MainActivity extends BaseActivity {
         option.setIsNeedLocationDescribe(true);//可选，默认false，设置是否需要位置语义化结果，可以在BDLocation.getLocationDescribe里得到，结果类似于“在北京天安门附近”
         option.setIsNeedLocationPoiList(false);//可选，默认false，设置是否需要POI结果，可以在BDLocation.getPoiList里得到
         mLocationClient.setLocOption(option);
+    }
+
+    public void draw(View view){
+        startActivity(new Intent(context, DrawerTestActivity.class));
     }
 }

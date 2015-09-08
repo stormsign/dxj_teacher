@@ -223,6 +223,7 @@
         <activity android:name=".activity.CreateNoticeActivity"/>
         <activity android:name=".activity.GroupMemberListActivity"/>
         <activity android:name=".activity.MoreGroupsActivity"/>
+        <activity android:name=".activity.DrawerTestActivity"/>
 
         <activity android:name=".activity.MultiImageSelectorActivity"/>
         <activity android:name=".activity.NiftyActivity"/>

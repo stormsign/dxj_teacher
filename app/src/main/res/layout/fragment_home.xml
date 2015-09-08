@@ -45,4 +45,11 @@
         android:layout_height="wrap_content"
         android:text="验证"
         />
+    <Button
+        android:id="@+id/drawer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="drawerlayout"
+        android:onClick="draw"
+        />
 </LinearLayout>

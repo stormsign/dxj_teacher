@@ -21,7 +21,6 @@ import com.dxj.teacher.bean.StudyGroup;
 import com.dxj.teacher.bean.StudyGroupListBean;
 import com.dxj.teacher.bean.SubjectBean;
 import com.dxj.teacher.db.dao.SubjectDao;
-import com.dxj.teacher.http.CustomStringRequest;
 import com.dxj.teacher.http.FinalData;
 import com.dxj.teacher.http.GsonRequest;
 import com.dxj.teacher.http.VolleySingleton;
@@ -126,11 +125,15 @@ public class GroupListFragment extends BaseFragment {
         map.put("page", currentPage);
         map.put("pageSize", pageSize);
         map.put("subjectFirst" ,parentId);
-        CustomStringRequest cRequest = new CustomStringRequest(Request.Method.POST, url,
-                map,
-                onGetSecondListGroupList(),
+        GsonRequest<StudyGroupListBean> gRequest = new GsonRequest<StudyGroupListBean>(Request.Method.POST, url,
+                StudyGroupListBean.class, map,
+                onGetGroupList(),
                 onGetGroupListError());
-        VolleySingleton.getInstance(context).addToRequestQueue(cRequest);
+//        CustomStringRequest cRequest = new CustomStringRequest(Request.Method.POST, url,
+//                map,
+//                onGetSecondListGroupList(),
+//                onGetGroupListError());
+        VolleySingleton.getInstance(context).addToRequestQueue(gRequest);
     }
 
     private Response.Listener<String> onGetSecondListGroupList() {
@@ -166,6 +169,7 @@ public class GroupListFragment extends BaseFragment {
     }
 
     private void processData(final List<StudyGroup> groupList) {
+//        getActivity()有时返回为null，这里要做处理
         gAdapter = new GroupAdapter(getActivity(), groupList, parentId);
         gAdapter.notifyDataSetChanged();
         gAdapter.setOnGroupClickListener(new GroupAdapter.OnGroupClickListener() {

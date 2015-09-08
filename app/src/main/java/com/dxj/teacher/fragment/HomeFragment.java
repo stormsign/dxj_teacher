@@ -9,6 +9,7 @@ import android.widget.EditText;
 
 import com.dxj.teacher.R;
 import com.dxj.teacher.activity.CardSettingActivity;
+import com.dxj.teacher.activity.DrawerTestActivity;
 import com.dxj.teacher.activity.EditCourseActivity;
 import com.dxj.teacher.activity.UpdateUserInfoActivity;
 import com.dxj.teacher.base.BaseFragment;
@@ -131,6 +132,10 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                 break;
 
         }
+    }
+
+    public void draw(View view){
+        startActivity(new Intent(context, DrawerTestActivity.class));
     }
 }
 
