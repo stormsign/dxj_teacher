@@ -45,6 +45,9 @@ import java.util.zip.GZIPInputStream;
  */
 public class MyUtils {
 
+    public final static String SMSSDK_APP_KEY = "a38245d89da2";
+    public final static String SMSSDK_APP_SECRET = "84db45a5b7dcde895fc72f47edf53447";
+
     public static List<StudyGroup> getSecondListGroupsFromJson(String json, List<Integer> secondIdList){
         try {
             JSONObject jObject = new JSONObject(json);

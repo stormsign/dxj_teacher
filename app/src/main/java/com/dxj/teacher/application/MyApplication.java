@@ -133,22 +133,22 @@ public class MyApplication extends Application {
             sb.append(location.getLocationDescribe());
             Log.i("TAG", "address='" + sb.toString());
             setLocationdescribe(location.getLocationDescribe());
-            sendRequestData(location.getLatitude(),location.getLongitude());
+//            sendRequestData(location.getLatitude(),location.getLongitude());
 
         }
 
 
     }
-    private void sendRequestData(double x,double  y) {
-
-        String urlPath = FinalData.URL_VALUE + HttpUtils.LOC;
-        Map<String, Object> map = new HashMap<>();
-        map.put("id", getUserId());
-        map.put("x", x);
-        map.put("y", y);
-        CustomStringRequest custom = new CustomStringRequest(Request.Method.POST, urlPath, map, getListener(), getErrorListener());
-        VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(custom);
-    }
+//    private void sendRequestData(double x,double  y) {
+//
+//        String urlPath = FinalData.URL_VALUE + HttpUtils.LOC;
+//        Map<String, Object> map = new HashMap<>();
+//        map.put("id", getUserId());
+//        map.put("x", x);
+//        map.put("y", y);
+//        CustomStringRequest custom = new CustomStringRequest(Request.Method.POST, urlPath, map, getListener(), getErrorListener());
+//        VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(custom);
+//    }
 
     private Response.Listener<String> getListener() {
         return new Response.Listener<String>() {

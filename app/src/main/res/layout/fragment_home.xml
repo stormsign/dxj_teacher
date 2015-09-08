@@ -27,4 +27,22 @@
         android:layout_height="wrap_content"
         android:text="认证设置"
         />
+
+    <EditText
+        android:id="@+id/yzm"
+        android:hint="yzm"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <Button
+        android:id="@+id/sms"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="验证码"
+        />
+    <Button
+        android:id="@+id/verifysms"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="验证"
+        />
 </LinearLayout>

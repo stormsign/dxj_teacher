@@ -4,16 +4,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
-import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
-import com.dxj.teacher.activity.EditCourseActivity;
 import com.dxj.teacher.activity.LoginAndRightActivity;
 import com.dxj.teacher.activity.StudyGroupListActivity;
 import com.dxj.teacher.activity.UpdateUserInfoActivity;
@@ -21,14 +17,6 @@ import com.dxj.teacher.application.MyApplication;
 import com.dxj.teacher.base.BaseActivity;
 import com.dxj.teacher.factory.FragmentFactory;
 import com.dxj.teacher.utils.SPUtils;
-import com.easemob.EMCallBack;
-import com.easemob.applib.controller.HXSDKHelper;
-import com.easemob.chat.EMChatManager;
-import com.easemob.chat.EMGroupManager;
-import com.easemob.chatuidemo.Constant;
-import com.easemob.chatuidemo.DemoHXSDKHelper;
-import com.easemob.chatuidemo.db.UserDao;
-import com.easemob.chatuidemo.domain.User;
 import com.umeng.common.message.UmengMessageDeviceConfig;
 import com.umeng.message.IUmengRegisterCallback;
 import com.umeng.message.MsgConstant;
@@ -38,10 +26,6 @@ import com.umeng.message.UmengRegistrar;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 public class MainActivity extends BaseActivity {
 
@@ -90,9 +74,9 @@ public class MainActivity extends BaseActivity {
     @Override
     public void initData() {
         mPushAgent = PushAgent.getInstance(context);
-        if (!mPushAgent.isEnabled()) {
+//        if (!mPushAgent.isEnabled()) {
             mPushAgent.enable(mRegisterCallback);
-        }
+//        }
 
         String device_token = UmengRegistrar.getRegistrationId(context);
         showLogD("device_token " + device_token);

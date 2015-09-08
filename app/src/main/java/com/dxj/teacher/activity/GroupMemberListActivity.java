@@ -84,6 +84,7 @@ public class GroupMemberListActivity extends BaseActivity{
 
     @Override
     public void initView() {
+
         refresh = (SwipeRefreshLayout) findViewById(R.id.srl);
         rv_members = (RecyclerView) findViewById(R.id.rv_members);
         mAdapter = new MemberAdapter(this, members);
