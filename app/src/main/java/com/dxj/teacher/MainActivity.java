@@ -10,7 +10,6 @@ import android.widget.Button;
 
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
-import com.dxj.teacher.activity.DrawerTestActivity;
 import com.dxj.teacher.activity.LoginAndRightActivity;
 import com.dxj.teacher.activity.StudyGroupListActivity;
 import com.dxj.teacher.activity.UpdateUserInfoActivity;
@@ -18,6 +17,15 @@ import com.dxj.teacher.application.MyApplication;
 import com.dxj.teacher.base.BaseActivity;
 import com.dxj.teacher.factory.FragmentFactory;
 import com.dxj.teacher.utils.SPUtils;
+import com.easemob.EMConnectionListener;
+import com.easemob.chat.EMChat;
+import com.easemob.chat.EMChatManager;
+import com.easemob.chat.EMContactListener;
+import com.easemob.chat.EMContactManager;
+import com.easemob.chat.EMGroup;
+import com.easemob.chat.EMGroupManager;
+import com.easemob.chat.GroupChangeListener;
+import com.easemob.chatuidemo.DemoHXSDKHelper;
 import com.umeng.common.message.UmengMessageDeviceConfig;
 import com.umeng.message.IUmengRegisterCallback;
 import com.umeng.message.MsgConstant;
@@ -27,6 +35,7 @@ import com.umeng.message.UmengRegistrar;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.util.List;
 
 public class MainActivity extends BaseActivity {
 
@@ -95,6 +104,7 @@ public class MainActivity extends BaseActivity {
         copyDB(TEACHER_TYPE);
         initLocation();
         mLocationClient.start();
+        setListener();
     }
 
     /**
@@ -198,7 +208,321 @@ public class MainActivity extends BaseActivity {
         mLocationClient.setLocOption(option);
     }
 
-    public void draw(View view){
-        startActivity(new Intent(context, DrawerTestActivity.class));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /**
+     * 监听群，好友，连接 by zjb
+     */
+    public void setListener() {
+        // if (MyApplication.getInstance().isLogin()) {
+        Log.i("TAG", "HXSDKHelper.getInstance().isLogined() " + DemoHXSDKHelper.getInstance().isLogined());
+        if (DemoHXSDKHelper.getInstance().isLogined()) {
+//            inviteMessgeDao = new InviteMessgeDao(this);
+//            userDao = new UserDao(this);
+//            // setContactListener监听联系人的变化等
+            EMContactManager.getInstance().setContactListener(new MyContactListener());
+            // 注册一个监听连接状态的listener
+            EMChatManager.getInstance().addConnectionListener(new MyConnectionListener());
+            // 注册群聊相关的listener
+            EMGroupManager.getInstance().addGroupChangeListener(new MyGroupChangeListener());
+            // 通知sdk，UI 已经初始化完毕，注册了相应的receiver和listener, 可以接受broadcast了
+            EMChat.getInstance().setAppInited();
+        }
     }
+
+
+
+    /***
+     * 好友变化listener
+     *
+     */
+    private class MyContactListener implements EMContactListener {
+
+        @Override
+        public void onContactAdded(List<String> usernameList) {
+            Log.i("TAG", "onContactAdded " + usernameList.size());
+            // 保存增加的联系人
+//            Map<String, User> localUsers = MyApplication.getInstance().getContactList();
+//            Map<String, User> toAddUsers = new HashMap<String, User>();
+//            for (String username : usernameList) {
+//                // 添加好友时可能会回调added方法两次
+//                if (!localUsers.containsKey(username)) {
+//                    User user = setUserHead(username);
+//                    userDao.saveContact(user);
+//                    toAddUsers.put(username, user);
+//                }
+//            }
+//            localUsers.putAll(toAddUsers);
+
+        }
+
+        @Override
+        public void onContactAgreed(String username) {
+            Log.i("TAG", "onContactAgreed " + username + " ");
+//            List<InviteMessage> msgs = inviteMessgeDao.getMessagesList();
+//            for (InviteMessage inviteMessage : msgs) {
+//                if (inviteMessage.getFrom().equals(username)) {
+//                    return;
+//                }
+//            }
+
+            // 自己封装的javabean
+//            InviteMessage msg = new InviteMessage();
+//            msg.setHeader("");
+//            msg.setFrom(username);
+//            msg.setTime(System.currentTimeMillis());
+//            Log.d("TAG", username + "同意了你的好友请求");
+//            msg.setStatus(InviteMesageStatus.BEAGREED);
+//            notifyNewIviteMessage(msg);
+
+        }
+
+        @Override
+        public void onContactDeleted(final List<String> usernameList) {
+            Log.i("TAG", "onContactDeleted " + usernameList.size());
+            // 被删除
+//            Map<String, User> localUsers = MyApplication.getInstance().getContactList();
+//            for (String username : usernameList) {
+//                localUsers.remove(username);
+//                userDao.deleteContact(username);
+//                inviteMessgeDao.deleteMessage(username);
+//            }
+//            runOnUiThread(new Runnable() {
+//                public void run() {
+//                    // 如果正在与此用户的聊天页面
+//                    String st10 = getResources().getString(R.string.have_you_removed);
+//                    if (ChatActivity.activityInstance != null && usernameList.contains(ChatActivity.activityInstance.getToChatUsername())) {
+//                        Toast.makeText(MainActivity.this, ChatActivity.activityInstance.getToChatUsername() + st10, 1).show();
+//                        ChatActivity.activityInstance.finish();
+//                    }
+//                    updateUnreadLabel();
+//                }
+//            });
+
+        }
+
+        @Override
+        public void onContactInvited(String username, String reason) {
+            Log.i("TAG", "onContactInvited " + username + " " + reason);
+            // 接到邀请的消息，如果不处理(同意或拒绝)，掉线后，服务器会自动再发过来，所以客户端不需要重复提醒
+//            List<InviteMessage> msgs = inviteMessgeDao.getMessagesList();
+//
+//            for (InviteMessage inviteMessage : msgs) {
+//                if (inviteMessage.getGroupId() == null && inviteMessage.getFrom().equals(username)) {
+//                    inviteMessgeDao.deleteMessage(username);
+//                }
+//            }
+//            // 自己封装的javabean
+//            InviteMessage msg = new InviteMessage();
+//            msg.setHeader("");
+//            msg.setFrom(username);
+//            msg.setTime(System.currentTimeMillis());
+//            msg.setReason(reason);
+//            Log.d("TAG", username + "请求加你为好友,reason: " + reason);
+//            // 设置相应status
+//            msg.setStatus(InviteMesageStatus.BEINVITEED);
+//
+//            notifyNewIviteMessage(msg);
+
+        }
+
+        @Override
+        public void onContactRefused(String username) {
+            // 参考同意，被邀请实现此功能,demo未实现
+            Log.d(username, username + "拒绝了你的好友请求");
+        }
+
+    }
+
+    /**
+     * 连接监听listener
+     *
+     */
+    private class MyConnectionListener implements EMConnectionListener {
+
+        @Override
+        public void onConnected() {
+            runOnUiThread(new Runnable() {
+
+                @Override
+                public void run() {
+//                    Boolean isHXConnected = SettingHelper.getSharedPreferences(getApplicationContext(), "is_easemob_connection", false);
+//                    if (isHXConnected != null && !isHXConnected) {
+//                        // chatHistoryFragment.errorItem.setVisibility(View.GONE);
+//                        ToastUtil.showToast(getApplicationContext(), "已连接上聊天服务器");
+//                    }
+//                    SettingHelper.setEditor(getApplicationContext(), "is_easemob_connection", true);
+                }
+
+            });
+        }
+
+        @Override
+        public void onDisconnected(final int error) {
+//            final String st1 = getResources().getString(R.string.Less_than_chat_server_connection);
+            final String st2 = getResources().getString(R.string.the_current_network);
+            runOnUiThread(new Runnable() {
+
+                @Override
+                public void run() {
+//                    Boolean isHXConnected = SettingHelper.getSharedPreferences(getApplicationContext(), "is_easemob_connection", false);
+//                    if (isHXConnected) {
+//                        ToastUtil.showToast(getApplicationContext(), "与聊天服务器断开连接，请重新登录账号！");
+//                    }
+//                    SettingHelper.setEditor(getApplicationContext(), "is_easemob_connection", false);
+                    // if(error == EMError.USER_REMOVED){
+                    // // 显示帐号已经被移除
+                    // showAccountRemovedDialog();
+                    // }else if (error == EMError.CONNECTION_CONFLICT) {
+                    // // 显示帐号在其他设备登陆dialog
+                    // showConflictDialog();
+                    // } else {
+                    // chatHistoryFragment.errorItem.setVisibility(View.VISIBLE);
+                    // if (NetUtils.hasNetwork(MainActivity.this))
+                    // chatHistoryFragment.errorText.setText(st1);
+                    // else
+                    // chatHistoryFragment.errorText.setText(st2);
+                    //
+                    // }
+                }
+
+            });
+        }
+    }
+
+    /**
+     * MyGroupChangeListener
+     */
+    private class MyGroupChangeListener implements GroupChangeListener {
+
+        @Override
+        public void onInvitationReceived(String groupId, String groupName, String inviter, String reason) {
+            Log.i("TAG", "onInvitationReceived " + groupName + " " + inviter + " " + reason);
+            boolean hasGroup = false;
+            for (EMGroup group : EMGroupManager.getInstance().getAllGroups()) {
+                if (group.getGroupId().equals(groupId)) {
+                    hasGroup = true;
+                    break;
+                }
+            }
+            if (!hasGroup)
+                return;
+
+            // 被邀请
+//            String st3 = getResources().getString(R.string.Invite_you_to_join_a_group_chat);
+//            EMMessage msg = EMMessage.createReceiveMessage(Type.TXT);
+//            msg.setChatType(ChatType.GroupChat);
+//            msg.setFrom(inviter);
+//            msg.setTo(groupId);
+//            msg.setMsgId(UUID.randomUUID().toString());
+//            getNickName(inviter, msg, st3, ONINVITATIONRECEIVED);
+
+        }
+
+        @Override
+        public void onInvitationAccpted(String groupId, String inviter, String reason) {
+
+        }
+
+        @Override
+        public void onInvitationDeclined(String groupId, String invitee, String reason) {
+
+        }
+
+        @Override
+        public void onUserRemoved(String groupId, String groupName) {
+            // 提示用户被T了，demo省略此步骤
+            // 刷新ui
+            Log.i("TAG", "onUserRemoved " + groupName);
+//            runOnUiThread(new Runnable() {
+//                public void run() {
+//                    try {
+//                        updateUnreadLabel();
+//
+//                        // if (currentTabIndex == 0)
+//                        // chatHistoryFragment.refresh();
+//                        if (CommonUtils.getTopActivity(MainActivity.this).equals(GroupsActivity.class.getName())) {
+//                            GroupsActivity.instance.onResume();
+//                        }
+//                    } catch (Exception e) {
+//                        EMLog.e("TAG", "refresh exception " + e.getMessage());
+//                    }
+//                }
+//            });
+        }
+
+        @Override
+        public void onGroupDestroy(String groupId, String groupName) {
+            // 群被解散
+            // 提示用户群被解散,demo省略
+            // 刷新ui
+            Log.i("TAG", "onGroupDestroy " + groupName);
+            runOnUiThread(new Runnable() {
+                public void run() {
+                    // updateUnreadLabel();
+                    // if (currentTabIndex == 0)
+                    // chatHistoryFragment.refresh();
+//                    if (CommonUtils.getTopActivity(MainActivity.this).equals(GroupsActivity.class.getName())) {
+//                        GroupsActivity.instance.onResume();
+//                    }
+                }
+            });
+
+        }
+
+        @Override
+        public void onApplicationReceived(String groupId, String groupName, String applyer, String reason) {
+            Log.i("TAG", "onApplicationReceived " + groupName + " " + applyer + " " + reason);
+            // 用户申请加入群聊
+//            InviteMessage msg = new InviteMessage();
+//            msg.setHeader("");
+//            msg.setFrom(applyer);
+//            msg.setTime(System.currentTimeMillis());
+//            msg.setGroupId(groupId);
+//            msg.setGroupName(groupName);
+//            msg.setReason(reason);
+//            Log.d("TAG", applyer + " 申请加入群聊：" + groupName);
+//            msg.setStatus(InviteMesageStatus.BEAPPLYED);
+//            notifyNewIviteMessage(msg);
+//            /************************* pengjun *************************/
+//            updateUnreadLabel();
+//            /************************* pengjun *************************/
+
+        }
+
+        @Override
+        public void onApplicationAccept(String groupId, String groupName, String accepter) {
+            Log.i("TAG", "onApplicationAccept " + groupName + " " + accepter);
+            String st4 = getResources().getString(R.string.Agreed_to_your_group_chat_application);
+            // 加群申请被同意
+//            EMMessage msg = EMMessage.createReceiveMessage(Type.TXT);
+//            msg.setChatType(ChatType.GroupChat);
+//            msg.setFrom(accepter);
+//            msg.setTo(groupId);
+//            msg.setMsgId(UUID.randomUUID().toString());
+//            getNickName(accepter, msg, st4, ONAPPLICATIONACCEPT);
+        }
+
+        @Override
+        public void onApplicationDeclined(String groupId, String groupName, String decliner, String reason) {
+            // 加群申请被拒绝，demo未实现
+        }
+
+    }
+
+
+
 }

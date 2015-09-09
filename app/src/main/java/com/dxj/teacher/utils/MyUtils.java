@@ -91,6 +91,7 @@ public class MyUtils {
         List<UserBean.UserInfo> groupMembers = new ArrayList<UserBean.UserInfo>();
         try {
             JSONObject jObject = new JSONObject(json);
+//            团长排在团员第一位
             members.add(group.getOwner());
             if (group.getMembers()!=null) {
                 members.addAll(group.getMembers());

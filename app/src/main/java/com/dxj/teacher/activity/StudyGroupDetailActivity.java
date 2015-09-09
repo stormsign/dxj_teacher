@@ -22,14 +22,12 @@ import com.dxj.teacher.http.CustomStringRequest;
 import com.dxj.teacher.http.FinalData;
 import com.dxj.teacher.http.VolleySingleton;
 import com.dxj.teacher.utils.MyUtils;
-import com.dxj.teacher.utils.SPUtils;
 import com.dxj.teacher.widget.TitleNavBar;
 import com.easemob.chat.EMGroup;
-import com.easemob.chat.EMGroupManager;
-import com.easemob.exceptions.EaseMobException;
 import com.google.gson.Gson;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -75,11 +73,14 @@ public class StudyGroupDetailActivity extends BaseActivity implements View.OnCli
 //        title.showNavTwo(true);
         title.setOnTitleNavClickListener(new TitleNavBar.OnTitleNavClickListener() {
             @Override
-            public void onNavOneClick() {}
+            public void onNavOneClick() {
+            }
 
             @Override
             public void onNavTwoClick() {
                 if (studyGroup != null) { //为空的情况是网络条件不好时studygroup没有加载完
+                    mApplication.quitActivities();
+                    mApplication.addActivity(activity);
                     Intent intent = new Intent(activity, GroupSettingActivity.class);
                     intent.putExtra("studyGroup", studyGroup);
                     startActivityForResult(intent, SETTING);
@@ -88,13 +89,16 @@ public class StudyGroupDetailActivity extends BaseActivity implements View.OnCli
             }
 
             @Override
-            public void onNavThreeClick() {}
+            public void onNavThreeClick() {
+            }
 
             @Override
-            public void onActionClick() {}
+            public void onActionClick() {
+            }
 
             @Override
-            public void onBackClick() {}
+            public void onBackClick() {
+            }
         });
 
     }
@@ -123,6 +127,7 @@ public class StudyGroupDetailActivity extends BaseActivity implements View.OnCli
     public void initData() {
         groupId = getIntent().getStringExtra("groupId");
         getGroupDetail(groupId);
+
         teacherHX = MyUtils.getTeacherHX(mApplication.getUserBean().getUserInfo().getMobile());
 
     }
@@ -163,26 +168,6 @@ public class StudyGroupDetailActivity extends BaseActivity implements View.OnCli
         };
     }
 
-    /**
-     * 获取环信EMGroup对象,
-     * 如果在设置中获取，由于是异步向网络请求，在返回EMGroup对象前，用户就可能更改屏蔽消息
-     * 可能会导致空指针
-     */
-    private void getEMGroup(final String groupId) {
-
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    emGroup = EMGroupManager.getInstance().getGroupFromServer("101363032365466192");
-
-                } catch (EaseMobException e) {
-                    e.printStackTrace();
-                }
-            }
-        }).start();
-
-    }
 
     /**
      * 处理请求结果，显示到界面上
@@ -216,7 +201,9 @@ public class StudyGroupDetailActivity extends BaseActivity implements View.OnCli
             ImageView memberHead = new ImageView(this);
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(MyUtils.dip2px(this,36), MyUtils.dip2px(this,36));
             Glide.with(this).load(userInfo.getHeadUrl()).placeholder(R.mipmap.default_avatar).into(memberHead);
+            params.rightMargin = MyUtils.dip2px(this, 8);
             memberHead.setLayoutParams(params);
+            memberHead.setPadding(0, 0, 0, 0);
             member_container.addView(memberHead);
             member_container.invalidate();
         }
@@ -231,25 +218,6 @@ public class StudyGroupDetailActivity extends BaseActivity implements View.OnCli
             updateGroup(data);
 //            updateGroupMsgBlock(data.getBooleanExtra("isMsgBlocked", false));
         }
-    }
-
-    /**
-     * 更新是否屏蔽学团消息,并存入本地
-     */
-    private void updateGroupMsgBlock(final boolean isMsgBlocked) {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    emGroup = EMGroupManager.getInstance().getGroupFromServer("101363032365466192");
-                    getEMGroup(studyGroup.getGroupId());
-                    emGroup.setMsgBlocked(isMsgBlocked);
-                } catch (EaseMobException e) {
-                    e.printStackTrace();
-                }
-            }
-        }).start();
-        SPUtils.saveSPData("group-" + studyGroup.getGroupId() + "-MsgBlocked", isMsgBlocked);
     }
 
     private void updateGroup(Intent data) {
@@ -286,8 +254,11 @@ public class StudyGroupDetailActivity extends BaseActivity implements View.OnCli
 
  public void enterGroup(View view){
     if (MyUtils.isMember(teacherHX, studyGroup)){
-        showToast("进入学团");
-        startActivity(new Intent(this, ChatActivity.class).putExtra("userId", studyGroup.getGroupId()));
+//        群聊
+        startActivity(new Intent(this, ChatActivity.class)
+                .putExtra("groupId", studyGroup.getGroupId())
+                .putExtra("chatType", ChatActivity.CHATTYPE_GROUP)
+                .putExtra("groupName", studyGroup.getGroupName()));
     }else{
         joinGroup(studyGroup.getId(), teacherHX);
     }
@@ -310,7 +281,7 @@ public class StudyGroupDetailActivity extends BaseActivity implements View.OnCli
                 Gson gson = new Gson();
                 BaseBean msg = gson.fromJson(s, BaseBean.class);
                 showToast(msg.getMsg());
-
+                getGroupDetail(groupId);
             }
         };
     }
@@ -331,9 +302,17 @@ public class StudyGroupDetailActivity extends BaseActivity implements View.OnCli
                 startActivity(new Intent(activity, GroupNoticeActivity.class));
                 break;
             case R.id.rl_group_members:
-                showLogD("studyGroup.getTeacherId() "+studyGroup.getTeacherId()+"=====mApplication.getUserId() "+mApplication.getUserId());
+                showLogD("studyGroup.getTeacherId() " + studyGroup.getTeacherId() + "=====mApplication.getUserId() " + mApplication.getUserId());
+                ArrayList<String> memberHXIds = new ArrayList<>();
+                memberHXIds.add(studyGroup.getOwner());
+                if (studyGroup.getMembers()!=null) {
+                    memberHXIds.addAll(studyGroup.getMembers());
+                }
                 startActivity(new Intent(activity, GroupMemberListActivity.class)
                         .putExtra("members", (Serializable) members)
+                        .putExtra("groupId", studyGroup.getId())
+                        .putStringArrayListExtra("memberHXIds", memberHXIds)
+//                        当前用户是否是团长，团长一定是老师
                         .putExtra("isOwner", studyGroup.getTeacherId().equals(mApplication.getUserId())));
                 break;
             case R.id.iv_leader_head:

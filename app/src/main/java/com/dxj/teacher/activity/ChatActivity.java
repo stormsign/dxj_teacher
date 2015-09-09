@@ -384,7 +384,7 @@ public class ChatActivity extends BaseActivity implements OnClickListener, EMEve
 				PowerManager.SCREEN_DIM_WAKE_LOCK, "demo");
 		// 判断单聊还是群聊
 		chatType = getIntent().getIntExtra("chatType", CHATTYPE_SINGLE);
-
+		showLogD("chatType"+ CHATTYPE_SINGLE);
 		if (chatType == CHATTYPE_SINGLE) { // 单聊
 			toChatUsername = getIntent().getStringExtra("userId");
 //			toChatUsername = "S2";
@@ -517,12 +517,13 @@ public class ChatActivity extends BaseActivity implements OnClickListener, EMEve
 	
 	protected void onGroupViewCreation(){
 	    group = EMGroupManager.getInstance().getGroup(toChatUsername);
-        
-        if (group != null){
-            ((TextView) findViewById(R.id.name)).setText(group.getGroupName());
-        }else{
-            ((TextView) findViewById(R.id.name)).setText(toChatUsername);
-        }
+		String groupName = getIntent().getStringExtra("groupName");
+		((TextView) findViewById(R.id.name)).setText(groupName);
+//		if (group != null){
+//            ((TextView) findViewById(R.id.name)).setText(group.getGroupName());
+//        }else{
+//            ((TextView) findViewById(R.id.name)).setText(toChatUsername);
+//        }
         
         // 监听当前会话的群聊解散被T事件
         groupListener = new GroupListener();

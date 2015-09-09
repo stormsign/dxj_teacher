@@ -29,6 +29,7 @@ import com.dxj.teacher.http.VolleySingleton;
 import com.dxj.teacher.utils.SPUtils;
 import com.dxj.teacher.widget.TitleNavBar;
 import com.easemob.chat.EMGroupManager;
+import com.easemob.chatuidemo.DemoHXSDKHelper;
 import com.easemob.exceptions.EaseMobException;
 import com.google.gson.Gson;
 
@@ -286,20 +287,22 @@ public class GroupSettingActivity extends BaseActivity{
 
     public void quit(View view){
         if (isLeader(mApplication.getUserId(), group)){ //如果不是团长，执行退团
-            exitOrDismiss(EXIT, group.getTeacherId());
-        }else{  //如果是团长，执行解散团
             exitOrDismiss(DISMISS, group.getTeacherId());
+        }else{  //如果是团长，执行解散团
+            exitOrDismiss(EXIT, group.getTeacherId());
         }
     }
 
     private void exitOrDismiss(int param, String teacherId) {
         String url = null;
+        Map<String, Object> map = new HashMap<>();
+        map.put("id", group.getId());
         if(param == EXIT){
             url = FinalData.URL_VALUE_COMMON+"quitGroup";
+            map.put("imId", DemoHXSDKHelper.getInstance().getHXId());
         }else if (param == DISMISS){
             url = FinalData.URL_VALUE+"delGroup";
         }
-        Map<String, Object> map = new HashMap<>();
         CustomStringRequest cRequest = new CustomStringRequest(Request.Method.POST, url, map, getListener(), getErrorListener());
         VolleySingleton.getInstance(this).addToRequestQueue(cRequest);
     }
@@ -312,7 +315,9 @@ public class GroupSettingActivity extends BaseActivity{
                 BaseBean msg = gson.fromJson(s, BaseBean.class);
                 if (msg.getCode() == 0){
                     showToast(msg.getMsg());
+                    mApplication.quitActivities();
                     finish();
+
                 }
             }
         };
@@ -322,7 +327,7 @@ public class GroupSettingActivity extends BaseActivity{
         return new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
-
+                showToast("操作出现问题，请稍后再试");
             }
         };
     }

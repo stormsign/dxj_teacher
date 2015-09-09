@@ -5,15 +5,27 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.dxj.teacher.R;
 import com.dxj.teacher.adapter.MemberAdapter;
 import com.dxj.teacher.base.BaseActivity;
 import com.dxj.teacher.bean.UserBean;
+import com.dxj.teacher.effectdialog.Effectstype;
+import com.dxj.teacher.effectdialog.NiftyDialogBuilder;
+import com.dxj.teacher.http.CustomStringRequest;
+import com.dxj.teacher.http.FinalData;
+import com.dxj.teacher.http.VolleySingleton;
 import com.dxj.teacher.utils.ToastUtils;
 import com.dxj.teacher.widget.TitleNavBar;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by khb on 2015/9/6.
@@ -28,6 +40,12 @@ public class GroupMemberListActivity extends BaseActivity{
      * 当前用户是否是团长
      */
     private boolean isOwner;
+    private String groupId;
+    private ArrayList<String> memberHXIds;
+    /**
+     * 要被删除的对象的位置
+     */
+    private int positionToBeDeleted;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,7 +86,7 @@ public class GroupMemberListActivity extends BaseActivity{
                 if (mAdapter.isCheckable()) {
                     title.setActionText("编辑");
                     mAdapter.setIsCheckable(false);
-                }else{
+                } else {
                     title.setActionText("取消");
                     mAdapter.setIsCheckable(true);
                 }
@@ -101,20 +119,79 @@ public class GroupMemberListActivity extends BaseActivity{
             }
 
             @Override
-            public void onMemberDeleteClick(View view, int position) {
-                ToastUtils.showToast(context, "check");
-//                android.app.AlertDialog.Builder builder = new AlertDialog.Builder(context);
-//                builder.setTitle("删除团员");
-//                builder.setMessage("确定要删除该团员吗？");
-
+            public void onMemberDeleteClick(View view, final int position) {
+//                减去显示团员数目的position
+                positionToBeDeleted = position-1;
+//                自定义dialog
+                final NiftyDialogBuilder dialogBuilder = NiftyDialogBuilder.getInstance(context);
+                dialogBuilder
+                        .withTitle("删除团员")                                  //.withTitle(null)  no title
+                        .withTitleColor("#FFFFFF")                                  //def
+                        .withDividerColor("#11000000")                              //def
+                        .withMessage("确定要删除该团员吗？")                     //.withMessage(null)  no Msg
+                        .withMessageColor("#FFFFFFFF")                              //def  | withMessageColor(int resid)
+                        .withDialogColor("#FFE74C3C")                               //def  | withDialogColor(int resid)                               //def
+                        .isCancelableOnTouchOutside(false)                           //def    | isCancelable(true)
+                        .withDuration(500)                                          //def
+                        .withEffect(Effectstype.Fadein)                                         //def Effectstype.Slidetop
+                        .withButton1Text("确定")                                      //def gone
+                        .withButton2Text("取消")                                  //def gone
+                        .setButton1Click(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Toast.makeText(context, "i'm btn1 "+memberHXIds.get(positionToBeDeleted), Toast.LENGTH_SHORT).show();
+                                deleteAMember(memberHXIds.get(positionToBeDeleted));
+                                dialogBuilder.dismiss();
+                            }
+                        })
+                        .setButton2Click(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Toast.makeText(context, "i'm btn2", Toast.LENGTH_SHORT).show();
+                                dialogBuilder.dismiss();
+                            }
+                        })
+                        .show();
             }
         });
-
     }
 
     @Override
     public void initData() {
         members = (List<UserBean.UserInfo>)getIntent().getSerializableExtra("members");
+//        members对应的hxid
+        memberHXIds = getIntent().getStringArrayListExtra("memberHXIds");
+        groupId = getIntent().getStringExtra("groupId");
         isOwner = getIntent().getBooleanExtra("isOwner", false);
+    }
+
+    public void deleteAMember(String HXId){
+        String url = FinalData.URL_VALUE+"delGroupMember";
+        Map<String, Object> map = new HashMap<>();
+        map.put("id", groupId);
+        map.put("imId", HXId);
+
+        CustomStringRequest cRequest = new CustomStringRequest(Request.Method.POST, url, map, getRespListener(), getErrorListener());
+        VolleySingleton.getInstance(this).addToRequestQueue(cRequest);
+    }
+
+    private Response.Listener<String> getRespListener() {
+        return new Response.Listener<String>() {
+            @Override
+            public void onResponse(String s) {
+                mAdapter.notifyItemRemoved(positionToBeDeleted);
+                members.remove(positionToBeDeleted);
+                memberHXIds.remove(positionToBeDeleted);
+            }
+        };
+    }
+
+    private Response.ErrorListener getErrorListener() {
+        return new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError volleyError) {
+
+            }
+        };
     }
 }

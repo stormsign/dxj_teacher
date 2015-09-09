@@ -13,7 +13,6 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.dxj.teacher.R;
-import com.dxj.teacher.activity.MoreGroupsActivity;
 import com.dxj.teacher.activity.StudyGroupDetailActivity;
 import com.dxj.teacher.adapter.GroupAdapter;
 import com.dxj.teacher.base.BaseFragment;
@@ -25,8 +24,6 @@ import com.dxj.teacher.http.FinalData;
 import com.dxj.teacher.http.GsonRequest;
 import com.dxj.teacher.http.VolleySingleton;
 import com.dxj.teacher.utils.LogUtils;
-import com.dxj.teacher.utils.MyUtils;
-import com.dxj.teacher.utils.ToastUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -94,7 +91,12 @@ public class GroupListFragment extends BaseFragment {
         rv_grouplist = (RecyclerView) view.findViewById(R.id.rv_grouplist);
         refresh = (SwipeRefreshLayout) view.findViewById(R.id.swipe_refresh);
         rv_grouplist.setLayoutManager(new LinearLayoutManager(context));
-
+        refresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                showView(parentId);
+            }
+        });
         return view;
     }
 
@@ -124,7 +126,7 @@ public class GroupListFragment extends BaseFragment {
         Map<String, Object> map = new HashMap<String,Object>();
         map.put("page", currentPage);
         map.put("pageSize", pageSize);
-        map.put("subjectFirst" ,parentId);
+        map.put("subjectSecond" ,parentId);
         GsonRequest<StudyGroupListBean> gRequest = new GsonRequest<StudyGroupListBean>(Request.Method.POST, url,
                 StudyGroupListBean.class, map,
                 onGetGroupList(),
@@ -136,16 +138,16 @@ public class GroupListFragment extends BaseFragment {
         VolleySingleton.getInstance(context).addToRequestQueue(gRequest);
     }
 
-    private Response.Listener<String> onGetSecondListGroupList() {
-        return new Response.Listener<String>() {
-            @Override
-            public void onResponse(String s) {
-                //如果是获取二级目录下的学团，要手动解析json
-                List<StudyGroup> secondGroups = MyUtils.getSecondListGroupsFromJson(s, secondIdList);
-                processData(secondGroups);
-            }
-        };
-    }
+//    private Response.Listener<String> onGetSecondListGroupList() {
+//        return new Response.Listener<String>() {
+//            @Override
+//            public void onResponse(String s) {
+//                //如果是获取二级目录下的学团，要手动解析json
+//                List<StudyGroup> secondGroups = MyUtils.getSecondListGroupsFromJson(s, secondIdList);
+//                processData(secondGroups);
+//            }
+//        };
+//    }
 
     private Response.Listener<StudyGroupListBean> onGetGroupList() {
         return new Response.Listener<StudyGroupListBean>() {
@@ -178,13 +180,17 @@ public class GroupListFragment extends BaseFragment {
                 startActivity(new Intent(context, StudyGroupDetailActivity.class).putExtra("groupId", groupList.get(position).getId()));
             }
 
-            @Override
-            public void onMoreClick(View view, int position) {
-                ToastUtils.showToast(context, groupList.get(position).getSubjectSecond()+"");
-                startActivity(new Intent(context, MoreGroupsActivity.class).putExtra("secondId", groupList.get(position).getSubjectSecond()));
-            }
+//            @Override
+//            public void onMoreClick(View view, int position) {
+//                ToastUtils.showToast(context, groupList.get(position).getSubjectSecond()+"");
+//                startActivity(new Intent(context, MoreGroupsActivity.class).putExtra("secondId", groupList.get(position).getSubjectSecond()));
+//            }
         });
         rv_grouplist.setAdapter(gAdapter);
+//        如果是下拉刷新，加载完后隐藏加载动画
+        if (refresh.isRefreshing()){
+            refresh.setRefreshing(false);
+        }
 
     }
 }

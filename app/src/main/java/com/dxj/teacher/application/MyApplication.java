@@ -1,36 +1,27 @@
 package com.dxj.teacher.application;
 
+import android.app.Activity;
 import android.app.Application;
 import android.app.Service;
 import android.content.Context;
-import android.location.Location;
 import android.os.Vibrator;
 import android.util.Log;
 
 import com.alibaba.fastjson.JSONObject;
-import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
-import com.baidu.location.Poi;
 import com.dxj.teacher.bean.BaseBean;
 import com.dxj.teacher.bean.UserBean;
 import com.dxj.teacher.db.AccountDBTask;
-import com.dxj.teacher.db.AccountTable;
-import com.dxj.teacher.http.CustomStringRequest;
-import com.dxj.teacher.http.FinalData;
-import com.dxj.teacher.http.VolleySingleton;
 import com.dxj.teacher.utils.ExceptionHandler;
-import com.dxj.teacher.utils.HttpUtils;
-import com.dxj.teacher.utils.StringUtils;
-import com.dxj.teacher.utils.ToastUtils;
 import com.easemob.EMCallBack;
 import com.easemob.chatuidemo.DemoHXSDKHelper;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -50,6 +41,7 @@ public class MyApplication extends Application {
     public Vibrator mVibrator;
     public MyLocationListener mMyLocationListener;
     public LocationClient mLocationClient;
+    public static List<Activity> storedActivities = new ArrayList<>();
 
     /**
      * 当前用户nickname,为了苹果推送不是userid而是昵称
@@ -64,7 +56,7 @@ public class MyApplication extends Application {
         applicationContext = this;
         instance = this;
         ExceptionHandler exceptionHandler = ExceptionHandler.getInstance();
-        exceptionHandler.init(instance);
+//        exceptionHandler.init(instance);
 //        环信初始化
         hxSDKHelper.onInit(applicationContext);
         mLocationClient = new LocationClient(this.getApplicationContext());
@@ -267,4 +259,17 @@ public class MyApplication extends Application {
     public void setUserBean(UserBean userbean) {
         this.mUserBean = userbean;
     }
+//    把一个Activity加入到内存中
+    public static void addActivity(Activity activity){
+        storedActivities.add(activity);
+    }
+//    将内存记录的Activity全部退出
+    public static void quitActivities(){
+        for (Activity activity :
+                storedActivities) {
+            activity.finish();
+        }
+        storedActivities.clear();
+    }
+
 }

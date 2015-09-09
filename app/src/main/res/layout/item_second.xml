@@ -11,7 +11,7 @@
         android:gravity="center"
         android:padding="@dimen/padding_8dp"
         android:background="@drawable/second_category_selector"
-        android:layout_margin="@dimen/margin_16dp"
+        android:layout_margin="@dimen/margin_8dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 </LinearLayout>

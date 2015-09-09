@@ -57,7 +57,7 @@ public class StudyGroupListActivity extends BaseActivity {
     private SecondGroupCategoryAdapter secondAdapter;
     private String firstName;
     private String secondName;
-
+    private final static String DEFAULTNAME = "推荐学团";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -141,27 +141,30 @@ public class StudyGroupListActivity extends BaseActivity {
             titleSelectedList.add(false);
         }
 //        初始化时选中第一个
-        titleSelectedList.set(0, true);
-//        titleList.add(0, "推荐学团");
+//        titleSelectedList.set(0, true);
+        titleList.add(0, DEFAULTNAME);
+        titleSelectedList.add(0,true);
+//        secondTitleList.add(DEFAULTNAME);
+//        secondTitleSelectedList.add(false);
 
-        getSecondListByParentId(firstList.get(0).getId());
+        getSecondListByParentId(-1);
 
         firstName = titleList.get(0);
         secondName = secondTitleList.get(0);
 
         List<GroupListFragment> fList = new ArrayList<>();
-        for (int i = 0; i< titleList.size();i++){
-//            i == 0时是推荐学团
-//            if (i == 0){    //-1表示fragment应该显示推荐学团
-//                GroupListFragment fragment = GroupListFragment.newInstance(-1);
+//        for (int i = 0; i< titleList.size();i++){
+////            i == 0时是推荐学团
+////            if (i == 0){    //-1表示fragment应该显示推荐学团
+////                GroupListFragment fragment = GroupListFragment.newInstance(-1);
+////                fList.add(fragment);
+////            }
+////            i > 0时是一级目录，这时由于有推荐学团，i-1对应一级目录的记录
+////            else{
+//                GroupListFragment fragment = GroupListFragment.newInstance(firstList.get(i-1).getId());
 //                fList.add(fragment);
-//            }
-//            i > 0时是一级目录，这时由于有推荐学团，i-1对应一级目录的记录
-//            else{
-                GroupListFragment fragment = GroupListFragment.newInstance(firstList.get(i).getId());
-                fList.add(fragment);
-//            }
-        }
+////            }
+//        }
         initMenu();
 
     }
@@ -177,14 +180,18 @@ public class StudyGroupListActivity extends BaseActivity {
             secondTitleSelectedList.clear();
         }
 //        获取二级分类对象
-        secondList = SubjectDao.getChildCategoryFromParent(db, parentId);
-//        获取二级分类名称，和是否选中的记录表
-        for (SubjectBean subject:secondList){
-            secondTitleList.add(subject.getName());
+        if (parentId == -1){
+            secondTitleList.add(DEFAULTNAME);
             secondTitleSelectedList.add(false);
-        }
+        }else {
+            secondList = SubjectDao.getChildCategoryFromParent(db, parentId);
+//        获取二级分类名称，和是否选中的记录表
+            for (SubjectBean subject : secondList) {
+                secondTitleList.add(subject.getName());
+                secondTitleSelectedList.add(false);
+            }
 //        secondTitleSelectedList.set(0, true);
-
+        }
     }
 
     private void initMenu() {
@@ -198,7 +205,12 @@ public class StudyGroupListActivity extends BaseActivity {
                 firstName = titleList.get(position);
                 titleSelectedList.set(position, true);
                 firstAdapter.notifyDataSetChanged();
-                getSecondListByParentId(firstList.get(position).getId());
+                if (position == 0){
+                    getSecondListByParentId(-1);
+                }else{
+                    getSecondListByParentId(firstList.get(position-1).getId());
+                }
+
                 secondAdapter.notifyDataSetChanged();
             }
         });
@@ -210,12 +222,17 @@ public class StudyGroupListActivity extends BaseActivity {
                 for (int i = 0; i < secondTitleList.size(); i++){
                     secondTitleSelectedList.set(i, false);
                 }
-                secondName = secondTitleList.get(position);
+                if (position != 0) {
+                    secondName = secondTitleList.get(position);
+                    getSupportFragmentManager().beginTransaction().replace(R.id.rl_fragment_groups, GroupListFragment.newInstance(secondList.get(position).getId()), secondName).commit();
+//                展示该二级目录下的学团
+                }else{
+                    secondName = "";    //避免重复出现 推荐学团
+                    getSupportFragmentManager().beginTransaction().replace(R.id.rl_fragment_groups, GroupListFragment.newInstance(-1), RECOMMENDED).commit();
+                }
                 secondTitleSelectedList.set(position, true);
                 secondAdapter.notifyDataSetChanged();
                 tv_category.setText(firstName + " " + secondName);
-//                展示该二级目录下的学团
-                getSupportFragmentManager().beginTransaction().replace(R.id.rl_fragment_groups, GroupListFragment.newInstance(secondList.get(position).getId()), RECOMMENDED).commit();
 //                选完后关闭侧滑菜单
                 mDrawerLayout.closeDrawer(drawer);
             }

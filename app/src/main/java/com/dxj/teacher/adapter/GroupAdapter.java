@@ -9,7 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.android.volley.Request;
@@ -20,7 +19,6 @@ import com.dxj.teacher.R;
 import com.dxj.teacher.base.BaseRecyclerViewAdapter;
 import com.dxj.teacher.bean.StudyGroup;
 import com.dxj.teacher.bean.UserBean;
-import com.dxj.teacher.db.dao.SubjectDao;
 import com.dxj.teacher.http.FinalData;
 import com.dxj.teacher.http.GsonRequest;
 import com.dxj.teacher.http.VolleySingleton;
@@ -53,7 +51,7 @@ public class GroupAdapter extends BaseRecyclerViewAdapter<StudyGroup> {
 
     public static interface OnGroupClickListener {
         void onNoticeClick(View view, int position);
-        void onMoreClick(View view, int position);
+//        void onMoreClick(View view, int position);
     }
 
     private OnGroupClickListener mOnGroupClickListener;
@@ -83,17 +81,17 @@ public class GroupAdapter extends BaseRecyclerViewAdapter<StudyGroup> {
          * 获取团长，也就是老师的资料，要另外再请求
          */
 //        getLeaderName(mList.get(position).getTeacherId(), mHolder.leaderName);
-        if (parentId != -1) {
-            if (position == 0 || mList.get(position - 1).getSubjectSecond() != mList.get(position).getSubjectSecond()) {
-                mHolder.category.setText(SubjectDao.getCategoryNameById(db, (int) mList.get(position).getSubjectSecond()));
-                mHolder.second.setVisibility(View.VISIBLE);
-            }
-        }
+//        if (parentId != -1) {
+//            if (position == 0 || mList.get(position - 1).getSubjectSecond() != mList.get(position).getSubjectSecond()) {
+//                mHolder.category.setText(SubjectDao.getCategoryNameById(db, (int) mList.get(position).getSubjectSecond()));
+//                mHolder.second.setVisibility(View.VISIBLE);
+//            }
+//        }
         mHolder.groupName.setText(mList.get(position).getGroupName());
         mHolder.groupDesc.setText(mList.get(position).getDescription());
 //        mHolder.leaderName.setText(mList.get(position).);
-        if (mList.get(0).getMembers()!=null) {
-            mHolder.memberCount.setText(mList.get(0).getMembers().size()+"人");
+        if (mList.get(position).getMembers()!=null) {
+            mHolder.memberCount.setText("团员："+mList.get(position).getMembers().size()+"人");
         }
     }
 
@@ -141,15 +139,15 @@ public class GroupAdapter extends BaseRecyclerViewAdapter<StudyGroup> {
         /**
          * 显示二级目录
          */
-        private RelativeLayout second;
-        private TextView more;
-        private TextView category;
+//        private RelativeLayout second;
+//        private TextView more;
+//        private TextView category;
 
         public GroupItemHolder(View itemView) {
             super(itemView);
-            second = (RelativeLayout) itemView.findViewById(R.id.rl_second_category);
-            category = (TextView) itemView.findViewById(R.id.category_name);
-            more = (TextView) itemView.findViewById(R.id.more_group);
+//            second = (RelativeLayout) itemView.findViewById(R.id.rl_second_category);
+//            category = (TextView) itemView.findViewById(R.id.category_name);
+//            more = (TextView) itemView.findViewById(R.id.more_group);
             groupHead = (ImageView) itemView.findViewById(R.id.group_head);
             groupName = (TextView) itemView.findViewById(R.id.group_name);
             leaderName = (TextView) itemView.findViewById(R.id.leader_name);
@@ -165,12 +163,12 @@ public class GroupAdapter extends BaseRecyclerViewAdapter<StudyGroup> {
                         mOnGroupClickListener.onNoticeClick(v, getLayoutPosition());
                     }
                 });
-                more.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        mOnGroupClickListener.onMoreClick(v, getLayoutPosition());
-                    }
-                });
+//                more.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        mOnGroupClickListener.onMoreClick(v, getLayoutPosition());
+//                    }
+//                });
             }
 
         }

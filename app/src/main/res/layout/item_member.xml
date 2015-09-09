@@ -5,36 +5,27 @@
     android:layout_height="wrap_content"
     android:background="@android:color/transparent"
     android:orientation="vertical">
-    <!--<RelativeLayout-->
-    <!--android:id="@+id/rl_second_category"-->
-    <!--android:layout_alignParentTop="true"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="42dp"-->
-    <!--android:visibility="gone">-->
-    <!--<TextView-->
-    <!--android:id="@+id/category_name"-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:text="声乐"-->
-    <!--android:textColor="@color/text_color_646464"-->
-    <!--android:textSize="@dimen/text_16sp"-->
-    <!--android:layout_alignParentLeft="true"-->
-    <!--android:layout_centerVertical="true"-->
-    <!--android:layout_marginLeft="@dimen/margin_8dp"-->
-    <!--/>-->
-    <!--<TextView-->
-    <!--android:id="@+id/more_group"-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:text="更多学团"-->
-    <!--android:textColor="@color/text_color_939393"-->
-    <!--android:textSize="@dimen/text_14sp"-->
-    <!--android:layout_alignParentRight="true"-->
-    <!--android:layout_centerVertical="true"-->
-    <!--android:layout_marginRight="@dimen/margin_8dp"-->
 
-    <!--/>-->
-    <!--</RelativeLayout>-->
+    <RelativeLayout
+        android:id="@+id/rl_member_iden"
+        android:layout_width="match_parent"
+        android:layout_height="42dp"
+        android:layout_alignParentTop="true"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/iden_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_margin="@dimen/margin_10dp"
+            android:text="团员"
+            android:textColor="@color/text_color_646464"
+            android:textSize="@dimen/text_16sp" />
+
+    </RelativeLayout>
+
     <android.support.v7.widget.CardView
         android:id="@+id/cv_member"
         android:layout_width="match_parent"
