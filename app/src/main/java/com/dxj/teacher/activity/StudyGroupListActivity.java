@@ -20,7 +20,6 @@ import com.dxj.teacher.bean.StudyGroup;
 import com.dxj.teacher.bean.SubjectBean;
 import com.dxj.teacher.db.dao.SubjectDao;
 import com.dxj.teacher.fragment.GroupListFragment;
-import com.dxj.teacher.utils.ToastUtils;
 import com.dxj.teacher.widget.TitleNavBar;
 
 import java.util.ArrayList;
@@ -68,11 +67,19 @@ public class StudyGroupListActivity extends BaseActivity {
     }
 
     @Override
+    protected void onSaveInstanceState(Bundle outState) {
+//        注释此行，不保存Fragment状态，这样当该activity被回收时，attach的Fragment也会一通被回收
+//        此段代码是为了解决fragment.getActivity()返回为null的问题
+//        super.onSaveInstanceState(outState);
+    }
+
+    @Override
     public void initTitle() {
         TitleNavBar title = (TitleNavBar) findViewById(R.id.title);
         title.setTitle("交友学团");
         title.showSearchBar(true);
-        title.setSearchHint("输入老师或学团名称");
+        title.showNavThree(false);
+        title.setSearchHint("输入老师手机号或学团名称");
         title.setOnTitleNavClickListener(new TitleNavBar.OnTitleNavClickListener() {
             @Override
             public void onNavOneClick() {
@@ -84,7 +91,6 @@ public class StudyGroupListActivity extends BaseActivity {
 
             @Override
             public void onNavThreeClick() {
-                ToastUtils.showToast(context, "创建");
                 startActivity(new Intent(context, CreateStudyGroupActivity.class));
             }
 
@@ -94,6 +100,12 @@ public class StudyGroupListActivity extends BaseActivity {
 
             @Override
             public void onBackClick() {
+            }
+        });
+        findViewById(R.id.et_search).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(context, GroupSearchActivity.class));
             }
         });
     }
@@ -222,7 +234,7 @@ public class StudyGroupListActivity extends BaseActivity {
                 for (int i = 0; i < secondTitleList.size(); i++){
                     secondTitleSelectedList.set(i, false);
                 }
-                if (position != 0) {
+                if (!secondTitleList.get(position).equals(DEFAULTNAME)) {
                     secondName = secondTitleList.get(position);
                     getSupportFragmentManager().beginTransaction().replace(R.id.rl_fragment_groups, GroupListFragment.newInstance(secondList.get(position).getId()), secondName).commit();
 //                展示该二级目录下的学团

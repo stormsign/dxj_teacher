@@ -90,13 +90,13 @@ public class GroupNoticeActivity extends BaseActivity{
         });
         srl = (SwipeRefreshLayout) findViewById(R.id.srl);
 
-//        srl.setColorScheme(R.color.color1, R.color.color2,
-//                R.color.color3, R.color.color4);
+        srl.setColorSchemeResources(R.color.azure, R.color.orange,
+                R.color.text_orange2, R.color.text_orange);
         srl.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 showToast("刷新数据");
-                handler.sendEmptyMessageDelayed(1, 2000);
+                handler.sendEmptyMessageDelayed(1, 8000);
             }
         });
 

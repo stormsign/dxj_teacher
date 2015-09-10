@@ -94,10 +94,6 @@ public class MainActivity extends BaseActivity {
         SPUtils.saveSPData("token", device_token);
         mLocationClient = ((MyApplication) getApplication()).mLocationClient;
 
-
-        //        环信账号登录
-
-
 //        register(device_token);
         copyDB(DBNAME);
         copyDB(SCHOOL);
@@ -207,21 +203,6 @@ public class MainActivity extends BaseActivity {
         option.setIsNeedLocationPoiList(false);//可选，默认false，设置是否需要POI结果，可以在BDLocation.getPoiList里得到
         mLocationClient.setLocOption(option);
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     /**
      * 监听群，好友，连接 by zjb

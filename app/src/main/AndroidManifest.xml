@@ -214,7 +214,10 @@
             android:windowSoftInputMode="stateHidden|adjustResize" />
 
         <activity android:name=".activity.CoursesActivity"/>
-        <activity android:name=".activity.StudyGroupListActivity"/>
+        <activity android:name=".activity.StudyGroupListActivity"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden"
+            android:configChanges="orientation|keyboardHidden"
+            />
         <activity android:name=".activity.CreateStudyGroupActivity"/>
         <activity android:name=".activity.SubjectListActivity"/>
         <activity android:name=".activity.StudyGroupDetailActivity"/>
@@ -223,6 +226,7 @@
         <activity android:name=".activity.CreateNoticeActivity"/>
         <activity android:name=".activity.GroupMemberListActivity"/>
         <activity android:name=".activity.MoreGroupsActivity"/>
+        <activity android:name=".activity.GroupSearchActivity"/>
 
         <activity android:name=".activity.MultiImageSelectorActivity"/>
         <activity android:name=".activity.NiftyActivity"/>

@@ -185,6 +185,10 @@ public class TitleNavBar extends RelativeLayout {
         search.setHint(hint);
     }
 
+    public String getSearchContent(){
+        return search.getText().toString();
+    }
+
     /**
      * 設置標題欄背景圖片
      * @param resource
@@ -193,6 +197,9 @@ public class TitleNavBar extends RelativeLayout {
         container.setBackgroundResource(resource);
     }
 
+    /**
+     * 右侧无按钮
+     */
     public void setTitleNoRightButton(){
         nav_1.setVisibility(GONE);
         nav_2.setVisibility(GONE);
@@ -206,6 +213,9 @@ public class TitleNavBar extends RelativeLayout {
         action.setText(text);
     }
 
+    /**
+     * 右边只显示文字按钮
+     */
     public void showActionOnly(){
         nav_1.setVisibility(View.GONE);
         nav_2.setVisibility(View.GONE);
@@ -231,9 +241,9 @@ public class TitleNavBar extends RelativeLayout {
 
     public void showNavThree(boolean flag){
         if (flag){
-            nav_1.setVisibility(VISIBLE);
+            nav_3.setVisibility(VISIBLE);
         }else{
-            nav_1.setVisibility(GONE);
+            nav_3.setVisibility(GONE);
         }
     }
 

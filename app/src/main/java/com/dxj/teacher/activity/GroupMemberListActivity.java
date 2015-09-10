@@ -5,7 +5,6 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -103,11 +102,12 @@ public class GroupMemberListActivity extends BaseActivity{
     @Override
     public void initView() {
 
-        refresh = (SwipeRefreshLayout) findViewById(R.id.srl);
+//        refresh = (SwipeRefreshLayout) findViewById(R.id.srl);
         rv_members = (RecyclerView) findViewById(R.id.rv_members);
         mAdapter = new MemberAdapter(this, members);
         rv_members.setAdapter(mAdapter);
         rv_members.setLayoutManager(new LinearLayoutManager(this));
+
 
         mAdapter.setOnMemberClickListener(new MemberAdapter.OnMemberClickListener() {
             @Override
@@ -139,7 +139,6 @@ public class GroupMemberListActivity extends BaseActivity{
                         .setButton1Click(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                Toast.makeText(context, "i'm btn1 "+memberHXIds.get(positionToBeDeleted), Toast.LENGTH_SHORT).show();
                                 deleteAMember(memberHXIds.get(positionToBeDeleted));
                                 dialogBuilder.dismiss();
                             }
@@ -147,7 +146,6 @@ public class GroupMemberListActivity extends BaseActivity{
                         .setButton2Click(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                Toast.makeText(context, "i'm btn2", Toast.LENGTH_SHORT).show();
                                 dialogBuilder.dismiss();
                             }
                         })
@@ -190,7 +188,7 @@ public class GroupMemberListActivity extends BaseActivity{
         return new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
-
+                showToast(getResources().getString(R.string.error_msg));
             }
         };
     }

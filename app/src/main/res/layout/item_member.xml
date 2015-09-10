@@ -51,13 +51,13 @@
                     android:layout_centerVertical="true"
                     android:gravity="center"
                     android:padding="@dimen/padding_16dp"
-                    android:visibility="gone">
+                    android:visibility="visible">
 
                     <ImageView
                         android:id="@+id/iv_check"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@mipmap/btn_unselected" />
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@mipmap/xuetuan_cy_shanchu" />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -111,7 +111,7 @@
                                 android:id="@+id/member_info"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="学校/年级"
+                                android:text=" "
                                 android:textSize="@dimen/text_14sp" />
                         </LinearLayout>
 
@@ -121,7 +121,7 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentBottom="true"
                             android:singleLine="true"
-                            android:text="个性签名个性签名个性签名个性签名个性签名个性签名个性签名个性签名个性签名"
+                            android:text=" "
                             android:textColor="@color/text_color_a4a4a4"
                             android:textSize="@dimen/text_14sp" />
                     </RelativeLayout>

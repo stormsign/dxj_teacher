@@ -135,7 +135,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_toRightOf="@id/gonggao"
-            android:text="团公告标题"
+            android:text="暂无公告"
             android:textColor="@color/text_color_323232"
             android:layout_marginLeft="@dimen/margin_16dp"
             android:textSize="@dimen/text_14sp"
@@ -192,7 +192,7 @@
             android:layout_height="@dimen/image_36dp" />
         <TextView
             android:id="@+id/tv_leader_name"
-            android:text="团长"
+            android:text=" "
             android:textSize="@dimen/text_14sp"
             android:textColor="@color/text_color_939393"
             android:layout_gravity="center_vertical"
@@ -201,7 +201,7 @@
             android:layout_height="wrap_content" />
         <TextView
             android:id="@+id/tv_leader_school"
-            android:text="学校"
+            android:text=" "
             android:textSize="@dimen/text_14sp"
             android:textColor="@color/text_color_939393"
             android:layout_gravity="center_vertical"
@@ -251,42 +251,6 @@
                 android:orientation="horizontal"
                 android:layout_toRightOf="@+id/et_group_member"
                 >
-                <ImageView
-                    android:src="@mipmap/default_avatar"
-                    android:background="@drawable/shape_round_corner"
-                    android:layout_marginRight="@dimen/margin_8dp"
-                    android:layout_width="@dimen/image_36dp"
-                    android:layout_height="@dimen/image_36dp" />
-                <ImageView
-                    android:src="@mipmap/default_avatar"
-                    android:background="@drawable/shape_round_corner"
-                    android:layout_marginRight="@dimen/margin_8dp"
-                    android:layout_width="@dimen/image_36dp"
-                    android:layout_height="@dimen/image_36dp" />
-                <ImageView
-                    android:src="@mipmap/default_avatar"
-                    android:background="@drawable/shape_round_corner"
-                    android:layout_marginRight="@dimen/margin_8dp"
-                    android:layout_width="@dimen/image_36dp"
-                    android:layout_height="@dimen/image_36dp" />
-                <ImageView
-                    android:src="@mipmap/default_avatar"
-                    android:background="@drawable/shape_round_corner"
-                    android:layout_marginRight="@dimen/margin_8dp"
-                    android:layout_width="@dimen/image_36dp"
-                    android:layout_height="@dimen/image_36dp" />
-                <ImageView
-                    android:src="@mipmap/default_avatar"
-                    android:background="@drawable/shape_round_corner"
-                    android:layout_marginRight="@dimen/margin_8dp"
-                    android:layout_width="@dimen/image_36dp"
-                    android:layout_height="@dimen/image_36dp" />
-                <ImageView
-                    android:src="@mipmap/default_avatar"
-                    android:background="@drawable/shape_round_corner"
-                    android:layout_marginRight="@dimen/margin_8dp"
-                    android:layout_width="@dimen/image_36dp"
-                    android:layout_height="@dimen/image_36dp" />
 
             </LinearLayout>
             <ImageView

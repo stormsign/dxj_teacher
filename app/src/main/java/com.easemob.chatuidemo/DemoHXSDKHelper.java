@@ -360,7 +360,7 @@ public class DemoHXSDKHelper extends HXSDKHelper {
         Intent intent = new Intent(appContext, MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.putExtra("conflict", true);
-        appContext.startActivity(intent);
+//        appContext.startActivity(intent);
     }
     
     @Override
@@ -368,7 +368,7 @@ public class DemoHXSDKHelper extends HXSDKHelper {
     	Intent intent = new Intent(appContext, MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.putExtra(Constant.ACCOUNT_REMOVED, true);
-        appContext.startActivity(intent);
+//        appContext.startActivity(intent);
     }
     
 

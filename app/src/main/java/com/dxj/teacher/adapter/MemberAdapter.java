@@ -179,13 +179,13 @@ public class MemberAdapter extends BaseRecyclerViewAdapter<UserBean.UserInfo> {
                     @Override
                     public void onClick(View v) {
 //                        控制选择删除图标的点击状态,没什么用，意思意思
-                        if (isChecked) {
-                            iv_check.setImageResource(R.mipmap.btn_unselected);
-                            isChecked = false;
-                        } else {
-                            iv_check.setImageResource(R.mipmap.btn_selected);
-                            isChecked = true;
-                        }
+//                        if (isChecked) {
+//                            iv_check.setImageResource(R.mipmap.btn_unselected);
+//                            isChecked = false;
+//                        } else {
+//                            iv_check.setImageResource(R.mipmap.btn_selected);
+//                            isChecked = true;
+//                        }
                         mOnMemberClickListener.onMemberDeleteClick(v, getLayoutPosition());
                     }
                 });

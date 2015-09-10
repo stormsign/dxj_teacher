@@ -171,7 +171,7 @@ public class GroupListFragment extends BaseFragment {
     }
 
     private void processData(final List<StudyGroup> groupList) {
-//        getActivity()有时返回为null，这里要做处理
+//        getActivity()有时返回为null，这里要在宿主activity内做处理
         gAdapter = new GroupAdapter(getActivity(), groupList, parentId);
         gAdapter.notifyDataSetChanged();
         gAdapter.setOnGroupClickListener(new GroupAdapter.OnGroupClickListener() {
