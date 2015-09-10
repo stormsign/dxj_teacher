@@ -1,0 +1,75 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_content">
+
+    <com.dxj.teacher.widget.TitleNavBar
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true" />
+
+    <TextView
+        android:id="@+id/tv_reminder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/title"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"
+        android:gravity="center"
+        android:text="说点什么吧"
+        android:textColor="@color/text_black_64"
+        android:textSize="@dimen/text_13sp" />
+
+
+    <!--<com.filippudak.ProgressPieView.ProgressPieView-->
+    <!--android:layout_margin="8dp"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:layout_gravity="center"-->
+    <!--android:id="@+id/progressPieView"-->
+    <!--/>-->
+
+
+    <com.dxj.teacher.widget.RateTextCircularProgressBar
+        android:id="@+id/rate_progress_bar"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_centerInParent="true"
+        android:layout_marginBottom="30dp"
+        android:layout_marginTop="20dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rate_progress_bar"
+        android:layout_marginTop="40dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <!--<TextView-->
+        <!--android:id="@+id/btn1"-->
+        <!--android:layout_width="80dp"-->
+        <!--android:layout_height="40dp"-->
+        <!--android:layout_marginRight="30dp"-->
+        <!--android:onClick="record"-->
+        <!--android:text="record"-->
+        <!--android:textColor="#ff71bdff"-->
+        <!--android:visibility="gone"-->
+        <!--android:textSize="15sp"-->
+        <!--android:gravity="center"-->
+        <!--/>-->
+
+
+        <TextView
+            android:id="@+id/btn2"
+            android:layout_width="80dp"
+            android:layout_height="40dp"
+            android:gravity="center"
+            android:text="save"
+            android:textColor="#ff71bdff"
+            android:textSize="15sp"
+            android:visibility="gone" />
+    </LinearLayout>
+</RelativeLayout>

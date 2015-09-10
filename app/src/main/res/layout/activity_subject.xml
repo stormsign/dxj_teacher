@@ -3,21 +3,39 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background_content"
     android:orientation="vertical">
 
- <com.dxj.teacher.widget.TitleNavBar
-     android:id="@+id/title"
-     android:layout_width="match_parent"
-     android:layout_height="wrap_content"></com.dxj.teacher.widget.TitleNavBar>
-    <Button
+    <com.dxj.teacher.widget.TitleNavBar
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"></com.dxj.teacher.widget.TitleNavBar>
+
+    <LinearLayout
         android:id="@+id/btn_add_course"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:text="新添加一门课程"
-        android:textSize="@dimen/text_16sp"
-        android:layout_gravity="center"
         android:gravity="center"
-        />
+        android:orientation="horizontal"
+        android:background="@android:color/white"
+        >
+
+        <ImageView
+            android:layout_width="21dp"
+            android:layout_height="21dp"
+            android:background="@mipmap/kechen_icon_tianjia"
+            android:layout_marginRight="5dp"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:gravity="center"
+            android:text="新添加一门课程"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/text_13sp" />
+    </LinearLayout>
+
     <com.dxj.teacher.widget.MultiSwipeRefreshLayout
         android:id="@+id/swipe_refresh_layout"
         android:layout_width="match_parent"
@@ -34,16 +52,6 @@
             android:scrollbars="none"
             android:visibility="visible" />
     </com.dxj.teacher.widget.MultiSwipeRefreshLayout>
-    <TextView
-        android:id="@+id/tv_noresult"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:padding="10dp"
-        android:text="抱歉,暂时没有添加"
-        android:textColor="#000000"
-        android:textSize="16sp"
-        android:visibility="gone" />
 
 
 </LinearLayout>

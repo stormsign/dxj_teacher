@@ -35,6 +35,7 @@ public class UpdateLivingCityActivity extends BaseActivity implements View.OnCli
     private EditText etLivingCity;
     private String strLivingCity;
     private String id;
+    private String address;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,11 +84,19 @@ public class UpdateLivingCityActivity extends BaseActivity implements View.OnCli
     public void initView() {
         etLivingCity = (EditText) findViewById(R.id.et);
         etLivingCity.setHint("现居地");
+        if (StringUtils.isEmpty(address)) {
+            etLivingCity.setText(MyApplication.getInstance().getLocationdescribe());
+        } else {
+            etLivingCity.setText(address);
+
+        }
     }
 
     @Override
     public void initData() {
         id = getIntent().getStringExtra("id");
+        address = getIntent().getStringExtra("address");
+
     }
 
     @Override

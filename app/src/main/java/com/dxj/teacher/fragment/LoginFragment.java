@@ -123,6 +123,7 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener 
 
     private void initLogin(Map<String, Object> map, String urlPath) {
         //();
+
         GsonRequest<UserBean> custom = new GsonRequest<>(Request.Method.POST, urlPath, UserBean.class, map, getListener(), getErrorListener());
         VolleySingleton.getInstance(getActivity().getApplicationContext()).addToRequestQueue(custom);
     }

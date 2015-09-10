@@ -7,12 +7,14 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.dxj.teacher.R;
 import com.dxj.teacher.adapter.CourseAdapter;
+import com.dxj.teacher.application.MyApplication;
 import com.dxj.teacher.base.SwipeRefreshBaseActivity;
 import com.dxj.teacher.bean.CourseSubjectBean;
 import com.dxj.teacher.bean.CourseSubjectList;
@@ -34,7 +36,7 @@ import java.util.Map;
  */
 public class EditCourseActivity extends SwipeRefreshBaseActivity implements View.OnClickListener, CourseAdapter.OnCheckmarkClickListener {
 
-    private Button btnAdd;
+    private LinearLayout btnAdd;
     private RecyclerView recyclerView;
     private CourseAdapter courseAdapter;
     private List<CourseSubjectBean> courseBeanList = new ArrayList<>();
@@ -70,6 +72,9 @@ public class EditCourseActivity extends SwipeRefreshBaseActivity implements View
     public void initTitle() {
         TitleNavBar title = (TitleNavBar) findViewById(R.id.title);
         title.setTitle("课程设置");
+        title.setTitleNoRightButton();
+        title.showAction(true);
+        title.setActionText("编辑");
         title.setOnTitleNavClickListener(new TitleNavBar.OnTitleNavClickListener() {
             @Override
             public void onNavOneClick() {
@@ -79,11 +84,7 @@ public class EditCourseActivity extends SwipeRefreshBaseActivity implements View
             @Override
             public void onNavTwoClick() {
                 Log.i("TAG", "onNavTwoClick");
-                if (courseAdapter.isShape()) {
-                    courseAdapter.setShape(false);
-                } else {
-                    courseAdapter.setShape(true);
-                }
+
             }
 
             @Override
@@ -94,7 +95,11 @@ public class EditCourseActivity extends SwipeRefreshBaseActivity implements View
 
             @Override
             public void onActionClick() {
-
+                if (courseAdapter.isShape()) {
+                    courseAdapter.setShape(false);
+                } else {
+                    courseAdapter.setShape(true);
+                }
             }
 
             @Override
@@ -112,7 +117,7 @@ public class EditCourseActivity extends SwipeRefreshBaseActivity implements View
 
     @Override
     public void initView() {
-        btnAdd = (Button) findViewById(R.id.btn_add_course);
+        btnAdd = (LinearLayout) findViewById(R.id.btn_add_course);
         recyclerView = (RecyclerView) findViewById(R.id.search_result);
         courseAdapter = new CourseAdapter(this, courseBeanList);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -142,7 +147,7 @@ public class EditCourseActivity extends SwipeRefreshBaseActivity implements View
 
         String urlPath = FinalData.URL_VALUE_COMMON + HttpUtils.GOOD_SUBJECT_LIST;
         Map<String, Object> map = new HashMap<>();
-        map.put("teacherId", "e1c380f1-c85e-4a0f-aafc-152e189d9d01");
+        map.put("teacherId", MyApplication.getInstance().getUserId());
 //        map.put("nickName", strNiceName);
         GsonRequest<CourseSubjectList> custom = new GsonRequest(Request.Method.POST, urlPath, CourseSubjectList.class, map, getListener(), getErrorListener());
         VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(custom);

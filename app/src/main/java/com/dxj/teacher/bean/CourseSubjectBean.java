@@ -6,8 +6,9 @@ import java.util.List;
 
 /**
  * Created by kings on 9/3/2015.
+ * 科目
  */
-public class CourseSubjectBean {
+public class CourseSubjectBean implements  Serializable{
     private String id;
     private String teacherId;
     private int subjectId;

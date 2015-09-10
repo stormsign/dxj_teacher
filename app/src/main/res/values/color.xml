@@ -15,6 +15,7 @@
     <color name="text_black">#ff323232</color>
     <color name="text_black_64">#ff646464</color>
     <color name="text_black_two">#ffBBBBBB</color>
+    <color name="text_black_voice">#ff71bdff</color>
 
     <color name="btn_press_color">#66000000</color>
     <color name="btn_unpress_color">#22000000</color>

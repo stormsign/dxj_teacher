@@ -63,6 +63,10 @@ public class HttpUtils {
 	public static final String  APTITUDE="aptitude";
 	//传递经纬度
 	public static final String  LOC="loc";
+	//老师详细信息
+	public static final String  TEACHERINFO="teacherInfo";
+	//语音
+	public static final String  VOICE="voice";
 
 
 }

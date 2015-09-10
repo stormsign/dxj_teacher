@@ -41,7 +41,7 @@
         android:id="@+id/already_flowlayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-     android:padding="@dimen/margin_10dp"
+       android:padding="@dimen/margin_10dp"
         flowlayout:horizontal_spacing="10dp"
         flowlayout:vertical_spacing="10dp"
         android:background="@android:color/white"

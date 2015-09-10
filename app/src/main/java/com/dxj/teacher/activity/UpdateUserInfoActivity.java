@@ -88,6 +88,7 @@ public class UpdateUserInfoActivity extends BaseActivity implements View.OnClick
     public static final int ROLENAME = 13;
     public static final int SCHOOL = 14;
     public static final int PHOTO = 15;
+//    public static final int PHOTO = 15;
     private RelativeLayout relativeNiceName;
     private RelativeLayout relativeSex;
     private RelativeLayout relativeDialect;
@@ -106,6 +107,7 @@ public class UpdateUserInfoActivity extends BaseActivity implements View.OnClick
     private RelativeLayout relativerAvatar;
     private RelativeLayout relativerSchool;
     private RelativeLayout relativerImages;
+    private RelativeLayout relativeVoice;
     private TextView tvNicename;
     private TextView tvSex;
     private TextView tvNationality;
@@ -197,6 +199,7 @@ public class UpdateUserInfoActivity extends BaseActivity implements View.OnClick
         relativerAvatar = (RelativeLayout) findViewById(R.id.relative_avatar);
         relativerSchool = (RelativeLayout) findViewById(R.id.relative_school);
         relativerImages = (RelativeLayout) findViewById(R.id.relative_images);
+        relativeVoice = (RelativeLayout) findViewById(R.id.relative_voice);
         //------------------------------------- 华丽分割线--------------------------------
 
         tvNicename = (TextView) findViewById(R.id.tv_nicename);
@@ -284,6 +287,7 @@ public class UpdateUserInfoActivity extends BaseActivity implements View.OnClick
         relativerAvatar.setOnClickListener(this);
         relativerSchool.setOnClickListener(this);
         relativerImages.setOnClickListener(this);
+        relativeVoice.setOnClickListener(this);
     }
 
     @Override
@@ -328,6 +332,7 @@ public class UpdateUserInfoActivity extends BaseActivity implements View.OnClick
                 break;
             case R.id.relative_livingcity:
                 Intent intentLivingCity = new Intent(this, UpdateLivingCityActivity.class);
+                intentLivingCity.putExtra("address",userBean.getUserInfo().getLivingCity());
                 intentLivingCity.putExtra("id", userId);
                 startActivityForResult(intentLivingCity, LIVING_CITY);
                 break;
@@ -390,6 +395,11 @@ public class UpdateUserInfoActivity extends BaseActivity implements View.OnClick
                 intentImage.putExtra("id", userId);
                 intentImage.putStringArrayListExtra("photoList", userBean.getUserInfo().getImages());
                 startActivityForResult(intentImage, PHOTO);
+                break;
+            case R.id.relative_voice:
+                Intent intentVoice = new Intent(this, MediaActivity.class);
+                intentVoice.putExtra("id", userId);
+                startActivityForResult(intentVoice, PHOTO);
                 break;
         }
     }
