@@ -86,7 +86,7 @@ public class GroupMemberListActivity extends BaseActivity{
                     title.setActionText("编辑");
                     mAdapter.setIsCheckable(false);
                 } else {
-                    title.setActionText("取消");
+                    title.setActionText("完成");
                     mAdapter.setIsCheckable(true);
                 }
                 mAdapter.notifyDataSetChanged();

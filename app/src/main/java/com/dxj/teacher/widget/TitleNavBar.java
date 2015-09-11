@@ -30,6 +30,7 @@ public class TitleNavBar extends RelativeLayout {
     private RelativeLayout container;
     public TextView action;
     private boolean isDisableBack = false;
+    public ImageView back;
 
     public TitleNavBar(Context context) {
         this(context, null);
@@ -64,7 +65,7 @@ public class TitleNavBar extends RelativeLayout {
     private void initView() {
         View view = inflater.inflate(R.layout.layout_title, this);
         container = (RelativeLayout) view.findViewById(R.id.rl_title_container);
-        ImageView back = (ImageView) view.findViewById(R.id.back);
+        back = (ImageView) view.findViewById(R.id.back);
         title = (TextView) view.findViewById(R.id.tv_title);
         search_container = (RelativeLayout) view.findViewById(R.id.rl_search_title_container);
         search = (EditText) view.findViewById(R.id.et_search);
@@ -81,9 +82,9 @@ public class TitleNavBar extends RelativeLayout {
             @Override
             public void onClick(View v) {
 
-                    if (mOnTitleNavClickListener != null) {
-                        mOnTitleNavClickListener.onBackClick();
-                    }
+                if (mOnTitleNavClickListener != null) {
+                    mOnTitleNavClickListener.onBackClick();
+                }
                 if (!isDisableBack) {
                     Activity activity = (Activity) mContext;
                     activity.finish();

@@ -66,6 +66,7 @@
                     android:layout_height="wrap_content"
                     android:text="..."
                     android:textSize="@dimen/text_16sp"
+                    android:textColor="@color/text_orange2"
                     android:layout_alignParentTop="true"
                     />
                 <LinearLayout
@@ -88,6 +89,7 @@
                         android:layout_height="wrap_content"
                         android:text="团员：0人"
                         android:textSize="@dimen/text_14sp"
+                        android:textColor="@color/text_color_848484"
                         />
                 </LinearLayout>
                 <TextView
@@ -97,7 +99,7 @@
                     android:singleLine="true"
                     android:text="..."
                     android:textSize="@dimen/text_14sp"
-                    android:textColor="@color/text_color_a4a4a4"
+                    android:textColor="@color/text_color_848484"
                     android:layout_alignParentBottom="true"
                     />
             </RelativeLayout>

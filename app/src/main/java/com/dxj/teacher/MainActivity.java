@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -12,18 +13,23 @@ import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
 import com.dxj.teacher.activity.LoginAndRightActivity;
 import com.dxj.teacher.activity.StudyGroupListActivity;
-import com.dxj.teacher.activity.UpdateUserInfoActivity;
 import com.dxj.teacher.application.MyApplication;
 import com.dxj.teacher.base.BaseActivity;
 import com.dxj.teacher.factory.FragmentFactory;
+import com.dxj.teacher.fragment.HomeFragment;
+import com.dxj.teacher.fragment.MessageFragment;
 import com.dxj.teacher.utils.SPUtils;
 import com.easemob.EMConnectionListener;
+import com.easemob.EMEventListener;
+import com.easemob.EMNotifierEvent;
+import com.easemob.applib.controller.HXSDKHelper;
 import com.easemob.chat.EMChat;
 import com.easemob.chat.EMChatManager;
 import com.easemob.chat.EMContactListener;
 import com.easemob.chat.EMContactManager;
 import com.easemob.chat.EMGroup;
 import com.easemob.chat.EMGroupManager;
+import com.easemob.chat.EMMessage;
 import com.easemob.chat.GroupChangeListener;
 import com.easemob.chatuidemo.DemoHXSDKHelper;
 import com.umeng.common.message.UmengMessageDeviceConfig;
@@ -37,13 +43,17 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.util.List;
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity implements EMEventListener {
 
     private Button bt_user, bt_message, bt_search, bt_home;
     private FragmentManager fm;
     private Context context = this;
     private PushAgent mPushAgent;
 
+    private final static int HOME = 0;
+    private final static int LOOKINGFORTEACHER = 1;
+    private final static int MESSAGE = 2;
+    private final static int MYINFO = 3;
     private static final String DBNAME = "subject.db";
     private static final String SCHOOL = "t_city.db";
     private static final String TEACHER_TYPE = "t_teacher_role.db";
@@ -52,11 +62,13 @@ public class MainActivity extends BaseActivity {
     private Button startLocation;
     private LocationClientOption.LocationMode tempMode = LocationClientOption.LocationMode.Hight_Accuracy;
     private String tempcoor = "gcj02";
+    private FragmentTransaction ft;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        initTitle();
         initData();
         initView();
 
@@ -71,21 +83,28 @@ public class MainActivity extends BaseActivity {
     public void initView() {
 
         fm = getSupportFragmentManager();
+        ft = fm.beginTransaction();
         bt_home = (Button) findViewById(R.id.bt_home);
         bt_search = (Button) findViewById(R.id.bt_search);
         bt_message = (Button) findViewById(R.id.bt_message);
         bt_user = (Button) findViewById(R.id.bt_user);
 
-        fm.beginTransaction()
-                .replace(R.id.rl_fragment_contanier, FragmentFactory.getFragment(0), "HOME")
-                .commit();
+//        if (fm.findFragmentByTag("HOME") == null) {
+            ft.add(R.id.rl_fragment_contanier, (HomeFragment)FragmentFactory.getFragment(HOME), "HOME")
+                    .add(R.id.rl_fragment_contanier, (MessageFragment)FragmentFactory.getFragment(MESSAGE), "MESSAGE")
+            .hide((MessageFragment)FragmentFactory.getFragment(MESSAGE));
+//                .add(R.id.rl_fragment_contanier, FragmentFactory.getFragment(LOOKINGFORTEACHER), "LOOKINGFORTEACHER")
+//                .add(R.id.rl_fragment_contanier, FragmentFactory.getFragment(MYINFO), "MYINFO");
+        ft.show((HomeFragment) FragmentFactory.getFragment(HOME)).commit();
+
         showLogD("==============================================");
     }
+
     @Override
     public void initData() {
         mPushAgent = PushAgent.getInstance(context);
 //        if (!mPushAgent.isEnabled()) {
-            mPushAgent.enable(mRegisterCallback);
+        mPushAgent.enable(mRegisterCallback);
 //        }
 
         String device_token = UmengRegistrar.getRegistrationId(context);
@@ -160,18 +179,25 @@ public class MainActivity extends BaseActivity {
         switch (v.getId()) {
             case R.id.bt_home:
                 fm.beginTransaction()
-                        .replace(R.id.rl_fragment_contanier, FragmentFactory.getFragment(0), "HOME")
+                        .hide(FragmentFactory.getFragment(MESSAGE))
+                        .show(FragmentFactory.getFragment(HOME))
                         .commit();
                 break;
             case R.id.bt_search:
+                fm.beginTransaction()
+                        .hide(FragmentFactory.getFragment(HOME))
+                        .hide(FragmentFactory.getFragment(MESSAGE))
+                        .commit();
                 break;
             case R.id.bt_user:
                 Intent intent = new Intent(this, LoginAndRightActivity.class);
                 startActivity(intent);
                 break;
             case R.id.bt_message:
-                Intent intentMulti = new Intent(this, UpdateUserInfoActivity.class);
-                startActivity(intentMulti);
+                fm.beginTransaction()
+                        .hide(FragmentFactory.getFragment(HOME))
+                        .show(FragmentFactory.getFragment(MESSAGE))
+                        .commit();
                 break;
         }
     }
@@ -204,6 +230,54 @@ public class MainActivity extends BaseActivity {
         mLocationClient.setLocOption(option);
     }
 
+
+
+    @Override
+    public void onEvent(EMNotifierEvent event) {
+        switch (event.getEvent()) {
+            case EventNewMessage: // 普通消息
+            {
+                EMMessage message = (EMMessage) event.getData();
+
+                // 提示新消息
+                HXSDKHelper.getInstance().getNotifier().onNewMsg(message);
+
+                refreshUI();
+                break;
+            }
+
+            case EventOfflineMessage: {
+                refreshUI();
+                break;
+            }
+
+            case EventConversationListChanged: {
+                refreshUI();
+                break;
+            }
+
+            default:
+                break;
+        }
+    }
+
+
+    private void refreshUI() {
+        runOnUiThread(new Runnable() {
+            public void run() {
+                // 刷新bottom bar消息未读数
+//                updateUnreadLabel();
+                if (fm.findFragmentByTag("MESSAGE").isVisible()) {
+                    // 当前页面如果为聊天历史页面，刷新此页面
+                    if (fm.findFragmentByTag("MESSAGE") != null) {
+                        ((MessageFragment)FragmentFactory.getFragment(MESSAGE)).refresh();
+                    }
+                }
+            }
+        });
+    }
+
+
     /**
      * 监听群，好友，连接 by zjb
      */
@@ -224,11 +298,8 @@ public class MainActivity extends BaseActivity {
         }
     }
 
-
-
     /***
      * 好友变化listener
-     *
      */
     private class MyContactListener implements EMContactListener {
 
@@ -330,7 +401,6 @@ public class MainActivity extends BaseActivity {
 
     /**
      * 连接监听listener
-     *
      */
     private class MyConnectionListener implements EMConnectionListener {
 
@@ -504,6 +574,22 @@ public class MainActivity extends BaseActivity {
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+//        if (!isConflict && !isCurrentAccountRemoved) {
+//            updateUnreadLabel();
+//            updateUnreadAddressLable();
+//            EMChatManager.getInstance().activityResumed();
+//        }
 
+        // unregister this event listener when this activity enters the
+        // background
+        DemoHXSDKHelper sdkHelper = (DemoHXSDKHelper) DemoHXSDKHelper.getInstance();
+        sdkHelper.pushActivity(this);
 
+        // register the event listener when enter the foreground
+        EMChatManager.getInstance().registerEventListener(this,
+                new EMNotifierEvent.Event[] { EMNotifierEvent.Event.EventNewMessage ,EMNotifierEvent.Event.EventOfflineMessage, EMNotifierEvent.Event.EventConversationListChanged});
+    }
 }

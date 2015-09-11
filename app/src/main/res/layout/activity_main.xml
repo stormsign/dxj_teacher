@@ -90,7 +90,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="30dp"
                 android:layout_marginTop="2dp"
-                android:background="@drawable/abc_btn_radio_to_on_mtrl_015"
+                android:background="@drawable/unread_dot"
                 android:gravity="center"
                 android:textColor="@android:color/white"
                 android:textSize="12sp"
