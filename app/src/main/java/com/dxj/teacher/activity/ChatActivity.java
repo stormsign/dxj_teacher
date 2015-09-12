@@ -204,7 +204,9 @@ public class ChatActivity extends BaseActivity implements OnClickListener, EMEve
 	public EMGroup group;
 	public EMChatRoom room;
 	public boolean isRobot;
-	
+	private String groupHead;
+	private String myGroupId;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -382,6 +384,8 @@ public class ChatActivity extends BaseActivity implements OnClickListener, EMEve
 		getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 		wakeLock = ((PowerManager) getSystemService(Context.POWER_SERVICE)).newWakeLock(
 				PowerManager.SCREEN_DIM_WAKE_LOCK, "demo");
+
+		groupHead = getIntent().getStringExtra("groupHead");
 		// 判断单聊还是群聊
 		chatType = getIntent().getIntExtra("chatType", CHATTYPE_SINGLE);
 		showLogD("chatType"+ CHATTYPE_SINGLE);
@@ -406,7 +410,7 @@ public class ChatActivity extends BaseActivity implements OnClickListener, EMEve
 			findViewById(R.id.container_remove).setVisibility(View.GONE);
 			findViewById(R.id.container_voice_call).setVisibility(View.GONE);
 			findViewById(R.id.container_video_call).setVisibility(View.GONE);
-			toChatUsername = getIntent().getStringExtra("groupId");
+			toChatUsername = getIntent().getStringExtra("groupHXId");
 
 			if(chatType == CHATTYPE_GROUP){
 			    onGroupViewCreation();
@@ -517,13 +521,14 @@ public class ChatActivity extends BaseActivity implements OnClickListener, EMEve
 	
 	protected void onGroupViewCreation(){
 	    group = EMGroupManager.getInstance().getGroup(toChatUsername);
+		myGroupId = getIntent().getStringExtra("groupId");
 		String groupName = getIntent().getStringExtra("groupName");
-		((TextView) findViewById(R.id.name)).setText(groupName);
-//		if (group != null){
-//            ((TextView) findViewById(R.id.name)).setText(group.getGroupName());
-//        }else{
-//            ((TextView) findViewById(R.id.name)).setText(toChatUsername);
-//        }
+//		((TextView) findViewById(R.id.name)).setText(groupName);
+		if (group != null){
+            ((TextView) findViewById(R.id.name)).setText(group.getGroupName());
+        }else{
+            ((TextView) findViewById(R.id.name)).setText(toChatUsername);
+        }
         
         // 监听当前会话的群聊解散被T事件
         groupListener = new GroupListener();
@@ -928,6 +933,8 @@ public class ChatActivity extends BaseActivity implements OnClickListener, EMEve
 			message.addBody(txtBody);
 			// 设置要发给谁,用户username或者群聊groupid
 			message.setReceipt(toChatUsername);
+			message.setAttribute("groupHead", groupHead);
+			message.setAttribute("groupId", myGroupId);
 			// 把messgage加到conversation中
 			conversation.addMessage(message);
 			// 通知adapter有消息变动，adapter会根据加入的这条message显示消息和调用sdk的发送方法
@@ -1251,10 +1258,12 @@ public class ChatActivity extends BaseActivity implements OnClickListener, EMEve
 			Toast.makeText(getApplicationContext(), R.string.gorup_not_found, Toast.LENGTH_SHORT).show();
 			return;
 		}
-//		if(chatType == CHATTYPE_GROUP){
+		if(chatType == CHATTYPE_GROUP){
 //			startActivityForResult((new Intent(this, GroupDetailsActivity.class).putExtra("groupId", toChatUsername)),
 //					REQUEST_CODE_GROUP_DETAIL);
-//		}else{
+			startActivity(new Intent(context, StudyGroupDetailActivity.class).putExtra("groupId", myGroupId));
+		}
+//		else{
 //			startActivityForResult((new Intent(this, ChatRoomDetailsActivity.class).putExtra("roomId", toChatUsername)),
 //					REQUEST_CODE_GROUP_DETAIL);
 //		}

@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
@@ -27,6 +28,7 @@ import com.easemob.chat.EMChat;
 import com.easemob.chat.EMChatManager;
 import com.easemob.chat.EMContactListener;
 import com.easemob.chat.EMContactManager;
+import com.easemob.chat.EMConversation;
 import com.easemob.chat.EMGroup;
 import com.easemob.chat.EMGroupManager;
 import com.easemob.chat.EMMessage;
@@ -63,6 +65,7 @@ public class MainActivity extends BaseActivity implements EMEventListener {
     private LocationClientOption.LocationMode tempMode = LocationClientOption.LocationMode.Hight_Accuracy;
     private String tempcoor = "gcj02";
     private FragmentTransaction ft;
+    private TextView unreadLabel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +75,13 @@ public class MainActivity extends BaseActivity implements EMEventListener {
         initData();
         initView();
 
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+//        注释此行，不保存Fragment状态，这样当该activity被回收时，attach的Fragment也会一通被回收
+//        此段代码是为了解决fragment.getActivity()返回为null的问题
+//        super.onSaveInstanceState(outState);
     }
 
     @Override
@@ -88,6 +98,7 @@ public class MainActivity extends BaseActivity implements EMEventListener {
         bt_search = (Button) findViewById(R.id.bt_search);
         bt_message = (Button) findViewById(R.id.bt_message);
         bt_user = (Button) findViewById(R.id.bt_user);
+        unreadLabel = (TextView)findViewById(R.id.unread_msg_number);
 
 //        if (fm.findFragmentByTag("HOME") == null) {
             ft.add(R.id.rl_fragment_contanier, (HomeFragment)FragmentFactory.getFragment(HOME), "HOME")
@@ -266,7 +277,7 @@ public class MainActivity extends BaseActivity implements EMEventListener {
         runOnUiThread(new Runnable() {
             public void run() {
                 // 刷新bottom bar消息未读数
-//                updateUnreadLabel();
+                updateUnreadLabel();
                 if (fm.findFragmentByTag("MESSAGE").isVisible()) {
                     // 当前页面如果为聊天历史页面，刷新此页面
                     if (fm.findFragmentByTag("MESSAGE") != null) {
@@ -523,7 +534,7 @@ public class MainActivity extends BaseActivity implements EMEventListener {
             Log.i("TAG", "onGroupDestroy " + groupName);
             runOnUiThread(new Runnable() {
                 public void run() {
-                    // updateUnreadLabel();
+                     updateUnreadLabel();
                     // if (currentTabIndex == 0)
                     // chatHistoryFragment.refresh();
 //                    if (CommonUtils.getTopActivity(MainActivity.this).equals(GroupsActivity.class.getName())) {
@@ -574,11 +585,41 @@ public class MainActivity extends BaseActivity implements EMEventListener {
 
     }
 
+
+    /**
+     * 刷新未读消息数
+     */
+    public void updateUnreadLabel() {
+        int count = getUnreadMsgCountTotal();
+        if (count > 0) {
+//            unreadLabel.setText(String.valueOf(count));
+            unreadLabel.setVisibility(View.VISIBLE);
+        } else {
+            unreadLabel.setVisibility(View.INVISIBLE);
+        }
+    }
+
+    /**
+     * 获取未读消息数
+     *
+     * @return
+     */
+    public int getUnreadMsgCountTotal() {
+        int unreadMsgCountTotal = 0;
+        int chatroomUnreadMsgCount = 0;
+        unreadMsgCountTotal = EMChatManager.getInstance().getUnreadMsgsCount();
+        for(EMConversation conversation:EMChatManager.getInstance().getAllConversations().values()){
+            if(conversation.getType() == EMConversation.EMConversationType.ChatRoom)
+                chatroomUnreadMsgCount=chatroomUnreadMsgCount+conversation.getUnreadMsgCount();
+        }
+        return unreadMsgCountTotal-chatroomUnreadMsgCount;
+    }
+
     @Override
     protected void onResume() {
         super.onResume();
 //        if (!isConflict && !isCurrentAccountRemoved) {
-//            updateUnreadLabel();
+            updateUnreadLabel();
 //            updateUnreadAddressLable();
 //            EMChatManager.getInstance().activityResumed();
 //        }

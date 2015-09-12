@@ -25,6 +25,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.TextView.BufferType;
 
+import com.bumptech.glide.Glide;
 import com.dxj.teacher.R;
 import com.easemob.applib.controller.HXSDKHelper;
 import com.easemob.chat.EMChatManager;
@@ -42,6 +43,7 @@ import com.easemob.chatuidemo.domain.RobotUser;
 import com.easemob.chatuidemo.utils.DateUtils;
 import com.easemob.chatuidemo.utils.SmileUtils;
 import com.easemob.chatuidemo.utils.UserUtils;
+import com.easemob.exceptions.EaseMobException;
 import com.easemob.util.EMLog;
 
 import java.util.ArrayList;
@@ -61,9 +63,11 @@ public class ChatAllHistoryAdapter extends ArrayAdapter<EMConversation> {
 	private List<EMConversation> copyConversationList;
 	private ConversationFilter conversationFilter;
     private boolean notiyfyByFilter;
+	private Context context;
 
 	public ChatAllHistoryAdapter(Context context, int textViewResourceId, List<EMConversation> objects) {
 		super(context, textViewResourceId, objects);
+		this.context = context;
 		this.conversationList = objects;
 		copyConversationList = new ArrayList<EMConversation>();
 		copyConversationList.addAll(objects);
@@ -87,11 +91,6 @@ public class ChatAllHistoryAdapter extends ArrayAdapter<EMConversation> {
 			holder.list_item_layout = (RelativeLayout) convertView.findViewById(R.id.list_item_layout);
 			convertView.setTag(holder);
 		}
-//		if (position % 2 == 0) {
-//			holder.list_item_layout.setBackgroundResource(R.drawable.mm_listitem);
-//		} else {
-//			holder.list_item_layout.setBackgroundResource(R.drawable.mm_listitem_grey);
-//		}
 
 		// 获取与此用户/群组的会话
 		EMConversation conversation = getItem(position);
@@ -100,6 +99,15 @@ public class ChatAllHistoryAdapter extends ArrayAdapter<EMConversation> {
 		if (conversation.getType() == EMConversationType.GroupChat) {
 			// 群聊消息，显示群聊头像
 			holder.avatar.setImageResource(R.mipmap.group_icon);
+			try {
+				String groupHead = conversation.getLastMessage().getStringAttribute("groupHead");
+				if (groupHead != null) {
+					Glide.with(context).load(groupHead).placeholder(R.mipmap.group_icon).into(holder.avatar);
+				}
+			} catch (EaseMobException e) {
+				e.printStackTrace();
+			}
+
 			EMGroup group = EMGroupManager.getInstance().getGroup(username);
 			holder.name.setText(group != null ? group.getGroupName() : username);
 		} else if(conversation.getType() == EMConversationType.ChatRoom){

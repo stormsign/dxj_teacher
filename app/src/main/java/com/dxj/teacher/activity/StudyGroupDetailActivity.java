@@ -188,8 +188,10 @@ public class StudyGroupDetailActivity extends BaseActivity implements View.OnCli
         }
 //        获取团成员，包括团长，团长在第一个
         members = MyUtils.getGroupMembersFromJson(studyGroup, json);
-        if (!TextUtils.isEmpty(members.get(0).getHeadUrl())){
-            Glide.with(this).load(members.get(0).getHeadUrl()).placeholder(R.mipmap.default_error).into(group_head);
+        if (members!=null && !members.isEmpty()) {
+            if (!TextUtils.isEmpty(members.get(0).getHeadUrl())) {
+                Glide.with(this).load(members.get(0).getHeadUrl()).placeholder(R.mipmap.default_error).into(group_head);
+            }
         }
         leader_name.setText(members.get(0).getNickName());
         leader_school.setText(members.get(0).getSchool());
@@ -256,9 +258,11 @@ public class StudyGroupDetailActivity extends BaseActivity implements View.OnCli
     if (MyUtils.isMember(teacherHX, studyGroup)){
 //        群聊
         startActivity(new Intent(this, ChatActivity.class)
-                .putExtra("groupId", studyGroup.getGroupId())
+                .putExtra("groupHXId", studyGroup.getGroupId())
+                .putExtra("groupId", studyGroup.getId())
                 .putExtra("chatType", ChatActivity.CHATTYPE_GROUP)
-                .putExtra("groupName", studyGroup.getGroupName()));
+                .putExtra("groupName", studyGroup.getGroupName())
+                .putExtra("groupHead", studyGroup.getHeadUrl()));
     }else{
         joinGroup(studyGroup.getId(), teacherHX);
     }

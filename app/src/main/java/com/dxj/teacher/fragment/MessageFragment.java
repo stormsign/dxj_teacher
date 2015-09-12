@@ -33,6 +33,7 @@ import com.easemob.chat.EMChatManager;
 import com.easemob.chat.EMConversation;
 import com.easemob.chatuidemo.Constant;
 import com.easemob.chatuidemo.db.InviteMessgeDao;
+import com.easemob.exceptions.EaseMobException;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -111,8 +112,14 @@ public class MessageFragment extends BaseFragment{
                             intent.putExtra("groupId", username);
                         }else{
                             // it is group chat
-                            intent.putExtra("chatType", ChatActivity.CHATTYPE_GROUP);
-                            intent.putExtra("groupId", username);
+                            try {
+                                intent.putExtra("chatType", ChatActivity.CHATTYPE_GROUP);
+                                intent.putExtra("groupHXId", username)
+                                    .putExtra("groupHead", conversation.getLastMessage().getStringAttribute("groupHead"))
+                                .putExtra("groupId", conversation.getLastMessage().getStringAttribute("groupId"));
+                            } catch (EaseMobException e) {
+                                e.printStackTrace();
+                            }
                         }
 
                     }else{
@@ -261,6 +268,7 @@ public class MessageFragment extends BaseFragment{
 
     @Override
     public void onResume() {
+        refresh();
         super.onResume();
 //        if (!hidden && ! ((MainActivity)getActivity()).isConflict) {
 //            refresh();

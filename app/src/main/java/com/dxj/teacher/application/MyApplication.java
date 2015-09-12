@@ -8,6 +8,7 @@ import android.os.Vibrator;
 import android.util.Log;
 
 import com.alibaba.fastjson.JSONObject;
+import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.baidu.location.BDLocation;
@@ -16,12 +17,19 @@ import com.baidu.location.LocationClient;
 import com.dxj.teacher.bean.BaseBean;
 import com.dxj.teacher.bean.UserBean;
 import com.dxj.teacher.db.AccountDBTask;
+import com.dxj.teacher.http.CustomStringRequest;
+import com.dxj.teacher.http.FinalData;
+import com.dxj.teacher.http.VolleySingleton;
 import com.dxj.teacher.utils.ExceptionHandler;
+import com.dxj.teacher.utils.HttpUtils;
+import com.dxj.teacher.utils.StringUtils;
 import com.easemob.EMCallBack;
 import com.easemob.chatuidemo.DemoHXSDKHelper;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -65,7 +73,7 @@ public class MyApplication extends Application {
         applicationContext = this;
         instance = this;
         ExceptionHandler exceptionHandler = ExceptionHandler.getInstance();
-//        exceptionHandler.init(instance);
+        exceptionHandler.init(instance);
 //        环信初始化
         hxSDKHelper.onInit(applicationContext);
         mLocationClient = new LocationClient(this.getApplicationContext());

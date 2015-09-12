@@ -78,7 +78,7 @@ public class StudyGroupListActivity extends BaseActivity {
         TitleNavBar title = (TitleNavBar) findViewById(R.id.title);
         title.setTitle("交友学团");
         title.showSearchBar(true);
-        title.showNavThree(false);
+//        title.showNavThree(false);
         title.setSearchHint("输入老师手机号或学团名称");
         title.setOnTitleNavClickListener(new TitleNavBar.OnTitleNavClickListener() {
             @Override
@@ -206,6 +206,9 @@ public class StudyGroupListActivity extends BaseActivity {
         }
     }
 
+    /**
+     * 设置侧滑菜单的点击事件
+     */
     private void initMenu() {
         firstAdapter = new FirstGroupCategoryAdapter(this, titleList, titleSelectedList);
         firstAdapter.setOnFirstClickListener(new FirstGroupCategoryAdapter.OnFirstClickListener() {

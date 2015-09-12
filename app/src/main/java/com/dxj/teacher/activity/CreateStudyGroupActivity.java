@@ -60,7 +60,7 @@ public class CreateStudyGroupActivity extends BaseActivity implements View.OnCli
     private TextView tv_subjectName;
     private EditText et_groupName;
     private EditText et_description;
-    private String mobile = "18822220000";
+    private String mobile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -135,7 +135,7 @@ public class CreateStudyGroupActivity extends BaseActivity implements View.OnCli
         map.put("subjectSecond", subjectSecond);
         map.put("subjectThree", subjectThree);
         map.put("subjectName", subjectName);
-        map.put("mobile", mobile);
+        map.put("mobile", mApplication.getUserBean().getUserInfo().getMobile());
         showLogI("MAP "+groupName+" "+headUrl+" "+description+" "+subjectFirst+" "+subjectSecond+" "+subjectThree+" "+subjectName+" "+mobile);
         CustomStringRequest cRequest = new CustomStringRequest(Request.Method.POST, url, map, getListener(), getErrorListener());
         VolleySingleton.getInstance(context).addToRequestQueue(cRequest);

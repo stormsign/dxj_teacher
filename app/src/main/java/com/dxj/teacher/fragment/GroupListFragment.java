@@ -13,7 +13,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.dxj.teacher.R;
-import com.dxj.teacher.activity.StudyGroupDetailActivity;
+import com.dxj.teacher.activity.ChatActivity;
 import com.dxj.teacher.adapter.GroupAdapter;
 import com.dxj.teacher.base.BaseFragment;
 import com.dxj.teacher.bean.StudyGroup;
@@ -177,7 +177,12 @@ public class GroupListFragment extends BaseFragment {
         gAdapter.setOnGroupClickListener(new GroupAdapter.OnGroupClickListener() {
             @Override
             public void onNoticeClick(View view, int position) {
-                startActivity(new Intent(context, StudyGroupDetailActivity.class).putExtra("groupId", groupList.get(position).getId()));
+//                startActivity(new Intent(context, StudyGroupDetailActivity.class).putExtra("groupId", groupList.get(position).getId()));
+                startActivity(new Intent(context, ChatActivity.class)
+                .putExtra("groupHead", groupList.get(position).getHeadUrl())
+                .putExtra("chatType", ChatActivity.CHATTYPE_GROUP)
+                .putExtra("groupHXId", groupList.get(position).getGroupId())
+                .putExtra("groupId", groupList.get(position).getId()));
             }
 
 //            @Override
