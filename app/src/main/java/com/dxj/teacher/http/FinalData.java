@@ -16,9 +16,10 @@ public class FinalData {
 
     public final static String URL_YUNDUO = "http://yunduo.miuhouse.com/app/";
 
-    public final static String URL_VALUE = "http://192.168.1.124:8080/appteacher/";
-    public final static String URL_VALUE_COMMON = "http://192.168.1.124:8080/appcommon/";
-//     public final static String URL_VALUE = "http://cloud.miuhouse.com/app/";
+//    public final static String URL_VALUE = "http://192.168.1.124:8080/appteacher/";
+//    public final static String URL_VALUE_COMMON = "http://192.168.1.124:8080/appcommon/";
+    public final static String URL_VALUE_COMMON = "http://api.miuhouse.com/appcommon/";
+    public final static String URL_VALUE = "http://api.miuhouse.com/appteacher/";
     // 分享链接
     public final static String URL_SHARE = "http://cloud.miuhouse.com/down";
     public final static String URL_INDEX = "http://cloud.miuhouse.com/index";
