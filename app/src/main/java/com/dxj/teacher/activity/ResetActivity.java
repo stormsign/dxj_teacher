@@ -37,6 +37,7 @@ import cn.smssdk.SMSSDK;
 
 /**
  * Created by kings on 9/13/2015.
+ * 重置密码
  */
 public class ResetActivity extends BaseActivity implements View.OnClickListener {
     /*验证码*/

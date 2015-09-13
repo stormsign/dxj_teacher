@@ -209,7 +209,7 @@ public class UpdateImageActivity extends BaseActivity {
     @Override
     public void initData() {
         id = getIntent().getStringExtra("id");
-        imageList.addAll(getIntent().getStringArrayListExtra("photoList"));
+        imageList.addAll(MyApplication.getInstance().getUserBean().getUserInfo().getImages());
     }
 
     @Override
@@ -219,10 +219,7 @@ public class UpdateImageActivity extends BaseActivity {
             if (resultCode == RESULT_OK) {
                 mSelectPath = data.getStringArrayListExtra(MultiImageSelectorActivity.EXTRA_RESULT);
                 StringBuilder sb = new StringBuilder();
-//                if (imageList.size() > 0) {
-//                    Log.i("TAG","image");
-//                    imageList.clear();
-//                }
+
                 for (String p : mSelectPath) {
                     Log.i("TAG", "mSelectPath=" + p);
                     imageList.add(p);

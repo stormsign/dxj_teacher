@@ -39,7 +39,7 @@ public class MyApplication extends Application {
 
     public static Context applicationContext;
     private static MyApplication instance;
-    private  UserBean mUserBean;
+    private UserBean mUserBean;
     private String id;
     private String locationdescribe;
     private String lontitude;
@@ -59,7 +59,7 @@ public class MyApplication extends Application {
         this.address = address;
     }
 
-    private  String address;
+    private String address;
     /**
      * 当前用户nickname,为了苹果推送不是userid而是昵称
      */
@@ -79,9 +79,10 @@ public class MyApplication extends Application {
         mLocationClient = new LocationClient(this.getApplicationContext());
         mMyLocationListener = new MyLocationListener();
         mLocationClient.registerLocationListener(mMyLocationListener);
-        mVibrator =(Vibrator)getApplicationContext().getSystemService(Service.VIBRATOR_SERVICE);
+        mVibrator = (Vibrator) getApplicationContext().getSystemService(Service.VIBRATOR_SERVICE);
 
     }
+
     /**
      * 实现实时位置回调监听
      */
@@ -101,8 +102,8 @@ public class MyApplication extends Application {
             sb.append(location.getLongitude());
             sb.append("\nradius : ");
             sb.append(location.getRadius());
-            if (location.getLocType() == BDLocation.TypeGpsLocation){// GPS定位结果
-               Log.i("TAG","Gps");
+            if (location.getLocType() == BDLocation.TypeGpsLocation) {// GPS定位结果
+                Log.i("TAG", "Gps");
                 sb.append("\nspeed : ");
                 sb.append(location.getSpeed());// 单位：公里每小时
                 sb.append("\nsatellite : ");
@@ -116,8 +117,8 @@ public class MyApplication extends Application {
                 sb.append("\ndescribe : ");
                 sb.append("gps定位成功");
 
-            } else if (location.getLocType() == BDLocation.TypeNetWorkLocation){// 网络定位结果
-                Log.i("TAG","address"+location.getAddrStr());
+            } else if (location.getLocType() == BDLocation.TypeNetWorkLocation) {// 网络定位结果
+                Log.i("TAG", "address" + location.getAddrStr());
                 sb.append("\naddr : ");
                 sb.append(location.getAddrStr());
                 //运营商信息
@@ -148,11 +149,11 @@ public class MyApplication extends Application {
 
     }
 
-    private void sendRequestData(double x,double  y) {
+    private void sendRequestData(double x, double y) {
 
         String urlPath = FinalData.URL_VALUE + HttpUtils.LOC;
         Map<String, Object> map = new HashMap<>();
-        if (StringUtils.isEmpty(getUserId())){
+        if (StringUtils.isEmpty(getUserId())) {
             return;
         }
         map.put("id", getUserId());
@@ -184,6 +185,7 @@ public class MyApplication extends Application {
             }
         };
     }
+
     public void setLatitude(String latitude) {
         this.latitude = latitude;
     }
@@ -216,6 +218,7 @@ public class MyApplication extends Application {
     public String getUserName() {
         return hxSDKHelper.getHXId();
     }
+
     /**
      * 获取用户信息
      *
@@ -223,12 +226,13 @@ public class MyApplication extends Application {
      */
     public UserBean getUserBean() {
 //        if (mUserBean == null) {
-            // 从文件获取
+        // 从文件获取
 
-            mUserBean = AccountDBTask.getAccount();
+        mUserBean = AccountDBTask.getAccount();
 //        }
         return mUserBean;
     }
+
     public String getUserId() {
         if (id == null) {
             // 从文件获取
@@ -237,6 +241,7 @@ public class MyApplication extends Application {
         }
         return id;
     }
+
     /**
      * 获取密码
      *
@@ -268,23 +273,26 @@ public class MyApplication extends Application {
     /**
      * 退出登录,清空数据
      */
-    public void logout(final boolean isGCM,final EMCallBack emCallBack) {
+    public void logout(final boolean isGCM, final EMCallBack emCallBack) {
         // 先调用sdk logout，在清理app中自己的数据
         hxSDKHelper.logout(isGCM, emCallBack);
     }
 
-    public static MyApplication getInstance(){
+    public static MyApplication getInstance() {
         return instance;
     }
+
     public void setUserBean(UserBean userbean) {
         this.mUserBean = userbean;
     }
-//    把一个Activity加入到内存中
-    public static void addActivity(Activity activity){
+
+    //    把一个Activity加入到内存中
+    public static void addActivity(Activity activity) {
         storedActivities.add(activity);
     }
-//    将内存记录的Activity全部退出
-    public static void quitActivities(){
+
+    //    将内存记录的Activity全部退出
+    public static void quitActivities() {
         for (Activity activity :
                 storedActivities) {
             activity.finish();

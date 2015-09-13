@@ -28,8 +28,8 @@
 
                 <ImageView
                     android:id="@+id/img_avatar"
-                    android:layout_width="96dp"
-                    android:layout_height="96dp"
+                    android:layout_width="75dp"
+                    android:layout_height="75dp"
                     android:layout_marginTop="24dp"
                     android:src="@mipmap/default_avatar" />
 
@@ -37,21 +37,19 @@
                     android:id="@+id/tv_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="5dp"
                     android:gravity="center"
                     android:text="老师的名字"
-
-                    android:textColor="#ffffff"
-                    android:textSize="18sp" />
+                    android:textColor="@android:color/white"
+                    android:textSize="15sp" />
 
                 <TextView
                     android:id="@+id/tv_recomment"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:textColor="#ffffff"
-
-                    android:textSize="14sp" />
+                    android:layout_marginTop="5dp"
+                    android:textColor="#ffeaeaea"
+                    android:textSize="13sp" />
 
             </LinearLayout>
 
@@ -81,7 +79,7 @@
             <RadioGroup
                 android:id="@+id/radio_group"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/height_48dp"
+                android:layout_height="40dp"
                 android:orientation="horizontal"
                 android:gravity="center"
                 android:paddingLeft="@dimen/margin_20dp"

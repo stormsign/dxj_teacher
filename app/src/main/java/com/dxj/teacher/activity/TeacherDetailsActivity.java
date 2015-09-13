@@ -32,6 +32,7 @@ import java.util.Map;
 
 /**
  * Created by kings on 9/8/2015.
+ * 老师详情
  */
 public class TeacherDetailsActivity extends BaseActivity {
     private RadioGroup radioGroup;

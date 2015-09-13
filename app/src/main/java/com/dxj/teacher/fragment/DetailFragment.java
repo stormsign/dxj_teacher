@@ -215,6 +215,7 @@ public class DetailFragment extends BaseFragment {
     }
 
     private void showPhoto(List<String> lists) {
+        if (lists!=null&&lists.size()>0){
         int count = lists.size();
         for (int i = 0; i < count; i++) {
             final ImageView pic = (ImageView) linearPhoto.getChildAt(i);
@@ -231,5 +232,5 @@ public class DetailFragment extends BaseFragment {
                     break;
             }
         }
-    }
+    }}
 }
