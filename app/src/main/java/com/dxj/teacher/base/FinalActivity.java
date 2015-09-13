@@ -96,7 +96,7 @@ public class FinalActivity extends FragmentActivity {
         }else{
             showLogE("there is no activity can handle this intent: " + intent.getAction().toString());
         }
-        overridePendingTransition(R.anim.activity_translate_in, R.anim.activity_translate_out);
+        overridePendingTransition(R.anim.slide_in_from_right, R.anim.slide_out_to_right);
     }
 
     /** 通过Action跳转界面 **/
@@ -134,7 +134,7 @@ public class FinalActivity extends FragmentActivity {
         }else{
             showLogE("there is no activity can handle this intent: " + intent.getAction().toString());
         }
-        overridePendingTransition(R.anim.activity_translate_in, R.anim.activity_translate_out);
+        overridePendingTransition(R.anim.slide_in_from_right, R.anim.slide_out_to_right);
     }
 
 
@@ -204,7 +204,7 @@ public class FinalActivity extends FragmentActivity {
     /** 带有右进右出动画的退出 **/
     public void finish() {
         super.finish();
-        overridePendingTransition(R.anim.activity_translate_in, R.anim.activity_translate_out);
+        overridePendingTransition(R.anim.slide_in_from_right, R.anim.slide_out_to_right);
     }
 
     /** 默认退出 **/

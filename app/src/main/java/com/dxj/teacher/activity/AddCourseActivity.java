@@ -14,7 +14,6 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
-import android.widget.Switch;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSONObject;
@@ -269,7 +268,7 @@ public class AddCourseActivity extends BaseActivity implements View.OnClickListe
         popSubject.setBackgroundDrawable(new BitmapDrawable());
         popSubject.setOutsideTouchable(false);
         popSubject.setContentView(popView);
-        popSubject.setAnimationStyle(R.style.popwindow_anim_slide);
+        popSubject.setAnimationStyle(R.style.popwindow_anim_scale_slide);
 
         rv_first = (RecyclerView) popView.findViewById(R.id.rv_first_category);
         rv_second = (RecyclerView) popView.findViewById(R.id.rv_second_category);

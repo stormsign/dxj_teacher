@@ -13,12 +13,6 @@ import com.dxj.teacher.activity.EditCourseActivity;
 import com.dxj.teacher.activity.TeacherDetailsActivity;
 import com.dxj.teacher.activity.UpdateUserInfoActivity;
 import com.dxj.teacher.base.BaseFragment;
-import com.dxj.teacher.utils.LogUtils;
-import com.dxj.teacher.utils.MyUtils;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 import cn.smssdk.EventHandler;
 import cn.smssdk.SMSSDK;
@@ -88,7 +82,6 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
 
     @Override
     public void onDestroy() {
-        SMSSDK.unregisterEventHandler(eventHandler);
         super.onDestroy();
     }
 

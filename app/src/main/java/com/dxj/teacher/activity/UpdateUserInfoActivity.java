@@ -263,7 +263,6 @@ public class UpdateUserInfoActivity extends BaseActivity implements View.OnClick
                     sbf.append(userBean.getUserInfo().getSolveLabel().get(i).toString());
                 else
                     sbf.append(userBean.getUserInfo().getSolveLabel().get(i).toString() + ",");
-
             }
             tvSolveLabel.setText(sbf.toString());
 

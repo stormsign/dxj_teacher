@@ -30,6 +30,7 @@
             android:id="@+id/cv_group_head"
             >
         <RelativeLayout
+            android:id="@+id/iv_group_avatar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#fff"
