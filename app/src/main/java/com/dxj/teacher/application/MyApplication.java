@@ -222,11 +222,11 @@ public class MyApplication extends Application {
      * @return
      */
     public UserBean getUserBean() {
-        if (mUserBean == null) {
+//        if (mUserBean == null) {
             // 从文件获取
 
             mUserBean = AccountDBTask.getAccount();
-        }
+//        }
         return mUserBean;
     }
     public String getUserId() {

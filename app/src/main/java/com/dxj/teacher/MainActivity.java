@@ -278,12 +278,12 @@ public class MainActivity extends BaseActivity implements EMEventListener {
             public void run() {
                 // 刷新bottom bar消息未读数
                 updateUnreadLabel();
-                if (fm.findFragmentByTag("MESSAGE").isVisible()) {
+//                if (fm.findFragmentByTag("MESSAGE").isVisible()) {
                     // 当前页面如果为聊天历史页面，刷新此页面
-                    if (fm.findFragmentByTag("MESSAGE") != null) {
+//                    if (fm.findFragmentByTag("MESSAGE") != null) {
                         ((MessageFragment)FragmentFactory.getFragment(MESSAGE)).refresh();
-                    }
-                }
+//                    }
+//                }
             }
         });
     }

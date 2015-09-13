@@ -39,6 +39,7 @@ import android.widget.TextView;
 import android.widget.TextView.BufferType;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.dxj.teacher.R;
 import com.dxj.teacher.activity.AlertDialog;
 import com.dxj.teacher.activity.ChatActivity;
@@ -48,6 +49,7 @@ import com.dxj.teacher.activity.ShowNormalFileActivity;
 import com.dxj.teacher.activity.ShowVideoActivity;
 import com.dxj.teacher.activity.UserProfileActivity;
 
+import com.dxj.teacher.application.MyApplication;
 import com.easemob.EMCallBack;
 import com.easemob.EMError;
 import com.easemob.applib.controller.HXSDKHelper;
@@ -424,7 +426,12 @@ public class MessageAdapter extends BaseAdapter{
 		// 群聊时，显示接收的消息的发送人的名称
 		if ((chatType == ChatType.GroupChat || chatType == ChatType.ChatRoom) && message.direct == Direct.RECEIVE){
 		    //demo里使用username代码nick
-			UserUtils.setUserNick(message.getFrom(), holder.tv_usernick);
+//			UserUtils.setUserNick(message.getFrom(), holder.tv_usernick);
+			try {
+				holder.tv_usernick.setText(message.getStringAttribute("nick"));
+			} catch (EaseMobException e) {
+				e.printStackTrace();
+			}
 		}
 		if(message.direct == Direct.SEND){
 			UserUtils.setCurrentUserNick(holder.tv_usernick);
@@ -578,10 +585,16 @@ public class MessageAdapter extends BaseAdapter{
 	private void setUserAvatar(final EMMessage message, ImageView imageView){
 	    if(message.direct == Direct.SEND){
 	        //显示自己头像
-	        UserUtils.setCurrentUserAvatar(context, imageView);
+//	        UserUtils.setCurrentUserAvatar(context, imageView);
+			Glide.with(context).load(MyApplication.getInstance().getUserBean().getUserInfo().getHeadUrl()).placeholder(R.mipmap.default_avatar).into(imageView);
 	    }else{
-	        UserUtils.setUserAvatar(context, message.getFrom(), imageView);
-	    }
+//	        UserUtils.setUserAvatar(context, message.getFrom(), imageView);
+			try {
+				Glide.with(context).load(message.getStringAttribute("userHead")).placeholder(R.mipmap.default_avatar).into(imageView);
+			} catch (EaseMobException e) {
+				e.printStackTrace();
+			}
+		}
 	    imageView.setOnClickListener(new OnClickListener() {
 			
 			@Override

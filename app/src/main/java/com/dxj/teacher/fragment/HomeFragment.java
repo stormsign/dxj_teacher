@@ -43,52 +43,52 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     public void initData() {
 //        List<String>
 
-//        SMSSDK.initSDK(context, MyUtils.SMSSDK_APP_KEY, MyUtils.SMSSDK_APP_SECRET);
-//        eventHandler = new EventHandler() {
-//            @Override
-//            public void onRegister() {
-//                super.onRegister();
-//            }
-//
-//            @Override
-//            public void onUnregister() {
-//                super.onUnregister();
-//            }
-//
-//            @Override
-//            public void beforeEvent(int i, Object o) {
-//                super.beforeEvent(i, o);
-//            }
-//
-//            @Override
-//            public void afterEvent(int event, int result, Object data) {
-//                if (result == SMSSDK.RESULT_COMPLETE) {
-//                    //回调完成
-//                    if (event == SMSSDK.EVENT_SUBMIT_VERIFICATION_CODE) {
-//                        //提交验证码成功
-//                        Map<String, Object> map = (HashMap<String, Object>) data;
-//                        LogUtils.w("EVENT_SUBMIT_VERIFICATION_CODE " + map.toString());
-//                    } else if (event == SMSSDK.EVENT_GET_VERIFICATION_CODE) {
-//                        //获取验证码成功
-//                        LogUtils.w("get code success");
-//                    } else if (event == SMSSDK.EVENT_GET_SUPPORTED_COUNTRIES) {
-//                        //返回支持发送验证码的国家列表
-//                        ArrayList<HashMap<String, Object>> countryList = (ArrayList<HashMap<String, Object>>) data;
-//                        LogUtils.d("countryList = " + countryList.toString());
-//                    }
-//                } else {
-//                    ((Throwable) data).printStackTrace();
-//                }
-//            }
-//        };
-//        SMSSDK.registerEventHandler(eventHandler);
-//
-//        SMSSDK.getSupportedCountries();
+        SMSSDK.initSDK(context, MyUtils.SMSSDK_APP_KEY, MyUtils.SMSSDK_APP_SECRET);
+        eventHandler = new EventHandler() {
+            @Override
+            public void onRegister() {
+                super.onRegister();
+            }
+
+            @Override
+            public void onUnregister() {
+                super.onUnregister();
+            }
+
+            @Override
+            public void beforeEvent(int i, Object o) {
+                super.beforeEvent(i, o);
+            }
+
+            @Override
+            public void afterEvent(int event, int result, Object data) {
+                if (result == SMSSDK.RESULT_COMPLETE) {
+                    //回调完成
+                    if (event == SMSSDK.EVENT_SUBMIT_VERIFICATION_CODE) {
+                        //提交验证码成功
+                        Map<String, Object> map = (HashMap<String, Object>) data;
+                        LogUtils.w("EVENT_SUBMIT_VERIFICATION_CODE " + map.toString());
+                    } else if (event == SMSSDK.EVENT_GET_VERIFICATION_CODE) {
+                        //获取验证码成功
+                        LogUtils.w("get code success");
+                    } else if (event == SMSSDK.EVENT_GET_SUPPORTED_COUNTRIES) {
+                        //返回支持发送验证码的国家列表
+                        ArrayList<HashMap<String, Object>> countryList = (ArrayList<HashMap<String, Object>>) data;
+                        LogUtils.d("countryList = " + countryList.toString());
+                    }
+                } else {
+                    ((Throwable) data).printStackTrace();
+                }
+            }
+        };
+        SMSSDK.registerEventHandler(eventHandler);
+
+        SMSSDK.getSupportedCountries();
     }
 
     @Override
     public void onDestroy() {
-//        SMSSDK.unregisterEventHandler(eventHandler);
+        SMSSDK.unregisterEventHandler(eventHandler);
         super.onDestroy();
     }
 
@@ -105,6 +105,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         yzm = (EditText) view.findViewById(R.id.yzm);
         view.findViewById(R.id.sms).setOnClickListener(this);
         view.findViewById(R.id.verifysms).setOnClickListener(this);
+        view.findViewById(R.id.userinfo).setOnClickListener(this);
         return view;
     }
 
@@ -129,6 +130,9 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                 break;
             case R.id.verifysms:
                 SMSSDK.submitVerificationCode("86", "15068205384", yzm.getText().toString());
+                break;
+            case R.id.userinfo:
+                startActivity(new Intent(getActivity(), UpdateUserInfoActivity.class));
                 break;
 
         }

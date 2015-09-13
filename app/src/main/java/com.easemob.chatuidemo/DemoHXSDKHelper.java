@@ -339,7 +339,7 @@ public class DemoHXSDKHelper extends HXSDKHelper {
                         intent.putExtra("chatType", ChatActivity.CHATTYPE_SINGLE);
                     } else { // 群聊信息
                         // message.getTo()为群聊id
-                        intent.putExtra("groupId", message.getTo());
+                        intent.putExtra("groupHXId", message.getTo());
                         if(chatType == ChatType.GroupChat){
                             intent.putExtra("chatType", ChatActivity.CHATTYPE_GROUP);
                         }else{

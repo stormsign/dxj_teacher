@@ -933,8 +933,14 @@ public class ChatActivity extends BaseActivity implements OnClickListener, EMEve
 			message.addBody(txtBody);
 			// 设置要发给谁,用户username或者群聊groupid
 			message.setReceipt(toChatUsername);
+//			添加学团头像
 			message.setAttribute("groupHead", groupHead);
+//			添加学团主键，用于查找乐团详细
 			message.setAttribute("groupId", myGroupId);
+//			添加自己的头像
+			message.setAttribute("userHead", mApplication.getUserBean().getUserInfo().getHeadUrl());
+//			添加昵称
+			message.setAttribute("nick", mApplication.getUserBean().getUserInfo().getNickName());
 			// 把messgage加到conversation中
 			conversation.addMessage(message);
 			// 通知adapter有消息变动，adapter会根据加入的这条message显示消息和调用sdk的发送方法
