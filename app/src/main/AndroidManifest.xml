@@ -271,6 +271,7 @@
         <activity android:name=".activity.CardDegreesActvity"/>
         <activity android:name=".activity.TeacherDetailsActivity"/>
         <activity android:name=".activity.MediaActivity"/>
+        <activity android:name=".activity.ResetActivity"/>
     </application>
 
 </manifest>

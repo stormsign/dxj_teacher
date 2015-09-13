@@ -8,4 +8,15 @@
         <attr name="foreground"
             format="reference"/>
     </declare-styleable>
+    <declare-styleable name="PagerSlidingTabStrip">
+        <attr name="indicatorColor" format="color" />
+        <attr name="underlineColor" format="color" />
+        <attr name="dividerColor" format="color" />
+        <attr name="indicatorHeight" format="dimension" />
+        <attr name="underlineHeight" format="dimension" />
+        <attr name="tabPaddingLeftRight" format="dimension" />
+        <attr name="scrollOffset" format="dimension" />
+        <attr name="shouldExpand" format="boolean" />
+        <attr name="textAllCapss" format="boolean" />
+    </declare-styleable>
 </resources>

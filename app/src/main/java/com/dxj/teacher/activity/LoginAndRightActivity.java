@@ -17,7 +17,7 @@ import com.dxj.teacher.widget.PagerSlidingTabStrip;
 import java.util.ArrayList;
 
 /**
- * 广场
+ * 登录和注册
  * 
  * @author Administrator
  * 
@@ -60,7 +60,7 @@ public class LoginAndRightActivity extends BaseActivity implements View.OnClickL
 	// 根据title添加界面
 	addFragment();
 	// 设置tab选中底部颜色
-	// mTabs.setIndicatorColorResource(R.color.tabs);
+	 mTabs.setIndicatorColorResource(R.color.msg_color);
 	// 设置tab长度
 	mTabs.setInfoDataNum(adapter.fragmentsList.size());
 	// 设置Viewpage属性
@@ -69,7 +69,7 @@ public class LoginAndRightActivity extends BaseActivity implements View.OnClickL
 	mPage.setOffscreenPageLimit(adapter.fragmentsList.size());
 	// 关联ViewPage
 	// mTabs.setPageChangeView(mActivity, multipleActions);
-	mTabs.setPageChangeView(this);
+//	mTabs.setPageChangeView(this);
 	mTabs.setViewPager(mPage);
 	mTabs.setCheckTextTab(0);
     }

@@ -11,6 +11,8 @@ public class HttpUtils {
 	public static final String LOGIN="login";
 	//注册
 	public static final String RIGISTER="register";
+	//重置密码
+	public static final String RESET="reset";
 	//修改老师名字
 	public static final String NICE_NAME="nickName";
 	//性别

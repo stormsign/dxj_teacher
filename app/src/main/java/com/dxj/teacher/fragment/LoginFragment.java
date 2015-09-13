@@ -3,6 +3,7 @@ package com.dxj.teacher.fragment;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.text.InputType;
@@ -20,6 +21,7 @@ import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.dxj.teacher.R;
+import com.dxj.teacher.activity.ResetActivity;
 import com.dxj.teacher.application.MyApplication;
 import com.dxj.teacher.base.BaseFragment;
 import com.dxj.teacher.bean.UserBean;
@@ -71,6 +73,7 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener 
         btnLogin = (Button) view.findViewById(R.id.btn_login);
         etPhone.setInputType(InputType.TYPE_CLASS_NUMBER);
         btnLogin.setOnClickListener(this);
+        view.findViewById(R.id.tv_forget).setOnClickListener(this);
         return view;
     }
 
@@ -82,6 +85,9 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener 
 
                 localLogin();
 
+                break;
+            case R.id.tv_forget:
+                startActivity(new Intent(getActivity(), ResetActivity.class));
                 break;
         }
     }
@@ -136,13 +142,12 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener 
                 Log.i("TAG", "userBean=" + userBean.toString());
                 progressFragment.dismissAllowingStateLoss();
                 if (userBean != null) {
-                    if (userBean.getCode() == 0){
+                    if (userBean.getCode() == 0) {
                         ToastUtils.showToast(getActivity(), userBean.getMsg());
                         AccountDBTask.saveUserBean(userBean);
                         MyApplication.getInstance().setUserBean(userBean);
                         loginHuanXin(userBean.getUserInfo().getMobile());
-                    }
-                    else
+                    } else
                         ToastUtils.showToast(getActivity(), userBean.getMsg());
                 } else {
                     ToastUtils.showToast(getActivity(), "登录失败");
@@ -150,57 +155,59 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener 
             }
         };
     }
-private  void loginHuanXin(final String mobile){
-    EMChatManager.getInstance().login("teacher"+mobile, "1234456", new EMCallBack() {//回调
-        @Override
-        public void onSuccess() {
-       Log.i("TAG","loginHuanXin");
-            // 登陆成功，保存用户名密码
-            MyApplication.getInstance().setUserName("teacher"+mobile);
-            MyApplication.getInstance().setPassword("1234456");
-            getActivity().runOnUiThread(new Runnable() {
-                public void run() {
-                    try {
-                        // ** 第一次登录或者之前logout后再登录，加载所有本地群和回话
-                        // ** manually load all local groups and
-                        EMGroupManager.getInstance().loadAllGroups();
-                        EMChatManager.getInstance().loadAllConversations();
-                        Log.d("main", "登陆聊天服务器成功！");
-                        // 处理好友和群组
-                        initializeContacts();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                        // 取好友或者群聊失败，不让进入主页面
-                        getActivity().runOnUiThread(new Runnable() {
-                            public void run() {
-                                DemoHXSDKHelper.getInstance().logout(true, null);
-                                Toast.makeText(getActivity().getApplicationContext(), R.string.login_failure_failed, Toast.LENGTH_SHORT).show();
-                            }
-                        });
-                        return;
+
+    private void loginHuanXin(final String mobile) {
+        EMChatManager.getInstance().login("teacher" + mobile, "1234456", new EMCallBack() {//回调
+            @Override
+            public void onSuccess() {
+                Log.i("TAG", "loginHuanXin");
+                // 登陆成功，保存用户名密码
+                MyApplication.getInstance().setUserName("teacher" + mobile);
+                MyApplication.getInstance().setPassword("1234456");
+                getActivity().runOnUiThread(new Runnable() {
+                    public void run() {
+                        try {
+                            // ** 第一次登录或者之前logout后再登录，加载所有本地群和回话
+                            // ** manually load all local groups and
+                            EMGroupManager.getInstance().loadAllGroups();
+                            EMChatManager.getInstance().loadAllConversations();
+                            Log.d("main", "登陆聊天服务器成功！");
+                            // 处理好友和群组
+                            initializeContacts();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            // 取好友或者群聊失败，不让进入主页面
+                            getActivity().runOnUiThread(new Runnable() {
+                                public void run() {
+                                    DemoHXSDKHelper.getInstance().logout(true, null);
+                                    Toast.makeText(getActivity().getApplicationContext(), R.string.login_failure_failed, Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                            return;
+                        }
+
                     }
-
+                });
+                // 更新当前用户的nickname 此方法的作用是在ios离线推送时能够显示用户nick
+                boolean updatenick = EMChatManager.getInstance().updateCurrentUserNick(
+                        MyApplication.currentUserNick.trim());
+                if (!updatenick) {
+                    Log.e("LoginActivity", "update current user nick fail");
                 }
-            });
-            // 更新当前用户的nickname 此方法的作用是在ios离线推送时能够显示用户nick
-            boolean updatenick = EMChatManager.getInstance().updateCurrentUserNick(
-                    MyApplication.currentUserNick.trim());
-            if (!updatenick) {
-                Log.e("LoginActivity", "update current user nick fail");
             }
-        }
 
-        @Override
-        public void onProgress(int progress, String status) {
+            @Override
+            public void onProgress(int progress, String status) {
 
-        }
+            }
 
-        @Override
-        public void onError(int code, String message) {
-            Log.d("main", "登陆聊天服务器失败！");
-        }
-    });
-}  //    环信账号登录后的处理
+            @Override
+            public void onError(int code, String message) {
+                Log.d("main", "登陆聊天服务器失败！");
+            }
+        });
+    }  //    环信账号登录后的处理
+
     private void initializeContacts() {
         Map<String, User> userlist = new HashMap<String, User>();
         // 添加user"申请与通知"
@@ -234,6 +241,7 @@ private  void loginHuanXin(final String mobile){
         List<User> users = new ArrayList<User>(userlist.values());
         dao.saveContactList(users);
     }
+
     private Response.ErrorListener getErrorListener() {
         return new Response.ErrorListener() {
 

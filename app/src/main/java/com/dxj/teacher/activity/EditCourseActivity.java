@@ -51,20 +51,20 @@ public class EditCourseActivity extends SwipeRefreshBaseActivity implements View
             sendRequestData();
         }
     }
-    @Override protected void onPostCreate(Bundle savedInstanceState) {
+
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
 
     }
+
     @Override
     public void requestDataRefresh() {
-        Log.i("TAG","mSwipeRefreshLayou="+mSwipeRefreshLayout.isRefreshing());
-//        //mMeizhiList.clear();
-//        //mPage = 1;
-//        //getData(/* add from db */ false);
-//        setRefreshing(false);
-
-//        if (!mSwipeRefreshLayout.isRefreshing()) {
-            sendRequestData();
+        Log.i("TAG", "mSwipeRefreshLayou=" + mSwipeRefreshLayout.isRefreshing());
+        if (courseBeanList.size()>0){
+            courseBeanList.clear();
+        }
+        sendRequestData();
 //        }
     }
 
@@ -104,13 +104,6 @@ public class EditCourseActivity extends SwipeRefreshBaseActivity implements View
 
             @Override
             public void onBackClick() {
-//                setResult(RESULT_OK, new Intent().putExtra("subjectName", subjectName)
-//                        .putExtra("subjectFirst", subjectFirst)
-//                        .putExtra("subjectSecond", subjectSecond)
-//                        .putExtra("subjectThree", subjectThree));
-//                if (subjectList != null && subjectList.isShowing()) {
-//                    subjectList.dismiss();
-//                }
             }
         });
     }
@@ -124,6 +117,15 @@ public class EditCourseActivity extends SwipeRefreshBaseActivity implements View
         recyclerView.setAdapter(courseAdapter);
         courseAdapter.setOnCheckmarkItemClickListener(this);
         btnAdd.setOnClickListener(this);
+        courseAdapter.setOnSubjectItemClickListener(new CourseAdapter.OnSubjectItemClickListener() {
+            @Override
+            public void onSubjectItemClick(View view, int position) {
+                //传给AddCourseActivity页面 CourseBean 进行修改
+                Intent intent = new Intent(context,AddCourseActivity.class);
+                intent.putExtra("course",courseBeanList.get(position));
+                startActivity(intent);
+            }
+        });
     }
 
     @Override

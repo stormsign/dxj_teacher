@@ -9,37 +9,47 @@
     <com.dxj.teacher.widget.TitleNavBar
         android:id="@+id/title"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"></com.dxj.teacher.widget.TitleNavBar>
+        android:layout_height="wrap_content"/>
 
-    <LinearLayout
-        android:id="@+id/btn_add_course"
+    <android.support.v7.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:gravity="center"
-        android:orientation="horizontal"
+        android:layout_height="42dp"
         android:background="@android:color/white"
+        app:cardCornerRadius="0dp"
+        app:cardElevation="1dp"
+
         >
 
-        <ImageView
-            android:layout_width="21dp"
-            android:layout_height="21dp"
-            android:background="@mipmap/kechen_icon_tianjia"
-            android:layout_marginRight="5dp"
-            />
-
-        <TextView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/btn_add_course"
+            android:layout_width="match_parent"
             android:layout_height="40dp"
             android:gravity="center"
-            android:text="新添加一门课程"
-            android:textColor="@android:color/black"
-            android:textSize="@dimen/text_13sp" />
-    </LinearLayout>
+            android:orientation="horizontal"
+            android:layout_marginBottom="2dp"
+            >
+
+            <ImageView
+                android:layout_width="21dp"
+                android:layout_height="21dp"
+                android:layout_marginRight="5dp"
+                android:background="@mipmap/kechen_icon_tianjia" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:text="新添加一门课程"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/text_13sp" />
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
 
     <com.dxj.teacher.widget.MultiSwipeRefreshLayout
         android:id="@+id/swipe_refresh_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        >
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/search_result"
@@ -50,7 +60,8 @@
             android:dividerHeight="0dp"
             android:listSelector="@android:color/transparent"
             android:scrollbars="none"
-            android:visibility="visible" />
+            android:visibility="visible"
+            />
     </com.dxj.teacher.widget.MultiSwipeRefreshLayout>
 
 

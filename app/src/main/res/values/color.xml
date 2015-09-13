@@ -16,6 +16,7 @@
     <color name="text_black_64">#ff646464</color>
     <color name="text_black_two">#ffBBBBBB</color>
     <color name="text_black_voice">#ff71bdff</color>
+    <color name="text_price">#ffff704b</color>
 
     <color name="btn_press_color">#66000000</color>
     <color name="btn_unpress_color">#22000000</color>
@@ -29,7 +30,7 @@
     <!-- tabStrip color-->
     <color name="azure">#f0ffff</color>
     <color name="background_tab_pressed">#6633B5E5</color>
-    <color name="rbuttonNo">#8a8a8a</color>
+    <color name="rbuttonNo">#ffcdcdcd</color>
 
     <!--环信颜色 开始-->
 

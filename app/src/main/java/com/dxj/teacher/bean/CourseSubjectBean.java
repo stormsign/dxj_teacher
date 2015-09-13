@@ -9,12 +9,21 @@ import java.util.List;
  * 科目
  */
 public class CourseSubjectBean implements  Serializable{
-    private String id;
-    private String teacherId;
-    private int subjectId;
-    private String subjectName;
-    private String remark;
+    private String id;/*科目id*/
+    private String teacherId;/*老师id*/
+    private int subjectId;/*科目名字id*/
+    private String subjectName;/*科目名字*/
+    private String remark;/*专业背景*/
+    private String fullName;/**/
     private List<ClassWayBean> classWay = new ArrayList<>();
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
 
     public void setClassWay(List<ClassWayBean> classWay) {
         this.classWay = classWay;
