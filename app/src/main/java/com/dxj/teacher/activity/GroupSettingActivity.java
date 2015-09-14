@@ -116,6 +116,7 @@ public class GroupSettingActivity extends BaseActivity {
     };
     private String imageAddress;
     private String imagePath;
+    private Uri photoUri;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -448,7 +449,7 @@ public class GroupSettingActivity extends BaseActivity {
                 UpdatePhotoUtils.startPhotoZoomOne(selectedImageUri, activity, imageAddress);
 
             } else if (requestCode == UpdatePhotoUtils.TAKE_PICTURE) {
-                Uri photoUri = Uri.fromFile(UpdatePhotoUtils.photo(context));
+//                Uri photoUri = Uri.fromFile(UpdatePhotoUtils.photo(context));
                 // 拍摄图片
                 try {
                     imageAddress = UpdatePhotoUtils.getImageAddress();
@@ -490,7 +491,7 @@ public class GroupSettingActivity extends BaseActivity {
     public void photo() {
         //获取文件
         File out = UpdatePhotoUtils.photo(this);
-        Uri photoUri = Uri.fromFile(out);
+        photoUri = Uri.fromFile(out);
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         intent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri);
         startActivityForResult(intent, UpdatePhotoUtils.TAKE_PICTURE);
