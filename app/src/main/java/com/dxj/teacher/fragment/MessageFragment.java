@@ -115,7 +115,8 @@ public class MessageFragment extends BaseFragment{
                             try {
                                 intent.putExtra("chatType", ChatActivity.CHATTYPE_GROUP);
                                 intent.putExtra("groupHXId", username)
-                                    .putExtra("groupHead", conversation.getLastMessage().getStringAttribute("groupHead"))
+                                .putExtra("groupHead", conversation.getLastMessage().getStringAttribute("groupHead"))
+                                .putExtra("groupName", conversation.getLastMessage().getStringAttribute("groupName"))
                                 .putExtra("groupId", conversation.getLastMessage().getStringAttribute("groupId"));
                             } catch (EaseMobException e) {
                                 e.printStackTrace();

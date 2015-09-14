@@ -396,7 +396,6 @@ public class GroupSettingActivity extends BaseActivity {
         });
         bt1.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-//                photo();
                 UpdatePhotoUtils.startPhotoZoom(activity);
                 portraitPop.dismiss();
             }
@@ -410,6 +409,7 @@ public class GroupSettingActivity extends BaseActivity {
 //                } else {
 //                    startPhotoZoom();
 //                }
+                photo();
                 portraitPop.dismiss();
             }
         });
@@ -424,11 +424,10 @@ public class GroupSettingActivity extends BaseActivity {
 
     @Override
     protected void onActivityResult(final int requestCode, final int resultCode, final Intent data) {
-        if (requestCode == UpdatePhotoUtils.RESULT_LOAD_IMAGE
-                || requestCode == UpdatePhotoUtils.TAKE_PICTURE
-                || requestCode == UpdatePhotoUtils.CUT_PHOTO_REQUEST_CODE) {
+//        if (requestCode == UpdatePhotoUtils.RESULT_LOAD_IMAGE
+//                || requestCode == UpdatePhotoUtils.TAKE_PICTURE
+//                || requestCode == UpdatePhotoUtils.CUT_PHOTO_REQUEST_CODE) {
 
-            Uri photoUri = Uri.fromFile(UpdatePhotoUtils.photo(context));
             //获取图片路径
             if (UpdatePhotoUtils.RESULT_LOAD_IMAGE == requestCode) {
                 if (data == null) {
@@ -449,6 +448,7 @@ public class GroupSettingActivity extends BaseActivity {
                 UpdatePhotoUtils.startPhotoZoomOne(selectedImageUri, activity, imageAddress);
 
             } else if (requestCode == UpdatePhotoUtils.TAKE_PICTURE) {
+                Uri photoUri = Uri.fromFile(UpdatePhotoUtils.photo(context));
                 // 拍摄图片
                 try {
                     imageAddress = UpdatePhotoUtils.getImageAddress();
@@ -483,7 +483,7 @@ public class GroupSettingActivity extends BaseActivity {
                 }
 
             }
-        }
+//        }
 
     }
 

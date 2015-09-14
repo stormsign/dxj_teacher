@@ -14,7 +14,9 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.dxj.teacher.R;
 import com.dxj.teacher.activity.ChatActivity;
+import com.dxj.teacher.activity.StudyGroupDetailActivity;
 import com.dxj.teacher.adapter.GroupAdapter;
+import com.dxj.teacher.application.MyApplication;
 import com.dxj.teacher.base.BaseFragment;
 import com.dxj.teacher.bean.StudyGroup;
 import com.dxj.teacher.bean.StudyGroupListBean;
@@ -24,6 +26,7 @@ import com.dxj.teacher.http.FinalData;
 import com.dxj.teacher.http.GsonRequest;
 import com.dxj.teacher.http.VolleySingleton;
 import com.dxj.teacher.utils.LogUtils;
+import com.dxj.teacher.utils.MyUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -177,12 +180,18 @@ public class GroupListFragment extends BaseFragment {
         gAdapter.setOnGroupClickListener(new GroupAdapter.OnGroupClickListener() {
             @Override
             public void onNoticeClick(View view, int position) {
-//                startActivity(new Intent(context, StudyGroupDetailActivity.class).putExtra("groupId", groupList.get(position).getId()));
-                startActivity(new Intent(context, ChatActivity.class)
-                .putExtra("groupHead", groupList.get(position).getHeadUrl())
-                .putExtra("chatType", ChatActivity.CHATTYPE_GROUP)
-                .putExtra("groupHXId", groupList.get(position).getGroupId())
-                .putExtra("groupId", groupList.get(position).getId()));
+//
+//                老师版只考虑登录的是老师账号
+                if (MyUtils.isMember(MyUtils.getTeacherHX(MyApplication.getInstance().getUserBean().getUserInfo().getNickName()), groupList.get(position))) {
+                    startActivity(new Intent(context, ChatActivity.class)
+                            .putExtra("groupHead", groupList.get(position).getHeadUrl())
+                            .putExtra("chatType", ChatActivity.CHATTYPE_GROUP)
+                            .putExtra("groupHXId", groupList.get(position).getGroupId())
+                            .putExtra("groupName", groupList.get(position).getGroupName())
+                            .putExtra("groupId", groupList.get(position).getId()));
+                }else{
+                    startActivity(new Intent(context, StudyGroupDetailActivity.class).putExtra("groupId", groupList.get(position).getId()));
+                }
             }
 
 //            @Override

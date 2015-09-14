@@ -523,12 +523,12 @@ public class ChatActivity extends BaseActivity implements OnClickListener, EMEve
 	    group = EMGroupManager.getInstance().getGroup(toChatUsername);
 		myGroupId = getIntent().getStringExtra("groupId");
 		String groupName = getIntent().getStringExtra("groupName");
-//		((TextView) findViewById(R.id.name)).setText(groupName);
-		if (group != null){
-            ((TextView) findViewById(R.id.name)).setText(group.getGroupName());
-        }else{
-            ((TextView) findViewById(R.id.name)).setText(toChatUsername);
-        }
+		((TextView) findViewById(R.id.name)).setText(groupName);
+//		if (group != null){
+//            ((TextView) findViewById(R.id.name)).setText(group.getGroupName());
+//        }else{
+//            ((TextView) findViewById(R.id.name)).setText(toChatUsername);
+//        }
         
         // 监听当前会话的群聊解散被T事件
         groupListener = new GroupListener();
@@ -1260,10 +1260,10 @@ public class ChatActivity extends BaseActivity implements OnClickListener, EMEve
 	 * @param view
 	 */
 	public void toGroupDetails(View view) {
-		if (room == null && group == null) {
-			Toast.makeText(getApplicationContext(), R.string.gorup_not_found, Toast.LENGTH_SHORT).show();
-			return;
-		}
+//		if (room == null && group == null) {
+//			Toast.makeText(getApplicationContext(), R.string.gorup_not_found, Toast.LENGTH_SHORT).show();
+//			return;
+//		}
 		if(chatType == CHATTYPE_GROUP){
 //			startActivityForResult((new Intent(this, GroupDetailsActivity.class).putExtra("groupId", toChatUsername)),
 //					REQUEST_CODE_GROUP_DETAIL);

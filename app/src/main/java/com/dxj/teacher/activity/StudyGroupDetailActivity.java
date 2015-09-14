@@ -190,7 +190,7 @@ public class StudyGroupDetailActivity extends BaseActivity implements View.OnCli
         members = MyUtils.getGroupMembersFromJson(studyGroup, json);
         if (members!=null && !members.isEmpty()) {
             if (!TextUtils.isEmpty(members.get(0).getHeadUrl())) {
-                Glide.with(this).load(members.get(0).getHeadUrl()).placeholder(R.mipmap.default_error).into(group_head);
+                Glide.with(this).load(members.get(0).getHeadUrl()).placeholder(R.mipmap.default_error).into(leader_head);
             }
         }
         leader_name.setText(members.get(0).getNickName());

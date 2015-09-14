@@ -104,12 +104,13 @@ public class ChatAllHistoryAdapter extends ArrayAdapter<EMConversation> {
 				if (groupHead != null) {
 					Glide.with(context).load(groupHead).placeholder(R.mipmap.group_icon).into(holder.avatar);
 				}
+				holder.name.setText(conversation.getLastMessage().getStringAttribute("groupName"));
 			} catch (EaseMobException e) {
 				e.printStackTrace();
 			}
 
-			EMGroup group = EMGroupManager.getInstance().getGroup(username);
-			holder.name.setText(group != null ? group.getGroupName() : username);
+//			EMGroup group = EMGroupManager.getInstance().getGroup(username);
+//			holder.name.setText(group != null ? group.getGroupName() : username);
 		} else if(conversation.getType() == EMConversationType.ChatRoom){
 		    holder.avatar.setImageResource(R.mipmap.group_icon);
             EMChatRoom room = EMChatManager.getInstance().getChatRoom(username);
