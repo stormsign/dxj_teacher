@@ -60,6 +60,7 @@ import android.widget.Toast;
 import com.dxj.teacher.R;
 import com.dxj.teacher.application.MyApplication;
 import com.dxj.teacher.base.BaseActivity;
+import com.dxj.teacher.widget.TitleNavBar;
 import com.easemob.EMChatRoomChangeListener;
 import com.easemob.EMError;
 import com.easemob.EMEventListener;
@@ -206,6 +207,7 @@ public class ChatActivity extends BaseActivity implements OnClickListener, EMEve
 	public boolean isRobot;
 	private String groupHead;
 	private String myGroupId;
+	private String groupName;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -214,6 +216,7 @@ public class ChatActivity extends BaseActivity implements OnClickListener, EMEve
 		activityInstance = this;
 		initView();
 		setUpView();
+		initTitle();
 	}
 
 	/**
@@ -396,18 +399,18 @@ public class ChatActivity extends BaseActivity implements OnClickListener, EMEve
 			if(robotMap!=null&&robotMap.containsKey(toChatUsername)){
 				isRobot = true;
 				String nick = robotMap.get(toChatUsername).getNick();
-				if(!TextUtils.isEmpty(nick)){
-					((TextView) findViewById(R.id.name)).setText(nick);
-				}else{
-					((TextView) findViewById(R.id.name)).setText(toChatUsername);
-				}
+//				if(!TextUtils.isEmpty(nick)){
+//					((TextView) findViewById(R.id.name)).setText(nick);
+//				}else{
+//					((TextView) findViewById(R.id.name)).setText(toChatUsername);
+//				}
 			}else{
 				UserUtils.setUserNick(toChatUsername, (TextView) findViewById(R.id.name));
 			}
 		} else {
 			// 群聊
-			findViewById(R.id.container_to_group).setVisibility(View.VISIBLE);
-			findViewById(R.id.container_remove).setVisibility(View.GONE);
+//			findViewById(R.id.container_to_group).setVisibility(View.VISIBLE);
+//			findViewById(R.id.container_remove).setVisibility(View.GONE);
 			findViewById(R.id.container_voice_call).setVisibility(View.GONE);
 			findViewById(R.id.container_video_call).setVisibility(View.GONE);
 			toChatUsername = getIntent().getStringExtra("groupHXId");
@@ -415,7 +418,7 @@ public class ChatActivity extends BaseActivity implements OnClickListener, EMEve
 			if(chatType == CHATTYPE_GROUP){
 			    onGroupViewCreation();
 			}else{ 
-			    onChatRoomViewCreation();
+//			    onChatRoomViewCreation();
 			}
 		}
         
@@ -462,38 +465,38 @@ public class ChatActivity extends BaseActivity implements OnClickListener, EMEve
             }
         }
         
-        EMChatManager.getInstance().addChatRoomChangeListener(new EMChatRoomChangeListener(){
+        EMChatManager.getInstance().addChatRoomChangeListener(new EMChatRoomChangeListener() {
 
-            @Override
-            public void onChatRoomDestroyed(String roomId, String roomName) {
-                if(roomId.equals(toChatUsername)){
-                    finish();
-                }
-            }
+			@Override
+			public void onChatRoomDestroyed(String roomId, String roomName) {
+				if (roomId.equals(toChatUsername)) {
+					finish();
+				}
+			}
 
-            @Override
-            public void onMemberJoined(String roomId, String participant) {                
-            }
+			@Override
+			public void onMemberJoined(String roomId, String participant) {
+			}
 
-            @Override
-            public void onMemberExited(String roomId, String roomName,
-                    String participant) {
-                
-            }
+			@Override
+			public void onMemberExited(String roomId, String roomName,
+									   String participant) {
 
-            @Override
-            public void onMemberKicked(String roomId, String roomName,
-                    String participant) {
-                if(roomId.equals(toChatUsername)){
-                    String curUser = EMChatManager.getInstance().getCurrentUser();
-                    if(curUser.equals(participant)){
-                        EMChatManager.getInstance().leaveChatRoom(toChatUsername);
-                        finish();
-                    }
-                }
-            }
-            
-        });
+			}
+
+			@Override
+			public void onMemberKicked(String roomId, String roomName,
+									   String participant) {
+				if (roomId.equals(toChatUsername)) {
+					String curUser = EMChatManager.getInstance().getCurrentUser();
+					if (curUser.equals(participant)) {
+						EMChatManager.getInstance().leaveChatRoom(toChatUsername);
+						finish();
+					}
+				}
+			}
+
+		});
 	}
 	
 	protected void onListViewCreation(){
@@ -506,24 +509,24 @@ public class ChatActivity extends BaseActivity implements OnClickListener, EMEve
 
         listView.setOnTouchListener(new OnTouchListener() {
 
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                hideKeyboard();
-                more.setVisibility(View.GONE);
-                iv_emoticons_normal.setVisibility(View.VISIBLE);
-                iv_emoticons_checked.setVisibility(View.INVISIBLE);
-                emojiIconContainer.setVisibility(View.GONE);
-                btnContainer.setVisibility(View.GONE);
-                return false;
-            }
-        });
+			@Override
+			public boolean onTouch(View v, MotionEvent event) {
+				hideKeyboard();
+				more.setVisibility(View.GONE);
+				iv_emoticons_normal.setVisibility(View.VISIBLE);
+				iv_emoticons_checked.setVisibility(View.INVISIBLE);
+				emojiIconContainer.setVisibility(View.GONE);
+				btnContainer.setVisibility(View.GONE);
+				return false;
+			}
+		});
 	}
 	
 	protected void onGroupViewCreation(){
 	    group = EMGroupManager.getInstance().getGroup(toChatUsername);
 		myGroupId = getIntent().getStringExtra("groupId");
-		String groupName = getIntent().getStringExtra("groupName");
-		((TextView) findViewById(R.id.name)).setText(groupName);
+		groupName = getIntent().getStringExtra("groupName");
+//		((TextView) findViewById(R.id.name)).setText(groupName);
 //		if (group != null){
 //            ((TextView) findViewById(R.id.name)).setText(group.getGroupName());
 //        }else{
@@ -536,7 +539,7 @@ public class ChatActivity extends BaseActivity implements OnClickListener, EMEve
 	}
 	
 	protected void onChatRoomViewCreation(){
-        findViewById(R.id.container_to_group).setVisibility(View.GONE);
+//        findViewById(R.id.container_to_group).setVisibility(View.GONE);
         
         final ProgressDialog pd = ProgressDialog.show(this, "", "Joining......");
         EMChatManager.getInstance().joinChatRoom(toChatUsername, new EMValueCallBack<EMChatRoom>() {
@@ -933,14 +936,19 @@ public class ChatActivity extends BaseActivity implements OnClickListener, EMEve
 			message.addBody(txtBody);
 			// 设置要发给谁,用户username或者群聊groupid
 			message.setReceipt(toChatUsername);
+			message.setAttribute("groupName", groupName);
 //			添加学团头像
 			message.setAttribute("groupHead", groupHead);
 //			添加学团主键，用于查找乐团详细
 			message.setAttribute("groupId", myGroupId);
 //			添加自己的头像
-			message.setAttribute("userHead", mApplication.getUserBean().getUserInfo().getHeadUrl());
+			if (mApplication.getUserBean().getUserInfo().getHeadUrl()!=null) {
+				message.setAttribute("userHead", mApplication.getUserBean().getUserInfo().getHeadUrl());
+			}
 //			添加昵称
-			message.setAttribute("nick", mApplication.getUserBean().getUserInfo().getNickName());
+			if (mApplication.getUserBean().getUserInfo().getNickName()!=null) {
+				message.setAttribute("nick", mApplication.getUserBean().getUserInfo().getNickName());
+			}
 			// 把messgage加到conversation中
 			conversation.addMessage(message);
 			// 通知adapter有消息变动，adapter会根据加入的这条message显示消息和调用sdk的发送方法
@@ -1257,9 +1265,8 @@ public class ChatActivity extends BaseActivity implements OnClickListener, EMEve
 	/**
 	 * 点击进入群组详情
 	 * 
-	 * @param view
 	 */
-	public void toGroupDetails(View view) {
+	public void toGroupDetails() {
 //		if (room == null && group == null) {
 //			Toast.makeText(getApplicationContext(), R.string.gorup_not_found, Toast.LENGTH_SHORT).show();
 //			return;
@@ -1496,8 +1503,8 @@ public class ChatActivity extends BaseActivity implements OnClickListener, EMEve
 	@Override
 	protected void onResume() {
 		super.onResume();
-		if (group != null)
-			((TextView) findViewById(R.id.name)).setText(group.getGroupName());
+//		if (group != null)
+//			((TextView) findViewById(R.id.name)).setText(group.getGroupName());
 		voiceCallBtn.setEnabled(true);
 		videoCallBtn.setEnabled(true);
 
@@ -1606,7 +1613,29 @@ public class ChatActivity extends BaseActivity implements OnClickListener, EMEve
 
 	@Override
 	public void initTitle() {
+		TitleNavBar title = (TitleNavBar) findViewById(R.id.title);
+		title.setTitle(groupName);
+		title.setTitleNoRightButton();
+		title.showNavTwo(true);
+		title.setNavTwoImageResource(R.mipmap.xiaoxi_icon_qunzl);
+		title.setOnTitleNavClickListener(new TitleNavBar.OnTitleNavClickListener() {
+			@Override
+			public void onNavOneClick() {}
 
+			@Override
+			public void onNavTwoClick() {
+				toGroupDetails();
+			}
+
+			@Override
+			public void onNavThreeClick() {}
+
+			@Override
+			public void onActionClick() {}
+
+			@Override
+			public void onBackClick() {}
+		});
 	}
 
 	/**

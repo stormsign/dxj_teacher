@@ -32,22 +32,27 @@
             style="@style/chat_text_name_style"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_below="@id/iv_userhead"
-            android:layout_toLeftOf="@+id/ll_click_area" />
+            android:layout_toRightOf="@id/iv_userhead"
+            android:layout_marginLeft="@dimen/margin_chat_activity" />
 
         <LinearLayout
             android:id="@+id/ll_click_area"
             android:layout_width="130dp"
             android:layout_height="145dp"
             android:layout_marginLeft="@dimen/margin_chat_activity"
+            android:layout_below="@id/tv_userid"
             android:layout_toRightOf="@id/iv_userhead" >
 
             <FrameLayout
                 android:id="@+id/chatting_click_area"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
-                android:background="@drawable/chatfrom_bg" >
+                android:background="@drawable/chatfrom_bg"
+                android:maxWidth="250dip"
+                android:paddingLeft="@dimen/message_to_head"
+                android:paddingRight="@dimen/message_to_other_side"
+                android:paddingTop="@dimen/message_to_top"
+                android:paddingBottom="@dimen/message_to_bottom">
 
                 <ImageView
                     android:id="@+id/chatting_content_iv"

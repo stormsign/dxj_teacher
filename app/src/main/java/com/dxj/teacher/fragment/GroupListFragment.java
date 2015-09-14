@@ -182,7 +182,7 @@ public class GroupListFragment extends BaseFragment {
             public void onNoticeClick(View view, int position) {
 //
 //                老师版只考虑登录的是老师账号
-                if (MyUtils.isMember(MyUtils.getTeacherHX(MyApplication.getInstance().getUserBean().getUserInfo().getNickName()), groupList.get(position))) {
+                if (MyUtils.isMember(MyUtils.getTeacherHX(MyApplication.getInstance().getUserBean().getUserInfo().getMobile()), groupList.get(position))) {
                     startActivity(new Intent(context, ChatActivity.class)
                             .putExtra("groupHead", groupList.get(position).getHeadUrl())
                             .putExtra("chatType", ChatActivity.CHATTYPE_GROUP)

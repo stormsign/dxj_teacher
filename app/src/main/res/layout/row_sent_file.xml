@@ -35,7 +35,14 @@
             android:layout_marginRight="@dimen/margin_chat_activity"
             android:layout_toLeftOf="@id/iv_userhead"
             android:layout_toRightOf="@+id/ll_loading"
-            android:background="@drawable/chatto_bg" >
+            android:background="@drawable/chatto_bg"
+            android:maxWidth="250dip"
+            android:paddingRight="@dimen/message_to_head"
+            android:paddingLeft="@dimen/message_to_other_side"
+            android:paddingTop="@dimen/message_to_top"
+            android:paddingBottom="@dimen/message_to_bottom"
+            android:textSize="@dimen/text_16sp"
+            android:textColor="@color/message_send_color">
 
             <ImageView
                 android:layout_width="wrap_content"

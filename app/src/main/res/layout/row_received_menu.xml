@@ -27,14 +27,23 @@
             android:background="@drawable/mini_avatar_shadow"
             android:scaleType="fitXY" />
 
+        <TextView
+            android:id="@+id/tv_userid"
+            style="@style/chat_text_name_style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/iv_userhead"
+            android:layout_marginLeft="@dimen/margin_chat_activity" />
+
         <LinearLayout
             android:id="@+id/ll_chatcontent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/margin_chat_activity"
             android:layout_toRightOf="@id/iv_userhead"
+            android:layout_below="@id/tv_userid"
             android:background="@drawable/chatfrom_bg"
-            android:maxWidth="225.0dip"
+            android:maxWidth="250dip"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
             android:orientation="vertical" >
@@ -53,14 +62,6 @@
                 ></LinearLayout>
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/tv_userid"
-            style="@style/chat_text_name_style"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_below="@id/iv_userhead"
-            android:layout_toLeftOf="@id/ll_chatcontent" />
     </RelativeLayout>
 
 </LinearLayout>

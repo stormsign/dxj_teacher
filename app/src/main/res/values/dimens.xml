@@ -64,6 +64,11 @@
     <dimen name="height_88dp">88dp</dimen>
     <dimen name="image_24dp">24dp</dimen>
     <dimen name="desc_width_256">256dp</dimen>
+    <dimen name="text_line_72dp">72dp</dimen>
+    <dimen name="message_to_head">28dp</dimen>
+    <dimen name="message_to_other_side">16dp</dimen>
+    <dimen name="message_to_top">12dp</dimen>
+    <dimen name="message_to_bottom">16dp</dimen>
 
     <!--环信dimens 结束-->
 
