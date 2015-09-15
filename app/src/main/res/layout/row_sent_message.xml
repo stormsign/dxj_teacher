@@ -38,9 +38,13 @@
             android:background="@drawable/chatto_bg"
             android:gravity="left|center"
             android:lineSpacingExtra="2dp"
-            android:maxWidth="225.0dip"
-            android:paddingLeft="8dip"
-            android:textSize="15sp" />
+            android:maxWidth="250dip"
+           android:paddingRight="@dimen/message_to_head"
+           android:paddingLeft="@dimen/message_to_other_side"
+           android:paddingTop="@dimen/message_to_top"
+           android:paddingBottom="@dimen/message_to_bottom"
+            android:textSize="@dimen/text_16sp"
+           android:textColor="@color/message_send_color"/>
 
         <!--
              <TextView

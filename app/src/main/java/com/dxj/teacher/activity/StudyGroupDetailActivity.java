@@ -223,6 +223,10 @@ public class StudyGroupDetailActivity extends BaseActivity implements View.OnCli
     }
 
     private void updateGroup(Intent data) {
+        if (data == null){
+            showToast("更新资料失败，请稍后再试");
+            return ;
+        }
         String url = FinalData.URL_VALUE+"updateGroup";
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("id", studyGroup.getId());

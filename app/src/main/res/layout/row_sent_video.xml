@@ -38,7 +38,14 @@
                 android:id="@+id/chatting_click_area"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
-                android:background="@drawable/chatto_bg" >
+                android:background="@drawable/chatto_bg"
+                android:maxWidth="250dip"
+                android:paddingRight="@dimen/message_to_head"
+                android:paddingLeft="@dimen/message_to_other_side"
+                android:paddingTop="@dimen/message_to_top"
+                android:paddingBottom="@dimen/message_to_bottom"
+                android:textSize="@dimen/text_16sp"
+                android:textColor="@color/message_send_color">
 
                 <ImageView
                     android:id="@+id/chatting_content_iv"

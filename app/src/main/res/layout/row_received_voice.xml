@@ -27,18 +27,33 @@
             android:background="@drawable/mini_avatar_shadow"
             android:scaleType="fitXY" />
 
+        <TextView
+            android:id="@+id/tv_userid"
+            style="@style/chat_text_name_style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/iv_userhead"
+            android:layout_marginLeft="@dimen/margin_chat_activity" />
+
         <ImageView
             android:id="@+id/iv_voice"
+            android:layout_toRightOf="@id/iv_userhead"
+            android:layout_below="@id/tv_userid"
             android:layout_width="wrap_content"
             android:layout_height="50dp"
             android:layout_marginLeft="10dp"
-            android:layout_toRightOf="@id/iv_userhead"
             android:background="@drawable/chatfrom_bg"
+            android:maxWidth="250dip"
+            android:paddingLeft="@dimen/message_to_head"
+            android:paddingRight="@dimen/message_to_other_side"
+            android:paddingTop="@dimen/message_to_top"
+            android:paddingBottom="@dimen/message_to_bottom"
             android:clickable="true"
             android:src="@mipmap/chatfrom_voice_playing" />
 
         <TextView
             android:id="@+id/tv_length"
+            android:layout_below="@id/tv_userid"
             style="@style/chat_text_name_style"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -49,6 +64,7 @@
 
         <ImageView
             android:id="@+id/iv_unread_voice"
+            android:layout_below="@id/tv_userid"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
@@ -58,20 +74,13 @@
         <ProgressBar
             android:id="@+id/pb_sending"
             android:layout_toRightOf="@id/iv_unread_voice"
+            android:layout_below="@id/tv_userid"
             style="?android:attr/progressBarStyleSmall"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_marginTop="5dp"
             android:visibility="invisible" />
 
-        <TextView
-            android:id="@+id/tv_userid"
-            style="@style/chat_text_name_style"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_below="@id/iv_userhead"
-            android:layout_toLeftOf="@id/iv_voice" />
     </RelativeLayout>
 
 </LinearLayout>

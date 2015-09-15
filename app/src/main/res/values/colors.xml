@@ -10,4 +10,6 @@
     <color name="text_color_a4a4a4">#A4A4A4</color>
     <color name="text_orange2">#FFFF9362</color>
     <color name="text_color_848484">#FF848484</color>
+    <color name="text_color_bababa">#FFBABABA</color>
+    <color name="message_send_color">#FFFAF7</color>
 </resources>

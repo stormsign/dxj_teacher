@@ -26,14 +26,27 @@
             android:layout_marginLeft="@dimen/margin_chat_activity"
             android:background="@drawable/mini_avatar_shadow"
             android:scaleType="fitXY" />
+        <TextView
+            android:id="@+id/tv_userid"
+            style="@style/chat_text_name_style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/iv_userhead"
+            android:layout_marginLeft="@dimen/margin_chat_activity" />
 
         <LinearLayout
             android:id="@+id/row_rec_location"
+            android:layout_toRightOf="@id/iv_userhead"
+            android:layout_below="@id/tv_userid"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/margin_chat_activity"
-            android:layout_toRightOf="@id/iv_userhead"
-            android:background="@drawable/chatfrom_bg" >
+            android:background="@drawable/chatfrom_bg"
+            android:maxWidth="250dip"
+            android:paddingLeft="@dimen/message_to_head"
+            android:paddingRight="@dimen/message_to_other_side"
+            android:paddingTop="@dimen/message_to_top"
+            android:paddingBottom="@dimen/message_to_bottom">
 
             <TextView
                 android:id="@+id/tv_location"
@@ -42,16 +55,9 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/location_msg"
                 android:gravity="center"
-                android:textColor="@android:color/white" />
+                android:textColor="@android:color/white"
+                />
         </LinearLayout>
-        <TextView
-            android:id="@+id/tv_userid"
-            style="@style/chat_text_name_style"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_toLeftOf="@id/row_rec_location"
-            android:layout_below="@id/iv_userhead"/>
     </RelativeLayout>
 
 </LinearLayout>
