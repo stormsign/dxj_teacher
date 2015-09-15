@@ -20,6 +20,8 @@
         android:dividerHeight="0.5dp"
         android:listSelector="@android:color/transparent"
         android:scrollbars="none"
-        android:visibility="visible" />
+        android:visibility="visible"
+        android:fadingEdge="vertical"
+        />
 
 </LinearLayout>

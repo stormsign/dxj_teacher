@@ -94,7 +94,7 @@
             android:layout_marginLeft="60dp"
             android:layout_marginRight="@dimen/linear_60dp"
             android:layout_marginTop="30dp"
-            android:background="@drawable/geren_bottom_tinajia"
+            android:background="@drawable/btn_login"
             android:text="添加照片"
             android:textColor="@android:color/white"
             android:textSize="@dimen/text_15sp"

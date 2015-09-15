@@ -23,6 +23,8 @@ import com.dxj.teacher.bean.SchoolBean;
 import com.dxj.teacher.db.AccountDBTask;
 import com.dxj.teacher.db.AccountTable;
 import com.dxj.teacher.db.dao.TeacherTypeDao;
+import com.dxj.teacher.effectdialog.Effectstype;
+import com.dxj.teacher.effectdialog.NiftyDialogBuilder;
 import com.dxj.teacher.http.CustomStringRequest;
 import com.dxj.teacher.http.FinalData;
 import com.dxj.teacher.http.VolleySingleton;
@@ -53,6 +55,7 @@ public class UpdateRoleNameActivity extends BaseActivity implements View.OnClick
 
     private ListView lvTeacher;
     private String str;
+    private String strOne;
     private int typeID;
     private int childTypeID;
     private List<SchoolBean> list = new ArrayList<>();
@@ -97,7 +100,7 @@ public class UpdateRoleNameActivity extends BaseActivity implements View.OnClick
 
             @Override
             public void onBackClick() {
-                sendRequestData();
+                finish();
             }
         });
     }
@@ -116,11 +119,15 @@ public class UpdateRoleNameActivity extends BaseActivity implements View.OnClick
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 int level = list.get(position).getId();
+                strOne = list.get(position).getName();
                 teacherList = TeacherTypeDao.getChildTeacherFromParent(db, level);
+                //假如只有一条
                 if (teacherList.size() == 0) {
                     str = list.get(position).getName();
                     typeID = list.get(position).getParentId();
                     childTypeID = list.get(position).getId();
+                    //                自定义dialog
+                    showDialogBuilder();
                     return;
                 }
                 SchoolAdapter adapter = new SchoolAdapter(UpdateRoleNameActivity.this, teacherList);
@@ -129,6 +136,36 @@ public class UpdateRoleNameActivity extends BaseActivity implements View.OnClick
 
             }
         };
+    }
+
+    private void showDialogBuilder() {
+        final NiftyDialogBuilder dialogBuilder = NiftyDialogBuilder.getInstance(context);
+        dialogBuilder
+                .withTitle("保存")                                  //.withTitle(null)  no title
+                .withTitleColor("#FFFFFF")                                  //def
+                .withDividerColor("#11000000")                              //def
+                .withMessage("确定要保存吗？")                     //.withMessage(null)  no Msg
+                .withMessageColor("#FFFFFFFF")                              //def  | withMessageColor(int resid)
+                .withDialogColor("#FFE74C3C")                               //def  | withDialogColor(int resid)                               //def
+                .isCancelableOnTouchOutside(false)                           //def    | isCancelable(true)
+                .withDuration(500)                                          //def
+                .withEffect(Effectstype.Fadein)                                         //def Effectstype.Slidetop
+                .withButton1Text("确定")                                      //def gone
+                .withButton2Text("取消")                                  //def gone
+                .setButton1Click(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        sendRequestData();
+                        dialogBuilder.dismiss();
+                    }
+                })
+                .setButton2Click(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialogBuilder.dismiss();
+                    }
+                })
+                .show();
     }
 
     @Override
@@ -230,10 +267,10 @@ public class UpdateRoleNameActivity extends BaseActivity implements View.OnClick
             //        Toast.makeText(MainActivity.this, clickedAppName + " clicked", Toast.LENGTH_LONG).show();
             Log.i("TAG", "position=" + position);
             dialog.dismiss();
-            str = teacherList.get(position).getName();
+            str = strOne + "-" + teacherList.get(position).getName();
             typeID = teacherList.get(position).getParentId();
             childTypeID = teacherList.get(position).getId();
-            sendRequestData();
+            showDialogBuilder();
 
         }
     };

@@ -545,6 +545,7 @@ public class AddCourseActivity extends BaseActivity implements View.OnClickListe
         map.put("classWay", array);
         map.put("fullName", stringBuffer.toString());
         if (courseSubjectBean != null) {
+            Log.i("TAG","courseSubjectBean");
             map.put("id", courseSubjectBean.getId());
         }
 

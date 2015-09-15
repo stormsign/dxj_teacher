@@ -52,12 +52,13 @@ public class UpdateImageActivity extends BaseActivity {
     private ArrayList<String> mSelectPath;
     private GridView feedbackNoScrollgridview;
     private UpdateImageAdapter updateAdapter;
-    private List<String> imageList = new ArrayList<>();
-    private List<String> imageUrls = new ArrayList<>();
+    private ArrayList<String> imageList = new ArrayList<>();
+    private ArrayList<String> imageUrls = new ArrayList<>();
     private String id;
     private LinearLayout linearAddPhone;
     private TitleNavBar title;
     private boolean isDelete;
+    private boolean isSend;//判断是否有上传图片,没有直接返回
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -126,7 +127,7 @@ public class UpdateImageActivity extends BaseActivity {
 
                                              @Override
                                              public void onBackClick() {
-                                                 sendRequestData();
+                                                     sendRequestData();
                                              }
                                          }
 
@@ -269,11 +270,11 @@ public class UpdateImageActivity extends BaseActivity {
                 if (message.getCode() == 0) {
 //
                     HeadUrl headUrl = new HeadUrl();
-                    headUrl.setImages(updateAdapter.getImageUrls());
+                    headUrl.setImages(imageList);
                     AccountDBTask.updatePhoto(MyApplication.getInstance().getUserId(), headUrl, AccountTable.PHOTO);
                     Intent intent = new Intent();
                     Bundle bundle = new Bundle();
-                    bundle.putString("photoCount", String.valueOf(updateAdapter.getImageUrls().size()));
+                    bundle.putString("photoCount", String.valueOf(imageUrls.size()));
                     intent.putExtras(bundle);
                     UpdateImageActivity.this.setResult(RESULT_OK, intent);
                     finish();

@@ -35,7 +35,7 @@ public class CardSettingActivity extends BaseActivity implements View.OnClickLis
      findViewById(R.id.linear_card).setOnClickListener(this);
         findViewById(R.id.linear_teacher_card).setOnClickListener(this);
         findViewById(R.id.linear_degrees_card).setOnClickListener(this);
-        findViewById(R.id.linear_education_card).setOnClickListener(this);
+//        findViewById(R.id.linear_education_card).setOnClickListener(this);
     }
 
     @Override
@@ -52,9 +52,9 @@ public class CardSettingActivity extends BaseActivity implements View.OnClickLis
           case R.id.linear_degrees_card:
               startActivity(new Intent(this,CardDegreesActvity.class));
               break;
-          case R.id.linear_education_card:
-              startActivity(new Intent(this,CardAptitudeActvity.class));
-              break;
+//          case R.id.linear_education_card:
+//              startActivity(new Intent(this,CardAptitudeActvity.class));
+//              break;
           case R.id.linear_teacher_card:
               startActivity(new Intent(this,CardTeacherActvity.class));
               break;

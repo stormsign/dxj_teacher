@@ -269,9 +269,12 @@
         <activity android:name=".activity.CardTeacherActvity"/>
         <activity android:name=".activity.CardAptitudeActvity"/>
         <activity android:name=".activity.CardDegreesActvity"/>
-        <activity android:name=".activity.TeacherDetailsActivity"/>
+        <activity android:name=".activity.TeacherDetailsActivity"
+            android:theme="@style/AppCompatTheme"
+            />
         <activity android:name=".activity.MediaActivity"/>
         <activity android:name=".activity.ResetActivity"/>
+        <activity android:name=".activity.GalleryActivity"/>
     </application>
 
 </manifest>

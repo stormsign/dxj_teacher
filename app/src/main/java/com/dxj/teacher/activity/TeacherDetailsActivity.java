@@ -1,10 +1,15 @@
 package com.dxj.teacher.activity;
 
 import android.os.Bundle;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
@@ -34,13 +39,18 @@ import java.util.Map;
  * Created by kings on 9/8/2015.
  * 老师详情
  */
-public class TeacherDetailsActivity extends BaseActivity {
+public class TeacherDetailsActivity extends AppCompatActivity implements DetailFragment.OnPhotoClick{
     private RadioGroup radioGroup;
     private Fragment[] fragments;
     private int currentTabIndex = 0;
     private TextView tvName;
     private ImageView imgAvatar;
     private TextView tvRecomment;//介绍
+    private RadioButton radioButtonPhoto;//相册
+    private RadioButton radioButtonHome;//主页
+    private RadioButton radioButtonCourse;//课程
+    private Toolbar mToolbar;//
+    private CollapsingToolbarLayout mCollapsingToolbarLayout;//
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,17 +63,31 @@ public class TeacherDetailsActivity extends BaseActivity {
 
     }
 
-    @Override
+//    @Override
     public void initTitle() {
 
     }
 
-    @Override
+//    @Override
     public void initView() {
+        mToolbar = (Toolbar)findViewById(R.id.toolbar);
+        mCollapsingToolbarLayout=(CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
+//        mCollapsingToolbarLayout.setTitle("老师详情");
+        setSupportActionBar(mToolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TeacherDetailsActivity.this.onBackPressed();
+            }
+        });
         radioGroup = (RadioGroup) this.findViewById(R.id.radio_group);
         tvName = (TextView) findViewById(R.id.tv_name);
         imgAvatar = (ImageView) findViewById(R.id.img_avatar);
         tvRecomment = (TextView) findViewById(R.id.tv_recomment);
+        radioButtonPhoto = (RadioButton) findViewById(R.id.list_holder_radio_button);
+        radioButtonHome = (RadioButton) findViewById(R.id.basic_holder_radio_button);
+        radioButtonCourse = (RadioButton) findViewById(R.id.grid_holder_radio_button);
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -83,6 +107,8 @@ public class TeacherDetailsActivity extends BaseActivity {
             }
         });
     }
+
+
 
     private void sendRequestData() {
 
@@ -117,6 +143,7 @@ public class TeacherDetailsActivity extends BaseActivity {
     }
 
     private void fillUi(UserBean.UserInfo userInfo) {
+        mCollapsingToolbarLayout.setTitle(userInfo.getNickName());
         tvName.setText(userInfo.getNickName());
         Glide.with(this).load(userInfo.getHeadUrl()).centerCrop().into(imgAvatar);
         tvRecomment.setText(userInfo.getRemark());
@@ -135,12 +162,13 @@ public class TeacherDetailsActivity extends BaseActivity {
 
     }
 
-    @Override
+//    @Override
     public void initData() {
     }
 
     private void initFragment(TeacherInfoBean str) {
         DetailFragment homeFragment = getDetailFragment();
+        homeFragment.setOnPhotoClick(this);
         Bundle bundle = new Bundle();
         bundle.putSerializable("teacherInfoBean", str);
         homeFragment.setArguments(bundle);
@@ -151,6 +179,7 @@ public class TeacherDetailsActivity extends BaseActivity {
         meFragmetn.setArguments(photoBundle);
 
         DetailCourseFragment plazaFragment = getDetailCourseFragment();
+
         Bundle courseBundle = new Bundle();
         courseBundle.putSerializable("course",str.getGoodSubject());
         plazaFragment.setArguments(courseBundle);
@@ -199,4 +228,14 @@ public class TeacherDetailsActivity extends BaseActivity {
     }
 
 
+    @Override
+    public void setOnPhotoClick(int index) {
+        if (index==DetailFragment.COURSE){
+            radioButtonCourse.setChecked(true);
+            showFragment(2);
+        }else if (index==DetailFragment.PHOTO){
+            radioButtonPhoto.setChecked(true);
+            showFragment(1);
+        }
+    }
 }

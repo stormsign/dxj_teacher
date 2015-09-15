@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.provider.MediaStore;
+import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -22,6 +23,7 @@ import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.dxj.teacher.R;
+import com.dxj.teacher.application.MyApplication;
 import com.dxj.teacher.base.BaseActivity;
 import com.dxj.teacher.bean.BaseBean;
 import com.dxj.teacher.bean.CourseSubjectList;
@@ -47,10 +49,10 @@ import java.util.Map;
  * Created by kings on 9/4/2015.
  */
 public class CardActvity extends BaseActivity {
-    public static final int TAKE_PICTURE = 0;// 拍照
-    public static final int RESULT_LOAD_IMAGE = 1;// 从相册中选择
-    public static final int CUT_PHOTO_REQUEST_CODE = 2;
-    private ImageView imgCard;
+    private CardView imgCard;
+    private ImageView imgPic;
+    private ImageView imgUpage;
+    private TextView tvUpage;
     private RadioGroup radioGroupCard;
     private EditText etName;
     private EditText etCardNumber;
@@ -66,7 +68,10 @@ public class CardActvity extends BaseActivity {
             if (msg.what == 1 && msg.obj != null) {
                 // 显示图片
 //                isBitmap = true;
-                imgCard.setImageBitmap((Bitmap) msg.obj);
+                imgPic.setVisibility(View.VISIBLE);
+                tvUpage.setVisibility(View.GONE);
+                imgUpage.setVisibility(View.GONE);
+                imgPic.setImageBitmap((Bitmap) msg.obj);
                 new MyAsyn(context, getAsynResponse(), picturePath, HttpUtils.UPADTE_MULT_IMAGE).execute();
             }
         }
@@ -110,7 +115,10 @@ public class CardActvity extends BaseActivity {
 
     @Override
     public void initView() {
-        imgCard = (ImageView) findViewById(R.id.img_card);
+        imgCard = (CardView) findViewById(R.id.img_card);
+        imgPic = (ImageView) findViewById(R.id.img_pic);
+        tvUpage = (TextView) findViewById(R.id.tv_update);
+        imgUpage = (ImageView) findViewById(R.id.img_update);
         radioGroupCard = (RadioGroup) findViewById(R.id.choice_mode);
         update = (TextView) findViewById(R.id.creategroup);
         etName = (EditText) findViewById(R.id.et_input_name);
@@ -165,7 +173,7 @@ public class CardActvity extends BaseActivity {
         ;
         String urlPath = FinalData.URL_VALUE + HttpUtils.CARD;
         Map<String, Object> map = new HashMap<>();
-        map.put("id", "e1c380f1-c85e-4a0f-aafc-152e189d9d01");
+        map.put("id", MyApplication.getInstance().getUserId());
         map.put("cardType", cardType);
         map.put("name", strName);
         map.put("img", imageUrl);
@@ -204,13 +212,14 @@ public class CardActvity extends BaseActivity {
     @Override
     protected void onActivityResult(final int requestCode, final int resultCode, final Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == RESULT_LOAD_IMAGE || requestCode == TAKE_PICTURE || requestCode == CUT_PHOTO_REQUEST_CODE) {
+        if (requestCode == UpdateUserInfoActivity.RESULT_LOAD_IMAGE || requestCode == UpdateUserInfoActivity.TAKE_PICTURE || requestCode == UpdateUserInfoActivity.CUT_PHOTO_REQUEST_CODE) {
             new Thread() {
                 @Override
                 public void run() {
+                    Log.i("TAG", "onActivityResult");
                     Bitmap bitmap = null;
                     //获取图片路径
-                    if (RESULT_LOAD_IMAGE == requestCode) {
+                    if (UpdateUserInfoActivity.RESULT_LOAD_IMAGE == requestCode) {
                         if (data == null) {
                             return;
                         }
@@ -253,6 +262,6 @@ public class CardActvity extends BaseActivity {
         photoUri = Uri.fromFile(out);
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         intent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri);
-        startActivityForResult(intent, TAKE_PICTURE);
+        startActivityForResult(intent, UpdateUserInfoActivity.TAKE_PICTURE);
     }
 }

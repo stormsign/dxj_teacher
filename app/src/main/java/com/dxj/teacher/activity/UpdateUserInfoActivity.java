@@ -243,6 +243,7 @@ public class UpdateUserInfoActivity extends BaseActivity implements View.OnClick
             tvUniversity.setText(userBean.getUserInfo().getUniversity());
             tvRolename.setText(userBean.getUserInfo().getRoleName());
             tvSchool.setText(userBean.getUserInfo().getSchool());
+
             tvImages.setText(String.valueOf(userBean.getUserInfo().getImages().size()));
         }
         if (userBean.getUserInfo().getLabel().size() > 0) {
@@ -378,7 +379,7 @@ public class UpdateUserInfoActivity extends BaseActivity implements View.OnClick
                 startActivityForResult(intentUniversity, UNIVERSITY);
                 break;
             case R.id.relative_rolename:
-                Intent intentRoleName = new Intent(this, UpdateRoleNameActivity.class);
+                Intent intentRoleName = new Intent(this, UpdateRoleNameActivity.class);//目前状态
                 intentRoleName.putExtra("roleName", userBean.getUserInfo().getRoleName());
                 intentRoleName.putExtra("id", userId);
                 startActivityForResult(intentRoleName, ROLENAME);
@@ -497,6 +498,9 @@ public class UpdateUserInfoActivity extends BaseActivity implements View.OnClick
             } else if (requestCode == PHOTO) {
                 String strPhotoCount = data.getStringExtra("photoCount");
                 tvImages.setText(strPhotoCount);
+            }else if (requestCode==UNIVERSITY){
+                String struniversity = data.getStringExtra("university");
+                tvUniversity.setText(struniversity);
             }
         }
     }

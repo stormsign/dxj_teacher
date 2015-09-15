@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+
+    <com.dxj.teacher.widget.ViewPagerFixed
+        android:id="@+id/pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/black" />
+    <com.dxj.teacher.widget.TitleNavBar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/title"
+        />
+    <!--<ImageButton-->
+        <!--android:id="@+id/imgb_back"-->
+        <!--android:layout_width="40dp"-->
+        <!--android:layout_height="40dp"-->
+        <!--android:layout_gravity="top|left"-->
+        <!--android:layout_marginLeft="10dp"-->
+        <!--android:layout_marginTop="5dp"-->
+        <!--android:background="@drawable/jpxs_fanhui"-->
+        <!--android:clickable="true"-->
+        <!--android:scaleType="center"-->
+        <!--android:visibility="gone" />-->
+
+
+
+    <!--<LinearLayout-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_gravity="right|bottom"-->
+        <!--android:orientation="horizontal" >-->
+
+        <!--<TextView-->
+            <!--android:id="@+id/position"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:shadowColor="@color/dark_gray"-->
+            <!--android:shadowDy="1"-->
+            <!--android:shadowRadius="1"-->
+            <!--android:text="1"-->
+            <!--android:textColor="@color/white"-->
+            <!--android:textSize="18dip"-->
+            <!--android:visibility="visible" />-->
+
+        <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:shadowColor="@color/dark_gray"-->
+            <!--android:shadowDy="1"-->
+            <!--android:shadowRadius="1"-->
+            <!--android:text="/"-->
+            <!--android:textColor="@color/white"-->
+            <!--android:textSize="18dip"-->
+            <!--android:visibility="visible" />-->
+
+        <!--<TextView-->
+            <!--android:id="@+id/sum"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:shadowColor="@color/dark_gray"-->
+            <!--android:shadowDy="1"-->
+            <!--android:shadowRadius="1"-->
+            <!--android:textColor="@color/white"-->
+            <!--android:textSize="16dp"-->
+            <!--android:visibility="visible" />-->
+    <!--</LinearLayout>-->
+
+</FrameLayout>

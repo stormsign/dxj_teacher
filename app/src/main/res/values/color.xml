@@ -10,6 +10,7 @@
     <color name="bg_userinfo">#feb28c</color>
     <color name="linear">#bfbfbf</color>
     <color name="text_show">#ff808080</color>
+    <color name="text_show_8b">#ff8b8b8b</color>
     <color name="text_label_checked">#ffff8b64</color>
     <color name="text_label">#ff9e9e9e</color>
     <color name="text_black">#ff323232</color>
@@ -31,8 +32,21 @@
     <color name="azure">#f0ffff</color>
     <color name="background_tab_pressed">#6633B5E5</color>
     <color name="rbuttonNo">#ffcdcdcd</color>
-    <!--<-->
-
+    <!--老师详细-->
+    <color name="text_tab_details">#ffff704b</color>
+    <color name="text_subject_details">#ffa9a9a9</color>
+    <color name="text_bg_details">#ffDEDEDE</color>
+    <color name="text_labe_details">#ff797979</color>
+    <!--card-->
+    <color name="tv_alread_card">#ff52dd62</color>
+    <color name="tv_dailog_card">#ffff6868</color>
+    <color name="tv_bg_card">#ffd8d8d8</color>
+    <color name="tv_bg_card_86">#ff868686</color>
+    <color name="tv_bg_card_f2">#fff2f2f2</color>
+    <color name="tv_bg_card_f6">#fff6f6f6</color>
+    <color name="tv_bg_card_9768">#ffff9768</color>
+    <!--end-->
+<!-- -->
     <!--环信颜色 开始-->
 
     <color name="common_top_bar_blue">#4ebcd3</color>

@@ -1,13 +1,20 @@
 package com.dxj.teacher.utils;
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.Build;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.dxj.teacher.bean.StudyGroup;
 import com.dxj.teacher.bean.UserBean;
@@ -566,5 +573,38 @@ public class MyUtils {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         bm.compress(Bitmap.CompressFormat.PNG, 100, baos);
         return baos.toByteArray();
+    }
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
+    public static void recycleViewGroupAndChildViews(ViewGroup viewGroup, boolean recycleBitmap) {
+        for (int i = 0; i < viewGroup.getChildCount(); i++) {
+
+            View child = viewGroup.getChildAt(i);
+
+            if (child instanceof ViewGroup) {
+                recycleViewGroupAndChildViews((ViewGroup) child, true);
+                continue;
+            }
+
+            if (child instanceof ImageView) {
+                Log.i("TAG", "ImageView");
+                ImageView iv = (ImageView) child;
+                Drawable drawable = iv.getDrawable();
+                if (drawable instanceof BitmapDrawable) {
+                    BitmapDrawable bitmapDrawable = (BitmapDrawable) drawable;
+                    Bitmap bitmap = bitmapDrawable.getBitmap();
+                    if (recycleBitmap && bitmap != null) {
+                        bitmap.recycle();
+                    }
+                }
+                iv.setImageBitmap(null);
+                iv.setBackground(null);
+                continue;
+            }
+
+            child.setBackground(null);
+
+        }
+
+        viewGroup.setBackground(null);
     }
 }

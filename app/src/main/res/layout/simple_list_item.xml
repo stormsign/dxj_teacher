@@ -3,25 +3,36 @@
     android:layout_width="match_parent"
     android:layout_height="50dp"
     android:gravity="center_vertical"
-    android:orientation="horizontal"
-    android:padding="@dimen/margin">
+    android:orientation="vertical"
+    android:background="@android:color/white"
+    >
 
-    <ImageView
-        android:id="@+id/image_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/margin"
-        android:layout_marginRight="@dimen/margin"
-        android:src="@mipmap/ic_launcher"
-        android:visibility="gone" />
-
-    <TextView
-        android:id="@+id/text_view"
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
+        android:orientation="horizontal"
         android:gravity="center"
-        android:textColor="@android:color/black"
-        android:textSize="@dimen/title_text_size" />
+        >
+
+        <TextView
+            android:id="@+id/text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/title_text_size"
+            android:text="sdfsfdfs"
+            />
+        <ImageView
+            android:id="@+id/image_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/margin_10dp"
+            android:src="@mipmap/geren_zhuangkuan_gouxuan"
+            android:layout_gravity="right"
+            android:visibility="gone" />
+    </FrameLayout>
+
 
 </LinearLayout>

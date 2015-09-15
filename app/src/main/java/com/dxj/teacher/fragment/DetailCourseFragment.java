@@ -14,6 +14,7 @@ import com.dxj.teacher.adapter.CourseAdapter;
 import com.dxj.teacher.adapter.DelatilAdapter;
 import com.dxj.teacher.adapter.DelatilCourseAdapter;
 import com.dxj.teacher.base.BaseFragment;
+import com.dxj.teacher.bean.ClassWayBean;
 import com.dxj.teacher.bean.CourseSubjectBean;
 import com.dxj.teacher.bean.SubjectBean;
 import com.dxj.teacher.dialogplus.SimpleAdapter;
@@ -54,15 +55,24 @@ public class DetailCourseFragment extends BaseFragment {
 
 
         for (int i = 0; i < size; i++) {
+            int intPrice = 0;
             View view = getActivity().getLayoutInflater().inflate(R.layout.item_detail_course, null);
             TextView name = (TextView) view.findViewById(R.id.tv_name);
-            TextView price = (TextView) view.findViewById(R.id.tv_price);
+            TextView tvPrice = (TextView) view.findViewById(R.id.tv_price);
             TextView describe = (TextView) view.findViewById(R.id.tv_describe);
             name.setText(list.get(i).getSubjectName());
             describe.setText(list.get(i).getRemark());
+            intPrice = list.get(i).getClassWay().get(0).getPrice();
+            for (int p = 0; p < list.get(i).getClassWay().size(); p++) {
+                ClassWayBean classWayBean = list.get(i).getClassWay().get(p);
+                int classprice = Integer.valueOf(classWayBean.getPrice());
+                if (classprice < intPrice) {
+                    intPrice = classprice;
+                }
+            }
+            tvPrice.setText("¥" + String.valueOf(intPrice));
             linearCourse.addView(view);
         }
-
     }
 
 }

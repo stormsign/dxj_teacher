@@ -48,6 +48,7 @@ import github.jjobes.slidedatetimepicker.SlideDateTimePicker;
 
 /**
  * Created by kings on 8/27/2015.
+ * 学院
  */
 public class UpdateUniversityActivity extends BaseActivity implements View.OnClickListener {
     private EditText etSearch;
@@ -64,6 +65,7 @@ public class UpdateUniversityActivity extends BaseActivity implements View.OnCli
     private String strUniversity;
     private long id;
     private String userId;
+    private boolean isShow;//假如EditText获取到值 第一次不搜取
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -122,10 +124,10 @@ public class UpdateUniversityActivity extends BaseActivity implements View.OnCli
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (s.toString() == null || "".equals(s.toString())) {
-
+                if (s.toString() == null || "".equals(s.toString())||isShow) {
                     lvSearchResult.setVisibility(View.GONE);
                     tvNoresult.setVisibility(View.GONE);
+                    isShow=false;
                 } else {
                     strSearch = s.toString();
                     sendRequestData(3);
@@ -151,6 +153,7 @@ public class UpdateUniversityActivity extends BaseActivity implements View.OnCli
                 id = universityResult.get(position).getId();
                 etSearch.setText(strUniversity);
                 lvSearchResult.setVisibility(View.GONE);
+                isShow=true;
             }
         });
     }
@@ -164,9 +167,7 @@ public class UpdateUniversityActivity extends BaseActivity implements View.OnCli
     public void onClick(View v) {
         int id = v.getId();
         switch (id) {
-            case R.id.btn_back:
-                sendRequestData(1);
-                break;
+
             case R.id.linear_entrancetime:
                 updateBirthday();
                 break;
