@@ -32,12 +32,17 @@ public class AccountTable {
     public  static final String EXPERIENCE="experience";//过往经历
     public static final String RESULT="result";//教学成果
     public static final String DEGREES="degrees";//学历
+    public static final String PASS_DEGREES="passDegrees";//学历
     public static final String HOROSCOPE="horoscope";//星座
     public static final String LABEL ="label";//个人标签
     public static final String SOLVELABEL = "solvelabel";//擅长
     //        private String grade;//年级
     public static final String JSZ="jsz";//教师证
-    public static final String CARD="card";//教师证
+    public static final String PASS_JSZ="passJsz";//教师认证状态
+    public static final String PASS_APTITUDE="passAptitude";//aptitude
+    public static final String APTITUDE="aptitude";//资质认证状态
+
+    public static final String CARD="card";//身份证
     public static final String PHOTO="photo";//相册
 
 }

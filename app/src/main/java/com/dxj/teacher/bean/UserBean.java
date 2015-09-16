@@ -18,7 +18,7 @@ public class UserBean extends BaseBean implements Serializable {
         return userInfo;
     }
 
-    public class UserInfo implements Serializable{
+    public class UserInfo implements Serializable {
         private String id; //用户id
         private String nickName;//用户昵称
         private String headUrl;//头像
@@ -48,9 +48,45 @@ public class UserBean extends BaseBean implements Serializable {
         private String horoscope;//星座
         private List<String> label = new ArrayList<String>();//个人标签
         private List<String> solveLabel = new ArrayList<String>();//擅长
-//        private String grade;//年级
+        //        private String grade;//年级
         private String jsz;//教师证
+        private String aptitude;//资质认证
+        private int passJsz;//教师认证审核状态
+        private int passDegrees;//学历认证审核状态
+        private int passAptitude;//学历认证审核状态
         private CardBean card;//学生证
+
+        public void setAptitude(String aptitude) {
+            this.aptitude = aptitude;
+        }
+
+        public int getPassAptitude() {
+            return passAptitude;
+        }
+
+        public void setPassAptitude(int passAptitude) {
+            this.passAptitude = passAptitude;
+        }
+
+        public int getPassDegrees() {
+            return passDegrees;
+        }
+
+        public void setPassDegrees(int passDegrees) {
+            this.passDegrees = passDegrees;
+        }
+
+        public int getPassJsz() {
+            return passJsz;
+        }
+
+        public void setPassJsz(int passJsz) {
+            this.passJsz = passJsz;
+        }
+
+        public String getAptitude() {
+            return aptitude;
+        }
 
         public void setCard(CardBean card) {
             this.card = card;
@@ -142,6 +178,7 @@ public class UserBean extends BaseBean implements Serializable {
         public void setMobile(String mobile) {
             this.mobile = mobile;
         }
+
         public void setNickName(String nickName) {
             this.nickName = nickName;
         }

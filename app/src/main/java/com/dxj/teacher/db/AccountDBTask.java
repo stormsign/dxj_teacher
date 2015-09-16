@@ -69,6 +69,11 @@ public class AccountDBTask {
             values.put(AccountTable.SCHOOLAGE, String.valueOf(userBean.getUserInfo().getSchoolAge()));
             values.put(AccountTable.SCHOOLCITY, userBean.getUserInfo().getSchoolCity());
             values.put(AccountTable.SCHOOLPROVINCE, userBean.getUserInfo().getSchoolProvince());
+            values.put(AccountTable.PASS_JSZ, userBean.getUserInfo().getPassJsz());
+            values.put(AccountTable.DEGREES, userBean.getUserInfo().getDegrees());
+            values.put(AccountTable.PASS_DEGREES, userBean.getUserInfo().getPassDegrees());
+            values.put(AccountTable.APTITUDE, userBean.getUserInfo().getPassAptitude());
+            values.put(AccountTable.PASS_APTITUDE, userBean.getUserInfo().getPassAptitude());
             String json = new Gson().toJson(userBean.getUserInfo().getCard());
 
             values.put(AccountTable.CARD, json);
@@ -198,6 +203,14 @@ public class AccountDBTask {
 
             colid = c.getColumnIndex(AccountTable.SET);
             userinfo.setSex(c.getString(colid));
+            colid = c.getColumnIndex(AccountTable.PASS_DEGREES);
+            userinfo.setPassDegrees(c.getInt(colid));
+            colid = c.getColumnIndex(AccountTable.APTITUDE);
+            userinfo.setAptitude(c.getString(colid));
+            colid = c.getColumnIndex(AccountTable.PASS_APTITUDE);
+            userinfo.setPassAptitude(c.getInt(colid));
+            colid = c.getColumnIndex(AccountTable.PASS_JSZ);
+            userinfo.setPassJsz(c.getInt(colid));
             colid = c.getColumnIndex(AccountTable.PHOTO);
             String photoJson = c.getString(colid);
 //            List<String> photoList = new ArrayList<>();

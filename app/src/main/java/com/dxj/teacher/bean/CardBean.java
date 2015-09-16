@@ -13,7 +13,7 @@ public class CardBean extends BaseBean implements Serializable {
     private int cardType;//0:身份证 1:护照
     private String name;//证件照片
     private String img;//证件图片
-    private int passCard;//老师类型
+    private int passCard;//认证是否通过
     private String number;//证件编号
 
     public void setId(String id) {
