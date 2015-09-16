@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/background_content"
+    android:orientation="vertical"
 
     >
 
@@ -44,11 +44,21 @@
                     android:layout_height="@dimen/linear_60dp">
 
                     <TextView
-                        style="@style/user_info_text_v"
+                        android:id="@+id/tv_tag_header"
+                        android:layout_width="10dp"
+                        android:layout_height="wrap_content"
                         android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
                         android:layout_marginLeft="@dimen/sidebar_text_size"
-                        android:text="用户头像"
-                         />
+                        android:text="*"
+                        android:textColor="@color/bg_userinfo"
+                        android:textSize="@dimen/text_16sp" />
+
+                    <TextView
+                        style="@style/user_info_text_v"
+
+                        android:layout_toRightOf="@+id/tv_tag_header"
+                        android:text="用户头像" />
 
                     <ImageView
                         android:id="@+id/avatar"
@@ -65,9 +75,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:cardCornerRadius="0dp"
-                app:cardElevation="1dp"
-
-                >
+                app:cardElevation="1dp">
 
                 <RelativeLayout
                     android:id="@+id/relative_nicename"
@@ -75,17 +83,26 @@
                     android:layout_height="@dimen/linear_60dp">
 
                     <TextView
-                        style="@style/user_info_text"
+                        android:id="@+id/tv_tag_name"
+                        android:layout_width="10dp"
+                        android:layout_height="wrap_content"
                         android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
                         android:layout_marginLeft="@dimen/sidebar_text_size"
+                        android:text="*"
+                        android:textColor="@color/bg_userinfo" />
+
+                    <TextView
+                        style="@style/user_info_text"
+                        android:layout_marginLeft="@dimen/sidebar_text_size"
+                        android:layout_toRightOf="@+id/tv_tag_name"
                         android:text="昵称" />
 
                     <TextView
                         android:id="@+id/tv_nicename"
                         style="@style/user_info_text_v"
                         android:layout_marginRight="10dp"
-                        android:layout_toLeftOf="@+id/img_nicename"
-                        />
+                        android:layout_toLeftOf="@+id/img_nicename" />
 
                     <ImageView
                         android:id="@+id/img_nicename"
@@ -105,9 +122,19 @@
                     android:layout_height="@dimen/linear_60dp">
 
                     <TextView
-                        style="@style/user_info_text"
+                        android:id="@+id/tv_tag_sex"
+                        android:layout_width="10dp"
+                        android:layout_height="wrap_content"
                         android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
                         android:layout_marginLeft="@dimen/sidebar_text_size"
+                        android:text="*"
+                        android:textColor="@color/bg_userinfo" />
+
+                    <TextView
+                        style="@style/user_info_text"
+                        android:layout_marginLeft="@dimen/sidebar_text_size"
+                        android:layout_toRightOf="@+id/tv_tag_sex"
                         android:text="性别" />
 
                     <TextView
@@ -138,7 +165,7 @@
                     <TextView
                         style="@style/user_info_text"
                         android:layout_alignParentLeft="true"
-                        android:layout_marginLeft="@dimen/sidebar_text_size"
+                        android:layout_marginLeft="30dp"
                         android:text="生日" />
 
                     <TextView
@@ -168,7 +195,7 @@
                     <TextView
                         style="@style/user_info_text"
                         android:layout_alignParentLeft="true"
-                        android:layout_marginLeft="@dimen/sidebar_text_size"
+                        android:layout_marginLeft="30dp"
                         android:text="星座" />
 
                     <TextView
@@ -195,9 +222,19 @@
                     android:layout_height="@dimen/linear_60dp">
 
                     <TextView
-                        style="@style/user_info_text"
+                        android:id="@+id/tv_tag_nationality"
+                        android:layout_width="10dp"
+                        android:layout_height="wrap_content"
                         android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
                         android:layout_marginLeft="@dimen/sidebar_text_size"
+                        android:text="*"
+                        android:textColor="@color/bg_userinfo" />
+
+                    <TextView
+                        style="@style/user_info_text"
+                        android:layout_marginLeft="@dimen/sidebar_text_size"
+                        android:layout_toRightOf="@+id/tv_tag_nationality"
                         android:text="国籍" />
 
                     <TextView
@@ -218,10 +255,9 @@
                 xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:cardCornerRadius="0dp"
-                app:cardElevation="1dp"
                 android:layout_marginTop="@dimen/margin_8dp"
-                >
+                app:cardCornerRadius="0dp"
+                app:cardElevation="1dp">
 
                 <RelativeLayout
                     android:id="@+id/relative_dialect"
@@ -232,7 +268,7 @@
 
                         style="@style/user_info_text"
                         android:layout_alignParentLeft="true"
-                        android:layout_marginLeft="@dimen/sidebar_text_size"
+                        android:layout_marginLeft="30dp"
 
                         android:text="方言" />
 
@@ -262,9 +298,19 @@
                     android:layout_height="@dimen/linear_60dp">
 
                     <TextView
-                        style="@style/user_info_text"
+                        android:id="@+id/tv_tag_university"
+                        android:layout_width="10dp"
+                        android:layout_height="wrap_content"
                         android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
                         android:layout_marginLeft="@dimen/sidebar_text_size"
+                        android:text="*"
+                        android:textColor="@color/bg_userinfo" />
+
+                    <TextView
+                        style="@style/user_info_text"
+                        android:layout_marginLeft="@dimen/sidebar_text_size"
+                        android:layout_toRightOf="@+id/tv_tag_university"
                         android:text="院校" />
 
                     <TextView
@@ -285,7 +331,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:cardCornerRadius="0dp"
-                app:cardElevation="1dp">
+                app:cardElevation="1dp"
+                android:visibility="gone"
+                >
 
                 <RelativeLayout
                     android:id="@+id/relative_rolename"
@@ -293,9 +341,19 @@
                     android:layout_height="@dimen/linear_60dp">
 
                     <TextView
-                        style="@style/user_info_text"
+                        android:id="@+id/tv_tag_rolename"
+                        android:layout_width="10dp"
+                        android:layout_height="wrap_content"
                         android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
                         android:layout_marginLeft="@dimen/sidebar_text_size"
+                        android:text="*"
+                        android:textColor="@color/bg_userinfo" />
+
+                    <TextView
+                        style="@style/user_info_text"
+                        android:layout_marginLeft="@dimen/sidebar_text_size"
+                        android:layout_toRightOf="@+id/tv_tag_rolename"
                         android:text="目前状况" />
 
                     <TextView
@@ -326,7 +384,7 @@
                     <TextView
                         style="@style/user_info_text"
                         android:layout_alignParentLeft="true"
-                        android:layout_marginLeft="@dimen/sidebar_text_size"
+                        android:layout_marginLeft="30dp"
                         android:text="教龄" />
 
                     <TextView
@@ -355,12 +413,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/linear_60dp">
 
+
                     <TextView
                         style="@style/user_info_text"
                         android:layout_alignParentLeft="true"
-                        android:layout_marginLeft="@dimen/sidebar_text_size"
-
-                        android:layout_marginRight="10dp"
+                        android:layout_marginLeft="30dp"
                         android:text="就读高中" />
 
                     <TextView
@@ -380,7 +437,7 @@
                 android:layout_height="wrap_content"
                 app:cardCornerRadius="0dp"
                 app:cardElevation="1dp">
-                c
+
 
                 <RelativeLayout
                     android:id="@+id/relative_livingcity"
@@ -388,9 +445,19 @@
                     android:layout_height="@dimen/linear_60dp">
 
                     <TextView
-                        style="@style/user_info_text"
+                        android:id="@+id/tv_tag_livingcity"
+                        android:layout_width="10dp"
+                        android:layout_height="wrap_content"
                         android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
                         android:layout_marginLeft="@dimen/sidebar_text_size"
+                        android:text="*"
+                        android:textColor="@color/bg_userinfo" />
+
+                    <TextView
+                        style="@style/user_info_text"
+                        android:layout_marginLeft="@dimen/sidebar_text_size"
+                        android:layout_toRightOf="@+id/tv_tag_livingcity"
                         android:text="现居地" />
 
                     <TextView
@@ -418,9 +485,19 @@
                     android:layout_height="@dimen/linear_60dp">
 
                     <TextView
-                        style="@style/user_info_text"
+                        android:id="@+id/tv_tag_recommend"
+                        android:layout_width="10dp"
+                        android:layout_height="wrap_content"
                         android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
                         android:layout_marginLeft="@dimen/sidebar_text_size"
+                        android:text="*"
+                        android:textColor="@color/bg_userinfo" />
+
+                    <TextView
+                        style="@style/user_info_text"
+                        android:layout_marginLeft="@dimen/sidebar_text_size"
+                        android:layout_toRightOf="@+id/tv_tag_recommend"
                         android:text="介绍" />
 
                     <TextView
@@ -448,9 +525,19 @@
                     android:layout_height="@dimen/linear_60dp">
 
                     <TextView
-                        style="@style/user_info_text"
+                        android:id="@+id/tv_tag_experience"
+                        android:layout_width="10dp"
+                        android:layout_height="wrap_content"
                         android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
                         android:layout_marginLeft="@dimen/sidebar_text_size"
+                        android:text="*"
+                        android:textColor="@color/bg_userinfo" />
+
+                    <TextView
+                        style="@style/user_info_text"
+                        android:layout_marginLeft="@dimen/sidebar_text_size"
+                        android:layout_toRightOf="@+id/tv_tag_experience"
                         android:text="过往经历" />
 
                     <TextView
@@ -479,9 +566,19 @@
                     android:layout_height="@dimen/linear_60dp">
 
                     <TextView
-                        style="@style/user_info_text"
+                        android:id="@+id/tv_tag_solvelabel"
+                        android:layout_width="10dp"
+                        android:layout_height="wrap_content"
                         android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
                         android:layout_marginLeft="@dimen/sidebar_text_size"
+                        android:text="*"
+                        android:textColor="@color/bg_userinfo" />
+
+                    <TextView
+                        style="@style/user_info_text"
+                        android:layout_marginLeft="@dimen/sidebar_text_size"
+                        android:layout_toRightOf="@+id/tv_tag_solvelabel"
                         android:text="善于解决" />
 
                     <TextView
@@ -508,9 +605,19 @@
                     android:layout_height="@dimen/linear_60dp">
 
                     <TextView
-                        style="@style/user_info_text"
+                        android:id="@+id/tv_tag_label"
+                        android:layout_width="10dp"
+                        android:layout_height="wrap_content"
                         android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
                         android:layout_marginLeft="@dimen/sidebar_text_size"
+                        android:text="*"
+                        android:textColor="@color/bg_userinfo" />
+
+                    <TextView
+                        style="@style/user_info_text"
+                        android:layout_marginLeft="@dimen/sidebar_text_size"
+                        android:layout_toRightOf="@+id/tv_tag_label"
                         android:text="个人标签" />
 
                     <TextView
@@ -539,9 +646,19 @@
                     android:layout_height="@dimen/linear_60dp">
 
                     <TextView
-                        style="@style/user_info_text"
+                        android:id="@+id/tv_tag_result"
+                        android:layout_width="10dp"
+                        android:layout_height="wrap_content"
                         android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
                         android:layout_marginLeft="@dimen/sidebar_text_size"
+                        android:text="*"
+                        android:textColor="@color/bg_userinfo" />
+
+                    <TextView
+                        style="@style/user_info_text"
+                        android:layout_marginLeft="@dimen/sidebar_text_size"
+                        android:layout_toRightOf="@+id/tv_tag_result"
                         android:text="成果分享" />
 
                     <TextView
@@ -572,7 +689,7 @@
                     <TextView
                         style="@style/user_info_text"
                         android:layout_alignParentLeft="true"
-                        android:layout_marginLeft="@dimen/sidebar_text_size"
+                        android:layout_marginLeft="30dp"
                         android:text="照片" />
 
                     <TextView
@@ -602,7 +719,7 @@
                     <TextView
                         style="@style/user_info_text"
                         android:layout_alignParentLeft="true"
-                        android:layout_marginLeft="@dimen/sidebar_text_size"
+                        android:layout_marginLeft="30dp"
                         android:text="视频" />
 
                     <TextView style="@style/user_info_text_v" />
@@ -625,7 +742,7 @@
                     <TextView
                         style="@style/user_info_text"
                         android:layout_alignParentLeft="true"
-                        android:layout_marginLeft="@dimen/sidebar_text_size"
+                        android:layout_marginLeft="30dp"
                         android:text="语音" />
 
                     <TextView style="@style/user_info_text_v" />

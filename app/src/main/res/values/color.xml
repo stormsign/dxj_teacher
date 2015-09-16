@@ -46,6 +46,11 @@
     <color name="tv_bg_card_f6">#fff6f6f6</color>
     <color name="tv_bg_card_9768">#ffff9768</color>
     <!--end-->
+
+    <!--home 主页-->
+    <color name="tv_home_title">#ffff8653</color>
+
+    <!-- end-->
 <!-- -->
     <!--环信颜色 开始-->
 
