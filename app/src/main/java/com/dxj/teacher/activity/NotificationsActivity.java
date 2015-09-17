@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 
 import com.dxj.teacher.R;
@@ -11,9 +12,11 @@ import com.dxj.teacher.adapter.NotificationAdapter;
 import com.dxj.teacher.base.BaseActivity;
 import com.dxj.teacher.bean.Notification;
 import com.dxj.teacher.db.dao.NoticeDao;
+import com.dxj.teacher.utils.MyUtils;
 import com.dxj.teacher.widget.TitleNavBar;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by khb on 2015/9/16.
@@ -21,6 +24,8 @@ import java.util.List;
 public class NotificationsActivity extends BaseActivity{
 
     public static NotificationsActivity notificationsActivity;
+
+    private static final String BROWSER_ACTIVITY = "com.dxj.teacher.activity.BrowserActivity";
 
     private List<Notification> noticesList;
     private RecyclerView rv_notice;
@@ -68,7 +73,15 @@ public class NotificationsActivity extends BaseActivity{
             @Override
             public void onNotificationItemClick(View view, int position) {
                 noticeDao.changeNoticeReadState(noticesList.get(position));
+                Notification notification = noticesList.get(position);
                 showToast("假装进入通知详情页面");
+                if (notification.getActivity()!=null && !TextUtils.isEmpty(notification.getActivity()))
+                    switch (notification.getActivity()) {
+                        case BROWSER_ACTIVITY:
+                            Map<String, String> map = MyUtils.parseUmengExtra(notification.getExtra());
+                            MyUtils.openActivityFromUmengMessage(context, notification.getActivity(), map);
+                            break;
+                    }
             }
         });
     }

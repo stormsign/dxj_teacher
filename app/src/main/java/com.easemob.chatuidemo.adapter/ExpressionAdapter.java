@@ -38,9 +38,9 @@ public class ExpressionAdapter extends ArrayAdapter<String>{
 		}
 		
 		ImageView imageView = (ImageView) convertView.findViewById(R.id.iv_expression);
-		
+
 		String filename = getItem(position);
-		int resId = getContext().getResources().getIdentifier(filename, "drawable", getContext().getPackageName());
+		int resId = getContext().getResources().getIdentifier(filename, "mipmap", getContext().getPackageName());
 		imageView.setImageResource(resId);
 		
 		return convertView;

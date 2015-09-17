@@ -46,11 +46,14 @@
             >
             <Button
                 android:id="@+id/bt_home"
+                android:padding="5dp"
+                android:drawablePadding="-2dp"
                 android:gravity="center"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:drawableTop="@drawable/abc_btn_radio_material"
+                android:drawableTop="@mipmap/tab_ico_home"
                 android:text="@string/bt_home"
+                android:textSize="@dimen/text_16sp"
                 android:background="@null"
                 android:onClick="showFragment"
                 />
@@ -61,11 +64,14 @@
             android:layout_weight="1">
             <Button
                 android:id="@+id/bt_search"
+                android:padding="5dp"
+                android:drawablePadding="-2dp"
                 android:gravity="center"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:drawableTop="@drawable/abc_btn_radio_material"
+                android:drawableTop="@mipmap/tab_ico_zhaolaoshi"
                 android:text="@string/bt_search"
+                android:textSize="@dimen/text_16sp"
                 android:background="@null"
                 android:onClick="showFragment"
                 />
@@ -77,11 +83,14 @@
             >
             <Button
                 android:id="@+id/bt_message"
+                android:padding="5dp"
+                android:drawablePadding="-2dp"
                 android:gravity="center"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:drawableTop="@drawable/abc_btn_radio_material"
+                android:drawableTop="@mipmap/tab_ico_xiaoxi"
                 android:text="@string/bt_message"
+                android:textSize="@dimen/text_16sp"
                 android:background="@null"
                 android:onClick="showFragment"
                 />
@@ -96,7 +105,7 @@
                 android:gravity="center"
                 android:textColor="@android:color/white"
                 android:textSize="12sp"
-                android:visibility="gone" />
+                android:visibility="visible" />
         </RelativeLayout>
         <RelativeLayout
             android:layout_width="0dp"
@@ -105,11 +114,14 @@
             >
             <Button
                 android:id="@+id/bt_user"
+                android:padding="5dp"
+                android:drawablePadding="-2dp"
                 android:gravity="center"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:drawableTop="@drawable/abc_btn_radio_material"
+                android:drawableTop="@mipmap/tab_ico_me"
                 android:text="@string/bt_user"
+                android:textSize="@dimen/text_16sp"
                 android:background="@null"
                 android:onClick="showFragment"
                 />

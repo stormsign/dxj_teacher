@@ -108,12 +108,13 @@ public class MainActivity extends BaseActivity implements EMEventListener {
 
 //        if (fm.findFragmentByTag("HOME") == null) {
             ft.add(R.id.rl_fragment_contanier, (HomeFragment)FragmentFactory.getFragment(HOME), "HOME")
-                    .add(R.id.rl_fragment_contanier, (MessageFragment)FragmentFactory.getFragment(MESSAGE), "MESSAGE")
-            .hide((MessageFragment)FragmentFactory.getFragment(MESSAGE));
+                    .add(R.id.rl_fragment_contanier, (MessageFragment) FragmentFactory.getFragment(MESSAGE), "MESSAGE")
+            .hide((MessageFragment) FragmentFactory.getFragment(MESSAGE));
 //                .add(R.id.rl_fragment_contanier, FragmentFactory.getFragment(LOOKINGFORTEACHER), "LOOKINGFORTEACHER")
 //                .add(R.id.rl_fragment_contanier, FragmentFactory.getFragment(MYINFO), "MYINFO");
         ft.show((HomeFragment) FragmentFactory.getFragment(HOME)).commit();
-
+        bt_home.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.mipmap.tab_ico_home_pre), null, null);
+//        bt_home.setSelected(true);
         showLogD("==============================================");
     }
 
@@ -199,6 +200,10 @@ public class MainActivity extends BaseActivity implements EMEventListener {
                         .hide(FragmentFactory.getFragment(MESSAGE))
                         .show(FragmentFactory.getFragment(HOME))
                         .commit();
+                bt_home.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.mipmap.tab_ico_home_pre), null, null);
+                bt_search.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.mipmap.tab_ico_zhaolaoshi), null, null);
+                bt_message.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.mipmap.tab_ico_xiaoxi), null, null);
+                bt_user.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.mipmap.tab_ico_me), null, null);
                 break;
             case R.id.bt_search:
 //                fm.beginTransaction()
@@ -206,16 +211,28 @@ public class MainActivity extends BaseActivity implements EMEventListener {
 //                        .hide(FragmentFactory.getFragment(MESSAGE))
 //                        .commit();
                 startActivity(new Intent(this, SubjectFirstCategoryActivity.class));
+                bt_home.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.mipmap.tab_ico_home), null, null);
+                bt_search.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.mipmap.tab_ico_zhaolaoshi_pre), null, null);
+                bt_message.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.mipmap.tab_ico_xiaoxi), null, null);
+                bt_user.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.mipmap.tab_ico_me), null, null);
                 break;
             case R.id.bt_user:
                 Intent intent = new Intent(this, LoginAndRightActivity.class);
                 startActivity(intent);
+                bt_home.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.mipmap.tab_ico_home), null, null);
+                bt_search.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.mipmap.tab_ico_zhaolaoshi), null, null);
+                bt_message.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.mipmap.tab_ico_xiaoxi), null, null);
+                bt_user.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.mipmap.tab_ico_me_pre), null, null);
                 break;
             case R.id.bt_message:
                 fm.beginTransaction()
                         .hide(FragmentFactory.getFragment(HOME))
                         .show(FragmentFactory.getFragment(MESSAGE))
                         .commit();
+                bt_home.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.mipmap.tab_ico_home), null, null);
+                bt_search.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.mipmap.tab_ico_zhaolaoshi), null, null);
+                bt_message.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.mipmap.tab_ico_xiaoxi_pre), null, null);
+                bt_user.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.mipmap.tab_ico_me), null, null);
                 break;
         }
     }
