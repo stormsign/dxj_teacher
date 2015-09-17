@@ -100,11 +100,11 @@ public class ChatAllHistoryAdapter extends ArrayAdapter<EMConversation> {
 			// 群聊消息，显示群聊头像
 			holder.avatar.setImageResource(R.mipmap.group_icon);
 			try {
+				holder.name.setText(conversation.getLastMessage().getStringAttribute("groupName"));
 				String groupHead = conversation.getLastMessage().getStringAttribute("groupHead");
 				if (groupHead != null) {
 					Glide.with(context).load(groupHead).placeholder(R.mipmap.group_icon).into(holder.avatar);
 				}
-				holder.name.setText(conversation.getLastMessage().getStringAttribute("groupName"));
 			} catch (EaseMobException e) {
 				e.printStackTrace();
 			}

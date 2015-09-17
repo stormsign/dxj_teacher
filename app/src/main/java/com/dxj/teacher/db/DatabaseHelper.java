@@ -7,10 +7,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import com.dxj.teacher.application.MyApplication;
-import com.dxj.teacher.base.BaseApplication;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.dxj.teacher.db.dao.NoticeDao;
 
 /**
  * User: qii Date: 12-7-30
@@ -21,7 +18,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "dxjteacher.db";
 
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 7;
 
 
     static final String CREATE_ACCOUNT_TABLE_SQL = "create table " + AccountTable.TABLE_NAME + "(" + AccountTable.ID + " text primary key,"
@@ -32,15 +29,26 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 			+ AccountTable.EXPERIENCE + " text," + AccountTable.CARD + " text,"+ AccountTable.PHOTO + " text,"+AccountTable.SUBJECT+" text,"+ AccountTable.RESULT +" text,"+ AccountTable.CHAMPION+" text,"+AccountTable.PASSCHAMPION+" integer,"+AccountTable.APTITUDE+" text,"+AccountTable.PASS_APTITUDE+" integer,"+AccountTable.DEGREES+" text,"+AccountTable.PASS_DEGREES+" integer,"+AccountTable.PASS_JSZ+" integer," + AccountTable.HOROSCOPE + " text,"+ AccountTable.SOLVELABEL + " text," + AccountTable.LABEL + " text," + AccountTable.JSZ
 			+ " text"  +");";
 
+	private final static String CREATE_NOTICE_TABLE = "CREATE TABLE "
+			+ NoticeDao.NOTICE_TABLE_NAME + " ("
+			+ NoticeDao.NOTICE_COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+			+ NoticeDao.NOTICE_COLUMN_TITLE + " TEXT, "
+			+ NoticeDao.NOTICE_COLUMN_CONTENT + " TEXT, "
+			+ NoticeDao.NOTICE_COLUMN_READ + " INTEGER, "
+			+ NoticeDao.NOTICE_COLUMN_TIME + " TEXT, "
+			+ NoticeDao.NOTICE_COLUMN_ACTIVITY + " TEXT, "
+			+ NoticeDao.NOTICE_COLUMN_EXTRA + " TEXT "
+			+"); ";
+
     DatabaseHelper(Context context) {
-	super(context, DATABASE_NAME, null, DATABASE_VERSION);
+		super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
 
-	db.execSQL(CREATE_ACCOUNT_TABLE_SQL);
-
+		db.execSQL(CREATE_ACCOUNT_TABLE_SQL);
+		db.execSQL(CREATE_NOTICE_TABLE);
 	// createOtherTable(db);
     }
 
@@ -77,12 +85,31 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	return singleton;
     }
 
+	public static synchronized DatabaseHelper getInstance(Context context) {
+		if (singleton == null) {
+			singleton = new DatabaseHelper(context);
+		}
+		return singleton;
+	}
+
     private void deleteAllTable(SQLiteDatabase db) {
 	db.execSQL("DROP TABLE IF EXISTS " + AccountTable.TABLE_NAME);
-
+	db.execSQL("DROP TABLE IF EXISTS " + NoticeDao.NOTICE_TABLE_NAME);
 	// deleteAllTableExceptAccount(db);
 
     }
+
+	public void closeDB() {
+		if (singleton != null) {
+			try {
+				SQLiteDatabase db = singleton.getWritableDatabase();
+				db.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			singleton = null;
+		}
+	}
 
     // private void upgrade34To35(SQLiteDatabase db) {
     // db.execSQL(CREATE_NOTIFICATION_TABLE_SQL);

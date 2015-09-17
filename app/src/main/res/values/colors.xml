@@ -12,4 +12,8 @@
     <color name="text_color_848484">#FF848484</color>
     <color name="text_color_bababa">#FFBABABA</color>
     <color name="message_send_color">#FFFAF7</color>
+    <color name="notification_time">#FFBDBDBD</color>
+    <color name="text_color_919191">#FF919191</color>
+    <color name="notification_read">#EAEAEA</color>
+    <color name="notification_unread">#FFFFFF</color>
 </resources>

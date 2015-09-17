@@ -327,6 +327,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="个人设置" />
+        <Button
+            android:id="@+id/kefu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="客服" />
     </LinearLayout>
 </com.dxj.teacher.widget.MultiSwipeRefreshLayout>
 </LinearLayout>

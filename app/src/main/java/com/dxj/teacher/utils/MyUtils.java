@@ -20,6 +20,7 @@ import com.dxj.teacher.bean.StudyGroup;
 import com.dxj.teacher.bean.UserBean;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.umeng.message.entity.UMessage;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -41,7 +42,10 @@ import java.net.HttpURLConnection;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
@@ -54,6 +58,51 @@ public class MyUtils {
 
     public final static String SMSSDK_APP_KEY = "a38245d89da2";
     public final static String SMSSDK_APP_SECRET = "84db45a5b7dcde895fc72f47edf53447";
+    public static final String UMENG_MESSAGE_EXTRA = "extra";
+
+    public static void openActivityFromUmengMessage(Context context, String activity, Map<String, String> extra) {
+        if(activity != null && !TextUtils.isEmpty(activity.trim())) {
+            Intent intent = new Intent();
+            if (extra!=null) {
+//            实际情况下只传了一个参数
+                setIntentFromUmengExtra(intent, extra);
+            }
+            intent.setClassName(context, activity);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            context.startActivity(intent);
+        }
+    }
+
+    private static Intent setIntentFromUmengExtra(Intent intent, Map<String, String> extra) {
+        if(intent != null && extra != null) {
+            Iterator iterator = extra.entrySet().iterator();
+
+            while(iterator.hasNext()) {
+                Map.Entry entry = (Map.Entry)iterator.next();
+                String key = (String)entry.getKey();
+                String value = (String)entry.getValue();
+                if(key != null) {
+                    intent.putExtra(key, value);
+                }
+            }
+            return intent;
+        } else {
+            return intent;
+        }
+    }
+
+    public static Map<String, String> parseUmengExtra(String extra){
+        Map<String,String> m = new HashMap<String,String>();
+        if (extra != null) {
+            extra = extra.substring(1, extra.length() - 1);//去掉括号
+            String[] kvs = extra.split(",");//拆成key 和value 的组合
+            for (String kv : kvs) {
+                //拆成key 和value 分别放好
+                m.put(kv.substring(0, kv.indexOf('=')), kv.substring(kv.indexOf('=') + 1));
+            }
+        }
+        return m;
+    }
 
     public static List<StudyGroup> getSecondListGroupsFromJson(String json, List<Integer> secondIdList){
         try {

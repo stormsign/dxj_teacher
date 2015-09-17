@@ -5,6 +5,7 @@ import android.app.Application;
 import android.app.Service;
 import android.content.Context;
 import android.os.Vibrator;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.alibaba.fastjson.JSONObject;
@@ -14,19 +15,32 @@ import com.android.volley.VolleyError;
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
+import com.dxj.teacher.MainActivity;
+import com.dxj.teacher.activity.NotificationsActivity;
 import com.dxj.teacher.bean.BaseBean;
+import com.dxj.teacher.bean.Notification;
 import com.dxj.teacher.bean.UserBean;
 import com.dxj.teacher.db.AccountDBTask;
+import com.dxj.teacher.db.dao.NoticeDao;
 import com.dxj.teacher.http.CustomStringRequest;
 import com.dxj.teacher.http.FinalData;
 import com.dxj.teacher.http.VolleySingleton;
+import com.dxj.teacher.manager.DBManager;
 import com.dxj.teacher.utils.ExceptionHandler;
 import com.dxj.teacher.utils.HttpUtils;
+import com.dxj.teacher.utils.LogUtils;
+import com.dxj.teacher.utils.MyUtils;
 import com.dxj.teacher.utils.StringUtils;
 import com.easemob.EMCallBack;
 import com.easemob.chatuidemo.DemoHXSDKHelper;
+import com.easemob.chatuidemo.utils.CommonUtils;
+import com.umeng.message.PushAgent;
+import com.umeng.message.UmengMessageHandler;
+import com.umeng.message.UmengNotificationClickHandler;
+import com.umeng.message.entity.UMessage;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -46,6 +60,7 @@ public class MyApplication extends Application {
     private String latitude;
     // login user name
     public final String PREF_USERNAME = "username";
+
     public Vibrator mVibrator;
     public MyLocationListener mMyLocationListener;
     public LocationClient mLocationClient;
@@ -81,7 +96,69 @@ public class MyApplication extends Application {
         mLocationClient.registerLocationListener(mMyLocationListener);
         mVibrator = (Vibrator) getApplicationContext().getSystemService(Service.VIBRATOR_SERVICE);
 
+        PushAgent.getInstance(getApplicationContext()).setMessageHandler(mUmengMessageHandler);
+        PushAgent.getInstance(getApplicationContext()).setNotificationClickHandler(umengNotificationClickHandler);
+
     }
+
+    UmengMessageHandler mUmengMessageHandler = new UmengMessageHandler(){
+        @Override
+        public void dealWithNotificationMessage(Context context, UMessage uMessage) {
+//            父类方法是在通知栏显示消息
+            super.dealWithNotificationMessage(context, uMessage);
+//            以下是将消息存入数据库
+            LogUtils.d("dealWithNotificationMessage got umeng message : " + uMessage.text);
+            NoticeDao noticeDao = new NoticeDao(context);
+            Date currentDate = new Date(System.currentTimeMillis());
+//            currentDate.getTime();
+            Notification notification = new Notification();
+            notification.setTitle(uMessage.title);
+            notification.setContent(uMessage.text);
+            notification.setTime(currentDate.getTime());
+            notification.setRead(false);
+            notification.setActivity(uMessage.activity);
+            if (null != uMessage.extra){
+                notification.setExtra(uMessage.extra.get(MyUtils.UMENG_MESSAGE_EXTRA));
+            }
+            noticeDao.saveNotice(notification.getTitle(), notification.getContent(), DBManager.NOTICE_UNREAD, String.valueOf(notification.getTime()),
+                    notification.getActivity(), notification.getExtra());
+            List<Notification> allNotices = noticeDao.getAllNotices();
+            LogUtils.d("allNotices "+ allNotices.size());
+            if (MainActivity.mainActivity != null){
+                MainActivity.mainActivity.refreshUI();
+            }
+//            系统通知activity已打开，并且在栈顶显示时,直接刷新
+            if (NotificationsActivity.notificationsActivity != null
+                    && (NotificationsActivity.class.getName()
+                        .equals(CommonUtils.getTopActivity(context)))){
+                NotificationsActivity.notificationsActivity.addNewNotice(notification);
+            }
+        }
+    };
+
+    UmengNotificationClickHandler umengNotificationClickHandler = new UmengNotificationClickHandler(){
+        @Override
+        public void openUrl(Context context, UMessage uMessage) {
+            super.openUrl(context, uMessage);
+        }
+
+        @Override
+        public void openActivity(Context context, UMessage uMessage) {
+            LogUtils.d("openActivity " + uMessage.activity);
+//            super.openActivity(context, uMessage);
+            if(uMessage.activity != null && !TextUtils.isEmpty(uMessage.activity.trim())) {
+                if (uMessage.extra != null) {
+                    String extraString = uMessage.extra.get(MyUtils.UMENG_MESSAGE_EXTRA);
+                    Map<String, String> mapExtra = MyUtils.parseUmengExtra(extraString);
+                    MyUtils.openActivityFromUmengMessage(context, uMessage.activity, mapExtra);
+                }
+            }
+        }
+
+    };
+
+
+
 
     /**
      * 实现实时位置回调监听

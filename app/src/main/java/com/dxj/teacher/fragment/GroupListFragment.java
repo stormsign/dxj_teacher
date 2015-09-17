@@ -83,8 +83,13 @@ public class GroupListFragment extends BaseFragment {
     }
 
     @Override
-    public void onDestroy() {
+    public void onStop() {
         db.close();
+        super.onStop();
+    }
+
+    @Override
+    public void onDestroy() {
         super.onDestroy();
     }
 

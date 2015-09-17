@@ -1,13 +1,11 @@
 package com.dxj.teacher.fragment;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.SwitchCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -20,6 +18,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.dxj.teacher.R;
 import com.dxj.teacher.activity.CardSettingActivity;
+import com.dxj.teacher.activity.ChatActivity;
 import com.dxj.teacher.activity.EditCourseActivity;
 import com.dxj.teacher.activity.TeacherDetailsActivity;
 import com.dxj.teacher.activity.UpdateUserInfoActivity;
@@ -28,23 +27,18 @@ import com.dxj.teacher.base.BaseFragment;
 import com.dxj.teacher.bean.BaseBean;
 import com.dxj.teacher.bean.UserBean;
 import com.dxj.teacher.db.AccountDBTask;
-import com.dxj.teacher.db.AccountTable;
 import com.dxj.teacher.http.CustomStringRequest;
 import com.dxj.teacher.http.FinalData;
 import com.dxj.teacher.http.GsonRequest;
 import com.dxj.teacher.http.VolleySingleton;
 import com.dxj.teacher.utils.HttpUtils;
-import com.dxj.teacher.utils.StringUtils;
 import com.dxj.teacher.utils.ToastUtils;
 import com.dxj.teacher.widget.MultiSwipeRefreshLayout;
-
-import org.w3c.dom.Text;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import cn.smssdk.EventHandler;
-import cn.smssdk.SMSSDK;
 
 
 /**
@@ -97,6 +91,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         btnCard.setOnClickListener(this);
         btnUserInfo.setOnClickListener(this);
         view.findViewById(R.id.userinfo).setOnClickListener(this);
+        view.findViewById(R.id.kefu).setOnClickListener(this);
         switchcompatAppointment.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -260,6 +255,12 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
 //                break;
             case R.id.relateive_userinfo:
                 startActivity(new Intent(getActivity(), UpdateUserInfoActivity.class));
+                break;
+            case R.id.kefu:
+                startActivity(new Intent(getActivity(), ChatActivity.class)
+                    .putExtra("chatType",ChatActivity.CHATTYPE_SINGLE)
+                        .putExtra("userId", "800")
+                );
                 break;
 
         }

@@ -3,17 +3,14 @@ package com.dxj.teacher.fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.widget.RecyclerView;
 import android.util.Pair;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
-import android.webkit.WebView;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -21,17 +18,18 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.dxj.teacher.MainActivity;
 import com.dxj.teacher.R;
 import com.dxj.teacher.activity.ChatActivity;
+import com.dxj.teacher.activity.NotificationsActivity;
 import com.dxj.teacher.adapter.ChatAllHistoryAdapter;
 import com.dxj.teacher.application.MyApplication;
 import com.dxj.teacher.base.BaseFragment;
+import com.dxj.teacher.bean.Notification;
+import com.dxj.teacher.db.dao.NoticeDao;
 import com.dxj.teacher.utils.ToastUtils;
 import com.dxj.teacher.widget.TitleNavBar;
 import com.easemob.chat.EMChatManager;
 import com.easemob.chat.EMConversation;
-import com.easemob.chatuidemo.Constant;
 import com.easemob.chatuidemo.db.InviteMessgeDao;
 import com.easemob.exceptions.EaseMobException;
 
@@ -59,6 +57,9 @@ public class MessageFragment extends BaseFragment{
     public TextView errorText;
     private boolean hidden;
     private List<EMConversation> conversationList = new ArrayList<EMConversation>();
+    private TextView noticeTitle;
+    private TextView noticeContent;
+    private TextView unreadNoticeCount;
 
 
     @Override
@@ -66,6 +67,15 @@ public class MessageFragment extends BaseFragment{
 //        view = inflater.inflate(R.layout.fragment_message, null);
 //        list = (RecyclerView) view.findViewById(R.id.list);
         view = inflater.inflate(R.layout.fragment_message, null);
+        noticeTitle = (TextView) view.findViewById(R.id.notice_title);
+        noticeContent = (TextView) view.findViewById(R.id.notice_content);
+        unreadNoticeCount = (TextView) view.findViewById(R.id.unread_notice_number);
+        view.findViewById(R.id.last_notice_layout).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(context, NotificationsActivity.class));
+            }
+        });
         initTitle();
         return view;
     }
@@ -85,6 +95,7 @@ public class MessageFragment extends BaseFragment{
         inputMethodManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
 //        errorItem = (RelativeLayout) getView().findViewById(R.id.rl_error_item);
 //        errorText = (TextView) errorItem.findViewById(R.id.tv_connect_errormsg);
+        getLastNotice();
 
         conversationList.addAll(loadConversationsWithRecentChat());
         listView = (ListView) getView().findViewById(R.id.list);
@@ -116,7 +127,7 @@ public class MessageFragment extends BaseFragment{
                                 intent.putExtra("chatType", ChatActivity.CHATTYPE_GROUP);
                                 intent.putExtra("groupHXId", username)
                                 .putExtra("groupHead", conversation.getLastMessage().getStringAttribute("groupHead"))
-                                .putExtra("groupName", conversation.getLastMessage().getStringAttribute("groupName"))
+                                .putExtra("groupName", conversation.getLastMessage().getStringAttribute("groupName")+"")
                                 .putExtra("groupId", conversation.getLastMessage().getStringAttribute("groupId"));
                             } catch (EaseMobException e) {
                                 e.printStackTrace();
@@ -145,6 +156,29 @@ public class MessageFragment extends BaseFragment{
 
         });
 
+    }
+
+    /**
+     * 获取最近一条通知
+     */
+    private void getLastNotice() {
+        NoticeDao noticeDao = new NoticeDao(context);
+        Notification lastNotice = noticeDao.getLastNotice();
+        int unreadCount = noticeDao.getUnreadNoticesCount();
+        if (lastNotice!=null) {
+            noticeTitle.setText(lastNotice.getTitle());
+            noticeContent.setText(lastNotice.getContent());
+        }else{
+            noticeTitle.setText("系统消息");
+            noticeContent.setText("暂无消息");
+        }
+
+        if (unreadCount > 0) {
+            unreadNoticeCount.setVisibility(View.VISIBLE);
+            unreadNoticeCount.setText(unreadCount+"");
+        }else{
+            unreadNoticeCount.setVisibility(View.GONE);
+        }
     }
 
     void hideSoftKeyboard() {
@@ -191,6 +225,7 @@ public class MessageFragment extends BaseFragment{
      * 刷新页面
      */
     public void refresh() {
+        getLastNotice();
         conversationList.clear();
         conversationList.addAll(loadConversationsWithRecentChat());
         if(adapter != null)
@@ -285,18 +320,6 @@ public class MessageFragment extends BaseFragment{
 //            outState.putBoolean(Constant.ACCOUNT_REMOVED, true);
 //        }
     }
-
-//    @Override
-//    public void onClick(View v) {
-//    }
-
-
-
-
-
-
-
-
 
     @Override
     public void initData() {

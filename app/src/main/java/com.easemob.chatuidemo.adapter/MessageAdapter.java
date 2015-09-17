@@ -1254,7 +1254,8 @@ public class MessageAdapter extends BaseAdapter{
 
 		final long start = System.currentTimeMillis();
 		// 调用sdk发送异步发送方法
-		EMChatManager.getInstance().sendMessage(message, new EMCallBack() {
+		EMChatManager em = EMChatManager.getInstance();
+		em.sendMessage(message, new EMCallBack() {
 
 			@Override
 			public void onSuccess() {

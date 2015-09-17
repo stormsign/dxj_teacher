@@ -45,6 +45,7 @@ public class GroupMemberListActivity extends BaseActivity{
      * 要被删除的对象的位置
      */
     private int positionToBeDeleted;
+    private int currentPosition;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -121,7 +122,9 @@ public class GroupMemberListActivity extends BaseActivity{
             @Override
             public void onMemberDeleteClick(View view, final int position) {
 //                减去显示团员数目的position
+                currentPosition = position;
                 positionToBeDeleted = position-1;
+                showLogD("positionToBeDeleted : "+positionToBeDeleted);
 //                自定义dialog
                 final NiftyDialogBuilder dialogBuilder = NiftyDialogBuilder.getInstance(context);
                 dialogBuilder
@@ -177,7 +180,8 @@ public class GroupMemberListActivity extends BaseActivity{
         return new Response.Listener<String>() {
             @Override
             public void onResponse(String s) {
-                mAdapter.notifyItemRemoved(positionToBeDeleted);
+                mAdapter.notifyItemRemoved(currentPosition);
+//                数据列表内的值不包含“团员”这一item
                 members.remove(positionToBeDeleted);
                 memberHXIds.remove(positionToBeDeleted);
             }

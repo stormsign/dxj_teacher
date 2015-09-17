@@ -14,10 +14,10 @@ import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
 import com.dxj.teacher.activity.LoginAndRightActivity;
 import com.dxj.teacher.activity.StudyGroupListActivity;
-import com.dxj.teacher.activity.SubjectCategoryActivity;
 import com.dxj.teacher.activity.SubjectFirstCategoryActivity;
 import com.dxj.teacher.application.MyApplication;
 import com.dxj.teacher.base.BaseActivity;
+import com.dxj.teacher.db.dao.NoticeDao;
 import com.dxj.teacher.factory.FragmentFactory;
 import com.dxj.teacher.fragment.HomeFragment;
 import com.dxj.teacher.fragment.MessageFragment;
@@ -36,6 +36,7 @@ import com.easemob.chat.EMGroupManager;
 import com.easemob.chat.EMMessage;
 import com.easemob.chat.GroupChangeListener;
 import com.easemob.chatuidemo.DemoHXSDKHelper;
+import com.easemob.exceptions.EaseMobException;
 import com.umeng.common.message.UmengMessageDeviceConfig;
 import com.umeng.message.IUmengRegisterCallback;
 import com.umeng.message.MsgConstant;
@@ -48,6 +49,8 @@ import java.io.InputStream;
 import java.util.List;
 
 public class MainActivity extends BaseActivity implements EMEventListener {
+
+    public static MainActivity mainActivity ;
 
     private Button bt_user, bt_message, bt_search, bt_home;
     private FragmentManager fm;
@@ -73,6 +76,7 @@ public class MainActivity extends BaseActivity implements EMEventListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        mainActivity = this;
         initTitle();
         initData();
         initView();
@@ -252,7 +256,11 @@ public class MainActivity extends BaseActivity implements EMEventListener {
             case EventNewMessage: // 普通消息
             {
                 EMMessage message = (EMMessage) event.getData();
-
+                try {
+                    showLogD("MESSAGE "+message.getStringAttribute("groupName"));
+                } catch (EaseMobException e) {
+                    e.printStackTrace();
+                }
                 // 提示新消息
                 HXSDKHelper.getInstance().getNotifier().onNewMsg(message);
 
@@ -276,7 +284,7 @@ public class MainActivity extends BaseActivity implements EMEventListener {
     }
 
 
-    private void refreshUI() {
+    public void refreshUI() {
         runOnUiThread(new Runnable() {
             public void run() {
                 // 刷新bottom bar消息未读数
@@ -593,7 +601,8 @@ public class MainActivity extends BaseActivity implements EMEventListener {
      * 刷新未读消息数
      */
     public void updateUnreadLabel() {
-        int count = getUnreadMsgCountTotal();
+
+        int count = getUnreadMsgCountTotal()+ new NoticeDao(this).getUnreadNoticesCount();
         if (count > 0) {
 //            unreadLabel.setText(String.valueOf(count));
             unreadLabel.setVisibility(View.VISIBLE);

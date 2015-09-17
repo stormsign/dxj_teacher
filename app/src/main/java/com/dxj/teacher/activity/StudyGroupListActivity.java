@@ -136,6 +136,9 @@ public class StudyGroupListActivity extends BaseActivity {
 
     @Override
     public void initData() {
+        showLogD(" MESSAGE FROM UMENG ");
+        showLogD("   "+getIntent().getStringExtra("url"));
+        showToast(getIntent().getStringExtra("url")+"  "+getIntent().getStringExtra("id"));
         groupList = new ArrayList<StudyGroup>();
         titleList = new ArrayList<>();
         titleSelectedList = new ArrayList<>();
