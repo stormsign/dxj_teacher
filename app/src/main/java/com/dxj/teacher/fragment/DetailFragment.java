@@ -258,6 +258,9 @@ public class DetailFragment extends BaseFragment implements View.OnClickListener
     private void showPhoto(List<String> lists) {
         if (lists != null && lists.size() > 0) {
             int count = lists.size();
+            if (count>4){
+                count=4;
+            }
             for (int i = 0; i < count; i++) {
                 final ImageView pic = (ImageView) linearPhoto.getChildAt(i);
                 if (lists.get(i) != null) {
@@ -265,11 +268,28 @@ public class DetailFragment extends BaseFragment implements View.OnClickListener
                 }
             }
             if (count <= 4) {
+                ImageView pic;
                 switch (count) {
                     case 0:
                         linearPhoto.setVisibility(View.GONE);
                         break;
                     case 1:
+                        for (int i=3;i>0;i--){
+                            pic=(ImageView)linearPhoto.getChildAt(i);
+                            pic.setVisibility(View.GONE);
+                        }
+                        break;
+                    case 2:
+                        for (int i=3;i>1;i--){
+                            pic=(ImageView)linearPhoto.getChildAt(i);
+                            pic.setVisibility(View.GONE);
+                        }
+                        break;
+                    case 3:
+                        for (int i=3;i>2;i--){
+                            pic=(ImageView)linearPhoto.getChildAt(i);
+                            pic.setVisibility(View.GONE);
+                        }
                         break;
                 }
             }

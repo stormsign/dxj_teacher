@@ -14,6 +14,8 @@ import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
 import com.dxj.teacher.activity.LoginAndRightActivity;
 import com.dxj.teacher.activity.StudyGroupListActivity;
+import com.dxj.teacher.activity.SubjectCategoryActivity;
+import com.dxj.teacher.activity.SubjectFirstCategoryActivity;
 import com.dxj.teacher.application.MyApplication;
 import com.dxj.teacher.base.BaseActivity;
 import com.dxj.teacher.factory.FragmentFactory;
@@ -195,10 +197,11 @@ public class MainActivity extends BaseActivity implements EMEventListener {
                         .commit();
                 break;
             case R.id.bt_search:
-                fm.beginTransaction()
-                        .hide(FragmentFactory.getFragment(HOME))
-                        .hide(FragmentFactory.getFragment(MESSAGE))
-                        .commit();
+//                fm.beginTransaction()
+//                        .hide(FragmentFactory.getFragment(HOME))
+//                        .hide(FragmentFactory.getFragment(MESSAGE))
+//                        .commit();
+                startActivity(new Intent(this, SubjectFirstCategoryActivity.class));
                 break;
             case R.id.bt_user:
                 Intent intent = new Intent(this, LoginAndRightActivity.class);

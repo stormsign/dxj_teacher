@@ -149,7 +149,7 @@ public abstract class CardBaseActvity extends BaseActivity {
         }
         Map<String, Object> map = new HashMap<>();
         map.put("id", MyApplication.getInstance().getUserId());
-        map.put("img", imageUrl);
+        map.put(getUrl(), imageUrl);
         GsonRequest<CourseSubjectList> custom = new GsonRequest(Request.Method.POST, urlPath, CourseSubjectList.class, map, getListener(), getErrorListener());
         VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(custom);
     }

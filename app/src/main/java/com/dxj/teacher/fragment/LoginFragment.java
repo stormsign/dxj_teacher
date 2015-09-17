@@ -20,6 +20,7 @@ import com.android.volley.Response;
 import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
+import com.dxj.teacher.MainActivity;
 import com.dxj.teacher.R;
 import com.dxj.teacher.activity.ResetActivity;
 import com.dxj.teacher.application.MyApplication;
@@ -174,6 +175,7 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener 
                             Log.d("main", "登陆聊天服务器成功！");
                             // 处理好友和群组
                             initializeContacts();
+                            startActivity(new Intent(getActivity(), MainActivity.class));
                         } catch (Exception e) {
                             e.printStackTrace();
                             // 取好友或者群聊失败，不让进入主页面

@@ -69,7 +69,10 @@ public class HttpUtils {
 	public static final String  TEACHERINFO="teacherInfo";
 	//语音
 	public static final String  VOICE="voice";
-	public static final String  UPDATEACCEPT="updateAccept";
+	//是否预约
+	public static final String  ACCEPT="accept";
+	//状元认证
+	public static final String  CHAMPION="champion";
 
 
 }
