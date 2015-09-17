@@ -46,15 +46,42 @@ public class UserBean extends BaseBean implements Serializable {
         private String result;//教学成果
         private String degrees;//学历
         private String horoscope;//星座
-        private List<String> label = new ArrayList<String>();//个人标签
-        private List<String> solveLabel = new ArrayList<String>();//擅长
+        private ArrayList<String> label = new ArrayList<String>();//个人标签
+        private ArrayList<String> solveLabel = new ArrayList<String>();//擅长
+        private ArrayList<String> subject = new ArrayList<String>();//科目
         //        private String grade;//年级
         private String jsz;//教师证
         private String aptitude;//资质认证
+        private String champion;//状元认证
+        private int passChampion;//状元认证状态
         private int passJsz;//教师认证审核状态
         private int passDegrees;//学历认证审核状态
         private int passAptitude;//学历认证审核状态
         private CardBean card;//学生证
+
+        public void setSubject(ArrayList<String> subject) {
+            this.subject = subject;
+        }
+
+        public ArrayList<String> getSubject() {
+            return subject;
+        }
+
+        public void setChampion(String champion) {
+            this.champion = champion;
+        }
+
+        public String getChampion() {
+            return champion;
+        }
+
+        public void setPassChampion(int passChampion) {
+            this.passChampion = passChampion;
+        }
+
+        public int getPassChampion() {
+            return passChampion;
+        }
 
         public void setAptitude(String aptitude) {
             this.aptitude = aptitude;
@@ -127,7 +154,7 @@ public class UserBean extends BaseBean implements Serializable {
             this.jsz = jsz;
         }
 
-        public void setLabel(List<String> label) {
+        public void setLabel(ArrayList<String> label) {
             this.label = label;
         }
 
@@ -151,7 +178,7 @@ public class UserBean extends BaseBean implements Serializable {
             this.schoolProvince = schoolProvince;
         }
 
-        public void setSolveLabel(List<String> solveLabel) {
+        public void setSolveLabel(ArrayList<String> solveLabel) {
             this.solveLabel = solveLabel;
         }
 
@@ -309,11 +336,11 @@ public class UserBean extends BaseBean implements Serializable {
             return schoolAge;
         }
 
-        public List<String> getLabel() {
+        public ArrayList<String> getLabel() {
             return label;
         }
 
-        public List<String> getSolveLabel() {
+        public ArrayList<String> getSolveLabel() {
             return solveLabel;
         }
 

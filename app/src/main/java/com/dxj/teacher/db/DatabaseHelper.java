@@ -29,7 +29,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	    + " text," + AccountTable.UNIVERSITY + " text," + AccountTable.MAJOR + " text," + AccountTable.ABILITY + " text," +AccountTable.GRADES+" text,"+AccountTable.HEADURL+" text,"
 			+ AccountTable.ENTRANCETIME + " text," + AccountTable.CHAMPIONTYPE + " text," + AccountTable.SCHOOL + " text," + AccountTable.SCHOOLPROVINCE + " text," + AccountTable.SCHOOLCITY
 			+ " text," + AccountTable.LIVINGCITY + " text," + AccountTable.SCHOOLAGE + " text," + AccountTable.DIALECT + " text," +AccountTable.BIRTHDAY + " text," + AccountTable.NATIONALITY + " text," +AccountTable.REMARK+" text,"
-			+ AccountTable.EXPERIENCE + " text," + AccountTable.CARD + " text,"+ AccountTable.PHOTO + " text,"+ AccountTable.RESULT + " text,"+AccountTable.APTITUDE+" text,"+AccountTable.PASS_APTITUDE+" integer,"+AccountTable.DEGREES+" text,"+AccountTable.PASS_DEGREES+" integer,"+AccountTable.PASS_JSZ+" integer," + AccountTable.HOROSCOPE + " text,"+ AccountTable.SOLVELABEL + " text," + AccountTable.LABEL + " text," + AccountTable.JSZ
+			+ AccountTable.EXPERIENCE + " text," + AccountTable.CARD + " text,"+ AccountTable.PHOTO + " text,"+AccountTable.SUBJECT+" text,"+ AccountTable.RESULT +" text,"+ AccountTable.CHAMPION+" text,"+AccountTable.PASSCHAMPION+" integer,"+AccountTable.APTITUDE+" text,"+AccountTable.PASS_APTITUDE+" integer,"+AccountTable.DEGREES+" text,"+AccountTable.PASS_DEGREES+" integer,"+AccountTable.PASS_JSZ+" integer," + AccountTable.HOROSCOPE + " text,"+ AccountTable.SOLVELABEL + " text," + AccountTable.LABEL + " text," + AccountTable.JSZ
 			+ " text"  +");";
 
     DatabaseHelper(Context context) {

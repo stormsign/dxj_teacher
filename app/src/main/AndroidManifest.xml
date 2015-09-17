@@ -245,7 +245,6 @@
         <activity android:name=".activity.UserProfileActivity"/>
         <activity android:name=".activity.VideoCallActivity"/>
         <activity android:name=".activity.VoiceCallActivity"/>
-        <activity android:name=".activity.LoginAndRightActivity"/>
         <activity android:name=".activity.UpdateUserInfoActivity"/>
         <activity android:name=".activity.UpdateNiceNameActivity"/>
         <activity android:name=".activity.UpdateDialectActivity"/>
@@ -275,6 +274,10 @@
         <activity android:name=".activity.MediaActivity"/>
         <activity android:name=".activity.ResetActivity"/>
         <activity android:name=".activity.GalleryActivity"/>
+        <activity android:name=".activity.CardChampionActvity"/>
+        <activity android:name=".activity.LoginAndRightActivity"/>
+        <activity android:name=".activity.SubjectCategoryActivity"/>
+        <activity android:name=".activity.SubjectFirstCategoryActivity"/>
     </application>
 
 </manifest>

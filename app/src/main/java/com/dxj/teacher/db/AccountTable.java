@@ -41,6 +41,9 @@ public class AccountTable {
     public static final String PASS_JSZ="passJsz";//教师认证状态
     public static final String PASS_APTITUDE="passAptitude";//aptitude
     public static final String APTITUDE="aptitude";//资质认证状态
+    public static final String CHAMPION="champion";//状元认证
+    public static final String PASSCHAMPION="passChampion";//状元认证状态
+    public static final String SUBJECT="subject";//状元认证状态
 
     public static final String CARD="card";//身份证
     public static final String PHOTO="photo";//相册

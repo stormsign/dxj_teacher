@@ -290,7 +290,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:cardCornerRadius="0dp"
-                app:cardElevation="1dp">
+                app:cardElevation="1dp"
+                android:visibility="gone"
+                >
 
                 <RelativeLayout
                     android:id="@+id/relative_university"

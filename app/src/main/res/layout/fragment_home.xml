@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.dxj.teacher.widget.MultiSwipeRefreshLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/swipe_refresh_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
+    <!--android:id="@+id/swipe_refresh_layout"-->
+<com.dxj.teacher.widget.MultiSwipeRefreshLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/swipe_refresh_layout"
+    >
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -176,12 +180,13 @@
                         android:text="未填完" />
 
                     <ImageView
+                        android:id="@+id/img_state_subject"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:layout_marginRight="5dp"
                         android:layout_toLeftOf="@+id/tv_state_one"
-                        android:src="@mipmap/home_lie_icon_nopass" />
+                         />
                 </RelativeLayout>
 
                 <View
@@ -324,3 +329,4 @@
             android:text="个人设置" />
     </LinearLayout>
 </com.dxj.teacher.widget.MultiSwipeRefreshLayout>
+</LinearLayout>

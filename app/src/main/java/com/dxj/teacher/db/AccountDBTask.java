@@ -74,6 +74,8 @@ public class AccountDBTask {
             values.put(AccountTable.PASS_DEGREES, userBean.getUserInfo().getPassDegrees());
             values.put(AccountTable.APTITUDE, userBean.getUserInfo().getPassAptitude());
             values.put(AccountTable.PASS_APTITUDE, userBean.getUserInfo().getPassAptitude());
+            values.put(AccountTable.PASSCHAMPION, userBean.getUserInfo().getPassChampion());
+            values.put(AccountTable.CHAMPION, userBean.getUserInfo().getChampion());
             String json = new Gson().toJson(userBean.getUserInfo().getCard());
 
             values.put(AccountTable.CARD, json);
@@ -93,6 +95,18 @@ public class AccountDBTask {
                 }
                 Log.i("TAG", "strBuffer=" + strBuffer.toString());
                 values.put(AccountTable.LABEL, strBuffer.toString());
+
+            }
+            if (userBean.getUserInfo().getSubject()!=null&&userBean.getUserInfo().getSubject().size()>0){
+                StringBuffer strBuffer = new StringBuffer();
+                for (int i = 0; i < userBean.getUserInfo().getSubject().size(); i++) {
+                    if (i != userBean.getUserInfo().getSubject().size() - 1) {
+                        strBuffer.append(userBean.getUserInfo().getSubject().get(i)).append(",");
+                    } else {
+                        strBuffer.append(userBean.getUserInfo().getSubject().get(i));
+                    }
+                }
+                values.put(AccountTable.SUBJECT, strBuffer.toString());
 
             }
             if (userBean.getUserInfo().getSolveLabel() != null && userBean.getUserInfo().getSolveLabel().size() > 0) {
@@ -211,11 +225,19 @@ public class AccountDBTask {
             userinfo.setPassAptitude(c.getInt(colid));
             colid = c.getColumnIndex(AccountTable.PASS_JSZ);
             userinfo.setPassJsz(c.getInt(colid));
+            colid = c.getColumnIndex(AccountTable.PASSCHAMPION);
+            userinfo.setPassChampion(c.getInt(colid));
+            colid = c.getColumnIndex(AccountTable.CHAMPION);
+            userinfo.setChampion(c.getString(colid));
             colid = c.getColumnIndex(AccountTable.PHOTO);
             String photoJson = c.getString(colid);
 //            List<String> photoList = new ArrayList<>();
             Gson gsonPhoto = new Gson();
             HeadUrl headUrl = gsonPhoto.fromJson(photoJson, HeadUrl.class);
+            for (int i=0;i<headUrl.getImages().size();i++)
+            {
+                Log.i("TAG","HEADuRL="+headUrl.getImages().get(i));
+            }
             userinfo.setImages(headUrl.getImages());
             Gson gson = new Gson();
             String json = c.getString(c.getColumnIndex(AccountTable.CARD));
@@ -233,7 +255,7 @@ public class AccountDBTask {
             String str = c.getString(colid);
             Log.i("TAG", "account=" + userinfo.getNickName());
             if (!StringUtils.isEmpty(str)) {
-                List<String> strList = new ArrayList<String>();
+                ArrayList<String> strList = new ArrayList<String>();
                 String[] array = str.split(Pattern.quote(","));
                 for (int i = 0; i < array.length; i++) {
                     Log.i("TAG", "strList");
@@ -245,13 +267,24 @@ public class AccountDBTask {
             String strSolveLabel = c.getString(colid);
             Log.i("TAG", "account=" + userinfo.getNickName());
             if (!StringUtils.isEmpty(strSolveLabel)) {
-                List<String> strList = new ArrayList<>();
+                ArrayList<String> strList = new ArrayList<>();
                 String[] array = strSolveLabel.split(Pattern.quote(","));
                 for (int i = 0; i < array.length; i++) {
                     Log.i("TAG", "strList");
                     strList.add(array[i]);
                 }
                 userinfo.setSolveLabel(strList);
+            }
+            colid = c.getColumnIndex(AccountTable.SUBJECT);
+            String strSubject = c.getString(colid);
+            if (!StringUtils.isEmpty(strSubject)) {
+                ArrayList<String> strList = new ArrayList<>();
+                String[] array = strSubject.split(Pattern.quote(","));
+                for (int i = 0; i < array.length; i++) {
+                    Log.i("TAG", "strList");
+                    strList.add(array[i]);
+                }
+                userinfo.setSubject(strList);
             }
             account.setUserInfo(userinfo);
             return account;
