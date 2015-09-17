@@ -1,7 +1,14 @@
 package com.dxj.teacher.activity;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.provider.MediaStore;
+import android.support.v7.widget.CardView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -10,6 +17,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -24,6 +32,7 @@ import com.dxj.teacher.adapter.ResultListAdapter;
 import com.dxj.teacher.application.MyApplication;
 import com.dxj.teacher.base.BaseActivity;
 import com.dxj.teacher.bean.BaseBean;
+import com.dxj.teacher.bean.HeadUrl;
 import com.dxj.teacher.bean.UniversityBean;
 import com.dxj.teacher.bean.UniversityListBean;
 import com.dxj.teacher.db.AccountDBTask;
@@ -32,11 +41,16 @@ import com.dxj.teacher.http.CustomStringRequest;
 import com.dxj.teacher.http.FinalData;
 import com.dxj.teacher.http.VolleySingleton;
 import com.dxj.teacher.utils.HttpUtils;
+import com.dxj.teacher.utils.MyAsyn;
+import com.dxj.teacher.utils.MyUtils;
 import com.dxj.teacher.utils.StringUtils;
 import com.dxj.teacher.utils.ToastUtils;
+import com.dxj.teacher.utils.UpdatePhotoUtils;
 import com.dxj.teacher.widget.TitleNavBar;
+import com.google.gson.Gson;
 
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -48,7 +62,7 @@ import github.jjobes.slidedatetimepicker.SlideDateTimePicker;
 
 /**
  * Created by kings on 8/27/2015.
- * 学院
+ * 学历认证
  */
 public class UpdateUniversityActivity extends BaseActivity implements View.OnClickListener {
     private EditText etSearch;
@@ -66,6 +80,48 @@ public class UpdateUniversityActivity extends BaseActivity implements View.OnCli
     private long id;
     private String userId;
     private boolean isShow;//假如EditText获取到值 第一次不搜取
+    //---------------------//
+    private CardView imgCard;
+    private ImageView imgPic;
+    private ImageView imgUpage;
+    private TextView tvUpage;
+    private TextView update;
+    private int cardType;
+    private String imageUrl;
+    private Uri photoUri;
+    private String picturePath;
+    private final Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            if (msg.what == 1 && msg.obj != null) {
+                // 显示图片
+//                isBitmap = true;
+                imgPic.setVisibility(View.VISIBLE);
+                tvUpage.setVisibility(View.GONE);
+                imgUpage.setVisibility(View.GONE);
+                imgPic.setImageBitmap((Bitmap) msg.obj);
+                new MyAsyn(context, getAsynResponse(), picturePath, HttpUtils.UPADTE_MULT_IMAGE).execute();
+            }
+        }
+    };
+
+    private MyAsyn.AsyncResponse getAsynResponse() {
+        return new MyAsyn.AsyncResponse() {
+
+            @Override
+            public void processFinish(String result) {
+
+                // TODO Auto-generated method stub
+                Log.i("TAG", "Update+result=" + result);
+//                tv.setVisibility(View.GONE);
+                Gson gson = new Gson();
+                HeadUrl headUrl = gson.fromJson(result, HeadUrl.class);
+                Log.i("TAG", "headUrl=" + headUrl.getImages().get(0));
+                imageUrl = headUrl.getImages().get(0);
+            }
+        };
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,7 +136,7 @@ public class UpdateUniversityActivity extends BaseActivity implements View.OnCli
     public void initTitle() {
         TitleNavBar title = (TitleNavBar) findViewById(R.id.title);
         title.disableBack(true);
-        title.setTitle("院校");
+        title.setTitle("学历认证");
         title.setTitleNoRightButton();
         title.setOnTitleNavClickListener(new TitleNavBar.OnTitleNavClickListener() {
             @Override
@@ -105,29 +161,37 @@ public class UpdateUniversityActivity extends BaseActivity implements View.OnCli
 
             @Override
             public void onBackClick() {
-                sendRequestData(1);
+
             }
         });
     }
 
     @Override
     public void initView() {
+        imgCard = (CardView) findViewById(R.id.img_card);
+        imgPic = (ImageView) findViewById(R.id.img_pic);
+        tvUpage = (TextView) findViewById(R.id.tv_update);
+        imgUpage = (ImageView) findViewById(R.id.img_update);
+        update = (TextView) findViewById(R.id.creategroup);
+        update.setOnClickListener(updateCardListener);
+        imgCard.setOnClickListener(updateImageListener);
         etSearch = (EditText) findViewById(R.id.et_university);
         lvSearchResult = (ListView) findViewById(R.id.search_result);
         linearEntrancetime = (LinearLayout) findViewById(R.id.linear_entrancetime);
         tvNoresult = (TextView) findViewById(R.id.tv_noresult);
         tvEntrancetime = (TextView) findViewById(R.id.tv_entrancetime);
         etMajor = (EditText) findViewById(R.id.et_major);
+
         linearEntrancetime.setOnClickListener(this);
 
         etSearch.addTextChangedListener(new TextWatcher() {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (s.toString() == null || "".equals(s.toString())||isShow) {
+                if (s.toString() == null || "".equals(s.toString()) || isShow) {
                     lvSearchResult.setVisibility(View.GONE);
                     tvNoresult.setVisibility(View.GONE);
-                    isShow=false;
+                    isShow = false;
                 } else {
                     strSearch = s.toString();
                     sendRequestData(3);
@@ -153,10 +217,27 @@ public class UpdateUniversityActivity extends BaseActivity implements View.OnCli
                 id = universityResult.get(position).getId();
                 etSearch.setText(strUniversity);
                 lvSearchResult.setVisibility(View.GONE);
-                isShow=true;
+                isShow = true;
             }
         });
     }
+
+    View.OnClickListener updateImageListener = new View.OnClickListener() {
+
+        @Override
+        public void onClick(View v) {
+            //获取照片
+            UpdatePhotoUtils.startPhotoZoom(UpdateUniversityActivity.this);
+
+        }
+    };
+    View.OnClickListener updateCardListener = new View.OnClickListener() {
+
+        @Override
+        public void onClick(View v) {
+            sendRequestData(1);
+        }
+    };
 
     @Override
     public void initData() {
@@ -213,6 +294,7 @@ public class UpdateUniversityActivity extends BaseActivity implements View.OnCli
             map.put("universityId", id);
             map.put("entranceTime", strEntranceTime);
             map.put("major", etMajor.getText().toString());
+            map.put("degrees", imageUrl);
         }
         CustomStringRequest custom = new CustomStringRequest(Request.Method.POST, urlPath, map, getListener(index), getErrorListener());
         VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(custom);
@@ -303,4 +385,49 @@ public class UpdateUniversityActivity extends BaseActivity implements View.OnCli
                     "Canceled", Toast.LENGTH_SHORT).show();
         }
     };
+
+    @Override
+    protected void onActivityResult(final int requestCode, final int resultCode, final Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == UpdateUserInfoActivity.RESULT_LOAD_IMAGE || requestCode == UpdateUserInfoActivity.TAKE_PICTURE || requestCode == UpdateUserInfoActivity.CUT_PHOTO_REQUEST_CODE) {
+            new Thread() {
+                @Override
+                public void run() {
+                    Bitmap bitmap = null;
+                    //获取图片路径
+                    if (UpdateUserInfoActivity.RESULT_LOAD_IMAGE == requestCode) {
+                        if (data == null) {
+                            return;
+                        }
+                        //图片裁剪
+                        Uri selectedImage = data.getData();
+                        String[] filePathColumn = {MediaStore.Images.Media.DATA};
+
+                        Cursor cursor = getContentResolver().query(selectedImage,
+                                filePathColumn, null, null, null);
+                        cursor.moveToFirst();
+
+                        int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+                        picturePath = cursor.getString(columnIndex);
+                        if (bitmap == null && !StringUtils.isEmpty(picturePath)) {
+                            try {
+                                bitmap = MyUtils.createImageThumbnail(context, picturePath, 600);
+                                Log.i("TAG", "bitmap=" + bitmap);
+                                Message msg = new Message();
+                                msg.what = 1;
+                                msg.obj = bitmap;
+                                handler.sendMessage(msg);
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+
+                    }
+                }
+
+                ;
+            }.start();
+        }
+    }
+
 }

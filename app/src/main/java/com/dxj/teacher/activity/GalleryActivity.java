@@ -66,6 +66,7 @@ public class GalleryActivity extends BaseActivity {
     public void initTitle() {
         TitleNavBar title = (TitleNavBar) findViewById(R.id.title);
         title.setTitle("相册");
+        title.setTitleNoRightButton();
         title.setOnTitleNavClickListener(new TitleNavBar.OnTitleNavClickListener() {
             @Override
             public void onNavOneClick() {

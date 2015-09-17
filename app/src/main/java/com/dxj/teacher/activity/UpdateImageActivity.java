@@ -96,8 +96,8 @@ public class UpdateImageActivity extends BaseActivity {
 
                                              @Override
                                              public void onActionClick() {
+                                                 Log.i("TAG", "isDelete=" + isDelete);
                                                  if (isDelete) {
-                                                     title.setActionText("删除");
                                                      isDelete = false;
                                                      List<String> mSelectedImages = new ArrayList<>();
                                                      mSelectedImages.addAll(updateAdapter.getmSelectedImages());
@@ -112,10 +112,16 @@ public class UpdateImageActivity extends BaseActivity {
                                                              updateAdapter.addData(imageList);
                                                          }
                                                          Log.i("TAG", "imageList=" + imageList.size());
-                                                         updateAdapter.addData(imageList);
                                                      }
-                                                 } else {
                                                      title.setActionText("编辑");
+                                                     if (updateAdapter.isShape()) {
+                                                         updateAdapter.setShape(false);
+                                                     } else {
+                                                         updateAdapter.setShape(true);
+                                                     }
+
+                                                 } else {
+                                                     title.setActionText("删除");
                                                      isDelete = true;
                                                      if (updateAdapter.isShape()) {
                                                          updateAdapter.setShape(false);
@@ -127,7 +133,7 @@ public class UpdateImageActivity extends BaseActivity {
 
                                              @Override
                                              public void onBackClick() {
-                                                     sendRequestData();
+                                                 sendRequestData();
                                              }
                                          }
 
@@ -171,6 +177,7 @@ public class UpdateImageActivity extends BaseActivity {
                 if (imageList.size() == position) {
                     intetnMultiImageSelector();
                 } else {
+                    if (updateAdapter.isShape())
                     updateAdapter.select(imageList.get(position));
                 }
             }
@@ -219,14 +226,15 @@ public class UpdateImageActivity extends BaseActivity {
         if (requestCode == REQUEST_IMAGE) {
             if (resultCode == RESULT_OK) {
                 mSelectPath = data.getStringArrayListExtra(MultiImageSelectorActivity.EXTRA_RESULT);
-                StringBuilder sb = new StringBuilder();
-
-                for (String p : mSelectPath) {
-                    Log.i("TAG", "mSelectPath=" + p);
-                    imageList.add(p);
-                    sb.append(p);
-                    sb.append("\n");
-                }
+//                StringBuilder sb = new StringBuilder();
+//
+//                for (String p : mSelectPath) {
+//                    Log.i("TAG", "mSelectPath=" + p);
+//                    imageList.add(p);
+//                    sb.append(p);
+//                    sb.append("\n");
+//                }
+                imageList.addAll(mSelectPath);
                 updateAdapter.addData(imageList);
                 linearAddPhone.setVisibility(View.GONE);
             }
@@ -251,6 +259,9 @@ public class UpdateImageActivity extends BaseActivity {
 
     private void sendRequestData() {
         imageUrls.addAll(updateAdapter.getImageUrls());
+        if (mSelectPath!=null&&mSelectPath.size()>0){
+            imageList.removeAll(mSelectPath);
+        }
         imageUrls.addAll(imageList);
 
         String urlPath = FinalData.URL_VALUE + HttpUtils.IMAGES;
@@ -270,7 +281,10 @@ public class UpdateImageActivity extends BaseActivity {
                 if (message.getCode() == 0) {
 //
                     HeadUrl headUrl = new HeadUrl();
-                    headUrl.setImages(imageList);
+                    for (int i = 0; i < imageUrls.size(); i++) {
+                        Log.i("TAG", "imageUrl=" + imageUrls.get(i));
+                    }
+                    headUrl.setImages(imageUrls);
                     AccountDBTask.updatePhoto(MyApplication.getInstance().getUserId(), headUrl, AccountTable.PHOTO);
                     Intent intent = new Intent();
                     Bundle bundle = new Bundle();

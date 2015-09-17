@@ -31,7 +31,7 @@ public class UpdateImageAdapter extends BaseAdapter {
     private Context context;
     private LayoutInflater inflater;
     private int selectedPosition = -1;
-    private boolean shape;
+    private boolean shape;//为true时 可以编辑，
     private int mImageSize = 60;
     private int index = -1;
     private List<String> list = new ArrayList<>();
@@ -45,6 +45,7 @@ public class UpdateImageAdapter extends BaseAdapter {
      * @param image
      */
     public void select(String image) {
+        Log.i("TAG","image="+image);
         if (mSelectedImages.contains(image)) {
             mSelectedImages.remove(image);
         } else {
@@ -141,7 +142,9 @@ public class UpdateImageAdapter extends BaseAdapter {
             holder.checkmark.setVisibility(View.GONE);
 
         }
+
         if (mDatas.size() != position && mDatas.get(position) != null && !list.contains(mDatas.get(position)) && !mDatas.get(position).contains("http://img.miuhouse.com")) {
+            Log.i("TAG","mDatas.get(position)="+mDatas.get(position));
             list.add(mDatas.get(position));
             MyAsyn asyn = new MyAsyn(context, getAsynResponse(holder.tvUpdate), mDatas.get(position), HttpUtils.UPADTE_MULT_IMAGE);
             asyn.executeOnExecutor(fixedThreadPool, String.valueOf(position));
@@ -154,9 +157,9 @@ public class UpdateImageAdapter extends BaseAdapter {
 //            holder.del_image.setVisibility(convertView.GONE);
             holder.add_image.setVisibility(View.VISIBLE);
 
-            if (position == 9) {
-                holder.add_image.setVisibility(View.GONE);
-            }
+//            if (position == 9) {
+//                holder.add_image.setVisibility(View.GONE);
+//            }
 
         } else {
             Glide.with(context).load(mDatas.get(position)).error(R.mipmap.default_error).override(mImageSize, mImageSize).centerCrop().into(holder.image);
