@@ -143,7 +143,7 @@ public class MyApplication extends Application {
             sb.append(location.getLocationDescribe());
             Log.i("TAG", "address='" + sb.toString());
             setLocationdescribe(location.getLocationDescribe());
-            sendRequestData(location.getLatitude(), location.getLongitude());
+//            sendRequestData(location.getLatitude(), location.getLongitude());
 
         }
 

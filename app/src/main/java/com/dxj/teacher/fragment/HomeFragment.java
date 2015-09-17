@@ -10,7 +10,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.alibaba.fastjson.JSONObject;
 import com.android.volley.Request;
@@ -24,15 +26,19 @@ import com.dxj.teacher.activity.UpdateUserInfoActivity;
 import com.dxj.teacher.application.MyApplication;
 import com.dxj.teacher.base.BaseFragment;
 import com.dxj.teacher.bean.BaseBean;
+import com.dxj.teacher.bean.UserBean;
 import com.dxj.teacher.db.AccountDBTask;
 import com.dxj.teacher.db.AccountTable;
 import com.dxj.teacher.http.CustomStringRequest;
 import com.dxj.teacher.http.FinalData;
+import com.dxj.teacher.http.GsonRequest;
 import com.dxj.teacher.http.VolleySingleton;
 import com.dxj.teacher.utils.HttpUtils;
 import com.dxj.teacher.utils.StringUtils;
 import com.dxj.teacher.utils.ToastUtils;
 import com.dxj.teacher.widget.MultiSwipeRefreshLayout;
+
+import org.w3c.dom.Text;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -60,9 +66,14 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     private SwitchCompat switchcompatAppointment;//判断是否接受预约
     private MultiSwipeRefreshLayout swipeRefreshLayout;//下拉刷新
 
+    private TextView tvStateOne;
+    private ImageView imgStateSubject;
+
+    private UserBean mUserBean;
+
     @Override
     public void initData() {
-
+        mUserBean = MyApplication.getInstance().getUserBean();
     }
 
     @Override
@@ -76,6 +87,10 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         btnGoodSubject = (RelativeLayout) view.findViewById(R.id.relalative_good_subject);
         btnCard = (RelativeLayout) view.findViewById(R.id.relative_card);
         btnUserInfo = (RelativeLayout) view.findViewById(R.id.relateive_userinfo);
+        /***********/
+        tvStateOne = (TextView) view.findViewById(R.id.tv_state_one);
+        imgStateSubject = (ImageView) view.findViewById(R.id.img_state_subject);
+        /*******end********/
         switchcompatAppointment = (SwitchCompat) view.findViewById(R.id.switchcompat_appointment);
         swipeRefreshLayout = (MultiSwipeRefreshLayout) view.findViewById(R.id.swipe_refresh_layout);
         btnGoodSubject.setOnClickListener(this);
@@ -91,8 +106,36 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                     sendRequestData(IS_ACCEPT_FALSE);
             }
         });
+        if (mUserBean!=null) {
+            Log.i("TAG","size="+mUserBean.getUserInfo().getSubject().size());
+            if (mUserBean.getUserInfo().getSubject().size() > 0) {
+                setViewValue(true, tvStateOne, imgStateSubject);
+            } else {
+                setViewValue(false, tvStateOne, imgStateSubject);
+
+            }
+        }
         trySetupSwipeRefresh();
         return view;
+    }
+
+    /**
+     * 根据资料的完成度 给控件设置属性
+     *
+     * @param is        为true表示 已经完成
+     * @param textView
+     * @param imageView
+     */
+    private void setViewValue(boolean is, TextView textView, ImageView imageView) {
+        if (is) {
+            textView.setText("已完成");
+            textView.setTextColor(getResources().getColor(R.color.tv_alread_card));
+            imageView.setBackgroundResource(R.mipmap.home_lie_icon_pass);
+        } else {
+            textView.setText("未完善");
+            textView.setTextColor(getResources().getColor(R.color.text_label));
+            imageView.setBackgroundResource(R.mipmap.home_lie_icon_nopass);
+        }
     }
 
     /**
@@ -107,12 +150,12 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                 @Override
                 public void onRefresh() {
                     Log.i("TAG", "onRefresh");
-//                    requestDataRefresh();
-                    setRefreshing(false);
+                    requestDataRefresh();
                 }
             });
         }
     }
+
     public void setRefreshing(boolean refreshing) {
         if (swipeRefreshLayout == null) {
             return;
@@ -125,16 +168,45 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                     swipeRefreshLayout.setRefreshing(false);
                 }
             }, 1000);
-        }
-        else {
+        } else {
             swipeRefreshLayout.setRefreshing(true);
         }
     }
+
+    private void requestDataRefresh() {
+        String urlPath = FinalData.URL_VALUE + HttpUtils.TEACHERINFO;
+        Map<String, Object> map = new HashMap<>();
+        map.put("teacherId", MyApplication.getInstance().getUserId());
+        GsonRequest<UserBean> custom = new GsonRequest<>(Request.Method.POST, urlPath, UserBean.class, map, getListenerRefresh(), getErrorListener());
+        VolleySingleton.getInstance(getActivity().getApplicationContext()).addToRequestQueue(custom);
+    }
+
+    private Response.Listener getListenerRefresh() {
+        return new Response.Listener<UserBean>() {
+
+            @Override
+            public void onResponse(UserBean userBean) {
+                Log.i("TAG", "userBean=" + userBean.toString());
+                if (userBean != null) {
+                    if (userBean.getCode() == 0) {
+                        AccountDBTask.clear();
+                        AccountDBTask.saveUserBean(userBean);
+                        MyApplication.getInstance().setUserBean(userBean);
+                    } else
+                        ToastUtils.showToast(getActivity(), userBean.getMsg());
+                } else {
+                    ToastUtils.showToast(getActivity(), "刷新失败");
+                }
+                setRefreshing(false);
+            }
+        };
+    }
+
     private void sendRequestData(int accept) {
 
-        String urlPath = FinalData.URL_VALUE + HttpUtils.UPDATEACCEPT;
+        String urlPath = FinalData.URL_VALUE + HttpUtils.ACCEPT;
         Map<String, Object> map = new HashMap<>();
-        map.put("id", MyApplication.getInstance().getUserId());
+        map.put("teacherId", MyApplication.getInstance().getUserId());
         map.put("accept", accept);
         CustomStringRequest custom = new CustomStringRequest(Request.Method.POST, urlPath, map, getListener(), getErrorListener());
         VolleySingleton.getInstance(getActivity().getApplicationContext()).addToRequestQueue(custom);
