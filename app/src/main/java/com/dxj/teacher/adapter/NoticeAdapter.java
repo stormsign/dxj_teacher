@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.dxj.teacher.R;
@@ -22,6 +23,9 @@ public class NoticeAdapter extends BaseRecyclerViewAdapter<Notice> {
     private Activity mContext;
     private List<Notice> mList;
     private LayoutInflater mLayoutInflater;
+    private final int FOOTERVIEW = 2;
+    private boolean isShowFooterView = false;
+    private boolean hasFooterView = false;
 
     public NoticeAdapter(Activity mContext, List mList) {
         super(mContext, mList);
@@ -41,19 +45,57 @@ public class NoticeAdapter extends BaseRecyclerViewAdapter<Notice> {
     }
 
     @Override
+    public int getItemCount() {
+//        if (hasFooterView) {
+            return mList.size() + 1;
+//        }else{
+//            return mList.size();
+//        }
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        if (position == getItemCount()-1){
+                return FOOTERVIEW;
+        }else{
+            return super.getItemViewType(position);
+        }
+    }
+
+    public void showFooterView(boolean isShowFooterView){
+        this.isShowFooterView = isShowFooterView;
+    }
+
+    public void hasFooterView(boolean hasFooterView){
+        this.hasFooterView = hasFooterView;
+    }
+
+    @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new NoticeItemHolder(mLayoutInflater.inflate(R.layout.item_notice, parent, false));
+        if (viewType == FOOTERVIEW){
+            return new FooterHolder(mLayoutInflater.inflate(R.layout.loadingview_footer, parent, false));
+        }else {
+            return new NoticeItemHolder(mLayoutInflater.inflate(R.layout.item_notice, parent, false));
+        }
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        Notice notice = mList.get(position);
-        if (null == notice){
-            return ;
+        if (holder instanceof NoticeItemHolder) {
+            Notice notice = mList.get(position);
+            if (null == notice) {
+                return;
+            }
+            NoticeItemHolder mHolder = (NoticeItemHolder) holder;
+            mHolder.tv_title.setText(notice.getName());
+            mHolder.tv_content.setText(notice.getDescription());
         }
-        NoticeItemHolder mHolder = (NoticeItemHolder) holder;
-        mHolder.tv_title.setText(notice.getName());
-        mHolder.tv_content.setText(notice.getDescription());
+        else if (holder instanceof  FooterHolder) {
+            FooterHolder footerHolder = (FooterHolder) holder;
+//            if (!isShowFooterView){
+//                footerHolder.footer.setVisibility(View.GONE);
+//            }
+        }
     }
 
     public class NoticeItemHolder extends RecyclerView.ViewHolder {
@@ -79,5 +121,13 @@ public class NoticeAdapter extends BaseRecyclerViewAdapter<Notice> {
             }
         }
 
+    }
+
+    private class FooterHolder extends RecyclerView.ViewHolder {
+        private RelativeLayout footer;
+        public FooterHolder(View view) {
+            super(view);
+           footer = (RelativeLayout) view.findViewById(R.id.footer);
+        }
     }
 }
