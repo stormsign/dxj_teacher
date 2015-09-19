@@ -1,10 +1,14 @@
 package com.dxj.teacher.activity;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.graphics.Palette;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
@@ -33,13 +37,14 @@ import com.dxj.teacher.utils.HttpUtils;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 
 /**
  * Created by kings on 9/8/2015.
  * 老师详情
  */
-public class TeacherDetailsActivity extends AppCompatActivity implements DetailFragment.OnPhotoClick{
+public class TeacherDetailsActivity extends AppCompatActivity implements DetailFragment.OnPhotoClick {
     private RadioGroup radioGroup;
     private Fragment[] fragments;
     private int currentTabIndex = 0;
@@ -51,6 +56,7 @@ public class TeacherDetailsActivity extends AppCompatActivity implements DetailF
     private RadioButton radioButtonCourse;//课程
     private Toolbar mToolbar;//
     private CollapsingToolbarLayout mCollapsingToolbarLayout;//
+    private AppBarLayout appbar;//
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,15 +69,18 @@ public class TeacherDetailsActivity extends AppCompatActivity implements DetailF
 
     }
 
-//    @Override
+    //    @Override
     public void initTitle() {
 
     }
 
-//    @Override
+    //    @Override
     public void initView() {
-        mToolbar = (Toolbar)findViewById(R.id.toolbar);
-        mCollapsingToolbarLayout=(CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        mCollapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
+        appbar = (AppBarLayout) findViewById(R.id.appbar);
+        Random random = new Random();
+        ranSwitch(random.nextInt(10), appbar);
 //        mCollapsingToolbarLayout.setTitle("老师详情");
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -108,7 +117,69 @@ public class TeacherDetailsActivity extends AppCompatActivity implements DetailF
         });
     }
 
+    private void ranSwitch(int i, AppBarLayout appbar) {
+        Log.i("TAG", "i=" + i);
+        int mipmap = 0;
+        switch (i) {
+            case 0:
+                mipmap = R.mipmap.laoshixq_top_bg01;
+                break;
+            case 1:
+                mipmap = R.mipmap.laoshixq_top_bg02;
+                break;
+            case 2:
+                mipmap = R.mipmap.laoshixq_top_bg03;
 
+                break;
+            case 3:
+                mipmap = R.mipmap.laoshixq_top_bg04;
+
+                break;
+            case 4:
+                mipmap = R.mipmap.laoshixq_top_bg05;
+
+                break;
+            case 5:
+                mipmap = R.mipmap.laoshixq_top_bg06;
+
+                break;
+            case 6:
+                mipmap = R.mipmap.laoshixq_top_bg07;
+
+                break;
+            case 7:
+                mipmap = R.mipmap.laoshixq_top_bg08;
+
+                break;
+            case 8:
+                mipmap = R.mipmap.laoshixq_top_bg09;
+
+                break;
+            case 9:
+                mipmap = R.mipmap.laoshixq_top_bg10;
+
+                break;
+        }
+        appbar.setBackgroundResource(mipmap);
+
+        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), mipmap);
+//        Palette palette = Palette.generate(bitmap);
+
+        Palette.from(bitmap).generate(new Palette.PaletteAsyncListener() {
+            @Override
+            public void onGenerated(final Palette palette) {
+                int defaultColor = getResources().getColor(R.color.text_price);
+                int defaultTitleColor = getResources().getColor(android.R.color.white);
+                int bgColor = palette.getDarkVibrantColor(defaultColor);
+                int titleColor = palette.getLightVibrantColor(defaultTitleColor);
+                mCollapsingToolbarLayout.setContentScrimColor(bgColor);
+                mCollapsingToolbarLayout.setCollapsedTitleTextColor(titleColor);
+                mCollapsingToolbarLayout.setExpandedTitleColor(titleColor);
+                tvRecomment.setTextColor(titleColor);
+            }
+        });
+
+    }
 
     private void sendRequestData() {
 
@@ -144,6 +215,10 @@ public class TeacherDetailsActivity extends AppCompatActivity implements DetailF
 
     private void fillUi(UserBean.UserInfo userInfo) {
         mCollapsingToolbarLayout.setTitle(userInfo.getNickName());
+        mCollapsingToolbarLayout.setTitleEnabled(true);
+//        mCollapsingToolbarLayout.setCollapsedTitleTextColor(getResources().getColor(android.R.color.black));
+//        mCollapsingToolbarLayout.setExpandedTitleColor(getResources().getColor(android.R.color.transparent));
+        mToolbar.setTitle(userInfo.getNickName());
         tvName.setText(userInfo.getNickName());
         Glide.with(this).load(userInfo.getHeadUrl()).centerCrop().into(imgAvatar);
         tvRecomment.setText(userInfo.getRemark());
@@ -162,7 +237,7 @@ public class TeacherDetailsActivity extends AppCompatActivity implements DetailF
 
     }
 
-//    @Override
+    //    @Override
     public void initData() {
     }
 
@@ -181,7 +256,7 @@ public class TeacherDetailsActivity extends AppCompatActivity implements DetailF
         DetailCourseFragment plazaFragment = getDetailCourseFragment();
 
         Bundle courseBundle = new Bundle();
-        courseBundle.putSerializable("course",str.getGoodSubject());
+        courseBundle.putSerializable("course", str.getGoodSubject());
         plazaFragment.setArguments(courseBundle);
 
         fragments = new Fragment[]{homeFragment, meFragmetn, plazaFragment};
@@ -230,10 +305,10 @@ public class TeacherDetailsActivity extends AppCompatActivity implements DetailF
 
     @Override
     public void setOnPhotoClick(int index) {
-        if (index==DetailFragment.COURSE){
+        if (index == DetailFragment.COURSE) {
             radioButtonCourse.setChecked(true);
             showFragment(2);
-        }else if (index==DetailFragment.PHOTO){
+        } else if (index == DetailFragment.PHOTO) {
             radioButtonPhoto.setChecked(true);
             showFragment(1);
         }

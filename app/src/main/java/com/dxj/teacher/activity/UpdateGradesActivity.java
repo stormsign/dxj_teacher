@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
@@ -31,7 +32,7 @@ import java.util.Map;
  * Created by kings on 8/27/2015.
  */
 public class UpdateGradesActivity extends BaseActivity implements View.OnClickListener {
-    private ImageButton btnBack;
+//    private Button btnBack;
     private EditText etGrades;
     private String strGrades;
 
@@ -50,9 +51,9 @@ public class UpdateGradesActivity extends BaseActivity implements View.OnClickLi
 
     @Override
     public void initView() {
-        btnBack = (ImageButton) findViewById(R.id.btn_back);
+//        btnBack = (Button) findViewById(R.id.btn_back);
         etGrades = (EditText) findViewById(R.id.et);
-        btnBack.setOnClickListener(this);
+//        btnBack.setOnClickListener(this);
     }
 
     @Override

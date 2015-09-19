@@ -7,7 +7,11 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import com.dxj.teacher.application.MyApplication;
+import com.dxj.teacher.base.BaseApplication;
 import com.dxj.teacher.db.dao.NoticeDao;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * User: qii Date: 12-7-30
@@ -18,7 +22,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "dxjteacher.db";
 
-    private static final int DATABASE_VERSION = 7;
+    private static final int DATABASE_VERSION = 1;
 
 
     static final String CREATE_ACCOUNT_TABLE_SQL = "create table " + AccountTable.TABLE_NAME + "(" + AccountTable.ID + " text primary key,"
@@ -41,7 +45,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 			+"); ";
 
     DatabaseHelper(Context context) {
-		super(context, DATABASE_NAME, null, DATABASE_VERSION);
+	super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
     @Override

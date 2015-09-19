@@ -12,15 +12,15 @@ import android.widget.TextView;
 
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
-import com.dxj.teacher.activity.LoginAndRightActivity;
 import com.dxj.teacher.activity.StudyGroupListActivity;
-import com.dxj.teacher.activity.SubjectFirstCategoryActivity;
 import com.dxj.teacher.application.MyApplication;
 import com.dxj.teacher.base.BaseActivity;
 import com.dxj.teacher.db.dao.NoticeDao;
 import com.dxj.teacher.factory.FragmentFactory;
+import com.dxj.teacher.fragment.FindFragment;
 import com.dxj.teacher.fragment.HomeFragment;
 import com.dxj.teacher.fragment.MessageFragment;
+import com.dxj.teacher.fragment.MyFragment;
 import com.dxj.teacher.utils.SPUtils;
 import com.easemob.EMConnectionListener;
 import com.easemob.EMEventListener;
@@ -50,7 +50,7 @@ import java.util.List;
 
 public class MainActivity extends BaseActivity implements EMEventListener {
 
-    public static MainActivity mainActivity ;
+    public static MainActivity mainActivity;
 
     private Button bt_user, bt_message, bt_search, bt_home;
     private FragmentManager fm;
@@ -104,14 +104,14 @@ public class MainActivity extends BaseActivity implements EMEventListener {
         bt_search = (Button) findViewById(R.id.bt_search);
         bt_message = (Button) findViewById(R.id.bt_message);
         bt_user = (Button) findViewById(R.id.bt_user);
-        unreadLabel = (TextView)findViewById(R.id.unread_msg_number);
+        unreadLabel = (TextView) findViewById(R.id.unread_msg_number);
 
 //        if (fm.findFragmentByTag("HOME") == null) {
-            ft.add(R.id.rl_fragment_contanier, (HomeFragment)FragmentFactory.getFragment(HOME), "HOME")
-                    .add(R.id.rl_fragment_contanier, (MessageFragment) FragmentFactory.getFragment(MESSAGE), "MESSAGE")
-            .hide((MessageFragment) FragmentFactory.getFragment(MESSAGE));
-//                .add(R.id.rl_fragment_contanier, FragmentFactory.getFragment(LOOKINGFORTEACHER), "LOOKINGFORTEACHER")
-//                .add(R.id.rl_fragment_contanier, FragmentFactory.getFragment(MYINFO), "MYINFO");
+        ft.add(R.id.rl_fragment_contanier, (HomeFragment) FragmentFactory.getFragment(HOME), "HOME")
+                .add(R.id.rl_fragment_contanier, (MessageFragment) FragmentFactory.getFragment(MESSAGE), "MESSAGE")
+                .hide((MessageFragment) FragmentFactory.getFragment(MESSAGE))
+                .add(R.id.rl_fragment_contanier, (FindFragment) FragmentFactory.getFragment(LOOKINGFORTEACHER), "LOOKINGFORTEACHER").hide((FindFragment) FragmentFactory.getFragment(LOOKINGFORTEACHER))
+                .add(R.id.rl_fragment_contanier, FragmentFactory.getFragment(MYINFO), "MYINFO").hide(((MyFragment) FragmentFactory.getFragment(MYINFO)));
         ft.show((HomeFragment) FragmentFactory.getFragment(HOME)).commit();
         bt_home.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.mipmap.tab_ico_home_pre), null, null);
 //        bt_home.setSelected(true);
@@ -198,6 +198,7 @@ public class MainActivity extends BaseActivity implements EMEventListener {
             case R.id.bt_home:
                 fm.beginTransaction()
                         .hide(FragmentFactory.getFragment(MESSAGE))
+                        .hide(FragmentFactory.getFragment(LOOKINGFORTEACHER)).hide(FragmentFactory.getFragment(MYINFO))
                         .show(FragmentFactory.getFragment(HOME))
                         .commit();
                 bt_home.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.mipmap.tab_ico_home_pre), null, null);
@@ -206,19 +207,25 @@ public class MainActivity extends BaseActivity implements EMEventListener {
                 bt_user.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.mipmap.tab_ico_me), null, null);
                 break;
             case R.id.bt_search:
-//                fm.beginTransaction()
-//                        .hide(FragmentFactory.getFragment(HOME))
-//                        .hide(FragmentFactory.getFragment(MESSAGE))
-//                        .commit();
-                startActivity(new Intent(this, SubjectFirstCategoryActivity.class));
+                fm.beginTransaction()
+                        .hide(FragmentFactory.getFragment(HOME))
+                        .hide(FragmentFactory.getFragment(MESSAGE)).hide(FragmentFactory.getFragment(MYINFO))
+                        .show(FragmentFactory.getFragment(LOOKINGFORTEACHER))
+                        .commit();
+//                startActivity(new Intent(this, SubjectFirstCategoryActivity.class));
                 bt_home.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.mipmap.tab_ico_home), null, null);
                 bt_search.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.mipmap.tab_ico_zhaolaoshi_pre), null, null);
                 bt_message.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.mipmap.tab_ico_xiaoxi), null, null);
                 bt_user.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.mipmap.tab_ico_me), null, null);
                 break;
             case R.id.bt_user:
-                Intent intent = new Intent(this, LoginAndRightActivity.class);
-                startActivity(intent);
+//                Intent intent = new Intent(this, LoginAndRightActivity.class);
+//                startActivity(intent);
+                fm.beginTransaction()
+                        .hide(FragmentFactory.getFragment(HOME))
+                        .hide(FragmentFactory.getFragment(MESSAGE)).hide(FragmentFactory.getFragment(LOOKINGFORTEACHER))
+                        .show(FragmentFactory.getFragment(MYINFO))
+                        .commit();
                 bt_home.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.mipmap.tab_ico_home), null, null);
                 bt_search.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.mipmap.tab_ico_zhaolaoshi), null, null);
                 bt_message.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.mipmap.tab_ico_xiaoxi), null, null);
@@ -227,6 +234,7 @@ public class MainActivity extends BaseActivity implements EMEventListener {
             case R.id.bt_message:
                 fm.beginTransaction()
                         .hide(FragmentFactory.getFragment(HOME))
+                        .hide(FragmentFactory.getFragment(LOOKINGFORTEACHER)).hide(FragmentFactory.getFragment(MYINFO))
                         .show(FragmentFactory.getFragment(MESSAGE))
                         .commit();
                 bt_home.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.mipmap.tab_ico_home), null, null);
@@ -266,7 +274,6 @@ public class MainActivity extends BaseActivity implements EMEventListener {
     }
 
 
-
     @Override
     public void onEvent(EMNotifierEvent event) {
         switch (event.getEvent()) {
@@ -274,7 +281,7 @@ public class MainActivity extends BaseActivity implements EMEventListener {
             {
                 EMMessage message = (EMMessage) event.getData();
                 try {
-                    showLogD("MESSAGE "+message.getStringAttribute("groupName"));
+                    showLogD("MESSAGE " + message.getStringAttribute("groupName"));
                 } catch (EaseMobException e) {
                     e.printStackTrace();
                 }
@@ -307,9 +314,9 @@ public class MainActivity extends BaseActivity implements EMEventListener {
                 // 刷新bottom bar消息未读数
                 updateUnreadLabel();
 //                if (fm.findFragmentByTag("MESSAGE").isVisible()) {
-                    // 当前页面如果为聊天历史页面，刷新此页面
+                // 当前页面如果为聊天历史页面，刷新此页面
 //                    if (fm.findFragmentByTag("MESSAGE") != null) {
-                        ((MessageFragment)FragmentFactory.getFragment(MESSAGE)).refresh();
+                ((MessageFragment) FragmentFactory.getFragment(MESSAGE)).refresh();
 //                    }
 //                }
             }
@@ -562,7 +569,7 @@ public class MainActivity extends BaseActivity implements EMEventListener {
             Log.i("TAG", "onGroupDestroy " + groupName);
             runOnUiThread(new Runnable() {
                 public void run() {
-                     updateUnreadLabel();
+                    updateUnreadLabel();
                     // if (currentTabIndex == 0)
                     // chatHistoryFragment.refresh();
 //                    if (CommonUtils.getTopActivity(MainActivity.this).equals(GroupsActivity.class.getName())) {
@@ -619,7 +626,7 @@ public class MainActivity extends BaseActivity implements EMEventListener {
      */
     public void updateUnreadLabel() {
 
-        int count = getUnreadMsgCountTotal()+ new NoticeDao(this).getUnreadNoticesCount();
+        int count = getUnreadMsgCountTotal() + new NoticeDao(this).getUnreadNoticesCount();
         if (count > 0) {
 //            unreadLabel.setText(String.valueOf(count));
             unreadLabel.setVisibility(View.VISIBLE);
@@ -637,18 +644,18 @@ public class MainActivity extends BaseActivity implements EMEventListener {
         int unreadMsgCountTotal = 0;
         int chatroomUnreadMsgCount = 0;
         unreadMsgCountTotal = EMChatManager.getInstance().getUnreadMsgsCount();
-        for(EMConversation conversation:EMChatManager.getInstance().getAllConversations().values()){
-            if(conversation.getType() == EMConversation.EMConversationType.ChatRoom)
-                chatroomUnreadMsgCount=chatroomUnreadMsgCount+conversation.getUnreadMsgCount();
+        for (EMConversation conversation : EMChatManager.getInstance().getAllConversations().values()) {
+            if (conversation.getType() == EMConversation.EMConversationType.ChatRoom)
+                chatroomUnreadMsgCount = chatroomUnreadMsgCount + conversation.getUnreadMsgCount();
         }
-        return unreadMsgCountTotal-chatroomUnreadMsgCount;
+        return unreadMsgCountTotal - chatroomUnreadMsgCount;
     }
 
     @Override
     protected void onResume() {
         super.onResume();
 //        if (!isConflict && !isCurrentAccountRemoved) {
-            updateUnreadLabel();
+        updateUnreadLabel();
 //            updateUnreadAddressLable();
 //            EMChatManager.getInstance().activityResumed();
 //        }
@@ -660,6 +667,6 @@ public class MainActivity extends BaseActivity implements EMEventListener {
 
         // register the event listener when enter the foreground
         EMChatManager.getInstance().registerEventListener(this,
-                new EMNotifierEvent.Event[] { EMNotifierEvent.Event.EventNewMessage ,EMNotifierEvent.Event.EventOfflineMessage, EMNotifierEvent.Event.EventConversationListChanged});
+                new EMNotifierEvent.Event[]{EMNotifierEvent.Event.EventNewMessage, EMNotifierEvent.Event.EventOfflineMessage, EMNotifierEvent.Event.EventConversationListChanged});
     }
 }

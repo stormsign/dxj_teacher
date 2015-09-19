@@ -6,12 +6,15 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
+import android.text.Editable;
 import android.text.InputType;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.android.volley.NoConnectionError;
@@ -58,6 +61,8 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener 
     private EditText etPassword;
     private EditText etPhone;
     private Button btnLogin;
+    private ImageView imgDelectPhone;
+    private ImageView imgDelectPassword;
     private ProgressFragment progressFragment;
 
     @Override
@@ -70,11 +75,56 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener 
     public View initView(LayoutInflater inflater) {
         view = inflater.inflate(R.layout.fragment_login, null);
         etPhone = (EditText) view.findViewById(R.id.et_user);
+        view.findViewById(R.id.img_phone).setOnClickListener(this);
+        imgDelectPhone = (ImageView) view.findViewById(R.id.img_phone);
+        imgDelectPassword = (ImageView) view.findViewById(R.id.img_password);
         etPassword = (EditText) view.findViewById(R.id.et_password);
         btnLogin = (Button) view.findViewById(R.id.btn_login);
         etPhone.setInputType(InputType.TYPE_CLASS_NUMBER);
         btnLogin.setOnClickListener(this);
+        imgDelectPhone.setOnClickListener(this);
+        imgDelectPassword.setOnClickListener(this);
         view.findViewById(R.id.tv_forget).setOnClickListener(this);
+        etPhone.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            //输入完
+            @Override
+            public void afterTextChanged(Editable s) {
+                Log.i("TAG", "afterTextChanged");
+                if (StringUtils.isEmpty(etPhone.getText().toString())) {
+                    imgDelectPhone.setVisibility(View.GONE);
+                } else {
+                    imgDelectPhone.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+        etPassword.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (StringUtils.isEmpty(etPassword.getText().toString())) {
+                    imgDelectPassword.setVisibility(View.GONE);
+                } else {
+                    imgDelectPassword.setVisibility(View.VISIBLE);
+                }
+            }
+        });
         return view;
     }
 
@@ -89,6 +139,13 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener 
                 break;
             case R.id.tv_forget:
                 startActivity(new Intent(getActivity(), ResetActivity.class));
+                break;
+            case R.id.img_phone:
+                Log.i("TAG", "img_phone");
+                etPhone.setText("");
+                break;
+            case R.id.img_password:
+                etPassword.setText("");
                 break;
         }
     }

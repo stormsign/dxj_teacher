@@ -51,12 +51,11 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     private final static String SMSSDK_APP_SECRET = "84db45a5b7dcde895fc72f47edf53447";
     private final static int IS_ACCEPT_TRUE = 0;//接受预约
     private final static int IS_ACCEPT_FALSE = 1;//不接受预约
-    private EventHandler eventHandler;
-    private EditText yzm;
 
-    private RelativeLayout btnGoodSubject;
-    private RelativeLayout btnCard;
-    private RelativeLayout btnUserInfo;
+
+    private RelativeLayout btnGoodSubject;//科目设置
+    private RelativeLayout btnCard;//认证设置
+    private RelativeLayout btnUserInfo;//个人信息
     private SwitchCompat switchcompatAppointment;//判断是否接受预约
     private MultiSwipeRefreshLayout swipeRefreshLayout;//下拉刷新
 

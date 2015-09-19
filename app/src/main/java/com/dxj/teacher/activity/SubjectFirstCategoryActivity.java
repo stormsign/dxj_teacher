@@ -6,8 +6,10 @@ import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+
 import com.dxj.teacher.R;
 import com.dxj.teacher.adapter.FirstGroupCategoryAdapter;
+import com.dxj.teacher.adapter.GroupCategoryAdapter;
 import com.dxj.teacher.base.BaseActivity;
 import com.dxj.teacher.bean.SubjectBean;
 import com.dxj.teacher.db.dao.SubjectDao;
@@ -25,9 +27,9 @@ public class SubjectFirstCategoryActivity extends BaseActivity {
     private List<SubjectBean> firstList;
     private static final String DBNAME = "subject.db";//科目表
     private RecyclerView rv_first;
-    private FirstGroupCategoryAdapter firstAdapter;
+    private GroupCategoryAdapter firstAdapter;
     private List<String> titleList;
-    private List<Boolean> titleSelectedList;
+//    private List<Boolean> titleSelectedList;
     private int index = -1;
 
     @Override
@@ -86,17 +88,16 @@ public class SubjectFirstCategoryActivity extends BaseActivity {
     @Override
     public void initData() {
         titleList = new ArrayList<>();
-        titleSelectedList = new ArrayList<>();
+//        titleSelectedList = new ArrayList<>();
         db = SQLiteDatabase.openDatabase(getFilesDir() + "/" + DBNAME, null, SQLiteDatabase.OPEN_READONLY);
 //        获取一级分类对象
         firstList = SubjectDao.getFirstCategory(db);
 //        获取一级分类名称，和是否选中的记录表
         for (SubjectBean subject : firstList) {
             titleList.add(subject.getName());
-            titleSelectedList.add(false);
         }
 //        初始化时选中第一个
-        titleSelectedList.set(0, true);
+//        titleSelectedList.set(0, true);
         init();
 
     }
@@ -106,25 +107,25 @@ public class SubjectFirstCategoryActivity extends BaseActivity {
      * 初始化适配器
      */
     private void init() {
-        firstAdapter = new FirstGroupCategoryAdapter(this, titleList, titleSelectedList);
-        firstAdapter.setOnFirstClickListener(new FirstGroupCategoryAdapter.OnFirstClickListener() {
+        firstAdapter = new GroupCategoryAdapter(this, titleList);
+        firstAdapter.setOnFirstClickListener(new GroupCategoryAdapter.OnFirstClickListener() {
             @Override
             public void onFirstClick(View view, int position) {
-                if (index >= 0) {
-                    titleSelectedList.set(index, false);
-                } else {
-                    titleSelectedList.set(0, false);
-                }
-                if (index == position) {
-                    return;
-                }
-                titleSelectedList.set(position, true);
-                firstAdapter.notifyDataSetChanged();
-                index = position;
+//                if (index >= 0) {
+//                    titleSelectedList.set(index, false);
+//                } else {
+//                    titleSelectedList.set(0, false);
+//                }
+//                if (index == position) {
+//                    return;
+//                }
+//                titleSelectedList.set(position, true);
+//                firstAdapter.notifyDataSetChanged();
+//                index = position;
                 //跳转到二级目录中
                 Intent intent = new Intent(SubjectFirstCategoryActivity.this, SubjectCategoryActivity.class);
                 intent.putExtra("category", firstList.get(position).getId());
-                intent.putExtra("categoryTitle",firstList.get(position).getName());
+                intent.putExtra("categoryTitle", firstList.get(position).getName());
                 startActivity(intent);
             }
         });

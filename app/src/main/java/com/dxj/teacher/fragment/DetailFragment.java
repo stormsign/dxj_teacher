@@ -41,8 +41,8 @@ import java.util.Map;
  * Created by khb on 2015/8/19.
  */
 public class DetailFragment extends BaseFragment implements View.OnClickListener {
-   public  final static int PHOTO=1;//点击进入相册页
-   public  final static int COURSE=0;//点击进入课程页
+    public final static int PHOTO = 1;//点击进入相册页
+    public final static int COURSE = 0;//点击进入课程页
     /**/
     private TextView tvAddressValue;//地址
     private TextView tvConstellation;//星座
@@ -229,7 +229,7 @@ public class DetailFragment extends BaseFragment implements View.OnClickListener
             StringBuilder sb = new StringBuilder();
             sb.append(lists.get(i));
             btn.setText(sb.toString());
-            alreadyFlowlayout.addView(btn,layoutParamsImageMain);
+            alreadyFlowlayout.addView(btn, layoutParamsImageMain);
             btn.setTag(i);
 //            btn.setOnCheckedChangeWidgetListener(this);
 
@@ -258,8 +258,8 @@ public class DetailFragment extends BaseFragment implements View.OnClickListener
     private void showPhoto(List<String> lists) {
         if (lists != null && lists.size() > 0) {
             int count = lists.size();
-            if (count>4){
-                count=4;
+            if (count > 4) {
+                count = 4;
             }
             for (int i = 0; i < count; i++) {
                 final ImageView pic = (ImageView) linearPhoto.getChildAt(i);
@@ -274,20 +274,20 @@ public class DetailFragment extends BaseFragment implements View.OnClickListener
                         linearPhoto.setVisibility(View.GONE);
                         break;
                     case 1:
-                        for (int i=3;i>0;i--){
-                            pic=(ImageView)linearPhoto.getChildAt(i);
+                        for (int i = 3; i > 0; i--) {
+                            pic = (ImageView) linearPhoto.getChildAt(i);
                             pic.setVisibility(View.GONE);
                         }
                         break;
                     case 2:
-                        for (int i=3;i>1;i--){
-                            pic=(ImageView)linearPhoto.getChildAt(i);
+                        for (int i = 3; i > 1; i--) {
+                            pic = (ImageView) linearPhoto.getChildAt(i);
                             pic.setVisibility(View.GONE);
                         }
                         break;
                     case 3:
-                        for (int i=3;i>2;i--){
-                            pic=(ImageView)linearPhoto.getChildAt(i);
+                        for (int i = 3; i > 2; i--) {
+                            pic = (ImageView) linearPhoto.getChildAt(i);
                             pic.setVisibility(View.GONE);
                         }
                         break;

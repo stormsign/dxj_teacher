@@ -3,17 +3,20 @@ package com.dxj.teacher.utils;
 import android.content.Context;
 import android.os.CountDownTimer;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.dxj.teacher.R;
+
+import org.w3c.dom.Text;
 
 /**
  * Created by kings on 8/26/2015.
  */
 public class MyCount extends CountDownTimer {
-    private Button btnCode;
+    private TextView btnCode;
     private Context context;
 
-    public MyCount(long millisInFuture, long countDownInterval, Button btnCode, Context context) {
+    public MyCount(long millisInFuture, long countDownInterval, TextView btnCode, Context context) {
         super(millisInFuture, countDownInterval);
         this.btnCode = btnCode;
         this.context = context;

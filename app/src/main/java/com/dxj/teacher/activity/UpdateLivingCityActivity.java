@@ -33,7 +33,6 @@ import java.util.Map;
  */
 public class UpdateLivingCityActivity extends BaseActivity implements View.OnClickListener {
     private EditText etLivingCity;
-    private String strLivingCity;
     private String id;
     private String address;
 
@@ -107,15 +106,15 @@ public class UpdateLivingCityActivity extends BaseActivity implements View.OnCli
     }
 
     private void sendRequestData() {
-        strLivingCity = etLivingCity.getText().toString().trim();
-        if (StringUtils.isEmpty(strLivingCity)) {
+        address = etLivingCity.getText().toString().trim();
+        if (StringUtils.isEmpty(address)) {
             finish();
             return;
         }
         String urlPath = FinalData.URL_VALUE + HttpUtils.LIVING_CITY;
         Map<String, Object> map = new HashMap<>();
         map.put("id", id);
-        map.put("livingCity", strLivingCity);
+        map.put("livingCity", address);
         CustomStringRequest custom = new CustomStringRequest(Request.Method.POST, urlPath, map, getListener(), getErrorListener());
         VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(custom);
     }
@@ -127,11 +126,11 @@ public class UpdateLivingCityActivity extends BaseActivity implements View.OnCli
                 Log.i("TAG", "str=" + str);
                 BaseBean message = JSONObject.parseObject(str, BaseBean.class);
                 if (message.getCode() == 0) {
-                    AccountDBTask.updateNickName(MyApplication.getInstance().getUserId(), strLivingCity, AccountTable.LIVINGCITY);
+                    AccountDBTask.updateNickName(MyApplication.getInstance().getUserId(), address, AccountTable.LIVINGCITY);
 
                     Intent intent = new Intent();
                     Bundle bundle = new Bundle();
-                    bundle.putString("livingCity", strLivingCity);
+                    bundle.putString("livingCity", address);
                     intent.putExtras(bundle);
                     UpdateLivingCityActivity.this.setResult(RESULT_OK, intent);
                     finish();

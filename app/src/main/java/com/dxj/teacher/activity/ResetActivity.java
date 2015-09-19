@@ -1,10 +1,14 @@
 package com.dxj.teacher.activity;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.android.volley.NoConnectionError;
 import com.android.volley.Request;
@@ -28,6 +32,8 @@ import com.dxj.teacher.utils.StringUtils;
 import com.dxj.teacher.utils.ToastUtils;
 import com.dxj.teacher.widget.TitleNavBar;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -40,13 +46,16 @@ import cn.smssdk.SMSSDK;
  * 重置密码
  */
 public class ResetActivity extends BaseActivity implements View.OnClickListener {
+    private final static int PHONE = 0;
+    private final static int CODE = 1;
+    private final static int PASSWORD = 2;
     /*验证码*/
     private final static String SMSSDK_APP_KEY = "a38245d89da2";
     private final static String SMSSDK_APP_SECRET = "84db45a5b7dcde895fc72f47edf53447";
     private EventHandler eventHandler;
     /*end*/
     private Button btnRese;
-    private Button btnSendCode;
+    private TextView btnSendCode;
     private EditText etPhone;
     private EditText etPassword;
     private EditText etCode;
@@ -55,6 +64,9 @@ public class ResetActivity extends BaseActivity implements View.OnClickListener 
     private String password;
     private boolean isMsg;
     private ProgressFragment progress;
+    private ImageView imgDelectPhone;
+    private ImageView imgDelectCode;
+    private ImageView imgDelectPassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,13 +112,19 @@ public class ResetActivity extends BaseActivity implements View.OnClickListener 
 
     @Override
     public void initView() {
-        btnSendCode = (Button) findViewById(R.id.btn_send_code);
+        btnSendCode = (TextView) findViewById(R.id.btn_send_code);
         btnRese = (Button) findViewById(R.id.btn_rese);
         etPhone = (EditText) findViewById(R.id.et_phone);
         etPassword = (EditText) findViewById(R.id.et_password);
         etCode = (EditText) findViewById(R.id.et_code);
+        imgDelectPhone = (ImageView) findViewById(R.id.img_phone);
+        imgDelectCode = (ImageView) findViewById(R.id.img_code);
+        imgDelectPassword = (ImageView) findViewById(R.id.img_password);
         btnRese.setOnClickListener(this);
         btnSendCode.setOnClickListener(this);
+        etPhone.addTextChangedListener(getTextWatcher(PHONE));
+        etCode.addTextChangedListener(getTextWatcher(CODE));
+        etPassword.addTextChangedListener(getTextWatcher(PASSWORD));
     }
 
     @Override
@@ -169,6 +187,45 @@ public class ResetActivity extends BaseActivity implements View.OnClickListener 
         SMSSDK.getSupportedCountries();
     }
 
+    private TextWatcher getTextWatcher(final int index) {
+        return new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                switch (index) {
+                    case PHONE:
+                        if (StringUtils.isEmpty(etPhone.getText().toString()))
+                            imgDelectPhone.setVisibility(View.GONE);
+                        else
+                            imgDelectPhone.setVisibility(View.VISIBLE);
+                        break;
+                    case CODE:
+                        if (StringUtils.isEmpty(etCode.getText().toString()))
+                            imgDelectCode.setVisibility(View.GONE);
+                        else
+                            imgDelectCode.setVisibility(View.VISIBLE);
+                        break;
+                    case PASSWORD:
+                        if (StringUtils.isEmpty(etPassword.getText().toString()))
+                            imgDelectPassword.setVisibility(View.GONE);
+                        else
+                            imgDelectPassword.setVisibility(View.VISIBLE);
+                        break;
+
+                }
+            }
+        };
+    }
+
     @Override
     public void onClick(View v) {
         int id = v.getId();
@@ -178,6 +235,15 @@ public class ResetActivity extends BaseActivity implements View.OnClickListener 
                 break;
             case R.id.btn_rese:
                 right();
+                break;
+            case R.id.img_password:
+                etPassword.setText("");
+                break;
+            case R.id.img_phone:
+                etPhone.setText("");
+                break;
+            case R.id.img_code:
+                etCode.setText("");
                 break;
         }
     }

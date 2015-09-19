@@ -22,6 +22,15 @@ public class UniversityBean  implements Serializable {
         private String type;//
         private String remark;//类别
         private String price;//
+        private int cityId;//
+
+    public void setCityId(int cityId) {
+        this.cityId = cityId;
+    }
+
+    public int getCityId() {
+        return cityId;
+    }
 
     public void setCity(String city) {
         this.city = city;

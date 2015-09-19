@@ -1,10 +1,14 @@
 package com.dxj.teacher.fragment;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.alibaba.fastjson.JSONObject;
 import com.android.volley.NoConnectionError;
@@ -41,6 +45,10 @@ import cn.smssdk.SMSSDK;
  * Created by khb on 2015/8/19.
  */
 public class RightFragment extends BaseFragment implements View.OnClickListener {
+    private final static int PASSWORD = 0;
+    private final static int TWO_PASSWORD = 1;
+    private final static int PHONE = 2;
+    private final static int CODE = 3;
     /*验证码*/
     private final static String SMSSDK_APP_KEY = "a38245d89da2";
     private final static String SMSSDK_APP_SECRET = "84db45a5b7dcde895fc72f47edf53447";
@@ -51,12 +59,16 @@ public class RightFragment extends BaseFragment implements View.OnClickListener 
     private Button btnRight;
     private EditText etTwoPassword;
     private EditText etCode;
-    private Button btnSendCode;
+    private TextView btnSendCode;
     private MyCount mc;
     private boolean isMsg = false;
     private ProgressFragment progress;
     private String strPhone;
     private String password;
+    private ImageView imgDelectPassword;
+    private ImageView imgDelectPasswordTwo;
+    private ImageView imgDelectPhone;
+    private ImageView imgDelectCode;
 
     @Override
     public void initData() {
@@ -125,10 +137,67 @@ public class RightFragment extends BaseFragment implements View.OnClickListener 
         btnRight = (Button) view.findViewById(R.id.btn_right);
         etTwoPassword = (EditText) view.findViewById(R.id.et_two_password);
         etCode = (EditText) view.findViewById(R.id.et_code);
-        btnSendCode = (Button) view.findViewById(R.id.btn_send_code);
+        btnSendCode = (TextView) view.findViewById(R.id.btn_send_code);
+
+        imgDelectPassword = (ImageView) view.findViewById(R.id.img_password);
+        imgDelectPasswordTwo = (ImageView) view.findViewById(R.id.img_password_two);
+        imgDelectPhone = (ImageView) view.findViewById(R.id.img_phone);
+        imgDelectCode = (ImageView) view.findViewById(R.id.img_code);
         btnSendCode.setOnClickListener(this);
         btnRight.setOnClickListener(this);
+        imgDelectPassword.setOnClickListener(this);
+        imgDelectPhone.setOnClickListener(this);
+        imgDelectCode.setOnClickListener(this);
+        imgDelectPasswordTwo.setOnClickListener(this);
+        etPassword.addTextChangedListener(getTextWatcher(PASSWORD));
+        etTwoPassword.addTextChangedListener(getTextWatcher(TWO_PASSWORD));
+        etPhone.addTextChangedListener(getTextWatcher(PHONE));
+        etCode.addTextChangedListener(getTextWatcher(CODE));
         return view;
+    }
+
+    private TextWatcher getTextWatcher(final int index) {
+        return new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                switch (index) {
+                    case PASSWORD:
+                        if (StringUtils.isEmpty(etPassword.getText().toString()))
+                            imgDelectPassword.setVisibility(View.GONE);
+                        else
+                            imgDelectPassword.setVisibility(View.VISIBLE);
+                        break;
+                    case TWO_PASSWORD:
+                        if (StringUtils.isEmpty(etTwoPassword.getText().toString()))
+                            imgDelectPasswordTwo.setVisibility(View.GONE);
+                        else
+                            imgDelectPasswordTwo.setVisibility(View.VISIBLE);
+                        break;
+                    case PHONE:
+                        if (StringUtils.isEmpty(etPhone.getText().toString()))
+                            imgDelectPhone.setVisibility(View.GONE);
+                        else
+                            imgDelectPhone.setVisibility(View.VISIBLE);
+                        break;
+                    case CODE:
+                        if (StringUtils.isEmpty(etCode.getText().toString()))
+                            imgDelectCode.setVisibility(View.GONE);
+                        else
+                            imgDelectCode.setVisibility(View.VISIBLE);
+                        break;
+                }
+            }
+        };
     }
 
     @Override
@@ -141,6 +210,18 @@ public class RightFragment extends BaseFragment implements View.OnClickListener 
                 break;
             case R.id.btn_send_code:
                 sendCode();
+                break;
+            case R.id.img_password:
+                etPassword.setText("");
+                break;
+            case R.id.img_password_two:
+                etTwoPassword.setText("");
+                break;
+            case R.id.img_phone:
+                etPhone.setText("");
+                break;
+            case R.id.img_code:
+                etCode.setText("");
                 break;
         }
 
@@ -167,7 +248,7 @@ public class RightFragment extends BaseFragment implements View.OnClickListener 
 
 
     private void right() {
-         password = etPassword.getText().toString().trim();
+        password = etPassword.getText().toString().trim();
         String twoPassword = etTwoPassword.getText().toString().trim();
         String strCode = etCode.getText().toString().trim();
 //        if (!isMsg) {

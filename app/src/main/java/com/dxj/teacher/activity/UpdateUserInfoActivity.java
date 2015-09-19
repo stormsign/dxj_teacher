@@ -239,9 +239,9 @@ public class UpdateUserInfoActivity extends BaseActivity implements View.OnClick
 //            showLogI(userBean.getUserInfo().getHeadUrl());
             if (userBean.getUserInfo().getHeadUrl() != null)
             /** 加载头像 */
-                Glide.with(MyApplication.getInstance()).load(userBean.getUserInfo().getHeadUrl()).centerCrop().placeholder(R.mipmap.default_avatar).into(avatar);
+                Glide.with(this).load(userBean.getUserInfo().getHeadUrl()).centerCrop().placeholder(R.mipmap.default_avatar).into(avatar);
             else
-                Glide.with(MyApplication.getInstance()).load(R.mipmap.default_avatar).centerCrop().into(avatar);
+                Glide.with(this).load(R.mipmap.default_avatar).centerCrop().into(avatar);
 //            Log.i("TAG","Card="+userBean.getUserInfo().getCard().getName());
             if (userBean.getUserInfo().getNickName() != null) {
                 niceName = userBean.getUserInfo().getNickName();
@@ -297,11 +297,11 @@ public class UpdateUserInfoActivity extends BaseActivity implements View.OnClick
             if (userBean.getUserInfo().getImages() != null) {
                 tvImages.setText(String.valueOf(userBean.getUserInfo().getImages().size()));
             }
-            if (userBean.getUserInfo().getSolveLabel()!=null){
-                labelList1=userBean.getUserInfo().getSolveLabel();
+            if (userBean.getUserInfo().getSolveLabel() != null) {
+                labelList1 = userBean.getUserInfo().getSolveLabel();
             }
-            if (userBean.getUserInfo().getLabel()!=null){
-                labelList=userBean.getUserInfo().getLabel();
+            if (userBean.getUserInfo().getLabel() != null) {
+                labelList = userBean.getUserInfo().getLabel();
             }
         }
         if (userBean.getUserInfo().getLabel().size() > 0) {

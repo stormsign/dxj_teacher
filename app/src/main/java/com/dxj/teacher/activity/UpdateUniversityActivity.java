@@ -77,7 +77,8 @@ public class UpdateUniversityActivity extends BaseActivity implements View.OnCli
     private ResultListAdapter resultListAdapter;
     private ArrayList<UniversityBean> universityResult = new ArrayList<>();
     private String strUniversity;
-    private long id;
+    private long id = -1;
+    private long cityId;
     private String userId;
     private boolean isShow;//假如EditText获取到值 第一次不搜取
     //---------------------//
@@ -135,7 +136,6 @@ public class UpdateUniversityActivity extends BaseActivity implements View.OnCli
     @Override
     public void initTitle() {
         TitleNavBar title = (TitleNavBar) findViewById(R.id.title);
-        title.disableBack(true);
         title.setTitle("学历认证");
         title.setTitleNoRightButton();
         title.setOnTitleNavClickListener(new TitleNavBar.OnTitleNavClickListener() {
@@ -188,7 +188,10 @@ public class UpdateUniversityActivity extends BaseActivity implements View.OnCli
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
+                Log.i("TAG", "s=" + s.toString());
                 if (s.toString() == null || "".equals(s.toString()) || isShow) {
+                    Log.i("TAG", "ssss=" + s.toString());
+
                     lvSearchResult.setVisibility(View.GONE);
                     tvNoresult.setVisibility(View.GONE);
                     isShow = false;
@@ -215,9 +218,10 @@ public class UpdateUniversityActivity extends BaseActivity implements View.OnCli
             public void onItemClick(AdapterView<?> parent, View view, int position, long ids) {
                 strUniversity = universityResult.get(position).getName();
                 id = universityResult.get(position).getId();
+                cityId = universityResult.get(position).getCityId();
+                isShow = true;
                 etSearch.setText(strUniversity);
                 lvSearchResult.setVisibility(View.GONE);
-                isShow = true;
             }
         });
     }
@@ -265,8 +269,12 @@ public class UpdateUniversityActivity extends BaseActivity implements View.OnCli
             parameter = etSearch.getText().toString().trim();
 
             if (StringUtils.isEmpty(parameter)) {
-                finish();
+                return;
             } else {
+                if (id == -1) {
+                    ToastUtils.showToast(this, "请在输入框搜索大学名称，并选择！");
+                    return;
+                }
                 if (StringUtils.isEmpty(strEntranceTime)) {
                     ToastUtils.showToast(this, "请输入开学时间");
                     return;
@@ -295,6 +303,7 @@ public class UpdateUniversityActivity extends BaseActivity implements View.OnCli
             map.put("entranceTime", strEntranceTime);
             map.put("major", etMajor.getText().toString());
             map.put("degrees", imageUrl);
+            map.put("cityId", cityId);
         }
         CustomStringRequest custom = new CustomStringRequest(Request.Method.POST, urlPath, map, getListener(index), getErrorListener());
         VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(custom);
@@ -329,13 +338,14 @@ public class UpdateUniversityActivity extends BaseActivity implements View.OnCli
                     BaseBean message = JSONObject.parseObject(str, BaseBean.class);
                     if (message.getCode() == 0) {
                         AccountDBTask.updateNickName(MyApplication.getInstance().getUserId(), strUniversity, AccountTable.UNIVERSITY);
-
                         Intent intent = new Intent();
                         Bundle bundle = new Bundle();
                         bundle.putString("university", strUniversity);
                         intent.putExtras(bundle);
                         UpdateUniversityActivity.this.setResult(RESULT_OK, intent);
                         finish();
+                    }else{
+                           ToastUtils.showToast(UpdateUniversityActivity.this,message.getMsg());
                     }
                 }
             }
