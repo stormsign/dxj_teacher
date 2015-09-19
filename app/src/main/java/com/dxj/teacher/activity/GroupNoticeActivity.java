@@ -14,6 +14,7 @@ import com.dxj.teacher.R;
 import com.dxj.teacher.adapter.NoticeAdapter;
 import com.dxj.teacher.base.BaseActivity;
 import com.dxj.teacher.bean.Notice;
+import com.dxj.teacher.widget.MySwipeRefreshLayout;
 import com.dxj.teacher.widget.TitleNavBar;
 
 import java.util.ArrayList;
@@ -25,17 +26,34 @@ import java.util.List;
 public class GroupNoticeActivity extends BaseActivity{
 
     private RecyclerView rv_notices;
-    private SwipeRefreshLayout srl;
+    private MySwipeRefreshLayout srl;
     private String groupId;
     private List<Notice> list;
 
     private Handler handler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
-            srl.setRefreshing(false);
-            super.handleMessage(msg);
+            if (msg.what == 1) {
+                srl.setRefreshing(false);
+                super.handleMessage(msg);
+            }else{
+
+                if (list.size()<40) {
+                    int positionStart = list.size()+1;
+                    list.addAll(list);
+                    int positionEnd = list.size();
+                    adapter.notifyItemRangeInserted(positionStart, positionEnd);
+                }else{
+                    showToast("meiyoul");
+                }
+                adapter.notifyItemRemoved(list.size());
+
+//                adapter.showFooterView(false);
+//                adapter.notifyDataSetChanged();
+            }
         }
     };
+    private NoticeAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,24 +97,37 @@ public class GroupNoticeActivity extends BaseActivity{
     @Override
     public void initView() {
         rv_notices = (RecyclerView) findViewById(R.id.rv_notices);
-        rv_notices.setLayoutManager(new LinearLayoutManager(this));
-        NoticeAdapter adapter = new NoticeAdapter(this, list);
-        rv_notices.setAdapter(adapter);
+        LinearLayoutManager llm = new LinearLayoutManager(this);
+        rv_notices.setLayoutManager(llm);
+        adapter = new NoticeAdapter(this, list);
+
         adapter.setOnNoticeClickListener(new NoticeAdapter.OnNoticeClickListener() {
             @Override
             public void onNoticeClick(View view, int position) {
                 showToast(position + " clicked");
             }
         });
-        srl = (SwipeRefreshLayout) findViewById(R.id.srl);
+        srl = (MySwipeRefreshLayout) findViewById(R.id.srl);
 
         srl.setColorSchemeResources(R.color.azure, R.color.orange,
                 R.color.text_orange2, R.color.text_orange);
+        rv_notices.setAdapter(adapter);
         srl.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 showToast("刷新数据");
                 handler.sendEmptyMessageDelayed(1, 8000);
+            }
+        });
+        srl.setOnLoadListener(new MySwipeRefreshLayout.OnLoadListener() {
+            @Override
+            public void onLoad() {
+                adapter.showFooterView(true);
+//                View view = getLayoutInflater().inflate(R.layout.loadingview_footer, null, false);
+//                rv_notices.addView(view, list.size()-1);
+//                adapter.notifyItemInserted(list.size()-1);
+//                adapter.notifyDataSetChanged();
+                handler.sendEmptyMessageDelayed(2, 2000);
             }
         });
 
@@ -127,7 +158,7 @@ public class GroupNoticeActivity extends BaseActivity{
     public void initData() {
         groupId = getIntent().getStringExtra("groupId");
         list = new ArrayList<>();
-        for (int i = 0 ; i < 20; i++){
+        for (int i = 0 ; i < 10; i++){
             Notice notice = new Notice();
             notice.setName(i+i+i+i+"");
             notice.setDescription("sdfsfsdfsfasdffsadfsafdsafssdfasfgdgds");
