@@ -10,14 +10,12 @@
     <com.dxj.teacher.widget.MySwipeRefreshLayout
         android:id="@+id/srl"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv_notices"
-        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        ></android.support.v7.widget.RecyclerView>
-
+        >
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_notices"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
     </com.dxj.teacher.widget.MySwipeRefreshLayout>
 </LinearLayout>

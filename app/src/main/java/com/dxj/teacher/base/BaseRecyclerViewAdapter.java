@@ -15,6 +15,8 @@ public abstract class BaseRecyclerViewAdapter<T> extends RecyclerView.Adapter<Re
     public List<T> mList;
     public Activity mContext;
     public LayoutInflater mLayoutInflater;
+    public boolean isShowFooterView = false;
+//    public int listSize;
 
     public BaseRecyclerViewAdapter(Activity mContext, List<T> mList){
         this.mContext = mContext;
@@ -38,6 +40,9 @@ public abstract class BaseRecyclerViewAdapter<T> extends RecyclerView.Adapter<Re
         return mList.size();
     }
 
-
+    public void showFooterView(boolean isShowFooterView){
+        this.isShowFooterView = isShowFooterView;
+        notifyDataSetChanged();
+    }
 
 }

@@ -5,7 +5,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.dxj.teacher.R;
 import com.dxj.teacher.application.MyApplication;
 import com.dxj.teacher.base.BaseFragment;
@@ -23,8 +22,8 @@ public class MyFragment extends BaseFragment {
     @Override
     public void initData() {
         userBean = MyApplication.getInstance().getUserBean();
-        tvName.setText(userBean.getUserInfo().getNickName());
-        Glide.with(getActivity()).load(userBean.getUserInfo().getHeadUrl()).centerCrop().placeholder(R.mipmap.default_avatar).into(imgAvatar);
+//        tvName.setText(userBean.getUserInfo().getNickName());
+//        Glide.with(getActivity()).load(userBean.getUserInfo().getHeadUrl()).centerCrop().placeholder(R.mipmap.default_avatar).into(imgAvatar);
     }
 
     /**

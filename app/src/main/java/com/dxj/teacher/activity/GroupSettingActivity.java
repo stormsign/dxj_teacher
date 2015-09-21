@@ -17,7 +17,6 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -73,7 +72,10 @@ public class GroupSettingActivity extends BaseActivity {
     private TextView tv_description;
     private ImageView group_head;
     private String headUrl;
+    private String originHeadUrl;
     private boolean isMsgBlocked;
+
+    private boolean isNeedUpdate = false;
 
     private final static int BLOCK_SUCCESS = 1;
     private final static int UNBLOCK_SUCCESS = 2;
@@ -88,20 +90,24 @@ public class GroupSettingActivity extends BaseActivity {
                 case UNBLOCK_SUCCESS:
                     System.out.println("已解除屏蔽该学团");
                     showToast("已解除屏蔽该学团");
+                    SPUtils.saveSPData("group-" + group.getGroupId() + "-MsgBlocked", false);
                     break;
                 case UNBLOCK_FAILED:
                     System.out.println("解除屏蔽该学团失败，请稍后再试");
+                    message_switch.setChecked(true);
                     showToast(
                             "解除屏蔽该学团失败，请稍后再试");
                     break;
                 case BLOCK_SUCCESS:
                     System.out.println("已屏蔽该学团");
+                    SPUtils.saveSPData("group-" + group.getGroupId() + "-MsgBlocked", true);
                     showToast("已屏蔽该学团");
                     break;
                 case BLOCK_FAILED_PERMISSION:
                     int errorCode = (int) msg.obj;
                     if (errorCode == -1) {
                         System.out.println("屏蔽该学团失败，团长不能屏蔽群消息 " + errorCode);
+                        message_switch.setChecked(false);
                         showToast("屏蔽该学团失败，团长不能屏蔽群消息");
                     }
                     break;
@@ -151,7 +157,9 @@ public class GroupSettingActivity extends BaseActivity {
 
             @Override
             public void onBackClick() {
+                isNeedUpdate = originHeadUrl.equals(headUrl)?isNeedUpdate:true;
                 setResult(RESULT_OK, new Intent().putExtra("groupname", groupname.getText().toString().trim())
+                        .putExtra("isNeedUpdate", isNeedUpdate)
                         .putExtra("desc", description.getText().toString().trim())
                         .putExtra("headUrl", headUrl)
                         .putExtra("isMsgBlocked", isMsgBlocked));
@@ -161,11 +169,13 @@ public class GroupSettingActivity extends BaseActivity {
 
     @Override
     public void onBackPressed() {
+        isNeedUpdate = originHeadUrl.equals(headUrl)?isNeedUpdate:true;
         setResult(RESULT_OK, new Intent().putExtra("groupname", groupname.getText().toString().trim())
                 .putExtra("desc", description.getText().toString().trim())
+                .putExtra("isNeedUpdate", isNeedUpdate)
                 .putExtra("headUrl", headUrl)
                 .putExtra("isMsgBlocked", isMsgBlocked));
-        super.onBackPressed();
+        finish();
     }
 
     @Override
@@ -181,15 +191,22 @@ public class GroupSettingActivity extends BaseActivity {
         tv_description.setFocusable(true);
         tv_groupname.setFocusable(true);
         message_switch = (SwitchCompat) findViewById(R.id.sc_message_switch);
-        isMsgBlocked = SPUtils.getSPData("group-" + group.getGroupId() + "-MsgBlocked", false);
+
         message_switch.setChecked(isMsgBlocked);
-        message_switch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        message_switch.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                isMsgBlocked = isChecked;
+            public void onClick(View v) {
+                isMsgBlocked = message_switch.isChecked();
                 blockGroupMsg(isMsgBlocked);
             }
         });
+//        message_switch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+//                isMsgBlocked = isChecked;
+//                blockGroupMsg(isMsgBlocked);
+//            }
+//        });
 
         // 监听输入的字数
         description.addTextChangedListener(new TextWatcher() {
@@ -201,15 +218,18 @@ public class GroupSettingActivity extends BaseActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 word_count.setText(s.length() + "/" + MAX_WORD_COUNT);
+                showLogD("onTextChanged");
             }
 
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
                 temp = s;
+                showLogD("beforeTextChanged");
             }
 
             @Override
             public void afterTextChanged(Editable s) {
+                showLogD("afterTextChanged");
                 editStart = description.getSelectionStart();
                 editEnd = description.getSelectionEnd();
                 if (temp.length() > charMaxNum) {
@@ -233,6 +253,7 @@ public class GroupSettingActivity extends BaseActivity {
             public void onClick(View v) {
                 tv_groupname.setVisibility(View.GONE);
                 groupname.setVisibility(View.VISIBLE);
+                isNeedUpdate = true;
             }
         });
         tv_description.setOnClickListener(new View.OnClickListener() {
@@ -240,6 +261,7 @@ public class GroupSettingActivity extends BaseActivity {
             public void onClick(View v) {
                 tv_description.setVisibility(View.GONE);
                 description.setVisibility(View.VISIBLE);
+                isNeedUpdate = true;
             }
         });
 
@@ -249,7 +271,8 @@ public class GroupSettingActivity extends BaseActivity {
         tv_groupname.setText(group.getGroupName());
         groupname.setText(group.getGroupName());
         tv_description.setText(group.getDescription());
-        description.setText(group.getDescription());
+        description.setText((group.getDescription().equals(getResources().getString(R.string.leader_is_very_very_lazy))
+                ?"":group.getDescription()));
 
         findViewById(R.id.quit);
 
@@ -259,7 +282,9 @@ public class GroupSettingActivity extends BaseActivity {
     public void initData() {
         Intent intent = getIntent();
         group = (StudyGroup) intent.getSerializableExtra("studyGroup");
+        isMsgBlocked = SPUtils.getSPData("group-" + group.getGroupId() + "-MsgBlocked", false);
         headUrl = group.getHeadUrl();
+        originHeadUrl = headUrl;
 //        判断当前用户是团员还是团长
         Button quit = (Button) findViewById(R.id.quit);
         if (isLeader(mApplication.getUserId(), group)) {

@@ -24,7 +24,7 @@ public class NoticeAdapter extends BaseRecyclerViewAdapter<Notice> {
     private List<Notice> mList;
     private LayoutInflater mLayoutInflater;
     private final int FOOTERVIEW = 2;
-    private boolean isShowFooterView = false;
+//    private boolean isShowFooterView = false;
     private boolean hasFooterView = false;
 
     public NoticeAdapter(Activity mContext, List mList) {
@@ -47,23 +47,19 @@ public class NoticeAdapter extends BaseRecyclerViewAdapter<Notice> {
     @Override
     public int getItemCount() {
 //        if (hasFooterView) {
-            return mList.size() + 1;
+//            return mList.size() + 1;
 //        }else{
-//            return mList.size();
+            return mList.size();
 //        }
     }
 
     @Override
     public int getItemViewType(int position) {
-        if (position == getItemCount()-1){
-                return FOOTERVIEW;
-        }else{
+//        if (position == mList.size()){
+//                return FOOTERVIEW;
+//        }else{
             return super.getItemViewType(position);
-        }
-    }
-
-    public void showFooterView(boolean isShowFooterView){
-        this.isShowFooterView = isShowFooterView;
+//        }
     }
 
     public void hasFooterView(boolean hasFooterView){
@@ -72,11 +68,11 @@ public class NoticeAdapter extends BaseRecyclerViewAdapter<Notice> {
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        if (viewType == FOOTERVIEW){
-            return new FooterHolder(mLayoutInflater.inflate(R.layout.loadingview_footer, parent, false));
-        }else {
+//        if (viewType == FOOTERVIEW){
+//            return new FooterHolder(mLayoutInflater.inflate(R.layout.loadingview_footer, parent, false));
+//        }else {
             return new NoticeItemHolder(mLayoutInflater.inflate(R.layout.item_notice, parent, false));
-        }
+//        }
     }
 
     @Override
@@ -90,12 +86,12 @@ public class NoticeAdapter extends BaseRecyclerViewAdapter<Notice> {
             mHolder.tv_title.setText(notice.getName());
             mHolder.tv_content.setText(notice.getDescription());
         }
-        else if (holder instanceof  FooterHolder) {
-            FooterHolder footerHolder = (FooterHolder) holder;
+//        else if (holder instanceof  FooterHolder) {
+//            FooterHolder footerHolder = (FooterHolder) holder;
 //            if (!isShowFooterView){
 //                footerHolder.footer.setVisibility(View.GONE);
 //            }
-        }
+//        }
     }
 
     public class NoticeItemHolder extends RecyclerView.ViewHolder {

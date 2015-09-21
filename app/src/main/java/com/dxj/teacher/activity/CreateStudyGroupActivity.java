@@ -118,7 +118,7 @@ public class CreateStudyGroupActivity extends BaseActivity implements View.OnCli
         if (!TextUtils.isEmpty(et_description.getText())) {
             description = et_description.getText().toString().trim();
         }else{
-            description = "团长很懒，什么都没写";
+            description = getResources().getString(R.string.leader_is_very_very_lazy);
         }
         create();
     }

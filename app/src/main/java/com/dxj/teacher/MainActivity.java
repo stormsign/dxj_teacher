@@ -202,7 +202,7 @@ public class MainActivity extends BaseActivity implements EMEventListener {
                         .show(FragmentFactory.getFragment(HOME))
                         .commit();
                 bt_home.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.mipmap.tab_ico_home_pre), null, null);
-                bt_search.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.mipmap.tab_ico_zhaolaoshi), null, null);
+                bt_search.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.mipmap.tab_ico_faxian), null, null);
                 bt_message.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.mipmap.tab_ico_xiaoxi), null, null);
                 bt_user.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.mipmap.tab_ico_me), null, null);
                 break;
@@ -214,7 +214,7 @@ public class MainActivity extends BaseActivity implements EMEventListener {
                         .commit();
 //                startActivity(new Intent(this, SubjectFirstCategoryActivity.class));
                 bt_home.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.mipmap.tab_ico_home), null, null);
-                bt_search.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.mipmap.tab_ico_zhaolaoshi_pre), null, null);
+                bt_search.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.mipmap.tab_ico_faxian_pre), null, null);
                 bt_message.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.mipmap.tab_ico_xiaoxi), null, null);
                 bt_user.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.mipmap.tab_ico_me), null, null);
                 break;
@@ -227,7 +227,7 @@ public class MainActivity extends BaseActivity implements EMEventListener {
                         .show(FragmentFactory.getFragment(MYINFO))
                         .commit();
                 bt_home.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.mipmap.tab_ico_home), null, null);
-                bt_search.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.mipmap.tab_ico_zhaolaoshi), null, null);
+                bt_search.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.mipmap.tab_ico_faxian), null, null);
                 bt_message.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.mipmap.tab_ico_xiaoxi), null, null);
                 bt_user.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.mipmap.tab_ico_me_pre), null, null);
                 break;
@@ -238,7 +238,7 @@ public class MainActivity extends BaseActivity implements EMEventListener {
                         .show(FragmentFactory.getFragment(MESSAGE))
                         .commit();
                 bt_home.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.mipmap.tab_ico_home), null, null);
-                bt_search.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.mipmap.tab_ico_zhaolaoshi), null, null);
+                bt_search.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.mipmap.tab_ico_faxian), null, null);
                 bt_message.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.mipmap.tab_ico_xiaoxi_pre), null, null);
                 bt_user.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.mipmap.tab_ico_me), null, null);
                 break;

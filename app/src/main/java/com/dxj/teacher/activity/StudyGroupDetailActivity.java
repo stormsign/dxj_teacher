@@ -217,7 +217,9 @@ public class StudyGroupDetailActivity extends BaseActivity implements View.OnCli
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == SETTING && resultCode == RESULT_OK){
-            updateGroup(data);
+            if (data!=null && data.getBooleanExtra("isNeedUpdate", true)) {
+                updateGroup(data);
+            }
 //            updateGroupMsgBlock(data.getBooleanExtra("isMsgBlocked", false));
         }
     }
@@ -231,7 +233,9 @@ public class StudyGroupDetailActivity extends BaseActivity implements View.OnCli
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("id", studyGroup.getId());
         map.put("groupName", data.getStringExtra("groupname"));
-        map.put("description", data.getStringExtra("desc"));
+        map.put("description", ((data.getStringExtra("desc")!=null) && !TextUtils.isEmpty(data.getStringExtra("desc")))
+                ?data.getStringExtra("desc")
+                :getResources().getString(R.string.leader_is_very_very_lazy));
         map.put("headUrl", data.getStringExtra("headUrl"));
         CustomStringRequest cRequest = new CustomStringRequest(Request.Method.POST, url, map, getUpdateListener(), getUpdateErrorListener());
         VolleySingleton.getInstance(this).addToRequestQueue(cRequest);
