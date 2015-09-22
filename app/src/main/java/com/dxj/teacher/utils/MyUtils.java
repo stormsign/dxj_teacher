@@ -1,13 +1,17 @@
 package com.dxj.teacher.utils;
 
 import android.annotation.TargetApi;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Build;
 import android.text.TextUtils;
@@ -20,7 +24,6 @@ import com.dxj.teacher.bean.StudyGroup;
 import com.dxj.teacher.bean.UserBean;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.umeng.message.entity.UMessage;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -203,6 +206,59 @@ public class MyUtils {
             return studyGroup.getOwner().equals(teacherHX);
         }
     }
+
+
+
+    /**
+     * 判断当前网络环境是否为wifi
+     *
+     * @param context
+     * @return
+     */
+    public static boolean isWifiConnected(Context context) {
+        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo ni = cm.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+        if (ni.getState() == NetworkInfo.State.CONNECTED) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * 判断是否有网络连接
+     * @param context
+     * @return
+     */
+    public static boolean isNetworkConnected(Context context) {
+        if (context != null) {
+            ConnectivityManager mConnectivityManager = (ConnectivityManager) context
+                    .getSystemService(Context.CONNECTIVITY_SERVICE);
+            NetworkInfo mNetworkInfo = mConnectivityManager.getActiveNetworkInfo();
+            if (mNetworkInfo != null) {
+                return mNetworkInfo.isAvailable();
+            }
+        }
+        return false;
+    }
+
+    /**
+     * 判断MOBILE网络是否可用
+     * @param context
+     * @return
+     */
+    public static boolean isMobileConnected(Context context) {
+        if (context != null) {
+            ConnectivityManager mConnectivityManager = (ConnectivityManager) context
+                    .getSystemService(Context.CONNECTIVITY_SERVICE);
+            NetworkInfo mMobileNetworkInfo = mConnectivityManager
+                    .getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+            if (mMobileNetworkInfo != null) {
+                return mMobileNetworkInfo.isAvailable();
+            }
+        }
+        return false;
+    }
+
 
     /**
      * 根据手机的分辨率从 dp 的单位 转成为 px(像素)

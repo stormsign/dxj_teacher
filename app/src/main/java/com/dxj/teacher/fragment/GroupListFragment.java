@@ -27,6 +27,8 @@ import com.dxj.teacher.http.GsonRequest;
 import com.dxj.teacher.http.VolleySingleton;
 import com.dxj.teacher.utils.LogUtils;
 import com.dxj.teacher.utils.MyUtils;
+import com.dxj.teacher.utils.ToastUtils;
+import com.dxj.teacher.widget.ExceptionView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -52,11 +54,13 @@ public class GroupListFragment extends BaseFragment {
     private SQLiteDatabase db;
     private List<SubjectBean> secondList;
     private List<Integer> secondIdList;
+    private View view;
+    private ExceptionView emptyView;
 
     @Override
     public void initData() {
         parentId = getArguments().getInt(SECOND_CATEGORY);
-        LogUtils.d("parentId :"+parentId);
+        LogUtils.d("parentId :" + parentId);
         db = SQLiteDatabase.openDatabase(context.getFilesDir() + "/" + DBNAME, null, SQLiteDatabase.OPEN_READONLY);
         showView(parentId);
     }
@@ -64,7 +68,7 @@ public class GroupListFragment extends BaseFragment {
     private void showView(int parentId) {
         if (parentId == -1) {
             getRecommendedGroupList();
-        }else{  //获取二级目录列表
+        } else {  //获取二级目录列表
             secondList = SubjectDao.getChildCategoryFromParent(db, parentId);
             secondIdList = new ArrayList<>();
             secondIdList.clear();
@@ -84,20 +88,21 @@ public class GroupListFragment extends BaseFragment {
 
     @Override
     public void onStop() {
-        db.close();
         super.onStop();
     }
 
     @Override
     public void onDestroy() {
+        db.close();
         super.onDestroy();
     }
 
     @Override
     public View initView(LayoutInflater inflater) {
-        View view = inflater.inflate(R.layout.fragment_group_list, null);
+        view = inflater.inflate(R.layout.fragment_group_list, null);
         rv_grouplist = (RecyclerView) view.findViewById(R.id.rv_grouplist);
         refresh = (SwipeRefreshLayout) view.findViewById(R.id.swipe_refresh);
+        emptyView = (ExceptionView) view.findViewById(R.id.emptyview);
         rv_grouplist.setLayoutManager(new LinearLayoutManager(context));
         refresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -105,10 +110,35 @@ public class GroupListFragment extends BaseFragment {
                 showView(parentId);
             }
         });
+//        空内容页面
+        emptyView.setEmptyText("没有找到学团");
+        emptyView.showEmptyAction(true);
+        emptyView.setEmptyActionText("点击表示无奈");
+        emptyView.setOnEmptyActionListener(new ExceptionView.OnEmptyActionListener() {
+            @Override
+            public void onEmptyAction() {
+                ToastUtils.showToast(context, "无奈");
+            }
+        });
+        if (!MyUtils.isMobileConnected(context) && !MyUtils.isWifiConnected(context) && !MyUtils.isNetworkConnected(context)) {
+            showNoNetWorkView();
+        }
         return view;
     }
 
-    public static GroupListFragment newInstance(int parentId){
+    private void showNoNetWorkView() {
+        emptyView.setException(ExceptionView.NO_NETWORK);
+        emptyView.setOnEmptyActionListener(new ExceptionView.OnEmptyActionListener() {
+            @Override
+            public void onEmptyAction() {
+                showView(parentId);
+            }
+        });
+        refresh.setVisibility(View.GONE);
+        emptyView.setVisibility(View.VISIBLE);
+    }
+
+    public static GroupListFragment newInstance(int parentId) {
         Bundle bundle = new Bundle();
         bundle.putInt(SECOND_CATEGORY, parentId);
         GroupListFragment fragment = new GroupListFragment();
@@ -117,8 +147,8 @@ public class GroupListFragment extends BaseFragment {
     }
 
     private void getRecommendedGroupList() {
-        String url = FinalData.URL_VALUE_COMMON+"getAllGroupList";
-        Map<String, Object> map = new HashMap<String,Object>();
+        String url = FinalData.URL_VALUE_COMMON + "getAllGroupList";
+        Map<String, Object> map = new HashMap<String, Object>();
         map.put("page", currentPage);
         map.put("pageSize", pageSize);
         GsonRequest<StudyGroupListBean> gRequest = new GsonRequest<StudyGroupListBean>(Request.Method.POST, url,
@@ -130,11 +160,11 @@ public class GroupListFragment extends BaseFragment {
     }
 
     private void getSecondGroups(int parentId) {
-        String url = FinalData.URL_VALUE_COMMON+"getGroupBySubjectId";
-        Map<String, Object> map = new HashMap<String,Object>();
+        String url = FinalData.URL_VALUE_COMMON + "getGroupBySubjectId";
+        Map<String, Object> map = new HashMap<String, Object>();
         map.put("page", currentPage);
         map.put("pageSize", pageSize);
-        map.put("subjectSecond" ,parentId);
+        map.put("subjectSecond", parentId);
         GsonRequest<StudyGroupListBean> gRequest = new GsonRequest<StudyGroupListBean>(Request.Method.POST, url,
                 StudyGroupListBean.class, map,
                 onGetGroupList(),
@@ -161,9 +191,12 @@ public class GroupListFragment extends BaseFragment {
         return new Response.Listener<StudyGroupListBean>() {
             @Override
             public void onResponse(StudyGroupListBean s) {
-                if (s.getList()!=null && !s.getList().isEmpty()){
+                if (s.getList() != null && !s.getList().isEmpty()) {
                     groupList = s.getList();
                     processData(groupList);
+                } else {
+                    refresh.setVisibility(View.GONE);
+                    emptyView.setVisibility(View.VISIBLE);
                 }
             }
         };
@@ -174,6 +207,7 @@ public class GroupListFragment extends BaseFragment {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
                 LogUtils.e(volleyError.toString());
+                showNoNetWorkView();
             }
         };
     }
@@ -194,7 +228,7 @@ public class GroupListFragment extends BaseFragment {
                             .putExtra("groupHXId", groupList.get(position).getGroupId())
                             .putExtra("groupName", groupList.get(position).getGroupName())
                             .putExtra("groupId", groupList.get(position).getId()));
-                }else{
+                } else {
                     startActivity(new Intent(context, StudyGroupDetailActivity.class).putExtra("groupId", groupList.get(position).getId()));
                 }
             }
@@ -207,9 +241,10 @@ public class GroupListFragment extends BaseFragment {
         });
         rv_grouplist.setAdapter(gAdapter);
 //        如果是下拉刷新，加载完后隐藏加载动画
-        if (refresh.isRefreshing()){
+        if (refresh.isRefreshing()) {
             refresh.setRefreshing(false);
         }
-
+        refresh.setVisibility(View.VISIBLE);
+        emptyView.setVisibility(View.GONE);
     }
 }

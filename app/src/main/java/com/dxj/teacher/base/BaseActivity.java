@@ -5,6 +5,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 
+import com.dxj.teacher.R;
 import com.dxj.teacher.application.MyApplication;
 import com.umeng.message.PushAgent;
 
@@ -56,7 +57,19 @@ public abstract class BaseActivity extends FinalActivity {
         finish();
     }
 
-//        处理消息栏
+
+    public void getLoadingView(){
+
+    }
+
+    public View getEmptyView(){
+        View emptyView = getLayoutInflater().inflate(R.layout.exceptionview, null);
+        return emptyView;
+    }
+
+    public void getBadNetworkView(){
+
+    }
 
     /**
      * 初始化标题栏
